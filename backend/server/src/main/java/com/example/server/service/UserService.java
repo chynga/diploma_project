@@ -17,7 +17,8 @@ public class UserService {
         return INSTANCE;
     }
 
-    public void registerUser(User user) {
+    public User registerUser(User user) {
         UserDAO.getInstance().registerUser(user);
+        return user;
     }
 }
