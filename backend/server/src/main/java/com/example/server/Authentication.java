@@ -2,8 +2,8 @@ package com.example.server;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTCreationException;
 import com.example.server.model.User;
+import com.example.server.util.InvalidPasswordException;
 import com.example.server.service.UserService;
 
 import javax.ws.rs.*;
@@ -18,35 +18,66 @@ public class Authentication {
     private Map<String, String> responseMsg = new HashMap<>();
     Algorithm algorithm = Algorithm.HMAC256("secret");
 
-    @GET
+    @POST
     @Path("/login")
+    @Consumes("application/json")
     @Produces("application/json")
-    public Response login() {
-        responseMsg.clear();
-        responseMsg.put("name", "chyngys");
-        responseMsg.put("surname", "kurban");
-        return Response.ok(responseMsg).build();
+    public Response login(HashMap<String, String> body) {
+        try {
+            responseMsg.clear();
+            String email = body.get("email");
+            String password = body.get("password");
+            User user = UserService.getInstance().loginUser(email, password);
+
+            String token = getToken(user);
+            responseMsg.put("token", token);
+            responseMsg.put("id", "" + user.getId());
+            responseMsg.put("firstName", user.getFirstName());
+            responseMsg.put("lastName", user.getLastName());
+            responseMsg.put("email", user.getEmail());
+            responseMsg.put("phone", user.getPhone());
+            responseMsg.put("role", user.getRole());
+
+            return Response.ok(responseMsg).build();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            responseMsg.put("msg", e.getMessage());
+            return Response.status(400).entity(responseMsg).build();
+        } catch (InvalidPasswordException e) {
+            e.printStackTrace();
+            System.out.println(e);
+            responseMsg.put("message", e.getMessage() + e.printMessage());
+            return Response.status(400).entity(responseMsg).build();
+        }
     }
 
     @POST
     @Path("/register")
     @Consumes("application/json")
     @Produces("application/json")
-    public Response register(HashMap<String, String> msg) {
-        responseMsg.clear();
+    public Response register(HashMap<String, String> body) {
         try {
-            String name = msg.get("name");
-            String surname = msg.get("surname");
-            String email = msg.get("email");
-            String phone = msg.get("phone");
-            String password = msg.get("password");
-            User user = UserService.getInstance().registerUser(name, surname, email, phone, password);
+            responseMsg.clear();
+            String firstName = body.get("firstName");
+            String lastName = body.get("lastName");
+            String email = body.get("email");
+            String phone = body.get("phone");
+            String password = body.get("password");
+            User user = UserService.getInstance().registerUser(firstName, lastName, email, phone, password);
+
             String token = getToken(user);
             responseMsg.put("token", token);
+            responseMsg.put("id", "" + user.getId());
+            responseMsg.put("firstName", user.getFirstName());
+            responseMsg.put("lastName", user.getLastName());
+            responseMsg.put("email", user.getEmail());
+            responseMsg.put("phone", user.getPhone());
+            responseMsg.put("role", user.getRole());
+
             return Response.ok(responseMsg).build();
         } catch (SQLException e) {
             e.printStackTrace();
-            responseMsg.put("msg", e.getMessage());
+            responseMsg.put("message", e.getMessage());
             return Response.status(400).entity(responseMsg).build();
 //            return Response.serverError().build();
         }

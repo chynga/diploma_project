@@ -8,9 +8,16 @@ public class UserDAO {
 
     private static UserDAO INSTANCE;
 
-    private UserDAO() {}
+    private Connection connection = null;
+    private String dbConnectionUrl = "jdbc:postgresql://localhost:8081/diploma_project";
+    private String dbUser = "postgres";
+    private String dbPassword = "admin";
 
-    public static UserDAO getInstance() {
+    private UserDAO() throws SQLException {
+        connection = DriverManager.getConnection(dbConnectionUrl, dbUser, dbPassword);
+    }
+
+    public static UserDAO getInstance() throws SQLException {
         if(INSTANCE == null) {
             INSTANCE = new UserDAO();
         }
@@ -18,19 +25,13 @@ public class UserDAO {
         return INSTANCE;
     }
 
-    private String dbConnectionUrl = "jdbc:postgresql://localhost:8081/diploma_project";
-    private String dbUser = "postgres";
-    private String dbPassword = "admin";
-
     public void registerAndSetDefaults(User user) throws SQLException {
-        Connection connection = DriverManager.getConnection(dbConnectionUrl, dbUser, dbPassword);
-
-        String sql = " INSERT INTO users (name, surname, email, phone, password)" +
+        String sql = "INSERT INTO users (firstname, lastname, email, phone, password)" +
                 "VALUES (?, ?, ?, ?, ?)";
 
         PreparedStatement preparedStmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-        preparedStmt.setString(1, user.getName());
-        preparedStmt.setString(2, user.getSurname());
+        preparedStmt.setString(1, user.getFirstName());
+        preparedStmt.setString(2, user.getLastName());
         preparedStmt.setString(3, user.getEmail());
         preparedStmt.setString(4, user.getPhone());
         preparedStmt.setString(5, user.getPassword());
@@ -47,6 +48,24 @@ public class UserDAO {
         }
         else {
             throw new SQLException("Creating user failed, no ID obtained.");
+        }
+    }
+
+    public User getUserByEmail(String email) throws SQLException {
+        String sql = "SELECT * FROM users WHERE email = (?)";
+        PreparedStatement preparedStmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        preparedStmt.setString(1, email);
+        ResultSet rs = preparedStmt.executeQuery();
+        if (rs.next()) {
+            int id = rs.getInt("id");
+            String name = rs.getString("firstname");
+            String surname = rs.getString("lastname");
+            String phone = rs.getString("phone");
+            String password = rs.getString("password");
+            String role = rs.getString("role");
+            return new User(id, name, surname, email, phone, password, role);
+        } else {
+            throw new SQLException("Could not find user with specified email.");
         }
     }
 }
