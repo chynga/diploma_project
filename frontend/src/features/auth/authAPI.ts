@@ -1,22 +1,21 @@
 import axios from "axios";
-import { User } from "./authSlice";
+import { UserCredentials } from "./authSlice";
 
 const API_URL = "/api/user/";
 
 // Register user
-const register = async (userData: User) => {
+const register = async (userData: UserCredentials) => {
     const response = await axios.post(API_URL + "register", userData);
 
     if (response.data) {
-        localStorage.setItem("user", JSON.stringify(response.data));
+        localStorage.setItem("user", JSON.stringify(response.data))
     }
 
-    return response;
-    // return response.data;
+    return response
 };
 
 // Login user
-const login = async (userData: User) => {
+const login = async (userData: UserCredentials) => {
     const response = await axios.post(API_URL + "login", userData);
 
     if (response.data) {
@@ -24,7 +23,6 @@ const login = async (userData: User) => {
     }
 
     return response;
-    // return response.data;
 };
 
 // Logout user

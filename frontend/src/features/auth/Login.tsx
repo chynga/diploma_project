@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
-// import { Link, useNavigate } from "react-router-dom";
-// import { toast } from "react-toastify";
-import { register, reset, selectUser } from "../../features/auth/authSlice";
+import { login, reset, selectUser } from "../../features/auth/authSlice";
 import {
     Button,
     Form,
@@ -13,20 +11,16 @@ import {
     Label
 } from 'reactstrap';
 
-const Register = () => {
+const Login = () => {
     const user = useAppSelector(selectUser);
     const navigate = useNavigate();
     const dispatch = useDispatch<any>();
     const [formData, setFormData] = useState({
-        firstName: "",
-        lastName: "",
         email: "",
-        phone: "",
         password: "",
-        password2: "",
     });
 
-    const { firstName, lastName, email, phone, password } = formData;
+    const { email, password } = formData;
 
     useEffect(() => {
         if (user) {
@@ -47,43 +41,18 @@ const Register = () => {
         e.preventDefault();
 
         const userData = {
-            firstName,
-            lastName,
             email,
-            phone,
             password,
         };
         
-        console.log("Register Component: ", userData)
-        dispatch(register(userData));
+        console.log(userData)
+        dispatch(login(userData));
     };
 
     return (
         <div className="auth">
             <Form className="form" onSubmit={onSubmit}>
-                <h2>Sign Up</h2>
-                <FormGroup>
-                    <Label for="firstName">First Name</Label>
-                    <Input
-                        type="text"
-                        id="firstName"
-                        name="firstName"
-                        value={firstName}
-                        onChange={onChange}
-                        required
-                    />
-                </FormGroup>
-                <FormGroup>
-                    <Label for="lastName">Last Name</Label>
-                    <Input
-                        type="text"
-                        id="lastName"
-                        name="lastName"
-                        value={lastName}
-                        onChange={onChange}
-                        required
-                    />
-                </FormGroup>
+                <h2>Login</h2>
                 <FormGroup>
                     <Label for="email">Email</Label>
                     <Input
@@ -91,17 +60,6 @@ const Register = () => {
                         id="email"
                         name="email"
                         value={email}
-                        onChange={onChange}
-                        required
-                    />
-                </FormGroup>
-                <FormGroup>
-                    <Label for="phone">Phone Number</Label>
-                    <Input
-                        type="text"
-                        id="phone"
-                        name="phone"
-                        value={phone}
                         onChange={onChange}
                         required
                     />
@@ -119,7 +77,7 @@ const Register = () => {
                 </FormGroup>
                 <Button>Submin</Button>
                 <div>
-                    <Link to="/login">Login</Link><br />
+                    <Link to="/register">Register</Link><br />
                     <Link to="/">Home Page</Link>
                 </div>
             </Form>
@@ -127,4 +85,4 @@ const Register = () => {
     );
 };
 
-export default Register;
+export default Login;

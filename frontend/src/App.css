@@ -1,5 +1,14 @@
+.auth {
+    display: flex;
+    justify-content: center;
+}
+
+.form {
+    width: 600px;
+}
+
 .App {
-  text-align: center;
+
 }
 
 .App-logo {
