@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
-// import { Link, useNavigate } from "react-router-dom";
-// import { toast } from "react-toastify";
 import { register, reset, selectUser } from "../../features/auth/authSlice";
 import {
     Button,
@@ -25,10 +23,10 @@ const Register = () => {
         password: "",
         password2: "",
     });
-
     const { firstName, lastName, email, phone, password } = formData;
 
     useEffect(() => {
+
         if (user) {
             navigate("/");
         }
@@ -61,7 +59,7 @@ const Register = () => {
     return (
         <div className="auth">
             <Form className="form" onSubmit={onSubmit}>
-                <h2>Sign Up</h2>
+                <h2>Register</h2>
                 <FormGroup>
                     <Label for="firstName">First Name</Label>
                     <Input

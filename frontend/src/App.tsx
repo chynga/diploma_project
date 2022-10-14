@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
 import './App.css';
 import Login from "./features/auth/Login";
 import Register from './features/auth/Register';
@@ -8,6 +9,7 @@ function App() {
     return (
         <div className="App">
             <BrowserRouter>
+                <Navbar />
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/login" element={<Login />} />
