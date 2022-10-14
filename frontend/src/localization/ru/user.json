@@ -1,4 +1,10 @@
 {
     "login": "Логин",
-    "register": "Регистрация"
+    "register": "Регистрация",
+    "logout": "Выйти",
+    "firstName": "Имя",
+    "lastName": "Фамилия",
+    "email": "Почта",
+    "phone": "Номер телефона",
+    "password": "Пароль"
 }

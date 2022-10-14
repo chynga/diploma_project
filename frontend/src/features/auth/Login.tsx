@@ -10,6 +10,7 @@ import {
     Input,
     Label
 } from 'reactstrap';
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
     const user = useAppSelector(selectUser);
@@ -19,6 +20,7 @@ const Login = () => {
         email: "",
         password: "",
     });
+    const { t, i18n } = useTranslation(["kz", "ru"]);
 
     const { email, password } = formData;
 
@@ -52,9 +54,9 @@ const Login = () => {
     return (
         <div className="auth">
             <Form className="form" onSubmit={onSubmit}>
-                <h2>Login</h2>
+                <h2>{t('user:login')}</h2>
                 <FormGroup>
-                    <Label for="email">Email</Label>
+                    <Label for="email">{t('user:email')}</Label>
                     <Input
                         type="email"
                         id="email"
@@ -65,7 +67,7 @@ const Login = () => {
                     />
                 </FormGroup>
                 <FormGroup>
-                    <Label for="password">Password</Label>
+                    <Label for="password">{t('user:password')}</Label>
                     <Input
                         type="password"
                         id="password"
@@ -75,10 +77,10 @@ const Login = () => {
                         required
                     />
                 </FormGroup>
-                <Button>Submin</Button>
+                <Button>{t('user:login')}</Button>
                 <div>
-                    <Link to="/register">Register</Link><br />
-                    <Link to="/">Home Page</Link>
+                    <Link to="/register">{t('user:register')}</Link><br />
+                    <Link to="/">{t('home:title')}</Link>
                 </div>
             </Form>
         </div>

@@ -10,6 +10,7 @@ import {
     Input,
     Label
 } from 'reactstrap';
+import { useTranslation } from "react-i18next";
 
 const Register = () => {
     const user = useAppSelector(selectUser);
@@ -24,6 +25,8 @@ const Register = () => {
         password2: "",
     });
     const { firstName, lastName, email, phone, password } = formData;
+
+    const { t, i18n } = useTranslation(["kz", "ru"]);
 
     useEffect(() => {
 
@@ -52,16 +55,15 @@ const Register = () => {
             password,
         };
         
-        console.log("Register Component: ", userData)
         dispatch(register(userData));
     };
 
     return (
         <div className="auth">
             <Form className="form" onSubmit={onSubmit}>
-                <h2>Register</h2>
+                <h2>{t('user:register')}</h2>
                 <FormGroup>
-                    <Label for="firstName">First Name</Label>
+                    <Label for="firstName">{t('user:firstName')}</Label>
                     <Input
                         type="text"
                         id="firstName"
@@ -72,7 +74,7 @@ const Register = () => {
                     />
                 </FormGroup>
                 <FormGroup>
-                    <Label for="lastName">Last Name</Label>
+                    <Label for="lastName">{t('user:lastName')}</Label>
                     <Input
                         type="text"
                         id="lastName"
@@ -83,7 +85,7 @@ const Register = () => {
                     />
                 </FormGroup>
                 <FormGroup>
-                    <Label for="email">Email</Label>
+                    <Label for="email">{t('user:email')}</Label>
                     <Input
                         type="email"
                         id="email"
@@ -94,7 +96,7 @@ const Register = () => {
                     />
                 </FormGroup>
                 <FormGroup>
-                    <Label for="phone">Phone Number</Label>
+                    <Label for="phone">{t('user:phone')}</Label>
                     <Input
                         type="text"
                         id="phone"
@@ -105,7 +107,7 @@ const Register = () => {
                     />
                 </FormGroup>
                 <FormGroup>
-                    <Label for="password">Password</Label>
+                    <Label for="password">{t('user:password')}</Label>
                     <Input
                         type="password"
                         id="password"
@@ -115,10 +117,10 @@ const Register = () => {
                         required
                     />
                 </FormGroup>
-                <Button>Submin</Button>
+                <Button>{t('user:register')}</Button>
                 <div>
-                    <Link to="/login">Login</Link><br />
-                    <Link to="/">Home Page</Link>
+                    <Link to="/login">{t('user:login')}</Link><br />
+                    <Link to="/">{t('home:title')}</Link>
                 </div>
             </Form>
         </div>

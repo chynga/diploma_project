@@ -1,4 +1,10 @@
 {
     "login": "Кіру",
-    "register": "Тіркелу"
+    "register": "Тіркелу",
+    "logout": "Шығу",
+    "firstName": "Атыныз",
+    "lastName": "Тегініз",
+    "email": "Пошта",
+    "phone": "Телефон номері",
+    "password": "Құпия сөз"
 }

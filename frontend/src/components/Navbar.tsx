@@ -1,12 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {
     Button,
-    Form,
-    FormGroup,
-    Input,
-    Label
 } from 'reactstrap';
 import { logout, reset, selectUser } from "../features/auth/authSlice";
 import { useAppSelector } from "../app/hooks";
@@ -35,7 +31,7 @@ const Navbar = () => {
     return (
         <div>
             {user ? 
-                <button onClick={onLogoutClick}>Log out</button> : 
+                <button onClick={onLogoutClick}>{t('user:logout')}</button> : 
                 <>
                     <Link to="/login">{t('user:login')}</Link><br/>
                     <Link to="/register">{t('user:register')}</Link>
