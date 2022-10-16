@@ -4,6 +4,7 @@ import './App.css';
 import Login from "./features/auth/Login";
 import Register from './features/auth/Register';
 import Home from "./features/home/Home";
+import Map from "./components/Map";
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                 </Routes>
+                <Map />
             </BrowserRouter>
         </div>
     );
