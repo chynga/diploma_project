@@ -1,7 +1,12 @@
-package com.example.server.util;
+package com.example.server.util.password;
+
+import com.example.server.util.password.InvalidPasswordException;
+import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 
 // Driver Class
 public class PasswordValidator {
+
+    private static Pbkdf2PasswordEncoder pbkdf2PasswordEncoder = new Pbkdf2PasswordEncoder();
 
     // A utility function to check
     // whether a password is valid or not
@@ -37,21 +42,6 @@ public class PasswordValidator {
             }
         }
 
-        // for special characters
-        if (!(password.contains("@") || password.contains("#")
-                || password.contains("!") || password.contains("~")
-                || password.contains("$") || password.contains("%")
-                || password.contains("^") || password.contains("&")
-                || password.contains("*") || password.contains("(")
-                || password.contains(")") || password.contains("-")
-                || password.contains("+") || password.contains("/")
-                || password.contains(":") || password.contains(".")
-                || password.contains(", ") || password.contains("<")
-                || password.contains(">") || password.contains("?")
-                || password.contains("|"))) {
-            throw new InvalidPasswordException(4);
-        }
-
         if (true) {
             int count = 0;
 
@@ -67,7 +57,7 @@ public class PasswordValidator {
                 }
             }
             if (count == 0) {
-                throw new InvalidPasswordException(5);
+                throw new InvalidPasswordException(4);
             }
         }
 
@@ -86,37 +76,19 @@ public class PasswordValidator {
                 }
             }
             if (count == 0) {
-                throw new InvalidPasswordException(6);
+                throw new InvalidPasswordException(5);
             }
         }
 
         // The password is valid
     }
 
-    // Driver code
-//    public static void main(String[] args) {
-//
-//        String password1 = "GeeksForGeeks";
-//
-//        try {
-//            System.out.println("Is Password "
-//                    + password1 + " valid?");
-//            isValid(password1);
-//            System.out.println("Valid Password");
-//        } catch (InvalidPasswordException e) {
-//            System.out.print(e.getMessage());
-//            System.out.println(e.printMessage());
-//        }
-//
-//        String password2 = "Geek007@GFG";
-//        try {
-//            System.out.println("\nIs Password "
-//                    + password2 + " valid?");
-//            isValid(password2);
-//            System.out.println("Valid Password");
-//        } catch (InvalidPasswordException e) {
-//            System.out.print(e.getMessage());
-//            System.out.println(e.printMessage());
-//        }
-//    }
+    public static void isValid(String password, String savedPassword)
+            throws InvalidPasswordException {
+
+        boolean passwordIsValid = pbkdf2PasswordEncoder.matches(password, savedPassword);
+        if (!passwordIsValid) {
+            throw new InvalidPasswordException(6);
+        }
+    }
 }

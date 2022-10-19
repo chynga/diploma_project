@@ -1,4 +1,4 @@
-package com.example.server.util;
+package com.example.server.util.password;
 
 // Class for user-defined InvalidPasswordException
 public class InvalidPasswordException extends Exception {
@@ -32,23 +32,17 @@ public class InvalidPasswordException extends Exception {
                         + " at least one digit(0-9)");
 
             // Password should contain at least
-            // one special character ( @, #, %, &, !, $ )
-            case 4:
-                return ("Password should contain at "
-                        + "least one special character");
-
-            // Password should contain at least
             // one uppercase letter(A-Z)
-            case 5:
+            case 4:
                 return ("Password should contain at"
                         + " least one uppercase letter(A-Z)");
 
             // Password should contain at least
             // one lowercase letter(a-z)
-            case 6:
+            case 5:
                 return ("Password should contain at"
                         + " least one lowercase letter(a-z)");
-            case 7:
+            case 6:
                 return ("Password in not correct");
         }
 

@@ -2,7 +2,8 @@ package com.example.server.service;
 
 import com.example.server.dao.UserDAO;
 import com.example.server.model.User;
-import com.example.server.util.InvalidPasswordException;
+import com.example.server.util.password.InvalidPasswordException;
+import com.example.server.util.password.PasswordValidator;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 
 import java.sql.SQLException;
@@ -23,22 +24,22 @@ public class UserService {
         return INSTANCE;
     }
 
-    public User registerUser(String firstName, String lastName, String email, String phone, String password) throws SQLException {
+    public User registerUser(String firstName, String lastName, String email, String phone, String password) throws SQLException, InvalidPasswordException {
+        PasswordValidator.isValid(password);
         User user = new User(firstName, lastName, email, phone, password);
 
         String pbkdf2CryptedPassword = pbkdf2PasswordEncoder.encode(password);
         user.setPassword(pbkdf2CryptedPassword);
         UserDAO.getInstance().registerAndSetDefaults(user);
-
+        user.removePassword();
         return user;
     }
 
     public User loginUser(String email, String password) throws SQLException, InvalidPasswordException {
         User user = UserDAO.getInstance().getUserByEmail(email);
-        boolean passwordIsValid = pbkdf2PasswordEncoder.matches(password, user.getPassword());
-        if (!passwordIsValid) {
-            throw new InvalidPasswordException(7);
-        }
+
+        PasswordValidator.isValid(password, user.getPassword());
+        user.removePassword();
         return user;
     }
 
