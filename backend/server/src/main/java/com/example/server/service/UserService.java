@@ -2,8 +2,12 @@ package com.example.server.service;
 
 import com.example.server.dao.UserDAO;
 import com.example.server.model.User;
+import com.example.server.util.name.InvalidNameException;
+import com.example.server.util.name.NameValidator;
 import com.example.server.util.password.InvalidPasswordException;
 import com.example.server.util.password.PasswordValidator;
+import com.example.server.util.phone.InvalidPhoneException;
+import com.example.server.util.phone.PhoneValidator;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 
 import java.sql.SQLException;
@@ -24,8 +28,11 @@ public class UserService {
         return INSTANCE;
     }
 
-    public User registerUser(String firstName, String lastName, String email, String phone, String password) throws SQLException, InvalidPasswordException {
+    public User registerUser(String firstName, String lastName, String email, String phone, String password) throws SQLException, InvalidPasswordException, InvalidPhoneException, InvalidNameException {
         PasswordValidator.isValid(password);
+        PhoneValidator.isValid(phone);
+        NameValidator.isValid(firstName);
+        NameValidator.isValid(lastName);
         User user = new User(firstName, lastName, email, phone, password);
 
         String pbkdf2CryptedPassword = pbkdf2PasswordEncoder.encode(password);

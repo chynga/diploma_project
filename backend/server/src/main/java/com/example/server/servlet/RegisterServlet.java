@@ -4,7 +4,9 @@ import com.example.server.model.Error;
 import com.example.server.model.User;
 import com.example.server.service.UserService;
 import com.example.server.util.Util;
+import com.example.server.util.name.InvalidNameException;
 import com.example.server.util.password.InvalidPasswordException;
+import com.example.server.util.phone.InvalidPhoneException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -13,6 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.SQLException;
 
 import static com.example.server.util.Util.getToken;
@@ -21,6 +25,7 @@ import static com.example.server.util.Util.getToken;
 public class RegisterServlet extends HttpServlet {
 
     private static final Gson GSON = new GsonBuilder().create();
+    
 //    @Override
 //    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //
@@ -41,11 +46,21 @@ public class RegisterServlet extends HttpServlet {
             response.getOutputStream().println(GSON.toJson(user));
 
         } catch (SQLException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             response.setStatus(400);
             Error error = new Error("Register servlet, sql exception: " + e.getMessage());
             response.getOutputStream().println(GSON.toJson(error));
         } catch (InvalidPasswordException e) {
+//            e.printStackTrace();
+            response.setStatus(400);
+            Error error = new Error(e.getMessage() + e.printMessage());
+            response.getOutputStream().println(GSON.toJson(error));
+        } catch (InvalidPhoneException e) {
+//            e.printStackTrace();
+            response.setStatus(400);
+            Error error = new Error(e.getMessage());
+            response.getOutputStream().println(GSON.toJson(error));
+        } catch (InvalidNameException e) {
 //            e.printStackTrace();
             response.setStatus(400);
             Error error = new Error(e.getMessage() + e.printMessage());
