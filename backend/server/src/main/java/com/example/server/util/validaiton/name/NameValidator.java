@@ -1,8 +1,4 @@
-package com.example.server.util.name;
-
-import com.example.server.util.password.InvalidPasswordException;
-import com.example.server.util.phone.InvalidPhoneException;
-import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
+package com.example.server.util.validaiton.name;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

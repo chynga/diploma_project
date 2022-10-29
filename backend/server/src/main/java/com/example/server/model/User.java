@@ -7,6 +7,7 @@ public class User {
     private String email;
     private String phone;
     private String password;
+    private boolean emailVerified;
     private String role;
     private String token;
 
@@ -21,13 +22,14 @@ public class User {
         this.password = password;
     }
 
-    public User(int id, String firstName, String lastName, String email, String phone, String password, String role) {
+    public User(int id, String firstName, String lastName, String email, String phone, String password, boolean emailVerified, String role) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phone = phone;
         this.password = password;
+        this.emailVerified = emailVerified;
         this.role = role;
     }
 
@@ -81,6 +83,14 @@ public class User {
 
     public void removePassword() {
         this.password = null;
+    }
+
+    public boolean isEmailVerified() {
+        return emailVerified;
+    }
+
+    public void setEmailVerified(boolean emailVerified) {
+        this.emailVerified = emailVerified;
     }
 
     public String getRole() {

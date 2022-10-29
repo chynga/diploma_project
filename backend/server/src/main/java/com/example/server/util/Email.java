@@ -1,4 +1,4 @@
-package com.example.server;
+package com.example.server.util;
 
 import java.util.Properties;
 
@@ -10,24 +10,41 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class Mail {
+public class Email {
 
-    public static void sendMail() {
-        String to = "chynga2002@mail.ru";
+    public static void sendVerificationCode(String to, String code) {
         String from = "chynga2002@gmail.com";
-        String host = "smtp.gmail.com";
+        String appPassword = "sskvqqeajpafhejh";
+//        String from = "testttts325@gmail.com";
+//        String appPassword = "yntovzpkbjtumscb";
+//        String from = "sdfdsfa3@mail.ru";
+//        String appPassword = "SNrNjksFKfX37dM0j4iK";
+        String subject = "Email Verification Code";
+        String text = "Enter the following code to confirm your email address and complete setup for your account:"
+                + code;
 
         Properties properties = System.getProperties();
 
-        properties.put("mail.smtp.host", host);
-        properties.put("mail.smtp.port", "587");
+        // gmail.com
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "25"); // options: 25, 465, 587
         properties.put("mail.smtp.starttls.enable", "true");
         properties.put("mail.smtp.auth", "true");
+
+        // mail.ru
+//        properties.put("mail.smtp.host", "smtp.mail.ru");
+//        properties.put("mail.smtp.port", "465");
+//        properties.put("mail.smtp.starttls.enable", "true");
+//        properties.put("mail.smtp.auth", "true");
+//        properties.put("mail.smtp.ssl.enable", "true");
+
+//        properties.put("mail.smtps.ssl.checkserveridentity", true);
+//        properties.put("mail.smtps.ssl.trust", "*");
 
         // Get the Session object.// and pass username and password
         Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(from, "sskvqqeajpafhejh");
+                return new PasswordAuthentication(from, appPassword);
             }
         });
 
@@ -45,17 +62,17 @@ public class Mail {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
             // Set Subject: header field
-            message.setSubject("This is the Subject Line!");
+            message.setSubject(subject);
 
             // Now set the actual message
-            message.setText("This is actual message");
+            message.setText(text);
 
             System.out.println("sending...");
             // Send message
             Transport.send(message);
             System.out.println("Sent message successfully....");
-        } catch (MessagingException mex) {
-            mex.printStackTrace();
+        } catch (MessagingException e) {
+            e.printStackTrace();
         }
 
     }

@@ -1,4 +1,4 @@
-package com.example.server.util.password;
+package com.example.server.util.validaiton.password;
 
 // Class for user-defined InvalidPasswordException
 public class InvalidPasswordException extends Exception {

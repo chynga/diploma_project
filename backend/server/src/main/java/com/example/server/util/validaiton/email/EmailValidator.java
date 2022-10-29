@@ -1,10 +1,10 @@
-package com.example.server.util.password;
+package com.example.server.util.validaiton.email;
 
-import com.example.server.util.password.InvalidPasswordException;
+import com.example.server.util.validaiton.password.InvalidPasswordException;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 
 // Driver Class
-public class PasswordValidator {
+public class EmailValidator {
 
     private static Pbkdf2PasswordEncoder pbkdf2PasswordEncoder = new Pbkdf2PasswordEncoder();
 

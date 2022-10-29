@@ -4,14 +4,12 @@ import com.example.server.model.User;
 import com.example.server.model.Error;
 import com.example.server.service.UserService;
 import com.example.server.util.Util;
-import com.example.server.util.password.InvalidPasswordException;
+import com.example.server.util.validaiton.password.InvalidPasswordException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
-import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.sql.SQLException;
 

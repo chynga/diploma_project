@@ -1,4 +1,4 @@
-package com.example.server.util.phone;
+package com.example.server.util.validaiton.phone;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

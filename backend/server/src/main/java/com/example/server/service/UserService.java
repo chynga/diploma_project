@@ -2,15 +2,20 @@ package com.example.server.service;
 
 import com.example.server.dao.UserDAO;
 import com.example.server.model.User;
-import com.example.server.util.name.InvalidNameException;
-import com.example.server.util.name.NameValidator;
-import com.example.server.util.password.InvalidPasswordException;
-import com.example.server.util.password.PasswordValidator;
-import com.example.server.util.phone.InvalidPhoneException;
-import com.example.server.util.phone.PhoneValidator;
+import com.example.server.util.Email;
+import com.example.server.util.VerificationException;
+import com.example.server.util.validaiton.name.InvalidNameException;
+import com.example.server.util.validaiton.name.NameValidator;
+import com.example.server.util.validaiton.password.InvalidPasswordException;
+import com.example.server.util.validaiton.password.PasswordValidator;
+import com.example.server.util.validaiton.phone.InvalidPhoneException;
+import com.example.server.util.validaiton.phone.PhoneValidator;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.Random;
 
 public class UserService {
 
@@ -39,7 +44,28 @@ public class UserService {
         user.setPassword(pbkdf2CryptedPassword);
         UserDAO.getInstance().registerAndSetDefaults(user);
         user.removePassword();
+
+        // verification code via email
+        Random rnd = new Random();
+        int number = rnd.nextInt(999999);
+        String code = String.format("%06d", number);
+        Email.sendVerificationCode(user.getEmail(), code);
+        // saving verification code
+        Date date = new Date();
+        Timestamp ts = new Timestamp(date.getTime());
+        UserDAO.getInstance().setVerificationCode(user.getEmail(), code, ts);
+
         return user;
+    }
+
+    public void confirmEmail(String email, String code) throws SQLException, VerificationException {
+        String verificationCode = UserDAO.getInstance().getVerificationCodeByEmail(email);
+        if (code.equals(verificationCode)) {
+            UserDAO.getInstance().setEmailVerified(email);
+            return;
+        }
+
+        throw new VerificationException("invalid verification code");
     }
 
     public User loginUser(String email, String password) throws SQLException, InvalidPasswordException {
@@ -49,7 +75,5 @@ public class UserService {
         user.removePassword();
         return user;
     }
-
-
 }
 

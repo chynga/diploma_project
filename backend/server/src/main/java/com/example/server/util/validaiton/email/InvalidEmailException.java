@@ -1,4 +1,4 @@
-package com.example.server.util.email;
+package com.example.server.util.validaiton.email;
 
 // Class for user-defined InvalidEmailException
 public class InvalidEmailException extends Exception {

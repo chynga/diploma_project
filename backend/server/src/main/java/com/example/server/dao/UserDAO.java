@@ -44,6 +44,7 @@ public class UserDAO {
 
         if (generatedKeys.next()) {
             user.setId(generatedKeys.getInt("id"));
+            user.setEmailVerified(generatedKeys.getBoolean("emailVerified"));
             user.setRole(generatedKeys.getString("role"));
         }
         else {
@@ -62,10 +63,42 @@ public class UserDAO {
             String surname = rs.getString("lastname");
             String phone = rs.getString("phone");
             String password = rs.getString("password");
+            boolean emailVerified = rs.getBoolean("emailverified");
             String role = rs.getString("role");
-            return new User(id, name, surname, email, phone, password, role);
+            return new User(id, name, surname, email, phone, password, emailVerified, role);
         } else {
             throw new SQLException("Could not find user with specified email.");
         }
+    }
+
+    public String getVerificationCodeByEmail(String email) throws SQLException {
+        String sql = "SELECT verificationCode FROM users WHERE email = (?)";
+        PreparedStatement preparedStmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        preparedStmt.setString(1, email);
+        ResultSet rs = preparedStmt.executeQuery();
+        if (rs.next()) {
+            String code = rs.getString("verificationCode");
+            return code;
+        } else {
+            throw new SQLException("Could not find user with specified email.");
+        }
+    }
+
+    public void setVerificationCode(String email, String code, Timestamp ts) throws SQLException {
+        String sql = "UPDATE users SET verificationCode = (?), verificationCodeSent = (?) WHERE email = (?)";
+
+        PreparedStatement preparedStmt = connection.prepareStatement(sql);
+        preparedStmt.setString(1, code);
+        preparedStmt.setTimestamp(2, ts);
+        preparedStmt.setString(3, email);
+        preparedStmt.executeUpdate();
+    }
+
+    public void setEmailVerified(String email) throws SQLException {
+        String sql = "UPDATE users SET verificationCode = null, verificationCodeSent = null, emailVerified = true WHERE email = (?)";
+
+        PreparedStatement preparedStmt = connection.prepareStatement(sql);
+        preparedStmt.setString(1, email);
+        preparedStmt.executeUpdate();
     }
 }
