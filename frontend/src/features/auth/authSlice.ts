@@ -13,12 +13,19 @@ export type UserCredentials = {
     password: string
 }
 
+export type VerificationCredentials = {
+    email: string
+    id: number
+    code: string
+}
+
 export type User = {
     id: number
     firstName: string
     lastName: string
     email: string
     phone: string
+    emailVerified: boolean
     role: 'admin' | 'client' | 'doctor'
 }
 
@@ -77,6 +84,26 @@ export const login = createAsyncThunk("auth/login", async (user: UserCredentials
     }
 });
 
+// Login user
+export const verify = createAsyncThunk("auth/email/verify", async (credentials: VerificationCredentials, { rejectWithValue }) => {
+    try {
+        const response = await authAPI.verify(credentials)
+        console.log(response);
+        return response.data
+    } catch (err) {
+        const error: any = err
+        const { status } = error.response
+        const message =
+            (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+            error.message ||
+            error.toString();
+
+        return rejectWithValue({ status, message })
+    }
+});
+
 export const logout = createAsyncThunk("auth/logout", async () => {
     await authAPI.logout()
 });
@@ -111,6 +138,19 @@ export const authSlice = createSlice({
                 state.user = action.payload;
             })
             .addCase(login.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload as AuthError;
+            })
+            .addCase(verify.pending, state => {
+                state.isLoading = true;
+            })
+            .addCase(verify.fulfilled, state => {
+                state.isLoading = false;
+                if (state.user !== undefined) {
+                    state.user.emailVerified = true;
+                }
+            })
+            .addCase(verify.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload as AuthError;
             })

@@ -1,34 +1,35 @@
 import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../app/hooks";
-import { login, reset, selectUser } from "../../features/auth/authSlice";
-import {
-    Button,
-    Form,
-    FormGroup,
-    Input,
-    Label
-} from 'reactstrap';
 import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import { useAppSelector } from "../../app/hooks";
+import { verify, selectUser, reset } from "../../features/auth/authSlice";
 
-const Login = () => {
+const EmailConfirmation = () => {
+
     const user = useAppSelector(selectUser);
     const navigate = useNavigate();
     const dispatch = useDispatch<any>();
     const [formData, setFormData] = useState({
         email: "",
-        password: "",
+        code: "",
     });
     const { t, i18n } = useTranslation(["kz", "ru"]);
 
-    const { email, password } = formData;
+    const { code } = formData;
 
     useEffect(() => {
-        if (user) {
+        if (!user) {
+            navigate("/register")
+        }
+        
+        if (user?.emailVerified) {
+            dispatch(reset())
             navigate("/");
         }
-    });
+        
+    }, [user]);
 
     const onChange = (e: React.FormEvent<HTMLInputElement>) => {
         setFormData(prevState => ({
@@ -40,44 +41,45 @@ const Login = () => {
     const onSubmit = (e: any) => {
         e.preventDefault();
 
-        const userData = {
-            email,
-            password,
+        const verificationData = {
+            email: user!.email,
+            id: user!.id,
+            code,
         };
         
-        console.log(userData)
-        dispatch(login(userData));
+        // console.log(userData)
+        // dispatch(login(userData));
+        dispatch(verify(verificationData))
     };
 
     return (
         <div className="auth">
             <Form className="form" onSubmit={onSubmit}>
-                <h2>{t('user:login')}</h2>
+                <h2>Verify Email</h2>
                 <FormGroup>
                     <Label for="email">{t('user:email')}</Label>
                     <Input
                         type="email"
                         id="email"
                         name="email"
-                        value={email}
-                        onChange={onChange}
+                        value={user?.email}
                         required
+                        disabled
                     />
                 </FormGroup>
                 <FormGroup>
-                    <Label for="password">{t('user:password')}</Label>
+                    <Label for="code">{t('user:code')}</Label>
                     <Input
-                        type="password"
-                        id="password"
-                        name="password"
-                        value={password}
+                        type="text"
+                        id="code"
+                        name="code"
+                        value={code}
                         onChange={onChange}
                         required
                     />
                 </FormGroup>
                 <Button>{t('user:login')}</Button>
                 <div>
-                    <Link to="/register">{t('user:register')}</Link><br />
                     <Link to="/">{t('home:title')}</Link>
                 </div>
             </Form>
@@ -85,4 +87,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default EmailConfirmation;

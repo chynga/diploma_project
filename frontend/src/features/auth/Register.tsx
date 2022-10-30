@@ -29,13 +29,16 @@ const Register = () => {
     const { t, i18n } = useTranslation(["kz", "ru"]);
 
     useEffect(() => {
-
         if (user) {
-            navigate("/");
+
+            if (!user.emailVerified) {
+                navigate("/");
+            } 
+
+            navigate("/confirm")
         }
 
-        dispatch(reset());
-    }, [user, navigate, dispatch]);
+    }, [user]);
 
     const onChange = (e: React.FormEvent<HTMLInputElement>) => {
         setFormData(prevState => ({

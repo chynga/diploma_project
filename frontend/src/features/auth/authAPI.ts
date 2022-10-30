@@ -1,7 +1,7 @@
 import axios from "axios";
-import { UserCredentials } from "./authSlice";
+import { UserCredentials, VerificationCredentials } from "./authSlice";
 
-const API_URL = "/api/user/";
+const API_URL = "/api/users/";
 
 // Register user
 const register = async (userData: UserCredentials) => {
@@ -25,6 +25,17 @@ const login = async (userData: UserCredentials) => {
     return response;
 };
 
+// Login user
+const verify = async (credentials: VerificationCredentials) => {
+    const response = await axios.post(API_URL + credentials.id + "/verify", credentials);
+
+    if (response.data) {
+        localStorage.setItem("user", JSON.stringify(response.data));
+    }
+    
+    return response;
+};
+
 // Logout user
 const logout = () => {
     localStorage.removeItem("user");
@@ -33,6 +44,7 @@ const logout = () => {
 const authAPI = {
     register,
     logout,
+    verify,
     login,
 };
 
