@@ -1,6 +1,5 @@
 package com.example.server.servlet;
 
-import com.example.server.model.VerificationConfirmed;
 import com.example.server.service.UserService;
 import com.example.server.util.Email;
 import com.example.server.util.VerificationException;
@@ -26,13 +25,7 @@ public class TestServlet extends HttpServlet {
 //        UserService.getInstance().confirmEmail("chynga2002@mail.ru", "");
 //        VerificationConfirmed verificationConfirmed = new VerificationConfirmed(true);
 //        response.getOutputStream().println(GSON.toJson(verificationConfirmed));
-        try {
-            throw new VerificationException("");
-        } catch (VerificationException e) {
-            e.printStackTrace();
-            VerificationConfirmed verificationConfirmed = new VerificationConfirmed(true);
-            response.getOutputStream().println(GSON.toJson(verificationConfirmed));
-        }
+
     }
 
 

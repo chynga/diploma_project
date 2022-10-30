@@ -58,11 +58,12 @@ public class UserService {
         return user;
     }
 
-    public void confirmEmail(String email, String code) throws SQLException, VerificationException {
+    public User confirmEmail(String email, String code) throws SQLException, VerificationException {
         String verificationCode = UserDAO.getInstance().getVerificationCodeByEmail(email);
         if (code.equals(verificationCode)) {
             UserDAO.getInstance().setEmailVerified(email);
-            return;
+            User user = UserDAO.getInstance().getUserByEmail(email);
+            return user;
         }
 
         throw new VerificationException("invalid verification code");

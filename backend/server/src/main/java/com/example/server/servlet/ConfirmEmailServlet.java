@@ -1,8 +1,8 @@
 package com.example.server.servlet;
 
 import com.example.server.model.Error;
+import com.example.server.model.User;
 import com.example.server.model.VerificationCode;
-import com.example.server.model.VerificationConfirmed;
 import com.example.server.service.UserService;
 import com.example.server.util.Util;
 import com.example.server.util.VerificationException;
@@ -36,11 +36,10 @@ public class ConfirmEmailServlet extends HttpServlet {
 
                 String json = Util.readInputStream(request.getInputStream());
                 VerificationCode verificationCode = GSON.fromJson(json, VerificationCode.class);
-                UserService.getInstance().confirmEmail(verificationCode.getEmail(), verificationCode.getCode());
+                User user = UserService.getInstance().confirmEmail(verificationCode.getEmail(), verificationCode.getCode());
                 response.setStatus(201);
                 response.setHeader("Content-Type", "application/json");
-                VerificationConfirmed verificationConfirmed = new VerificationConfirmed(true);
-                response.getOutputStream().println(GSON.toJson(verificationConfirmed));
+                response.getOutputStream().println(GSON.toJson(user));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -49,9 +48,10 @@ public class ConfirmEmailServlet extends HttpServlet {
             response.getOutputStream().println(GSON.toJson(error));
         } catch (VerificationException e) {
             e.printStackTrace();
+            response.setStatus(400);
             response.setHeader("Content-Type", "application/json");
-            VerificationConfirmed verificationConfirmed = new VerificationConfirmed(false);
-            response.getOutputStream().println(GSON.toJson(verificationConfirmed));
+            Error error = new Error(e.getMessage());
+            response.getOutputStream().println(GSON.toJson(error));
         }
     }
 }

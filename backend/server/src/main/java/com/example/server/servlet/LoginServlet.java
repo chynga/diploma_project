@@ -40,11 +40,13 @@ public class LoginServlet extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
             response.setStatus(400);
+            response.setHeader("Content-Type", "application/json");
             Error error = new Error("Login servlet, sql exception: " + e.getMessage());
             response.getOutputStream().println(GSON.toJson(error));
         } catch (InvalidPasswordException e) {
 //            e.printStackTrace();
             response.setStatus(400);
+            response.setHeader("Content-Type", "application/json");
             Error error = new Error(e.getMessage() + e.printMessage());
             response.getOutputStream().println(GSON.toJson(error));
         }
