@@ -2,10 +2,10 @@ package com.example.server.servlet;
 
 import com.example.server.model.Error;
 import com.example.server.model.User;
-import com.example.server.model.VerificationCode;
+import com.example.server.model.EmailCode;
 import com.example.server.service.UserService;
 import com.example.server.util.Util;
-import com.example.server.util.VerificationException;
+import com.example.server.util.MailingException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -15,7 +15,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet(name = "ConfirmEmailServlet", value = "/api/users/*")
+@WebServlet(name = "ConfirmEmailServlet", value = "/api/auth/email/verify")
 public class ConfirmEmailServlet extends HttpServlet {
 
     private static final Gson GSON = new GsonBuilder().create();
@@ -27,26 +27,19 @@ public class ConfirmEmailServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String pathInfo = request.getPathInfo();
-        String[] pathParts = pathInfo.split("/");
-        String part1 = pathParts[1];
-        String part2 = pathParts[2];
         try {
-            if ("verify".equals(part2)) {
-
-                String json = Util.readInputStream(request.getInputStream());
-                VerificationCode verificationCode = GSON.fromJson(json, VerificationCode.class);
-                User user = UserService.getInstance().confirmEmail(verificationCode.getEmail(), verificationCode.getCode());
-                response.setStatus(201);
-                response.setHeader("Content-Type", "application/json");
-                response.getOutputStream().println(GSON.toJson(user));
-            }
+            String json = Util.readInputStream(request.getInputStream());
+            EmailCode verificationCode = GSON.fromJson(json, EmailCode.class);
+            User user = UserService.getInstance().confirmEmail(verificationCode.getEmail(), verificationCode.getCode());
+            response.setStatus(201);
+            response.setHeader("Content-Type", "application/json");
+            response.getOutputStream().println(GSON.toJson(user));
         } catch (SQLException e) {
             e.printStackTrace();
             response.setStatus(400);
             Error error = new Error("Confirmation servlet, sql exception: " + e.getMessage());
             response.getOutputStream().println(GSON.toJson(error));
-        } catch (VerificationException e) {
+        } catch (MailingException e) {
             e.printStackTrace();
             response.setStatus(400);
             response.setHeader("Content-Type", "application/json");

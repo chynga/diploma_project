@@ -101,4 +101,36 @@ public class UserDAO {
         preparedStmt.setString(1, email);
         preparedStmt.executeUpdate();
     }
+
+    public String getRecoveryCodeByEmail(String email) throws SQLException {
+        String sql = "SELECT recoveryCode FROM users WHERE email = (?)";
+        PreparedStatement preparedStmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        preparedStmt.setString(1, email);
+        ResultSet rs = preparedStmt.executeQuery();
+        if (rs.next()) {
+            String code = rs.getString("recoveryCode");
+            return code;
+        } else {
+            throw new SQLException("Could not find user with specified email.");
+        }
+    }
+
+    public void setRecoveryCode(String email, String code, Timestamp ts) throws SQLException {
+        String sql = "UPDATE users SET recoveryCode = (?), recoveryCodeSent = (?) WHERE email = (?)";
+
+        PreparedStatement preparedStmt = connection.prepareStatement(sql);
+        preparedStmt.setString(1, code);
+        preparedStmt.setTimestamp(2, ts);
+        preparedStmt.setString(3, email);
+        preparedStmt.executeUpdate();
+    }
+
+    public void resetPassword(String email, String encryptedPassword) throws SQLException {
+        String sql = "UPDATE users SET recoveryCode = null, recoveryCodeSent = null, password = (?) WHERE email = (?)";
+
+        PreparedStatement preparedStmt = connection.prepareStatement(sql);
+        preparedStmt.setString(1, encryptedPassword);
+        preparedStmt.setString(2, email);
+        preparedStmt.executeUpdate();
+    }
 }

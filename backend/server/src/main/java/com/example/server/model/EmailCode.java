@@ -1,15 +1,9 @@
 package com.example.server.model;
 
-public class VerificationCode {
+public class EmailCode {
     private String email;
     private String code;
-
-    public VerificationCode() {}
-
-    public VerificationCode(String email, String code) {
-        this.email = email;
-        this.code = code;
-    }
+    private String password;
 
     public String getEmail() {
         return email;
@@ -25,5 +19,13 @@ public class VerificationCode {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

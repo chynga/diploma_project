@@ -19,7 +19,7 @@ import java.sql.SQLException;
 
 import static com.example.server.util.Util.getToken;
 
-@WebServlet(name = "RegisterServlet", value = "/api/users/register")
+@WebServlet(name = "RegisterServlet", value = "/api/auth/register")
 public class RegisterServlet extends HttpServlet {
 
     private static final Gson GSON = new GsonBuilder().create();

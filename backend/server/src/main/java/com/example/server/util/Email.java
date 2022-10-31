@@ -12,34 +12,35 @@ import javax.mail.internet.MimeMessage;
 
 public class Email {
 
-    public static void sendVerificationCode(String to, String code) {
-        String from = "chynga2002@gmail.com";
-        String appPassword = "sskvqqeajpafhejh";
+    public static void sendVerificationCode(String to, String subject, String text) {
+//        String from = "chynga2002@gmail.com";
+//        String appPassword = "sskvqqeajpafhejh";
 //        String from = "testttts325@gmail.com";
 //        String appPassword = "yntovzpkbjtumscb";
-//        String from = "sdfdsfa3@mail.ru";
-//        String appPassword = "SNrNjksFKfX37dM0j4iK";
-        String subject = "Email Verification Code";
-        String text = "Enter the following code to confirm your email address and complete setup for your account:"
-                + code;
+        String from = "sdfdsfa3@mail.ru";
+        String appPassword = "SNrNjksFKfX37dM0j4iK";
+
 
         Properties properties = System.getProperties();
 
-        // gmail.com
-        properties.put("mail.smtp.host", "smtp.gmail.com");
-        properties.put("mail.smtp.port", "25"); // options: 25, 465, 587
-        properties.put("mail.smtp.starttls.enable", "true");
-        properties.put("mail.smtp.auth", "true");
-
-        // mail.ru
-//        properties.put("mail.smtp.host", "smtp.mail.ru");
-//        properties.put("mail.smtp.port", "465");
-//        properties.put("mail.smtp.starttls.enable", "true");
-//        properties.put("mail.smtp.auth", "true");
-//        properties.put("mail.smtp.ssl.enable", "true");
-
-//        properties.put("mail.smtps.ssl.checkserveridentity", true);
-//        properties.put("mail.smtps.ssl.trust", "*");
+        if (from.contains("@gmail.com")) {
+            // gmail.com
+            properties.put("mail.smtp.host", "smtp.gmail.com");
+            properties.put("mail.smtp.port", "25"); // options: 25, 465, 587
+            properties.put("mail.smtp.starttls.enable", "true");
+            properties.put("mail.smtp.auth", "true");
+        } else if (from.contains("@mail.ru")) {
+            // mail.ru
+            properties.put("mail.smtp.host", "smtp.mail.ru");
+            properties.put("mail.smtp.port", "465");
+            properties.put("mail.smtp.starttls.enable", "true");
+            properties.put("mail.smtp.auth", "true");
+            properties.put("mail.smtp.ssl.enable", "true");
+//            properties.put("mail.smtps.ssl.checkserveridentity", true);
+//            properties.put("mail.smtps.ssl.trust", "*");
+        } else {
+            return;
+        }
 
         // Get the Session object.// and pass username and password
         Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
@@ -74,7 +75,6 @@ public class Email {
         } catch (MessagingException e) {
             e.printStackTrace();
         }
-
     }
 
 }

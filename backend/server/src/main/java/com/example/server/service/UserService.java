@@ -3,7 +3,7 @@ package com.example.server.service;
 import com.example.server.dao.UserDAO;
 import com.example.server.model.User;
 import com.example.server.util.Email;
-import com.example.server.util.VerificationException;
+import com.example.server.util.MailingException;
 import com.example.server.util.validaiton.name.InvalidNameException;
 import com.example.server.util.validaiton.name.NameValidator;
 import com.example.server.util.validaiton.password.InvalidPasswordException;
@@ -49,7 +49,10 @@ public class UserService {
         Random rnd = new Random();
         int number = rnd.nextInt(999999);
         String code = String.format("%06d", number);
-        Email.sendVerificationCode(user.getEmail(), code);
+        String subject = "Email Verification Code";
+        String text = "Enter the following code to confirm your email address and complete setup for your account:"
+                + code;
+//        Email.sendVerificationCode(user.getEmail(), subject, text);
         // saving verification code
         Date date = new Date();
         Timestamp ts = new Timestamp(date.getTime());
@@ -58,7 +61,35 @@ public class UserService {
         return user;
     }
 
-    public User confirmEmail(String email, String code) throws SQLException, VerificationException {
+    public void sendRecoveryCode(String email) throws SQLException {
+        // recovery code via email
+        Random rnd = new Random();
+        int number = rnd.nextInt(999999);
+        String code = String.format("%06d", number);
+        String subject = "Password Recovery Code";
+        String text = "Enter the following code to recover your password:\n"
+                + code;
+        Email.sendVerificationCode(email, subject, text);
+
+        // saving verification code
+        Date date = new Date();
+        Timestamp ts = new Timestamp(date.getTime());
+        UserDAO.getInstance().setRecoveryCode(email, code, ts);
+    }
+
+    public void resetPassword(String email, String code, String password) throws SQLException, MailingException, InvalidPasswordException {
+        String recoveryCode = UserDAO.getInstance().getRecoveryCodeByEmail(email);
+        if (code.equals(recoveryCode)) {
+            PasswordValidator.isValid(password);
+            String pbkdf2CryptedPassword = pbkdf2PasswordEncoder.encode(password);
+            UserDAO.getInstance().resetPassword(email, pbkdf2CryptedPassword);
+            return;
+        }
+
+        throw new MailingException("invalid recovery code");
+    }
+
+    public User confirmEmail(String email, String code) throws SQLException, MailingException {
         String verificationCode = UserDAO.getInstance().getVerificationCodeByEmail(email);
         if (code.equals(verificationCode)) {
             UserDAO.getInstance().setEmailVerified(email);
@@ -66,7 +97,7 @@ public class UserService {
             return user;
         }
 
-        throw new VerificationException("invalid verification code");
+        throw new MailingException("invalid verification code");
     }
 
     public User loginUser(String email, String password) throws SQLException, InvalidPasswordException {
