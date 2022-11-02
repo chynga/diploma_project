@@ -13,10 +13,10 @@ export type UserCredentials = {
     password: string
 }
 
-export type VerificationCredentials = {
+export type EmailCodeCredentials = {
     email: string
-    id: number
     code: string
+    password?: string
 }
 
 export type User = {
@@ -38,12 +38,16 @@ export type AuthState = {
     user: User | undefined
     isLoading: boolean
     error: AuthError | undefined
+    recoveryCodeSent: boolean
+    passwordRecovered: boolean
 }
 
 const initialState: AuthState = {
     user: user,
     isLoading: false,
     error: undefined,
+    recoveryCodeSent: false,
+    passwordRecovered: false
 };
 
 // Register user
@@ -84,12 +88,51 @@ export const login = createAsyncThunk("auth/login", async (user: UserCredentials
     }
 });
 
-// Login user
-export const verify = createAsyncThunk("auth/email/verify", async (credentials: VerificationCredentials, { rejectWithValue }) => {
+// verify email
+export const verify = createAsyncThunk("auth/email/verify", async (credentials: EmailCodeCredentials, { rejectWithValue }) => {
     try {
         const response = await authAPI.verify(credentials)
         console.log(response);
         return response.data
+    } catch (err) {
+        const error: any = err
+        const { status } = error.response
+        const message =
+            (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+            error.message ||
+            error.toString();
+
+        return rejectWithValue({ status, message })
+    }
+});
+
+// verify email
+export const sendRecoveryCode = createAsyncThunk("auth/password/sendCode", async (email: string, { rejectWithValue }) => {
+    try {
+        const response = await authAPI.sendRecoveryCode(email)
+        console.log(response);
+        return 
+    } catch (err) {
+        const error: any = err
+        const { status } = error.response
+        const message =
+            (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+            error.message ||
+            error.toString();
+
+        return rejectWithValue({ status, message })
+    }
+});
+
+export const recoverPassword = createAsyncThunk("auth/password/recover", async (credentials: EmailCodeCredentials, { rejectWithValue }) => {
+    try {
+        const newCredentials = await authAPI.recoverPassword(credentials)
+        
+        return newCredentials
     } catch (err) {
         const error: any = err
         const { status } = error.response
@@ -115,6 +158,8 @@ export const authSlice = createSlice({
         reset: state => {
             state.isLoading = false
             state.error = undefined
+            state.recoveryCodeSent = false
+            state.passwordRecovered = false
         },
     },
     extraReducers: (builder) => {
@@ -154,6 +199,29 @@ export const authSlice = createSlice({
                 state.isLoading = false;
                 state.error = action.payload as AuthError;
             })
+            .addCase(sendRecoveryCode.pending, state => {
+                state.isLoading = true;
+            })
+            .addCase(sendRecoveryCode.fulfilled, state => {
+                state.isLoading = false;
+                state.recoveryCodeSent = true;
+            })
+            .addCase(sendRecoveryCode.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload as AuthError;
+            })
+            .addCase(recoverPassword.pending, state => {
+                state.isLoading = true;
+            })
+            .addCase(recoverPassword.fulfilled, state => {
+                state.isLoading = false;
+                state.error = undefined;
+                state.passwordRecovered = true;
+            })
+            .addCase(recoverPassword.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload as AuthError;
+            })
             .addCase(logout.fulfilled, state => {
                 state.user = undefined;
             });
@@ -162,5 +230,7 @@ export const authSlice = createSlice({
 
 export const { reset } = authSlice.actions;
 export const selectUser = (state: RootState) => state.auth.user;
+export const selectRecoveryCodeSent = (state: RootState) => state.auth.recoveryCodeSent;
+export const selectPasswordRecovered = (state: RootState) => state.auth.passwordRecovered;
 
 export default authSlice.reducer;

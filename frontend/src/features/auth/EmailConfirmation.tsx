@@ -25,7 +25,7 @@ const EmailConfirmation = () => {
         }
         
         if (user?.emailVerified) {
-            dispatch(reset())
+            // dispatch(reset())
             navigate("/");
         }
         
@@ -43,7 +43,6 @@ const EmailConfirmation = () => {
 
         const verificationData = {
             email: user!.email,
-            id: user!.id,
             code,
         };
         

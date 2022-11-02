@@ -78,6 +78,7 @@ const Login = () => {
                 <Button>{t('user:login')}</Button>
                 <div>
                     <Link to="/register">{t('user:register')}</Link><br />
+                    <Link to="/recover">Forgot Password</Link><br />
                     <Link to="/">{t('home:title')}</Link>
                 </div>
             </Form>
