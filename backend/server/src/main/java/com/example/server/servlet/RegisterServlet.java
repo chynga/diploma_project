@@ -10,6 +10,7 @@ import com.example.server.util.validaiton.phone.InvalidPhoneException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import javax.mail.MessagingException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

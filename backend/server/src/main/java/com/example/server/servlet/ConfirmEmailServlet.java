@@ -9,13 +9,14 @@ import com.example.server.util.MailingException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import javax.mail.MessagingException;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet(name = "ConfirmEmailServlet", value = "/api/auth/email/verify")
+@WebServlet(name = "ConfirmEmailServlet", value = "/api/auth/email/verification")
 public class ConfirmEmailServlet extends HttpServlet {
 
     private static final Gson GSON = new GsonBuilder().create();
@@ -30,16 +31,26 @@ public class ConfirmEmailServlet extends HttpServlet {
         try {
             String json = Util.readInputStream(request.getInputStream());
             EmailCode verificationCode = GSON.fromJson(json, EmailCode.class);
-            User user = UserService.getInstance().confirmEmail(verificationCode.getEmail(), verificationCode.getCode());
-            response.setStatus(201);
-            response.setHeader("Content-Type", "application/json");
-            response.getOutputStream().println(GSON.toJson(user));
+            if (verificationCode.getCode() != null) {
+                User user = UserService.getInstance().confirmEmail(verificationCode.getEmail(), verificationCode.getCode());
+                response.setStatus(201);
+                response.setHeader("Content-Type", "application/json");
+                response.getOutputStream().println(GSON.toJson(user));
+            } else {
+                UserService.getInstance().sendVerificationCode(verificationCode.getEmail());
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             response.setStatus(400);
             Error error = new Error("Confirmation servlet, sql exception: " + e.getMessage());
             response.getOutputStream().println(GSON.toJson(error));
         } catch (MailingException e) {
+            e.printStackTrace();
+            response.setStatus(400);
+            response.setHeader("Content-Type", "application/json");
+            Error error = new Error(e.getMessage());
+            response.getOutputStream().println(GSON.toJson(error));
+        } catch (MessagingException e) {
             e.printStackTrace();
             response.setStatus(400);
             response.setHeader("Content-Type", "application/json");

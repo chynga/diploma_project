@@ -12,6 +12,7 @@ import com.example.server.util.validaiton.phone.InvalidPhoneException;
 import com.example.server.util.validaiton.phone.PhoneValidator;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 
+import javax.mail.MessagingException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -45,6 +46,11 @@ public class UserService {
         UserDAO.getInstance().registerAndSetDefaults(user);
         user.removePassword();
 
+
+        return user;
+    }
+
+    public void sendVerificationCode(String email) throws SQLException, MessagingException {
         // verification code via email
         Random rnd = new Random();
         int number = rnd.nextInt(999999);
@@ -52,16 +58,14 @@ public class UserService {
         String subject = "Email Verification Code";
         String text = "Enter the following code to confirm your email address and complete setup for your account:"
                 + code;
-//        Email.sendVerificationCode(user.getEmail(), subject, text);
+        Email.sendVerificationCode(email, subject, text);
         // saving verification code
         Date date = new Date();
         Timestamp ts = new Timestamp(date.getTime());
-        UserDAO.getInstance().setVerificationCode(user.getEmail(), code, ts);
-
-        return user;
+        UserDAO.getInstance().setVerificationCode(email, code, ts);
     }
 
-    public void sendRecoveryCode(String email) throws SQLException {
+    public void sendRecoveryCode(String email) throws SQLException, MessagingException {
         // recovery code via email
         Random rnd = new Random();
         int number = rnd.nextInt(999999);

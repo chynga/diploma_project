@@ -21,7 +21,7 @@ public class TestServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Email.sendVerificationCode("chynga2002@mail.ru", "123456", "text");
+//        Email.sendVerificationCode("chynga2002@mail.ru", "123456", "text");
 //        UserService.getInstance().confirmEmail("chynga2002@mail.ru", "");
 //        VerificationConfirmed verificationConfirmed = new VerificationConfirmed(true);
 //        response.getOutputStream().println(GSON.toJson(verificationConfirmed));
@@ -34,6 +34,6 @@ public class TestServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String json = Util.readInputStream(request.getInputStream());
         EmailCode email = GSON.fromJson(json, EmailCode.class);
-        Email.sendVerificationCode(email.getEmail(), "123456", "text");
+//        Email.sendVerificationCode(email.getEmail(), "123456", "text");
     }
 }

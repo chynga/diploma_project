@@ -9,6 +9,7 @@ import com.example.server.util.validaiton.password.InvalidPasswordException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import javax.mail.MessagingException;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -49,6 +50,12 @@ public class ChangePasswordServlet extends HttpServlet {
             response.setStatus(400);
             response.setHeader("Content-Type", "application/json");
             Error error = new Error(e.getMessage() + e.printMessage());
+            response.getOutputStream().println(GSON.toJson(error));
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            response.setStatus(400);
+            response.setHeader("Content-Type", "application/json");
+            Error error = new Error(e.getMessage());
             response.getOutputStream().println(GSON.toJson(error));
         }
     }
