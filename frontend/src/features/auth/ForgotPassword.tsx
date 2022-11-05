@@ -13,7 +13,7 @@ import {
 import { useTranslation } from "react-i18next";
 
 const ForgotPassword = () => {
-    const { user, recoveryCodeSent, passwordRecovered } = useAppSelector(selectAuth);
+    const { user, error, recoveryCodeSent, passwordRecovered } = useAppSelector(selectAuth);
     const navigate = useNavigate();
     const dispatch = useDispatch<any>();
     const [formData, setFormData] = useState({
@@ -26,6 +26,7 @@ const ForgotPassword = () => {
     const { email, code, password } = formData;
 
     useEffect(() => {
+        dispatch(reset())
         if (user) {
             navigate("/");
         }
@@ -67,6 +68,7 @@ const ForgotPassword = () => {
         <div className="auth">
             <Form className="form" onSubmit={recoveryCodeSent ? onSubmit : onSendRecoveryCode}>
                 <h2>Forgot Password</h2>
+                <h6 className="error-message">{error ? error.message : ""}</h6>
                 <FormGroup>
                     <Label for="email">{t('user:email')}</Label>
                     <Input

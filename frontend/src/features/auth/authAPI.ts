@@ -25,9 +25,16 @@ const login = async (userData: UserCredentials) => {
     return response;
 };
 
+// Send code for password reset
+const sendVerificationCode = async (email: string) => {    
+    const response = await axios.post(API_URL + "email/verification", {email});
+
+    return response;
+};
+
 // verify email
 const verify = async (credentials: EmailCodeCredentials) => {
-    const response = await axios.post(API_URL + "email/verify", credentials);
+    const response = await axios.post(API_URL + "email/verification", credentials);
 
     if (response.data) {
         localStorage.setItem("user", JSON.stringify(response.data));
@@ -37,9 +44,7 @@ const verify = async (credentials: EmailCodeCredentials) => {
 };
 
 // Send code for password reset
-const sendRecoveryCode = async (email: string) => {
-    console.log("2");
-    
+const sendRecoveryCode = async (email: string) => {    
     const response = await axios.post(API_URL + "password/recover", {email});
 
     return response;
@@ -62,6 +67,7 @@ const logout = () => {
 const authAPI = {
     register,
     logout,
+    sendVerificationCode,
     verify,
     sendRecoveryCode,
     recoverPassword,

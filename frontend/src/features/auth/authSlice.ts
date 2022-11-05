@@ -40,6 +40,7 @@ export type AuthState = {
     error: AuthError | undefined
     recoveryCodeSent: boolean
     passwordRecovered: boolean
+    verificationCodeSent: boolean
 }
 
 const initialState: AuthState = {
@@ -47,7 +48,8 @@ const initialState: AuthState = {
     isLoading: false,
     error: undefined,
     recoveryCodeSent: false,
-    passwordRecovered: false
+    passwordRecovered: false,
+    verificationCodeSent: false
 };
 
 // Register user
@@ -88,6 +90,25 @@ export const login = createAsyncThunk("auth/login", async (user: UserCredentials
     }
 });
 
+export const sendVerificationCode = createAsyncThunk("auth/email/sendCode", async (email: string, { rejectWithValue }) => {
+    try {
+        const response = await authAPI.sendVerificationCode(email)
+        console.log(response);
+        return 
+    } catch (err) {
+        const error: any = err
+        const { status } = error.response
+        const message =
+            (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+            error.message ||
+            error.toString();
+
+        return rejectWithValue({ status, message })
+    }
+});
+
 // verify email
 export const verify = createAsyncThunk("auth/email/verify", async (credentials: EmailCodeCredentials, { rejectWithValue }) => {
     try {
@@ -108,7 +129,6 @@ export const verify = createAsyncThunk("auth/email/verify", async (credentials: 
     }
 });
 
-// verify email
 export const sendRecoveryCode = createAsyncThunk("auth/password/sendCode", async (email: string, { rejectWithValue }) => {
     try {
         const response = await authAPI.sendRecoveryCode(email)
@@ -160,6 +180,7 @@ export const authSlice = createSlice({
             state.error = undefined
             state.recoveryCodeSent = false
             state.passwordRecovered = false
+            state.verificationCodeSent = false
         },
     },
     extraReducers: (builder) => {
@@ -183,6 +204,17 @@ export const authSlice = createSlice({
                 state.user = action.payload;
             })
             .addCase(login.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload as AuthError;
+            })
+            .addCase(sendVerificationCode.pending, state => {
+                state.isLoading = true;
+            })
+            .addCase(sendVerificationCode.fulfilled, state => {
+                state.isLoading = false;
+                state.verificationCodeSent = true;
+            })
+            .addCase(sendVerificationCode.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload as AuthError;
             })

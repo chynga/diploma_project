@@ -13,7 +13,7 @@ import {
 import { useTranslation } from "react-i18next";
 
 const Register = () => {
-    const { user } = useAppSelector(selectAuth);
+    const { user, error } = useAppSelector(selectAuth);
     const navigate = useNavigate();
     const dispatch = useDispatch<any>();
     const [formData, setFormData] = useState({
@@ -29,9 +29,10 @@ const Register = () => {
     const { t, i18n } = useTranslation(["kz", "ru"]);
 
     useEffect(() => {
+        dispatch(reset())
         if (user) {
 
-            if (!user.emailVerified) {
+            if (user.emailVerified) {
                 navigate("/");
             } 
 
@@ -65,6 +66,7 @@ const Register = () => {
         <div className="auth">
             <Form className="form" onSubmit={onSubmit}>
                 <h2>{t('user:register')}</h2>
+                <h6 className="error-message">{error ? error.message : ""}</h6>
                 <FormGroup>
                     <Label for="firstName">{t('user:firstName')}</Label>
                     <Input

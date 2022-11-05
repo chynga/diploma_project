@@ -7,6 +7,10 @@
     width: 600px;
 }
 
+.error-message {
+    color: red;
+}
+
 .map {
     width: 500px;
     height: 300px;

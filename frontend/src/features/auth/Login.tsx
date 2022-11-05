@@ -13,7 +13,7 @@ import {
 import { useTranslation } from "react-i18next";
 
 const Login = () => {
-    const { user } = useAppSelector(selectAuth);
+    const { user, error } = useAppSelector(selectAuth);
     const navigate = useNavigate();
     const dispatch = useDispatch<any>();
     const [formData, setFormData] = useState({
@@ -25,10 +25,11 @@ const Login = () => {
     const { email, password } = formData;
 
     useEffect(() => {
+        dispatch(reset())
         if (user) {
             navigate("/");
         }
-    });
+    }, [user]);
 
     const onChange = (e: React.FormEvent<HTMLInputElement>) => {
         setFormData(prevState => ({
@@ -53,6 +54,7 @@ const Login = () => {
         <div className="auth">
             <Form className="form" onSubmit={onSubmit}>
                 <h2>{t('user:login')}</h2>
+                <h6 className="error-message">{error ? error.message : ""}</h6>
                 <FormGroup>
                     <Label for="email">{t('user:email')}</Label>
                     <Input
