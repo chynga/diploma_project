@@ -229,8 +229,6 @@ export const authSlice = createSlice({
 });
 
 export const { reset } = authSlice.actions;
-export const selectUser = (state: RootState) => state.auth.user;
-export const selectRecoveryCodeSent = (state: RootState) => state.auth.recoveryCodeSent;
-export const selectPasswordRecovered = (state: RootState) => state.auth.passwordRecovered;
+export const selectAuth = (state: RootState) => state.auth;
 
 export default authSlice.reducer;

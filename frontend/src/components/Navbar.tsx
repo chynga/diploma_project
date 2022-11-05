@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import {
     Button,
 } from 'reactstrap';
-import { logout, reset, selectUser } from "../features/auth/authSlice";
+import { logout, reset, selectAuth } from "../features/auth/authSlice";
 import { useAppSelector } from "../app/hooks";
 import "../localization"
 import { useTranslation } from "react-i18next";
@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next";
 const Navbar = () => {
     const dispatch = useDispatch<any>()
     const navigate = useNavigate()
-    const user = useAppSelector(selectUser);
+    const { user } = useAppSelector(selectAuth);
     const { t, i18n } = useTranslation(["kz", "ru"]);
 
     const onLogoutClick = () => {

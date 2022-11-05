@@ -4,11 +4,11 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import { useAppSelector } from "../../app/hooks";
-import { verify, selectUser, reset } from "../../features/auth/authSlice";
+import { verify, selectAuth, reset } from "../../features/auth/authSlice";
 
 const EmailConfirmation = () => {
 
-    const user = useAppSelector(selectUser);
+    const { user } = useAppSelector(selectAuth);
     const navigate = useNavigate();
     const dispatch = useDispatch<any>();
     const [formData, setFormData] = useState({

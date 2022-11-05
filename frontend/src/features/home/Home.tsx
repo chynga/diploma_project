@@ -1,11 +1,11 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
-import { selectUser } from "../auth/authSlice";
+import { selectAuth } from "../auth/authSlice";
 
 const Home = () => {
     const { t, i18n } = useTranslation(["kz", "ru"]);
-    const user = useAppSelector(selectUser);
+    const { user } = useAppSelector(selectAuth);
 
     return (
         <div>

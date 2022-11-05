@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
-import { login, reset, selectUser, selectRecoveryCodeSent, sendRecoveryCode, recoverPassword, selectPasswordRecovered } from "../../features/auth/authSlice";
+import { login, reset, sendRecoveryCode, recoverPassword, selectAuth } from "../../features/auth/authSlice";
 import {
     Button,
     Form,
@@ -13,9 +13,7 @@ import {
 import { useTranslation } from "react-i18next";
 
 const ForgotPassword = () => {
-    const user = useAppSelector(selectUser);
-    const recoveryCodeSent = useAppSelector(selectRecoveryCodeSent);
-    const passwordRecovered = useAppSelector(selectPasswordRecovered);
+    const { user, recoveryCodeSent, passwordRecovered } = useAppSelector(selectAuth);
     const navigate = useNavigate();
     const dispatch = useDispatch<any>();
     const [formData, setFormData] = useState({

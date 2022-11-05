@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
-import { login, reset, selectUser } from "../../features/auth/authSlice";
+import { login, reset, selectAuth } from "../../features/auth/authSlice";
 import {
     Button,
     Form,
@@ -13,7 +13,7 @@ import {
 import { useTranslation } from "react-i18next";
 
 const Login = () => {
-    const user = useAppSelector(selectUser);
+    const { user } = useAppSelector(selectAuth);
     const navigate = useNavigate();
     const dispatch = useDispatch<any>();
     const [formData, setFormData] = useState({
