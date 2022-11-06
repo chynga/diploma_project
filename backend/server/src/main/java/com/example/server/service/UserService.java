@@ -4,6 +4,8 @@ import com.example.server.dao.UserDAO;
 import com.example.server.model.User;
 import com.example.server.util.Email;
 import com.example.server.util.MailingException;
+import com.example.server.util.validaiton.email.EmailValidator;
+import com.example.server.util.validaiton.email.InvalidEmailException;
 import com.example.server.util.validaiton.name.InvalidNameException;
 import com.example.server.util.validaiton.name.NameValidator;
 import com.example.server.util.validaiton.password.InvalidPasswordException;
@@ -34,7 +36,8 @@ public class UserService {
         return INSTANCE;
     }
 
-    public User registerUser(String firstName, String lastName, String email, String phone, String password) throws SQLException, InvalidPasswordException, InvalidPhoneException, InvalidNameException {
+    public User registerUser(String firstName, String lastName, String email, String phone, String password) throws SQLException, InvalidPasswordException, InvalidPhoneException, InvalidNameException, InvalidEmailException {
+        EmailValidator.isValid(email);
         PasswordValidator.isValid(password);
         PhoneValidator.isValid(phone);
         NameValidator.isValid(firstName);

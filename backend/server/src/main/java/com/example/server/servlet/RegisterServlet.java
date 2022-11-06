@@ -4,6 +4,7 @@ import com.example.server.model.Error;
 import com.example.server.model.User;
 import com.example.server.service.UserService;
 import com.example.server.util.Util;
+import com.example.server.util.validaiton.email.InvalidEmailException;
 import com.example.server.util.validaiton.name.InvalidNameException;
 import com.example.server.util.validaiton.password.InvalidPasswordException;
 import com.example.server.util.validaiton.phone.InvalidPhoneException;
@@ -63,6 +64,11 @@ public class RegisterServlet extends HttpServlet {
 //            e.printStackTrace();
             response.setStatus(400);
             Error error = new Error(e.getMessage() + e.printMessage());
+            response.getOutputStream().println(GSON.toJson(error));
+        } catch (InvalidEmailException e) {
+//            e.printStackTrace();
+            response.setStatus(400);
+            Error error = new Error(e.getMessage());
             response.getOutputStream().println(GSON.toJson(error));
         }
     }

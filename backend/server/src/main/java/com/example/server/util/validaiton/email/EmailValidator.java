@@ -1,94 +1,21 @@
 package com.example.server.util.validaiton.email;
 
-import com.example.server.util.validaiton.password.InvalidPasswordException;
-import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
+import com.example.server.util.validaiton.phone.InvalidPhoneException;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 // Driver Class
 public class EmailValidator {
 
-    private static Pbkdf2PasswordEncoder pbkdf2PasswordEncoder = new Pbkdf2PasswordEncoder();
+    public static void isValid(String email) throws InvalidEmailException {
+        Pattern p = Pattern.compile(
+                "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])");
 
-    // A utility function to check
-    // whether a password is valid or not
-    public static void isValid(String password)
-            throws InvalidPasswordException {
+        Matcher m = p.matcher(email);
 
-        // for checking if password length
-        // is between 8 and 15
-        if (!((password.length() >= 8)
-                && (password.length() <= 15))) {
-            throw new InvalidPasswordException(1);
-        }
-
-        // to check space
-        if (password.contains(" ")) {
-            throw new InvalidPasswordException(2);
-        }
-        if (true) {
-            int count = 0;
-
-            // check digits from 0 to 9
-            for (int i = 0; i <= 9; i++) {
-
-                // to convert int to string
-                String str1 = Integer.toString(i);
-
-                if (password.contains(str1)) {
-                    count = 1;
-                }
-            }
-            if (count == 0) {
-                throw new InvalidPasswordException(3);
-            }
-        }
-
-        if (true) {
-            int count = 0;
-
-            // checking capital letters
-            for (int i = 65; i <= 90; i++) {
-
-                // type casting
-                char c = (char) i;
-
-                String str1 = Character.toString(c);
-                if (password.contains(str1)) {
-                    count = 1;
-                }
-            }
-            if (count == 0) {
-                throw new InvalidPasswordException(4);
-            }
-        }
-
-        if (true) {
-            int count = 0;
-
-            // checking small letters
-            for (int i = 90; i <= 122; i++) {
-
-                // type casting
-                char c = (char) i;
-                String str1 = Character.toString(c);
-
-                if (password.contains(str1)) {
-                    count = 1;
-                }
-            }
-            if (count == 0) {
-                throw new InvalidPasswordException(5);
-            }
-        }
-
-        // The password is valid
-    }
-
-    public static void isValid(String password, String savedPassword)
-            throws InvalidPasswordException {
-
-        boolean passwordIsValid = pbkdf2PasswordEncoder.matches(password, savedPassword);
-        if (!passwordIsValid) {
-            throw new InvalidPasswordException(6);
+        if (!m.matches()) {
+            throw new InvalidEmailException("Email is not valid");
         }
     }
 }
