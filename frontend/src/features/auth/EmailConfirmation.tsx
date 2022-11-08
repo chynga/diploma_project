@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import { useAppSelector } from "../../app/hooks";
+import ValidatedInput from "../../components/Input";
 import { verify, selectAuth, reset, sendVerificationCode } from "../../features/auth/authSlice";
 
 const EmailConfirmation = () => {
@@ -11,13 +12,13 @@ const EmailConfirmation = () => {
     const { user, error, verificationCodeSent } = useAppSelector(selectAuth);
     const navigate = useNavigate();
     const dispatch = useDispatch<any>();
-    const [formData, setFormData] = useState({
-        email: "",
-        code: "",
+    const [input, setInput] = useState({
+        code: ""
     });
+
     const { t, i18n } = useTranslation(["kz", "ru"]);
 
-    const { code } = formData;
+    const { code } = input;
 
     useEffect(() => {
         dispatch(reset())
@@ -26,16 +27,16 @@ const EmailConfirmation = () => {
         }
         
         if (user?.emailVerified) {
-            // dispatch(reset())
             navigate("/");
         }
         
     }, [user]);
 
     const onChange = (e: React.FormEvent<HTMLInputElement>) => {
-        setFormData(prevState => ({
+        let value = (e.target as HTMLTextAreaElement).value
+        setInput(prevState => ({
             ...prevState,
-            [(e.target as HTMLTextAreaElement).name]: (e.target as HTMLTextAreaElement).value,
+            [(e.target as HTMLTextAreaElement).name]: value,
         }));
     };
 
@@ -53,8 +54,6 @@ const EmailConfirmation = () => {
             code,
         };
         
-        // console.log(userData)
-        // dispatch(login(userData));
         dispatch(verify(verificationData))
     };
 
@@ -79,13 +78,22 @@ const EmailConfirmation = () => {
                         <>
                             <FormGroup>
                                 <Label for="code">Code</Label>
-                                <Input
+                                <ValidatedInput 
+                                    type="text"
+                                    id="code"
+                                    name="code"
+                                    onChange={onChange}
+                                    regex={/^[0-9]{6}$/}
+                                    validationMessage="Enter 6 numbers"
+                                    code={code}
+                                    required />
+                                {/* <Input
                                     type="text"
                                     id="code"
                                     name="code"
                                     value={code}
                                     onChange={onChange}
-                                    required />
+                                    required /> */}
                             </FormGroup>
                             <Button>Verify Email</Button>
                         </> :
