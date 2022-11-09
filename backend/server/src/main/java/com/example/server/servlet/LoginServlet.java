@@ -36,19 +36,19 @@ public class LoginServlet extends HttpServlet {
 
             response.setStatus(201);
             response.setHeader("Content-Type", "application/json");
-            response.getOutputStream().println(GSON.toJson(user));
+            response.getWriter().println(GSON.toJson(user));
         } catch (SQLException e) {
             e.printStackTrace();
             response.setStatus(400);
             response.setHeader("Content-Type", "application/json");
             Error error = new Error("Login servlet, sql exception: " + e.getMessage());
-            response.getOutputStream().println(GSON.toJson(error));
+            response.getWriter().println(GSON.toJson(error));
         } catch (InvalidPasswordException e) {
 //            e.printStackTrace();
             response.setStatus(400);
             response.setHeader("Content-Type", "application/json");
             Error error = new Error(e.getMessage() + e.printMessage());
-            response.getOutputStream().println(GSON.toJson(error));
+            response.getWriter().println(GSON.toJson(error));
         }
     }
 }

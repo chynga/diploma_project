@@ -35,7 +35,7 @@ public class ConfirmEmailServlet extends HttpServlet {
                 User user = UserService.getInstance().confirmEmail(verificationCode.getEmail(), verificationCode.getCode());
                 response.setStatus(201);
                 response.setHeader("Content-Type", "application/json");
-                response.getOutputStream().println(GSON.toJson(user));
+                response.getWriter().println(GSON.toJson(user));
             } else {
                 UserService.getInstance().sendVerificationCode(verificationCode.getEmail());
             }
@@ -43,19 +43,19 @@ public class ConfirmEmailServlet extends HttpServlet {
             e.printStackTrace();
             response.setStatus(400);
             Error error = new Error("Confirmation servlet, sql exception: " + e.getMessage());
-            response.getOutputStream().println(GSON.toJson(error));
+            response.getWriter().println(GSON.toJson(error));
         } catch (MailingException e) {
             e.printStackTrace();
             response.setStatus(400);
             response.setHeader("Content-Type", "application/json");
             Error error = new Error(e.getMessage());
-            response.getOutputStream().println(GSON.toJson(error));
+            response.getWriter().println(GSON.toJson(error));
         } catch (MessagingException e) {
             e.printStackTrace();
             response.setStatus(400);
             response.setHeader("Content-Type", "application/json");
             Error error = new Error(e.getMessage());
-            response.getOutputStream().println(GSON.toJson(error));
+            response.getWriter().println(GSON.toJson(error));
         }
     }
 }

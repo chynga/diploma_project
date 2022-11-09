@@ -24,7 +24,7 @@ public class TestServlet extends HttpServlet {
 //        Email.sendVerificationCode("chynga2002@mail.ru", "123456", "text");
 //        UserService.getInstance().confirmEmail("chynga2002@mail.ru", "");
 //        VerificationConfirmed verificationConfirmed = new VerificationConfirmed(true);
-//        response.getOutputStream().println(GSON.toJson(verificationConfirmed));
+//        response.getWriter().println(GSON.toJson(verificationConfirmed));
 
     }
 

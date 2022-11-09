@@ -35,17 +35,15 @@ public class NameValidator {
             }
         }
 
-        if (true) {
-            Pattern p2 = Pattern.compile(
-                    "^[_A-z0-9]*((-|\\s)*[_A-z0-9])*$");
-
-            Matcher m2 = p2.matcher(name);
-            if (!m2.matches()) {
-                System.out.println("symbol:");
-                System.out.println(name);
-                throw new InvalidNameException(4);
-            }
-        }
+//        if (true) {
+//            Pattern p2 = Pattern.compile(
+//                    "^[_A-z0-9]*((-|\\s)*[_A-z0-9])*$");
+//
+//            Matcher m2 = p2.matcher(name);
+//            if (!m2.matches()) {
+//                throw new InvalidNameException(4);
+//            }
+//        }
         // The password is valid
     }
 }

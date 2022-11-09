@@ -44,19 +44,19 @@ public class ChangePasswordServlet extends HttpServlet {
             response.setStatus(400);
             response.setHeader("Content-Type", "application/json");
             Error error = new Error(e.getMessage());
-            response.getOutputStream().println(GSON.toJson(error));
+            response.getWriter().println(GSON.toJson(error));
         } catch (InvalidPasswordException e) {
             e.printStackTrace();
             response.setStatus(400);
             response.setHeader("Content-Type", "application/json");
             Error error = new Error(e.getMessage() + e.printMessage());
-            response.getOutputStream().println(GSON.toJson(error));
+            response.getWriter().println(GSON.toJson(error));
         } catch (MessagingException e) {
             e.printStackTrace();
             response.setStatus(400);
             response.setHeader("Content-Type", "application/json");
             Error error = new Error(e.getMessage());
-            response.getOutputStream().println(GSON.toJson(error));
+            response.getWriter().println(GSON.toJson(error));
         }
     }
 }
