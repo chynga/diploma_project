@@ -34,6 +34,7 @@ public class ConfirmEmailServlet extends HttpServlet {
             if (verificationCode.getCode() != null) {
                 User user = UserService.getInstance().confirmEmail(verificationCode.getEmail(), verificationCode.getCode());
                 response.setStatus(201);
+                response.setCharacterEncoding("UTF-8");
                 response.setHeader("Content-Type", "application/json");
                 response.getWriter().println(GSON.toJson(user));
             } else {

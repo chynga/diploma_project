@@ -42,6 +42,7 @@ public class RegisterServlet extends HttpServlet {
             user.setToken(token);
 
             response.setStatus(201);
+            response.setCharacterEncoding("UTF-8");
             response.setHeader("Content-Type", "application/json");
             response.getWriter().println(GSON.toJson(user));
         } catch (SQLException e) {
