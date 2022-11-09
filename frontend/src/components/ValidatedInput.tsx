@@ -1,25 +1,28 @@
 import { useEffect, useState } from "react";
-import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import { Input } from "reactstrap";
 
-type InputParams = {
-    regex: RegExp,
-}
+// type InputParams = {
+//     regex: RegExp,
+//     validationMessage: string,
+//     value: string,
+//     // rest: any
+// }
 
-const ValidatedInput = ({ regex, validationMessage, code, ...rest }: any) => {
+const ValidatedInput = ({ regex, validationMessage, value, ...rest }: any) => {
 
     const [errorMessage, setErrorMessage] = useState("");
 
     useEffect(() => {
-        if (code.match(regex)) {
+        if (value.match(regex)) {
             setErrorMessage("");
             return
         }
         setErrorMessage(validationMessage)
-    }, [code])
+    }, [value])
 
     return (
         <>
-            <Input {...rest} value={code} />
+            <Input {...rest} value={value} />
             <p className="error-message">{errorMessage}</p>
         </>
     );

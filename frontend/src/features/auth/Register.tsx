@@ -11,6 +11,7 @@ import {
     Label
 } from 'reactstrap';
 import { useTranslation } from "react-i18next";
+import ValidatedInput from "../../components/ValidatedInput";
 
 const Register = () => {
     const { user, error } = useAppSelector(selectAuth);
@@ -26,6 +27,10 @@ const Register = () => {
     });
     const { firstName, lastName, email, phone, password } = formData;
 
+    const nameRegex = /[^\s0-9]{3,15}/;
+    const emailRegex = /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
+    const phoneRegex = /^(\+\d{1,3}( )?)?((\(\d{1,3}\))|\d{1,3})[- .]?\d{3,4}[- .]?\d{4}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,15}$/;
     const { t, i18n } = useTranslation(["kz", "ru"]);
 
     useEffect(() => {
@@ -69,58 +74,63 @@ const Register = () => {
                 <h6 className="error-message">{error ? error.message : ""}</h6>
                 <FormGroup>
                     <Label for="firstName">{t('user:firstName')}</Label>
-                    <Input
+                    <ValidatedInput 
                         type="text"
                         id="firstName"
                         name="firstName"
                         value={firstName}
                         onChange={onChange}
-                        required
-                    />
+                        regex={nameRegex}
+                        validationMessage="Enter valid name"
+                        required />
                 </FormGroup>
                 <FormGroup>
                     <Label for="lastName">{t('user:lastName')}</Label>
-                    <Input
+                    <ValidatedInput 
                         type="text"
                         id="lastName"
                         name="lastName"
                         value={lastName}
                         onChange={onChange}
-                        required
-                    />
+                        regex={nameRegex}
+                        validationMessage="Enter valid name"
+                        required />
                 </FormGroup>
                 <FormGroup>
                     <Label for="email">{t('user:email')}</Label>
-                    <Input
+                    <ValidatedInput 
                         type="email"
                         id="email"
                         name="email"
                         value={email}
                         onChange={onChange}
-                        required
-                    />
+                        regex={emailRegex}
+                        validationMessage="Enter valid email"
+                        required />
                 </FormGroup>
                 <FormGroup>
                     <Label for="phone">{t('user:phone')}</Label>
-                    <Input
+                    <ValidatedInput 
                         type="text"
                         id="phone"
                         name="phone"
                         value={phone}
                         onChange={onChange}
-                        required
-                    />
+                        regex={phoneRegex}
+                        validationMessage="Enter phone number"
+                        required />
                 </FormGroup>
                 <FormGroup>
                     <Label for="password">{t('user:password')}</Label>
-                    <Input
+                    <ValidatedInput 
                         type="password"
                         id="password"
                         name="password"
                         value={password}
                         onChange={onChange}
-                        required
-                    />
+                        regex={passwordRegex}
+                        validationMessage="1 UPPERCASE letter, 1 lowercase letter, 1 number"
+                        required />
                 </FormGroup>
                 <Button>{t('user:register')}</Button>
                 <div>

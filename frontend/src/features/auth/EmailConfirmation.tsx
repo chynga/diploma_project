@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import { useAppSelector } from "../../app/hooks";
-import ValidatedInput from "../../components/Input";
+import ValidatedInput from "../../components/ValidatedInput";
 import { verify, selectAuth, reset, sendVerificationCode } from "../../features/auth/authSlice";
 
 const EmailConfirmation = () => {
@@ -16,6 +16,7 @@ const EmailConfirmation = () => {
         code: ""
     });
 
+    const codeRegex = /^[0-9]{6}$/;
     const { t, i18n } = useTranslation(["kz", "ru"]);
 
     const { code } = input;
@@ -82,18 +83,11 @@ const EmailConfirmation = () => {
                                     type="text"
                                     id="code"
                                     name="code"
-                                    onChange={onChange}
-                                    regex={/^[0-9]{6}$/}
-                                    validationMessage="Enter 6 numbers"
-                                    code={code}
-                                    required />
-                                {/* <Input
-                                    type="text"
-                                    id="code"
-                                    name="code"
                                     value={code}
                                     onChange={onChange}
-                                    required /> */}
+                                    regex={codeRegex}
+                                    validationMessage="Enter 6 numbers"
+                                    required />
                             </FormGroup>
                             <Button>Verify Email</Button>
                         </> :
