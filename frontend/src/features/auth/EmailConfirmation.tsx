@@ -4,12 +4,13 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import { useAppSelector } from "../../app/hooks";
+import LoadingButton from "../../components/LoadingButton";
 import ValidatedInput from "../../components/ValidatedInput";
 import { verify, selectAuth, reset, sendVerificationCode } from "../../features/auth/authSlice";
 
 const EmailConfirmation = () => {
 
-    const { user, error, verificationCodeSent } = useAppSelector(selectAuth);
+    const { user, error, isLoading, verificationCodeSent } = useAppSelector(selectAuth);
     const navigate = useNavigate();
     const dispatch = useDispatch<any>();
     const [input, setInput] = useState({
@@ -89,10 +90,10 @@ const EmailConfirmation = () => {
                                     validationMessage="Enter 6 numbers"
                                     required />
                             </FormGroup>
-                            <Button>Verify Email</Button>
+                            <LoadingButton isLoading={isLoading}>Verify Email</LoadingButton>
                         </> :
                         <>
-                            <Button>Send Code</Button>
+                            <LoadingButton isLoading={isLoading}>Send Code</LoadingButton>
                         </>
                 }
                 <div>

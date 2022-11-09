@@ -12,9 +12,10 @@ import {
 } from 'reactstrap';
 import { useTranslation } from "react-i18next";
 import ValidatedInput from "../../components/ValidatedInput";
+import LoadingButton from "../../components/LoadingButton";
 
 const ForgotPassword = () => {
-    const { user, error, recoveryCodeSent, passwordRecovered } = useAppSelector(selectAuth);
+    const { user, error, isLoading, recoveryCodeSent, passwordRecovered } = useAppSelector(selectAuth);
     const navigate = useNavigate();
     const dispatch = useDispatch<any>();
     const [formData, setFormData] = useState({
@@ -109,7 +110,7 @@ const ForgotPassword = () => {
                                     validationMessage="Enter 6 numbers"
                                     required />
                             </FormGroup>
-                            <Button>Reset password</Button>
+                            <LoadingButton isLoading={isLoading}>Reset password</LoadingButton>
                         </> :
                         <>
                             <ValidatedInput 
@@ -121,7 +122,7 @@ const ForgotPassword = () => {
                                 regex={emailRegex}
                                 validationMessage="Enter valid email"
                                 required />
-                            <Button>Send Code</Button>
+                            <LoadingButton isLoading={isLoading}>Send Code</LoadingButton>
                         </>
                 }
                 <div>

@@ -12,9 +12,10 @@ import {
 } from 'reactstrap';
 import { useTranslation } from "react-i18next";
 import ValidatedInput from "../../components/ValidatedInput";
+import LoadingButton from "../../components/LoadingButton";
 
 const Login = () => {
-    const { user, error } = useAppSelector(selectAuth);
+    const { user, error, isLoading } = useAppSelector(selectAuth);
     const navigate = useNavigate();
     const dispatch = useDispatch<any>();
     const [formData, setFormData] = useState({
@@ -82,7 +83,7 @@ const Login = () => {
                         validationMessage="1 UPPERCASE letter, 1 lowercase letter, 1 number"
                         required />
                 </FormGroup>
-                <Button>{t('user:login')}</Button>
+                <LoadingButton isLoading={isLoading}>{t('user:login')}</LoadingButton>
                 <div>
                     <Link to="/register">{t('user:register')}</Link><br />
                     <Link to="/recover">Forgot Password</Link><br />
