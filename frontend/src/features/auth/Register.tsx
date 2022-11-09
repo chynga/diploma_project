@@ -18,15 +18,26 @@ const Register = () => {
     const { user, error, isLoading } = useAppSelector(selectAuth);
     const navigate = useNavigate();
     const dispatch = useDispatch<any>();
-    const [formData, setFormData] = useState({
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        password: "",
-        password2: "",
+    const [firstName, setFirstName] = useState({
+        value: "",
+        isValid: false
     });
-    const { firstName, lastName, email, phone, password } = formData;
+    const [lastName, setLastName] = useState({
+        value: "",
+        isValid: false
+    });
+    const [email, setEmail] = useState({
+        value: "",
+        isValid: false
+    });
+    const [phone, setPhone] = useState({
+        value: "",
+        isValid: false
+    });
+    const [password, setPassword] = useState({
+        value: "",
+        isValid: false
+    });
 
     const nameRegex = /[^\s0-9]{3,15}/;
     const emailRegex = /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
@@ -47,10 +58,11 @@ const Register = () => {
 
     }, [user]);
 
-    const onChange = (e: React.FormEvent<HTMLInputElement>) => {
-        setFormData(prevState => ({
+    const onChange = (e: React.FormEvent<HTMLInputElement>, setValue: any) => {
+        let value = (e.target as HTMLTextAreaElement).value
+        setValue((prevState: any) => ({
             ...prevState,
-            [(e.target as HTMLTextAreaElement).name]: (e.target as HTMLTextAreaElement).value,
+            value,
         }));
     };
 
@@ -58,11 +70,11 @@ const Register = () => {
         e.preventDefault();
 
         const userData = {
-            firstName,
-            lastName,
-            email,
-            phone,
-            password,
+            firstName: firstName.value,
+            lastName: lastName.value,
+            email: email.value,
+            phone: phone.value,
+            password: password.value,
         };
         
         dispatch(register(userData));
@@ -79,8 +91,9 @@ const Register = () => {
                         type="text"
                         id="firstName"
                         name="firstName"
-                        value={firstName}
-                        onChange={onChange}
+                        field={firstName}
+                        setField={setFirstName}
+                        onChange={(event: any) => onChange(event, setFirstName)}
                         regex={nameRegex}
                         validationMessage="Enter valid name"
                         required />
@@ -91,8 +104,9 @@ const Register = () => {
                         type="text"
                         id="lastName"
                         name="lastName"
-                        value={lastName}
-                        onChange={onChange}
+                        field={lastName}
+                        setField={setLastName}
+                        onChange={(event: any) => onChange(event, setLastName)}
                         regex={nameRegex}
                         validationMessage="Enter valid name"
                         required />
@@ -103,8 +117,9 @@ const Register = () => {
                         type="email"
                         id="email"
                         name="email"
-                        value={email}
-                        onChange={onChange}
+                        field={email}
+                        setField={setEmail}
+                        onChange={(event: any) => onChange(event, setEmail)}
                         regex={emailRegex}
                         validationMessage="Enter valid email"
                         required />
@@ -115,8 +130,9 @@ const Register = () => {
                         type="text"
                         id="phone"
                         name="phone"
-                        value={phone}
-                        onChange={onChange}
+                        field={phone}
+                        setField={setPhone}
+                        onChange={(event: any) => onChange(event, setPhone)}
                         regex={phoneRegex}
                         validationMessage="Enter phone number"
                         required />
@@ -127,13 +143,24 @@ const Register = () => {
                         type="password"
                         id="password"
                         name="password"
-                        value={password}
-                        onChange={onChange}
+                        field={password}
+                        setField={setPassword}
+                        onChange={(event: any) => onChange(event, setPassword)}
                         regex={passwordRegex}
                         validationMessage="1 UPPERCASE letter, 1 lowercase letter, 1 number"
                         required />
                 </FormGroup>
-                <LoadingButton isLoading={isLoading}>{t('user:register')}</LoadingButton>
+                <LoadingButton 
+                    isLoading={isLoading} 
+                    isDisabled={
+                        !(firstName.isValid &&
+                        lastName.isValid &&
+                        email.isValid &&
+                        phone.isValid &&
+                        password.isValid)
+                        }>
+                    {t('user:register')}
+                </LoadingButton>
                 <div>
                     <Link to="/login">{t('user:login')}</Link><br />
                     <Link to="/">{t('home:title')}</Link>

@@ -8,21 +8,23 @@ import { Input } from "reactstrap";
 //     // rest: any
 // }
 
-const ValidatedInput = ({ regex, validationMessage, value, ...rest }: any) => {
+const ValidatedInput = ({ regex, validationMessage, field, setField, ...rest }: any) => {
 
     const [errorMessage, setErrorMessage] = useState("");
 
     useEffect(() => {
-        if (value.match(regex)) {
+        if (field.value.match(regex)) {
             setErrorMessage("");
+            setField({value: field.value, isValid: true})
             return
         }
         setErrorMessage(validationMessage)
-    }, [value])
+        setField({value: field.value, isValid: false})
+    }, [field.value])
 
     return (
         <>
-            <Input {...rest} value={value} />
+            <Input {...rest} value={field.value} />
             <p className="error-message">{errorMessage}</p>
         </>
     );

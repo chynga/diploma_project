@@ -13,14 +13,13 @@ const EmailConfirmation = () => {
     const { user, error, isLoading, verificationCodeSent } = useAppSelector(selectAuth);
     const navigate = useNavigate();
     const dispatch = useDispatch<any>();
-    const [input, setInput] = useState({
-        code: ""
+    const [code, setCode] = useState({
+        value: "",
+        isValid: false
     });
 
     const codeRegex = /^[0-9]{6}$/;
     const { t, i18n } = useTranslation(["kz", "ru"]);
-
-    const { code } = input;
 
     useEffect(() => {
         dispatch(reset())
@@ -34,11 +33,11 @@ const EmailConfirmation = () => {
         
     }, [user]);
 
-    const onChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const onChange = (e: React.FormEvent<HTMLInputElement>, setValue: any) => {
         let value = (e.target as HTMLTextAreaElement).value
-        setInput(prevState => ({
+        setValue((prevState: any) => ({
             ...prevState,
-            [(e.target as HTMLTextAreaElement).name]: value,
+            value,
         }));
     };
 
@@ -53,7 +52,7 @@ const EmailConfirmation = () => {
 
         const verificationData = {
             email: user!.email,
-            code,
+            code: code.value,
         };
         
         dispatch(verify(verificationData))
@@ -69,7 +68,7 @@ const EmailConfirmation = () => {
                     <Input
                         type="email"
                         id="email"
-                        name="email"
+                        name="value"
                         value={user!.email}
                         required
                         disabled
@@ -84,13 +83,14 @@ const EmailConfirmation = () => {
                                     type="text"
                                     id="code"
                                     name="code"
-                                    value={code}
-                                    onChange={onChange}
+                                    field={code}
+                                    setField={setCode}
+                                    onChange={(event: any) => onChange(event, setCode)}
                                     regex={codeRegex}
                                     validationMessage="Enter 6 numbers"
                                     required />
                             </FormGroup>
-                            <LoadingButton isLoading={isLoading}>Verify Email</LoadingButton>
+                            <LoadingButton isLoading={isLoading} isDisabled={!code.isValid}>Verify Email</LoadingButton>
                         </> :
                         <>
                             <LoadingButton isLoading={isLoading}>Send Code</LoadingButton>

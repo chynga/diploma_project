@@ -18,15 +18,19 @@ const Login = () => {
     const { user, error, isLoading } = useAppSelector(selectAuth);
     const navigate = useNavigate();
     const dispatch = useDispatch<any>();
-    const [formData, setFormData] = useState({
-        email: "",
-        password: "",
+
+    const [email, setEmail] = useState({
+        value: "",
+        isValid: false
     });
+    const [password, setPassword] = useState({
+        value: "",
+        isValid: false
+    });
+
     const emailRegex = /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,15}$/;
     const { t, i18n } = useTranslation(["kz", "ru"]);
-
-    const { email, password } = formData;
 
     useEffect(() => {
         dispatch(reset())
@@ -35,10 +39,11 @@ const Login = () => {
         }
     }, [user]);
 
-    const onChange = (e: React.FormEvent<HTMLInputElement>) => {
-        setFormData(prevState => ({
+    const onChange = (e: React.FormEvent<HTMLInputElement>, setValue: any) => {
+        let value = (e.target as HTMLTextAreaElement).value
+        setValue((prevState: any) => ({
             ...prevState,
-            [(e.target as HTMLTextAreaElement).name]: (e.target as HTMLTextAreaElement).value,
+            value,
         }));
     };
 
@@ -46,8 +51,8 @@ const Login = () => {
         e.preventDefault();
 
         const userData = {
-            email,
-            password,
+            email: email.value,
+            password: password.value,
         };
         
         console.log(userData)
@@ -65,8 +70,9 @@ const Login = () => {
                         type="email"
                         id="email"
                         name="email"
-                        value={email}
-                        onChange={onChange}
+                        field={email}
+                        setField={setEmail}
+                        onChange={(event: any) => onChange(event, setEmail)}
                         regex={emailRegex}
                         validationMessage="Enter valid email"
                         required />
@@ -77,13 +83,21 @@ const Login = () => {
                         type="password"
                         id="password"
                         name="password"
-                        value={password}
-                        onChange={onChange}
+                        field={password}
+                        setField={setPassword}
+                        onChange={(event: any) => onChange(event, setPassword)}
                         regex={passwordRegex}
                         validationMessage="1 UPPERCASE letter, 1 lowercase letter, 1 number"
                         required />
                 </FormGroup>
-                <LoadingButton isLoading={isLoading}>{t('user:login')}</LoadingButton>
+                <LoadingButton 
+                    isLoading={isLoading}
+                    isDisabled={
+                        !(email.isValid &&
+                        password.isValid)
+                        }>
+                    {t('user:login')}
+                </LoadingButton>
                 <div>
                     <Link to="/register">{t('user:register')}</Link><br />
                     <Link to="/recover">Forgot Password</Link><br />
