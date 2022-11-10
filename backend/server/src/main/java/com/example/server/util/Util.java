@@ -2,6 +2,8 @@ package com.example.server.util;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.auth0.jwt.interfaces.JWTVerifier;
 import com.example.server.model.User;
 
 import java.io.BufferedReader;
@@ -26,5 +28,13 @@ public class Util {
                 .withClaim("role", user.getRole())
                 .withExpiresAt(new Date(new Date().getTime() + (1000 * 60 * 60 * 24)))
                 .sign(algorithm);
+    }
+
+    public static DecodedJWT decodeToken(String token) {
+        JWTVerifier verifier = JWT.require(algorithm)
+                .withIssuer("auth0")
+                .build();
+
+        return verifier.verify(token);
     }
 }

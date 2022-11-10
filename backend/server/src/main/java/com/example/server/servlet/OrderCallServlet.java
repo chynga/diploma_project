@@ -1,10 +1,13 @@
 package com.example.server.servlet;
 
+import com.auth0.jwt.interfaces.Claim;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.server.model.Error;
 import com.example.server.model.OrderedCall;
 import com.example.server.model.User;
 import com.example.server.service.OrderedCallService;
 import com.example.server.service.UserService;
+import com.example.server.util.AuthorizationException;
 import com.example.server.util.Util;
 import com.example.server.util.validaiton.phone.InvalidPhoneException;
 import com.google.gson.Gson;
@@ -26,6 +29,17 @@ public class OrderCallServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+            String authTokenHeader = request.getHeader("Authorization");
+            if (authTokenHeader == null) {
+                throw new AuthorizationException("not authorized");
+            }
+            String token = authTokenHeader.split("\\s+")[1];
+            DecodedJWT decodedJWT = Util.decodeToken(token);
+            Claim role = decodedJWT.getClaim("role");
+            if (!role.asString().equals("admin")) {
+                throw new AuthorizationException("not admin");
+            }
+
             ArrayList<OrderedCall> orderedCalls = OrderedCallService.getInstance().getOrderedCalls();
 
             response.setStatus(201);
@@ -37,6 +51,12 @@ public class OrderCallServlet extends HttpServlet {
             response.setStatus(400);
             response.setHeader("Content-Type", "application/json");
             Error error = new Error("OrderCallServlet servlet, sql exception: " + e.getMessage());
+            response.getWriter().println(GSON.toJson(error));
+        } catch (AuthorizationException e) {
+            e.printStackTrace();
+            response.setStatus(400);
+            response.setHeader("Content-Type", "application/json");
+            Error error = new Error(e.getMessage());
             response.getWriter().println(GSON.toJson(error));
         }
     }
