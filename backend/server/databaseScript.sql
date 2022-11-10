@@ -15,4 +15,11 @@ CREATE TABLE IF NOT EXISTS users (
     role user_role DEFAULT 'client'
 );
 
-SELECT * FROM users
+CREATE TABLE IF NOT EXISTS orderedCalls (
+     id SERIAL PRIMARY KEY,
+     name VARCHAR(30) NOT NULL,
+     phone VARCHAR(15) NOT NULL
+);
+
+SELECT * FROM users;
+SELECT * FROM orderedCalls
