@@ -25,7 +25,7 @@ public class UserDAO {
         return INSTANCE;
     }
 
-    public void registerAndSetDefaults(User user) throws SQLException {
+    public void register(User user) throws SQLException {
         String sql = "INSERT INTO users (firstname, lastname, email, phone, password)" +
                 "VALUES (?, ?, ?, ?, ?)";
 
@@ -52,6 +52,48 @@ public class UserDAO {
         }
     }
 
+    public void updateUserInfo(User user) throws SQLException {
+        String sql = "UPDATE users " +
+                     "SET firstname = (?), lastname = (?), phone = (?) " +
+                     "WHERE id = (?)";
+
+        PreparedStatement preparedStmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        preparedStmt.setString(1, user.getFirstName());
+        preparedStmt.setString(2, user.getLastName());
+        preparedStmt.setString(3, user.getPhone());
+        preparedStmt.setInt(4, user.getId());
+        int affectedRows = preparedStmt.executeUpdate();
+        if (affectedRows == 0) {
+            throw new SQLException("Updating user failed, no rows affected.");
+        }
+
+        ResultSet generatedKeys = preparedStmt.getGeneratedKeys();
+
+        if (generatedKeys.next()) {
+            user.setId(generatedKeys.getInt("id"));
+            user.setFirstName(generatedKeys.getString("firstname"));
+            user.setLastName(generatedKeys.getString("lastname"));
+            user.setPhone(generatedKeys.getString("phone"));
+        }
+        else {
+            throw new SQLException("Updating user failed, no ID obtained.");
+        }
+    }
+
+    public void updatePassword(User user) throws SQLException {
+        String sql = "UPDATE users " +
+                "SET password = (?) " +
+                "WHERE id = (?)";
+
+        PreparedStatement preparedStmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        preparedStmt.setString(1, user.getPassword());
+        preparedStmt.setInt(2, user.getId());
+        int affectedRows = preparedStmt.executeUpdate();
+        if (affectedRows == 0) {
+            throw new SQLException("Updating user failed, no rows affected.");
+        }
+    }
+
     public User getUserByEmail(String email) throws SQLException {
         String sql = "SELECT * FROM users WHERE email = (?)";
         PreparedStatement preparedStmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -71,14 +113,26 @@ public class UserDAO {
         }
     }
 
+
+    public String getPasswordById(int id) throws SQLException {
+        String sql = "SELECT password FROM users WHERE id = (?)";
+        PreparedStatement preparedStmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        preparedStmt.setInt(1, id);
+        ResultSet rs = preparedStmt.executeQuery();
+        if (rs.next()) {
+            return rs.getString("password");
+        } else {
+            throw new SQLException("Could not find user with specified id.");
+        }
+    }
+
     public String getVerificationCodeByEmail(String email) throws SQLException {
         String sql = "SELECT verificationCode FROM users WHERE email = (?)";
         PreparedStatement preparedStmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         preparedStmt.setString(1, email);
         ResultSet rs = preparedStmt.executeQuery();
         if (rs.next()) {
-            String code = rs.getString("verificationCode");
-            return code;
+            return rs.getString("verificationCode");
         } else {
             throw new SQLException("Could not find user with specified email.");
         }

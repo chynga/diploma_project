@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 @WebServlet(name = "ChangePasswordServlet", value = "/api/auth/password/recover")
-public class ChangePasswordServlet extends HttpServlet {
+public class ResetPasswordServlet extends HttpServlet {
 
     private static final Gson GSON = new GsonBuilder().create();
 

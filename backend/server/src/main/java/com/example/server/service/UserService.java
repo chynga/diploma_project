@@ -46,11 +46,37 @@ public class UserService {
 
         String pbkdf2CryptedPassword = pbkdf2PasswordEncoder.encode(password);
         user.setPassword(pbkdf2CryptedPassword);
-        UserDAO.getInstance().registerAndSetDefaults(user);
+        UserDAO.getInstance().register(user);
         user.removePassword();
 
-
         return user;
+    }
+
+    public User loginUser(String email, String password) throws SQLException, InvalidPasswordException {
+        User user = UserDAO.getInstance().getUserByEmail(email);
+
+        PasswordValidator.isValid(password, user.getPassword());
+        user.removePassword();
+        return user;
+    }
+
+    public void updateUserInfo(User user) throws InvalidNameException, InvalidPhoneException, SQLException {
+        NameValidator.isValid(user.getFirstName());
+        NameValidator.isValid(user.getLastName());
+        PhoneValidator.isValid(user.getPhone());
+
+        UserDAO.getInstance().updateUserInfo(user);
+    }
+
+    public void updatePassword(User user) throws InvalidPasswordException, SQLException {
+        String savedPassword = UserDAO.getInstance().getPasswordById(user.getId());
+        PasswordValidator.isValid(user.getOldPassword(), savedPassword);
+        PasswordValidator.isValid(user.getPassword());
+
+        String pbkdf2CryptedPassword = pbkdf2PasswordEncoder.encode(user.getPassword());
+        user.setPassword(pbkdf2CryptedPassword);
+
+        UserDAO.getInstance().updatePassword(user);
     }
 
     public void sendVerificationCode(String email) throws SQLException, MessagingException {
@@ -105,14 +131,6 @@ public class UserService {
         }
 
         throw new MailingException("invalid verification code");
-    }
-
-    public User loginUser(String email, String password) throws SQLException, InvalidPasswordException {
-        User user = UserDAO.getInstance().getUserByEmail(email);
-
-        PasswordValidator.isValid(password, user.getPassword());
-        user.removePassword();
-        return user;
     }
 }
 

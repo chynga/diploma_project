@@ -6,6 +6,7 @@ public class User {
     private String lastName;
     private String email;
     private String phone;
+    private String oldPassword;
     private String password;
     private boolean emailVerified;
     private String role;
@@ -71,6 +72,14 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
     }
 
     public String getPassword() {
