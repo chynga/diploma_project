@@ -13,19 +13,32 @@ const ValidatedInput = ({ regex, validationMessage, field, setField, ...rest }: 
     const [errorMessage, setErrorMessage] = useState("");
 
     useEffect(() => {
+        if (field.value !== "") {
+            setField((prevState: any) => ({
+                ...prevState, 
+                startedTyping: true
+            }))
+        }
+        
         if (field.value.match(regex)) {
             setErrorMessage("");
-            setField({value: field.value, isValid: true})
+            setField((prevState: any) => ({
+                ...prevState, 
+                isValid: true
+            }))
             return
         }
         setErrorMessage(validationMessage)
-        setField({value: field.value, isValid: false})
+        setField((prevState: any) => ({
+                ...prevState, 
+                isValid: false
+            }))
     }, [field.value])
 
     return (
         <>
             <Input {...rest} value={field.value} />
-            <p className="error-message">{errorMessage}</p>
+            {field.startedTyping ? <p className="error-message">{errorMessage}</p> : ""}
         </>
     );
 };

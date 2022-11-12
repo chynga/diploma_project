@@ -14,31 +14,34 @@ import { useTranslation } from "react-i18next";
 import ValidatedInput from "../../components/ValidatedInput";
 import LoadingButton from "../../components/LoadingButton";
 
+// TODO move to different file
+export const state = {
+    value: "",
+    isValid: false,
+    startedTyping: false
+}
+
 const Login = () => {
     const { user, error, isLoading } = useAppSelector(selectAuth);
     const navigate = useNavigate();
     const dispatch = useDispatch<any>();
 
-    const [email, setEmail] = useState({
-        value: "",
-        isValid: false
-    });
-    const [password, setPassword] = useState({
-        value: "",
-        isValid: false
-    });
+    const [email, setEmail] = useState(state);
+    const [password, setPassword] = useState(state);
 
+    // TODO repeated in several components -> move to different file
     const emailRegex = /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,15}$/;
     const { t, i18n } = useTranslation(["kz", "ru"]);
 
-    useEffect(() => {
+    useEffect(() => {        
         dispatch(reset())
         if (user) {
             navigate("/");
         }
     }, [user]);
 
+    // TODO repeated in several components -> move to different file
     const onChange = (e: React.FormEvent<HTMLInputElement>, setValue: any) => {
         let value = (e.target as HTMLTextAreaElement).value
         setValue((prevState: any) => ({
@@ -47,6 +50,7 @@ const Login = () => {
         }));
     };
 
+    // TODO repeated in several components -> move to different file
     const onSubmit = (e: any) => {
         e.preventDefault();
 

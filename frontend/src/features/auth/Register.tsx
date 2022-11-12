@@ -13,31 +13,17 @@ import {
 import { useTranslation } from "react-i18next";
 import ValidatedInput from "../../components/ValidatedInput";
 import LoadingButton from "../../components/LoadingButton";
+import { state } from "./Login";
 
 const Register = () => {
     const { user, error, isLoading } = useAppSelector(selectAuth);
     const navigate = useNavigate();
     const dispatch = useDispatch<any>();
-    const [firstName, setFirstName] = useState({
-        value: "",
-        isValid: false
-    });
-    const [lastName, setLastName] = useState({
-        value: "",
-        isValid: false
-    });
-    const [email, setEmail] = useState({
-        value: "",
-        isValid: false
-    });
-    const [phone, setPhone] = useState({
-        value: "",
-        isValid: false
-    });
-    const [password, setPassword] = useState({
-        value: "",
-        isValid: false
-    });
+    const [firstName, setFirstName] = useState(state);
+    const [lastName, setLastName] = useState(state);
+    const [email, setEmail] = useState(state);
+    const [phone, setPhone] = useState(state);
+    const [password, setPassword] = useState(state);
 
     const nameRegex = /[^\s0-9]{3,15}/;
     const emailRegex = /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;

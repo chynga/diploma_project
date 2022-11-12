@@ -7,16 +7,14 @@ import { useAppSelector } from "../../app/hooks";
 import LoadingButton from "../../components/LoadingButton";
 import ValidatedInput from "../../components/ValidatedInput";
 import { verify, selectAuth, reset, sendVerificationCode } from "../../features/auth/authSlice";
+import { state } from "./Login";
 
 const EmailConfirmation = () => {
 
     const { user, error, isLoading, verificationCodeSent } = useAppSelector(selectAuth);
     const navigate = useNavigate();
     const dispatch = useDispatch<any>();
-    const [code, setCode] = useState({
-        value: "",
-        isValid: false
-    });
+    const [code, setCode] = useState(state);
 
     const codeRegex = /^[0-9]{6}$/;
     const { t, i18n } = useTranslation(["kz", "ru"]);
