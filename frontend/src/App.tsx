@@ -7,6 +7,7 @@ import Home from "./features/home/Home";
 import Map from "./components/Map";
 import EmailConfirmation from "./features/auth/EmailConfirmation";
 import ForgotPassword from "./features/auth/ForgotPassword";
+import ProfilePage from "./features/auth/ProfilePage";
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
                     <Route path="/register" element={<Register />} />
                     <Route path="/confirm" element={<EmailConfirmation />} />
                     <Route path="/recover" element={<ForgotPassword />} />
+                    <Route path="/profile" element={<ProfilePage />} />
                 </Routes>
                 {/* <Map /> */}
             </BrowserRouter>

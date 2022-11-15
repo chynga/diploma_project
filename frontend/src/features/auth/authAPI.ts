@@ -1,5 +1,5 @@
 import axios from "axios";
-import { UserCredentials, EmailCodeCredentials } from "./authSlice";
+import { UserCredentials, EmailCodeCredentials, ProfileInfo } from "./authSlice";
 
 const API_URL = "/api/auth/";
 
@@ -59,6 +59,28 @@ const recoverPassword = async (recoveryData: EmailCodeCredentials) => {
     };
 };
 
+const updateUserProfile = async (profileInfo: ProfileInfo, token: string) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
+
+    const response = await axios.put(API_URL + "update-info", profileInfo, config);
+
+    let user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")!) : null
+    user = {
+        ...user,
+        ...response.data
+    }
+
+    if (response.data) {
+        localStorage.setItem("user", JSON.stringify(user));
+    }
+
+    return user;
+};
+
 // Logout user
 const logout = () => {
     localStorage.removeItem("user");
@@ -71,6 +93,7 @@ const authAPI = {
     verify,
     sendRecoveryCode,
     recoverPassword,
+    updateUserProfile,
     login,
 };
 
