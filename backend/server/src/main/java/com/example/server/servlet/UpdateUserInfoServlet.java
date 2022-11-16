@@ -46,6 +46,11 @@ public class UpdateUserInfoServlet extends HttpServlet {
             User user = GSON.fromJson(json, User.class);
             user.setId(id.asInt());
             UserService.getInstance().updateUserInfo(user);
+
+            response.setStatus(201);
+            response.setCharacterEncoding("UTF-8");
+            response.setHeader("Content-Type", "application/json");
+            response.getWriter().println(GSON.toJson(user));
         } catch (AuthorizationException e) {
 //            e.printStackTrace();
             response.setStatus(400);

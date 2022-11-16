@@ -21,5 +21,5 @@ CREATE TABLE IF NOT EXISTS orderedCalls (
      phone VARCHAR(15) NOT NULL
 );
 
+SELECT * FROM orderedCalls;
 SELECT * FROM users;
-SELECT * FROM orderedCalls
