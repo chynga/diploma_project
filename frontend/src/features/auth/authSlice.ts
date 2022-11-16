@@ -37,6 +37,7 @@ export type User = {
     email: string
     phone: string
     emailVerified: boolean
+    token: string
     role: 'admin' | 'client' | 'doctor'
 }
 

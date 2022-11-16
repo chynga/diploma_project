@@ -9,6 +9,7 @@ import EmailConfirmation from "./features/auth/EmailConfirmation";
 import ForgotPassword from "./features/auth/ForgotPassword";
 import ProfilePage from "./features/auth/ProfilePage";
 import OrderCall from "./features/orderCall/OrderCall";
+import OrderedCalls from "./features/adminPanel/OrderedCalls";
 
 function App() {
     return (
@@ -23,6 +24,7 @@ function App() {
                     <Route path="/recover" element={<ForgotPassword />} />
                     <Route path="/profile" element={<ProfilePage />} />
                     <Route path="/order-call" element={<OrderCall />} />
+                    <Route path="/admin/ordered-calls" element={<OrderedCalls />} />
                 </Routes>
                 {/* <Map /> */}
             </BrowserRouter>

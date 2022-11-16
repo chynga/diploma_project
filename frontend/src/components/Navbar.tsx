@@ -47,6 +47,11 @@ const AppNavbar = () => {
                                 <NavLink tag={Link} to="/profile">Profile page</NavLink>
                             </NavItem></> : 
                             null}
+                        {user?.role === "admin" ? 
+                            <><NavItem> 
+                                <NavLink tag={Link} to="/admin/ordered-calls">Admin Panel</NavLink>
+                            </NavItem></> : 
+                            null}
                     </Nav>
                     <Nav className="ml-auto" navbar>
                         <Button value="kz" color="link" onClick={changeLanguage}>kz</Button>
