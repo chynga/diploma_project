@@ -25,6 +25,11 @@ export type ProfileInfo = {
     phone: string
 }
 
+export type PasswordInfo = {
+    oldPassword: string
+    password: string
+}
+
 export type User = {
     id: number
     firstName: string
@@ -194,6 +199,25 @@ export const updateUserProfile = createAsyncThunk("auth/update-info", async (pro
     }
 });
 
+export const updateUserPassword = createAsyncThunk("auth/password/update", async (passwordInfo: PasswordInfo, { rejectWithValue, getState }: any) => {
+    try {
+        const token = getState().auth.user.token;
+        const response = await authAPI.updateUserPassword(passwordInfo, token)
+        return response
+    } catch (err) {
+        const error: any = err
+        const { status } = error.response
+        const message =
+            (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+            error.message ||
+            error.toString();
+
+        return rejectWithValue({ status, message })
+    }
+});
+
 export const logout = createAsyncThunk("auth/logout", async () => {
     await authAPI.logout()
 });
@@ -290,6 +314,17 @@ export const authSlice = createSlice({
                 state.user = action.payload;
             })
             .addCase(updateUserProfile.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload as AuthError;
+            })
+            .addCase(updateUserPassword.pending, state => {
+                state.isLoading = true;
+            })
+            .addCase(updateUserPassword.fulfilled, state => {
+                state.isLoading = false;
+                state.error = undefined;
+            })
+            .addCase(updateUserPassword.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload as AuthError;
             })

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { UserCredentials, EmailCodeCredentials, ProfileInfo } from "./authSlice";
+import { UserCredentials, EmailCodeCredentials, ProfileInfo, PasswordInfo } from "./authSlice";
 
 const API_URL = "/api/auth/";
 
@@ -81,6 +81,18 @@ const updateUserProfile = async (profileInfo: ProfileInfo, token: string) => {
     return user;
 };
 
+const updateUserPassword = async (passwordInfo: PasswordInfo, token: string) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
+
+    const response = await axios.put(API_URL + "password/update", passwordInfo, config);
+
+    return response;
+};
+
 // Logout user
 const logout = () => {
     localStorage.removeItem("user");
@@ -94,6 +106,7 @@ const authAPI = {
     sendRecoveryCode,
     recoverPassword,
     updateUserProfile,
+    updateUserPassword,
     login,
 };
 
