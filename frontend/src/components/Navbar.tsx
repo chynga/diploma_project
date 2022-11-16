@@ -39,6 +39,9 @@ const AppNavbar = () => {
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar> 
                     <Nav className="mr-auto" navbar>
+                        <NavItem> 
+                            <NavLink tag={Link} to="/order-call">Order Call</NavLink>
+                        </NavItem>
                         {user ? 
                             <><NavItem> 
                                 <NavLink tag={Link} to="/profile">Profile page</NavLink>
