@@ -104,7 +104,7 @@ const Login = () => {
                 </LoadingButton>
                 <div>
                     <Link to="/register">{t('user:register')}</Link><br />
-                    <Link to="/recover">Forgot Password</Link><br />
+                    <Link to="/recover">{t('user:forgotPassword')}</Link><br />
                     <Link to="/">{t('home:title')}</Link>
                 </div>
             </Form>

@@ -40,16 +40,16 @@ const AppNavbar = () => {
                 <Collapse isOpen={isOpen} navbar> 
                     <Nav className="mr-auto" navbar>
                         <NavItem> 
-                            <NavLink tag={Link} to="/order-call">Order Call</NavLink>
+                            <NavLink tag={Link} to="/order-call">{t('locale:orderCall')}</NavLink>
                         </NavItem>
                         {user ? 
                             <><NavItem> 
-                                <NavLink tag={Link} to="/profile">Profile page</NavLink>
+                                <NavLink tag={Link} to="/profile">{t('locale:profile')}</NavLink>
                             </NavItem></> : 
                             null}
                         {user?.role === "admin" ? 
                             <><NavItem> 
-                                <NavLink tag={Link} to="/admin/ordered-calls">Admin Panel</NavLink>
+                                <NavLink tag={Link} to="/admin/ordered-calls">{t('locale:adminPanel')}</NavLink>
                             </NavItem></> : 
                             null}
                     </Nav>
@@ -58,7 +58,7 @@ const AppNavbar = () => {
                         <Button value="ru" color="link" onClick={changeLanguage}>ru</Button>
                         {user ? 
                             <><NavItem> 
-                                <NavLink onClick={onLogout}>{t('user:logout')}</NavLink>
+                                <Button color="link" onClick={onLogout}>{t('user:logout')}</Button>
                             </NavItem></> : 
                             <>
                                 <NavItem>

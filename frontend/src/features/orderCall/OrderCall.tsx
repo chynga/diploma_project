@@ -68,10 +68,10 @@ const OrderCall = () => {
     return (
         <div className="auth">
             <Form className="form" onSubmit={onSubmit}>
-                <h2>{t('order.call')}</h2>
+                <h2>{t('locale:orderCall')}</h2>
                 <h6>{message}</h6>
                 <FormGroup>
-                    <Label for="name">{t('name')}</Label>
+                    <Label for="name">{t('user:fullName')}</Label>
                     <ValidatedInput 
                         type="name"
                         id="name"
@@ -84,7 +84,7 @@ const OrderCall = () => {
                         required />
                 </FormGroup>
                 <FormGroup>
-                    <Label for="phone">{t('phone')}</Label>
+                    <Label for="phone">{t('user:phone')}</Label>
                     <ValidatedInput 
                         type="phone"
                         id="phone"
@@ -102,7 +102,7 @@ const OrderCall = () => {
                         !(name.isValid &&
                         phone.isValid)
                         }>
-                    {t('order.call')}
+                    {t('locale:orderCall')}
                 </LoadingButton>
             </Form>
         </div>

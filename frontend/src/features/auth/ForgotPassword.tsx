@@ -72,7 +72,7 @@ const ForgotPassword = () => {
     return (
         <div className="auth">
             <Form className="form" onSubmit={recoveryCodeSent ? onSubmit : onSendRecoveryCode}>
-                <h2>Forgot Password</h2>
+                <h2>{t('user:forgotPassword')}</h2>
                 <h6 className="error-message">{error ? error.message : ""}</h6>
                 <FormGroup>
                     <Label for="email">{t('user:email')}</Label>
@@ -100,7 +100,7 @@ const ForgotPassword = () => {
                                     required />
                             </FormGroup>
                             <FormGroup>
-                                <Label for="code">Code</Label>
+                                <Label for="code">{t('user:code')}</Label>
                                 <ValidatedInput 
                                     type="text"
                                     id="code"
@@ -118,7 +118,7 @@ const ForgotPassword = () => {
                                     password.isValid &&
                                     code.isValid
                                     )}>
-                                Reset password
+                                {t('user:resetPassword')}
                             </LoadingButton>
                         </> :
                         <>
@@ -135,7 +135,7 @@ const ForgotPassword = () => {
                             <LoadingButton 
                                 isLoading={isLoading} 
                                 isDisabled={!email.isValid}>
-                                Send Code
+                                {t('user:sendCode')}
                             </LoadingButton>
                         </>
                 }

@@ -10,8 +10,7 @@ const Home = () => {
     return (
         <div>
             <h1>{t('home:title')}</h1>
-            {user ? <h2>{t('user:email')}: {user.email}</h2> : <></>}
-            {!user || user?.emailVerified ? "" : <Link to="/confirm">Email not verified. Please verify</Link>}
+            {!user || user?.emailVerified ? "" : <Link to="/confirm">{t('locale:emailNotVerified')}</Link>}
         </div>
     );
 };

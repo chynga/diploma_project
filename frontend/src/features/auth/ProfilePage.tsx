@@ -132,7 +132,7 @@ const ProfilePage = () => {
                         required />
                 </FormGroup>
                 <FormGroup>
-                    <Label for="newPassword">{t('user:new.password')}</Label>
+                    <Label for="newPassword">{t('user:newPassword')}</Label>
                     <ValidatedInput 
                         type="password"
                         id="newPassword"
@@ -152,7 +152,7 @@ const ProfilePage = () => {
                             lastName.isValid &&
                             phone.isValid)
                         }>
-                    {t('user:change.profile')}
+                    {t('locale:saveChanges')}
                 </LoadingButton>
 
             </Form>

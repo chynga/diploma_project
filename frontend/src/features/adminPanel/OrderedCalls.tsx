@@ -59,7 +59,7 @@ const OrderedCalls = () => {
 
     return (
         <div>
-            <h1>Admin panel</h1>
+            <h1>{t('locale:adminPanel')}</h1>
             {data.map(contact => <>{contact.name}: {contact.phone}<br /></>)}
         </div>
     );

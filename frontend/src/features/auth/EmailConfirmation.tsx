@@ -59,7 +59,7 @@ const EmailConfirmation = () => {
     return (
         <div className="auth">
             <Form className="form" onSubmit={verificationCodeSent ? onSubmit : onSendRecoveryCode}>
-                <h2>Verify Email</h2>
+                <h2>{t('user:verifyEmail')}</h2>
                 <h6 className="error-message">{error ? error.message : ""}</h6>
                 <FormGroup>
                     <Label for="email">{t('user:email')}</Label>
@@ -76,7 +76,7 @@ const EmailConfirmation = () => {
                     verificationCodeSent ? 
                         <>
                             <FormGroup>
-                                <Label for="code">Code</Label>
+                                <Label for="code">{t('user:code')}</Label>
                                 <ValidatedInput 
                                     type="text"
                                     id="code"
@@ -88,10 +88,10 @@ const EmailConfirmation = () => {
                                     validationMessage="Enter 6 numbers"
                                     required />
                             </FormGroup>
-                            <LoadingButton isLoading={isLoading} isDisabled={!code.isValid}>Verify Email</LoadingButton>
+                            <LoadingButton isLoading={isLoading} isDisabled={!code.isValid}>{t('user:verifyEmail')}</LoadingButton>
                         </> :
                         <>
-                            <LoadingButton isLoading={isLoading}>Send Code</LoadingButton>
+                            <LoadingButton isLoading={isLoading}>{t('user:sendCode')}</LoadingButton>
                         </>
                 }
                 <div>
