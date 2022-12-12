@@ -1,7 +1,6 @@
 package com.example.backend_with_jaxrs.dao;
 
-import com.example.backend_with_jaxrs.models.Appointment;
-import com.example.backend_with_jaxrs.models.Doctor;
+import com.example.backend_with_jaxrs.models.User;
 import com.example.backend_with_jaxrs.utils.CustomException;
 import com.example.backend_with_jaxrs.utils.ErrorCode;
 
@@ -33,16 +32,16 @@ public class DoctorDAO {
         return INSTANCE;
     }
 
-    public ArrayList<Doctor> getAvailableDoctors() throws CustomException {
+    public ArrayList<User> getAvailableDoctors() throws CustomException {
         try {
             String sql = "SELECT users.id, full_name, email, phone, started_working_from, available, work_experience, about " +
                     "FROM users JOIN doctors ON users.id = doctors.id;";
             PreparedStatement preparedStmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ResultSet rs = preparedStmt.executeQuery();
 
-            ArrayList<Doctor> doctors = new ArrayList<>();
+            ArrayList<User> doctors = new ArrayList<>();
             while (rs.next()) {
-                Doctor doctor = new Doctor();
+                User doctor = new User();
                 setDoctorFields(rs, doctor);
                 doctors.add(doctor);
             }
@@ -53,7 +52,7 @@ public class DoctorDAO {
         }
     }
 
-    private void setDoctorFields(ResultSet generatedKeys, Doctor doctor) throws SQLException {
+    private void setDoctorFields(ResultSet generatedKeys, User doctor) throws SQLException {
         doctor.setId(generatedKeys.getInt("id"));
         doctor.setFullName(generatedKeys.getString("full_name"));
         doctor.setEmail(generatedKeys.getString("email"));

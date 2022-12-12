@@ -1,7 +1,6 @@
 package com.example.backend_with_jaxrs.dao;
 
 import com.example.backend_with_jaxrs.models.Appointment;
-import com.example.backend_with_jaxrs.models.Service;
 import com.example.backend_with_jaxrs.utils.CustomException;
 import com.example.backend_with_jaxrs.utils.ErrorCode;
 
@@ -26,7 +25,7 @@ public class AppointmentDAO {
             try {
                 INSTANCE = new AppointmentDAO();
             } catch (SQLException e) {
-                throw new CustomException(e, ErrorCode.SQL);
+                throw new CustomException(e.getCause(), ErrorCode.SQL);
             }
         }
 
@@ -114,7 +113,6 @@ public class AppointmentDAO {
         appointment.setDoctorNotes(generatedKeys.getString("doctor_notes"));
         appointment.setClientMessage(generatedKeys.getString("client_message"));
     }
-
 
     public String getSqlScriptForNonNull(Appointment appointment) {
         String script = "UPDATE appointments SET";

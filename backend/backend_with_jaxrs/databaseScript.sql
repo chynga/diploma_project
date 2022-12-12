@@ -140,11 +140,14 @@ CREATE TABLE IF NOT EXISTS ordered_calls (
      phone VARCHAR(15) NOT NULL
 );
 
-SELECT * FROM roles;
-SELECT * FROM ordered_calls;
-SELECT * FROM users;
-SELECT * FROM appointments;
+-- SELECT * FROM roles;
+-- SELECT * FROM ordered_calls;
+-- SELECT * FROM users;
+-- SELECT * FROM appointments;
 -- SELECT users.id, full_name, email, phone, started_working_from, available, work_experience, about FROM users JOIN doctors ON users.id = doctors.id;
-SELECT * FROM doctors d JOIN users u on d.id = u.id;
+-- SELECT * FROM doctors;-- d JOIN users u on d.id = u.id;
+-- SELECT * FROM clients;
 
-SELECT * FROM reviews;
+-- SELECT * FROM reviews;
+-- SELECT * FROM doctors;
+SELECT * FROM clients;

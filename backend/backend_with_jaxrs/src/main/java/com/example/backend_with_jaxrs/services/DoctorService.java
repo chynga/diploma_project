@@ -1,8 +1,7 @@
 package com.example.backend_with_jaxrs.services;
 
 import com.example.backend_with_jaxrs.dao.DoctorDAO;
-import com.example.backend_with_jaxrs.dao.ServiceDAO;
-import com.example.backend_with_jaxrs.models.Doctor;
+import com.example.backend_with_jaxrs.models.User;
 import com.example.backend_with_jaxrs.utils.CustomException;
 
 import java.sql.SQLException;
@@ -22,7 +21,7 @@ public class DoctorService {
         return INSTANCE;
     }
 
-    public ArrayList<Doctor> getAvailableDoctors() throws CustomException {
+    public ArrayList<User> getAvailableDoctors() throws CustomException {
         return DoctorDAO.getInstance().getAvailableDoctors();
     }
 }
