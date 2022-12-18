@@ -3,150 +3,142 @@ package com.example.backend_with_jaxrs.dao;
 import com.example.backend_with_jaxrs.models.Appointment;
 import com.example.backend_with_jaxrs.utils.CustomException;
 import com.example.backend_with_jaxrs.utils.ErrorCode;
+import com.example.backend_with_jaxrs.utils.enums.AppointmentAction;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class AppointmentDAO {
-
+public class AppointmentDAO extends GeneralDAO {
     private static AppointmentDAO INSTANCE;
 
-    private Connection connection = null;
-    private String dbConnectionUrl = "jdbc:postgresql://localhost:8081/diploma_project";
-    private String dbUser = "postgres";
-    private String dbPassword = "admin";
-
-    private AppointmentDAO() throws SQLException {
-        connection = DriverManager.getConnection(dbConnectionUrl, dbUser, dbPassword);
+    private AppointmentDAO() throws CustomException {
+        super();
     }
 
     public static AppointmentDAO getInstance() throws CustomException {
         if(INSTANCE == null) {
-            try {
-                INSTANCE = new AppointmentDAO();
-            } catch (SQLException e) {
-                throw new CustomException(e.getCause(), ErrorCode.SQL);
-            }
+            INSTANCE = new AppointmentDAO();
         }
 
         return INSTANCE;
     }
 
     public ArrayList<Appointment> getAppointments() throws CustomException {
-        try {
-            String sql = "SELECT * FROM appointments";
-            PreparedStatement preparedStmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ResultSet rs = preparedStmt.executeQuery();
-
-            ArrayList<Appointment> appointments = new ArrayList<>();
-            while (rs.next()) {
-                Appointment appointment = new Appointment();
-                setAppointmentFields(rs, appointment);
-                appointments.add(appointment);
-            }
-
-            return appointments;
-        } catch (SQLException e) {
-            throw new CustomException(e, ErrorCode.SQL);
-        }
+        String sqlScript = "SELECT * FROM appointments";
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        ResultSet resultSet = executeQuery(preparedStatement);
+        return getAppointmentsFromDb(resultSet);
     }
 
     public Appointment makeAppointment(Appointment appointment) throws CustomException {
-        try {
-            String sql = "INSERT INTO appointments (doctor_id, client_id, service, requested_time, client_message) " +
-                    "VALUES (?, ?, ?, ?, ?)";
-
-            PreparedStatement preparedStmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            preparedStmt.setInt(1, appointment.getDoctorId());
-            preparedStmt.setInt(2, appointment.getClientId());
-            preparedStmt.setString(3, appointment.getService());
-            preparedStmt.setDate(4, appointment.getRequestedTime());
-            preparedStmt.setString(5, appointment.getClientMessage());
-
-            return getAppointmentFromDb(preparedStmt);
-        } catch (SQLException e) {
-            throw new CustomException(e, ErrorCode.SQL);
-        }
+        String sqlScript = "INSERT INTO appointments (doctor_id, client_id, service, requested_time, client_message) " +
+                "VALUES (?, ?, ?, ?, ?)";
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        setSqlScriptData(preparedStatement, appointment, AppointmentAction.MAKE_APPOINTMENT);
+        executeUpdate(preparedStatement);
+        ResultSet resultSet = getResultSet(preparedStatement);
+        return getAppointmentFromDb(resultSet);
     }
 
     public Appointment updateAppointment(Appointment appointment) throws CustomException {
+        String sqlScript = getSqlScriptForNonNull(appointment);
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        executeUpdate(preparedStatement);
+        ResultSet resultSet = getResultSet(preparedStatement);
+        return getAppointmentFromDb(resultSet);
+    }
+
+    private void setSqlScriptData(PreparedStatement preparedStatement, Appointment appointment, AppointmentAction appointmentAction) throws CustomException {
         try {
-            String sql = getSqlScriptForNonNull(appointment);
-            PreparedStatement preparedStmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            return getAppointmentFromDb(preparedStmt);
+            switch (appointmentAction) {
+                case MAKE_APPOINTMENT:
+                    preparedStatement.setInt(1, appointment.getDoctorId());
+                    preparedStatement.setInt(2, appointment.getClientId());
+                    preparedStatement.setString(3, appointment.getService());
+                    preparedStatement.setDate(4, appointment.getRequestedTime());
+                    preparedStatement.setString(5, appointment.getClientMessage());
+                    break;
+            }
         } catch (SQLException e) {
-            throw new CustomException(e, ErrorCode.SQL);
+            throw new CustomException(e, ErrorCode.SQL_SET_SCRIPT_DATA);
         }
     }
 
-    private Appointment getAppointmentFromDb(PreparedStatement preparedStmt) throws CustomException {
+    private Appointment getAppointmentFromDb(ResultSet resultSet) throws CustomException {
         try {
-            int affectedRows = preparedStmt.executeUpdate();
-            if (affectedRows == 0) {
-                throw new SQLException("Creating appointment failed, no rows affected.");
-            }
-
-            ResultSet generatedKeys = preparedStmt.getGeneratedKeys();
             Appointment appointment = new Appointment();
-
-            if (generatedKeys.next()) {
-                setAppointmentFields(generatedKeys, appointment);
-            } else {
-                throw new SQLException("Creating appointment failed, no ID obtained.");
+            if (resultSet.next()) {
+                setAppointmentFields(resultSet, appointment);
             }
-
             return appointment;
         } catch (SQLException e) {
-            throw new CustomException(e, ErrorCode.SQL);
+            throw new CustomException(e, ErrorCode.SQL_GET_APPOINTMENT);
         }
     }
 
-    private void setAppointmentFields(ResultSet generatedKeys, Appointment appointment) throws SQLException {
-        appointment.setId(generatedKeys.getInt("id"));
-        appointment.setDoctorId(generatedKeys.getInt("doctor_id"));
-        appointment.setClientId(generatedKeys.getInt("client_id"));
-        appointment.setService(generatedKeys.getString("service"));
-        appointment.setStatus(generatedKeys.getString("status"));
-        appointment.setApprovedTime(generatedKeys.getDate("approved_time"));
-        appointment.setRequestedTime(generatedKeys.getDate("requested_time"));
-        appointment.setConfirmed(generatedKeys.getBoolean("confirmed"));
-        appointment.setDoctorNotes(generatedKeys.getString("doctor_notes"));
-        appointment.setClientMessage(generatedKeys.getString("client_message"));
+    private ArrayList<Appointment> getAppointmentsFromDb(ResultSet resultSet) throws CustomException {
+        try {
+            ArrayList<Appointment> appointments = new ArrayList<>();
+            while (resultSet.next()) {
+                Appointment appointment = new Appointment();
+                setAppointmentFields(resultSet, appointment);
+                appointments.add(appointment);
+            }
+            return appointments;
+        } catch (SQLException e) {
+            throw new CustomException(e, ErrorCode.SQL_GET_APPOINTMENTS);
+        }
     }
 
-    public String getSqlScriptForNonNull(Appointment appointment) {
-        String script = "UPDATE appointments SET";
+    private void setAppointmentFields(ResultSet resultSet, Appointment appointment) throws CustomException {
+        try {
+            appointment.setId(resultSet.getInt("id"));
+            appointment.setDoctorId(resultSet.getInt("doctor_id"));
+            appointment.setClientId(resultSet.getInt("client_id"));
+            appointment.setService(resultSet.getString("service"));
+            appointment.setStatus(resultSet.getString("status"));
+            appointment.setApprovedTime(resultSet.getDate("approved_time"));
+            appointment.setRequestedTime(resultSet.getDate("requested_time"));
+            appointment.setConfirmed(resultSet.getBoolean("confirmed"));
+            appointment.setDoctorNotes(resultSet.getString("doctor_notes"));
+            appointment.setClientMessage(resultSet.getString("client_message"));
+        } catch (SQLException e) {
+            throw new CustomException(e, ErrorCode.SQL_SET_APPOINTMENT_FIELDS);
+        }
+    }
+
+    private String getSqlScriptForNonNull(Appointment appointment) {
+        String sqlScript = "UPDATE appointments SET";
         if (appointment.getDoctorId() != null) {
-            script += " doctor_id = " + appointment.getDoctorId();
+            sqlScript += " doctor_id = " + appointment.getDoctorId();
         }
         if (appointment.getClientId() != null) {
-            script += " client_id = " + appointment.getClientId();
+            sqlScript += " client_id = " + appointment.getClientId();
         }
         if (appointment.getService() != null) {
-            script += " service = " + appointment.getService();
+            sqlScript += " service = " + appointment.getService();
         }
         if (appointment.getStatus() != null) {
-            script += " status = " + appointment.getStatus();
+            sqlScript += " status = " + appointment.getStatus();
         }
         if (appointment.getApprovedTime() != null) {
-            script += " approved_time = " + appointment.getApprovedTime();
+            sqlScript += " approved_time = " + appointment.getApprovedTime();
         }
         if (appointment.getRequestedTime() != null) {
-            script += " requested_time = " + appointment.getRequestedTime();
+            sqlScript += " requested_time = " + appointment.getRequestedTime();
         }
         if (appointment.isConfirmed() != null) {
-            script += " confirmed = " + appointment.isConfirmed();
+            sqlScript += " confirmed = " + appointment.isConfirmed();
         }
         if (appointment.getDoctorNotes() != null) {
-            script += " doctor_notes = " + appointment.getDoctorNotes();
+            sqlScript += " doctor_notes = " + appointment.getDoctorNotes();
         }
         if (appointment.getClientMessage() != null) {
-            script += " client_message = " + appointment.getClientMessage();
+            sqlScript += " client_message = " + appointment.getClientMessage();
         }
         if (appointment.getId() != null) {
-            script += " WHERE id = " + appointment.getId() + ";";
+            sqlScript += " WHERE id = " + appointment.getId();
         }
-
-        return script;
+        return sqlScript;
     }
 }

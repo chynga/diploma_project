@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS clients (
     verification_code CHAR(6),
     verification_code_sent_time TIMESTAMP,
     email_verified BOOL DEFAULT false,
-    patient_description VARCHAR,
+    patient_description VARCHAR NOT NULL DEFAULT '',
     FOREIGN KEY (id) REFERENCES users (id) ON DELETE CASCADE
 );
 
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS doctors (
 
 CREATE TABLE IF NOT EXISTS education (
     doctor_id INTEGER NOT NULL,
-    institution VARCHAR(150) NOT NULL,
+    institution VARCHAR(150) NOT NULL DEFAULT '',
     enrollment_date TIMESTAMP,
     graduation_date TIMESTAMP,
     FOREIGN KEY (doctor_id) REFERENCES doctors (id) ON DELETE CASCADE
@@ -117,8 +117,8 @@ CREATE TABLE IF NOT EXISTS appointments (
     approved_time TIMESTAMP,
     requested_time TIMESTAMP,
     confirmed BOOL NOT null DEFAULT false,
-    doctor_notes VARCHAR(5000),
-    client_message VARCHAR(500),
+    doctor_notes VARCHAR(5000) NOT NULL DEFAULT '',
+    client_message VARCHAR(500) NOT NULL DEFAULT '',
 --     full_name VARCHAR(50),
 --     phone VARCHAR(15),
     FOREIGN KEY (doctor_id) REFERENCES doctors (id) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -150,4 +150,12 @@ CREATE TABLE IF NOT EXISTS ordered_calls (
 
 -- SELECT * FROM reviews;
 -- SELECT * FROM doctors;
-SELECT * FROM clients;
+-- SELECT * FROM users u JOIN clients c on u.id = c.id WHERE c.id = 2
+-- SELECT * FROM users;
+-- INSERT INTO users (full_name, email, phone, password)
+--     VALUES ('user1', 'email1@mail.ru', '870745645', 'password')
+-- SELECT * FROM users
+-- INSERT INTO clients (id) VALUES (1)
+-- INSERT INTO appointment_statuses (name) VALUES ('pending');
+-- INSERT INTO appointments (client_id, status) VALUES (1, 'pending')
+-- SELECT * FROM appointments

@@ -5,6 +5,10 @@ public class Service {
     private String approxTimeMin;
     private String approxCost;
 
+    public Service() {
+
+    }
+
     public Service(String title, String approxTimeMin, String approxCost) {
         this.title = title;
         this.approxTimeMin = approxTimeMin;

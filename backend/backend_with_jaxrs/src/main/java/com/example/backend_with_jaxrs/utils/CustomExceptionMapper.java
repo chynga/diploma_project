@@ -10,7 +10,6 @@ public class CustomExceptionMapper implements ExceptionMapper<CustomException> {
     @Override
     public Response toResponse(CustomException exception)
     {
-        System.out.println(exception);
-        return Response.status(Status.BAD_REQUEST).entity(exception.getMessage()).build();
+        return Response.status(Status.BAD_REQUEST).entity(exception.getCode().getMessage()).build();
     }
 }

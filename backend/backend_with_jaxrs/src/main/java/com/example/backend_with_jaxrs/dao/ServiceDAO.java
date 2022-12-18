@@ -7,48 +7,49 @@ import com.example.backend_with_jaxrs.utils.ErrorCode;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ServiceDAO {
+public class ServiceDAO extends GeneralDAO {
 
     private static ServiceDAO INSTANCE;
 
-    private Connection connection = null;
-    private String dbConnectionUrl = "jdbc:postgresql://localhost:8081/diploma_project";
-    private String dbUser = "postgres";
-    private String dbPassword = "admin";
-
-    private ServiceDAO() throws SQLException {
-        connection = DriverManager.getConnection(dbConnectionUrl, dbUser, dbPassword);
+    private ServiceDAO() throws CustomException {
+        super();
     }
 
     public static ServiceDAO getInstance() throws CustomException {
         if(INSTANCE == null) {
-            try {
-                INSTANCE = new ServiceDAO();
-            } catch (SQLException e) {
-                throw new CustomException(e, ErrorCode.SQL);
-            }
+            INSTANCE = new ServiceDAO();
         }
-
         return INSTANCE;
     }
 
     public ArrayList<Service> getServices() throws CustomException {
+        String sqlScript = "SELECT * FROM services";
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        ResultSet resultSet = executeQuery(preparedStatement);
+        return getServicesFromDb(resultSet);
+    }
+
+    private ArrayList<Service> getServicesFromDb(ResultSet rs) throws CustomException {
         try {
-            String sql = "SELECT * FROM services";
-            PreparedStatement preparedStmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ResultSet rs = preparedStmt.executeQuery();
             ArrayList<Service> services = new ArrayList<>();
             while (rs.next()) {
-                String title = rs.getString("title");
-                String approxTimeMin = rs.getString("approx_time_min");
-                String approxCost = rs.getString("approx_cost");
-
-                services.add(new Service(title, approxTimeMin, approxCost));
+                Service service = new Service();
+                setServiceFields(rs, service);
+                services.add(service);
             }
-
             return services;
         } catch (SQLException e) {
-            throw new CustomException(e, ErrorCode.SQL);
+            throw new CustomException(e, ErrorCode.SQL_GET_SERVICES);
+        }
+    }
+
+    private void setServiceFields(ResultSet resultSet, Service service) throws CustomException {
+        try {
+            service.setTitle(resultSet.getString("title"));
+            service.setApproxTimeMin(resultSet.getString("approx_time_min"));
+            service.setApproxCost(resultSet.getString("approx_cost"));
+        } catch (SQLException e) {
+            throw new CustomException(e, ErrorCode.SQL_SET_SERVICE_FIELDS);
         }
     }
 }

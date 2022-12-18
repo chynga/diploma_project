@@ -1,15 +1,11 @@
 package com.example.backend_with_jaxrs.controllers;
 
-import com.example.backend_with_jaxrs.models.Appointment;
 import com.example.backend_with_jaxrs.models.Review;
-import com.example.backend_with_jaxrs.services.AppointmentService;
 import com.example.backend_with_jaxrs.services.ReviewService;
 import com.example.backend_with_jaxrs.utils.CustomException;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 @Path("/reviews")
 public class ReviewController {

@@ -6,7 +6,6 @@ import com.example.backend_with_jaxrs.utils.CustomException;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 @Path("/services")
