@@ -5,7 +5,6 @@ import com.example.backend_with_jaxrs.models.Review;
 import com.example.backend_with_jaxrs.utils.CustomException;
 
 public class ReviewService {
-
     private static ReviewService INSTANCE;
 
     private ReviewService() {}

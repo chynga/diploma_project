@@ -1,6 +1,6 @@
 package com.example.backend_with_jaxrs.dao;
 
-import com.example.backend_with_jaxrs.models.UserWithAdditionalFields;
+import com.example.backend_with_jaxrs.models.Client;
 import com.example.backend_with_jaxrs.utils.CustomException;
 import com.example.backend_with_jaxrs.utils.ErrorCode;
 
@@ -21,7 +21,7 @@ public class ClientDAO extends GeneralDAO {
         return INSTANCE;
     }
 
-    public void insertClientFields(UserWithAdditionalFields client) throws CustomException {
+    public void insertClientFields(Client client) throws CustomException {
         String sqlScript = "INSERT INTO clients (id, email_verified) " +
                 "VALUES (?, false)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
@@ -29,16 +29,16 @@ public class ClientDAO extends GeneralDAO {
         executeUpdate(preparedStatement);
     }
 
-    public UserWithAdditionalFields getClientById(UserWithAdditionalFields client) throws CustomException {
+    public Client getClientById(Client client) throws CustomException {
         String sqlScript = "SELECT * FROM users u JOIN clients c on u.id = c.id WHERE c.id = (?)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
         setSqlScriptData(preparedStatement, client);
-        executeQuery(preparedStatement);
-        ResultSet resultSet = getResultSet(preparedStatement);
+        ResultSet resultSet = executeQuery(preparedStatement);
+
         return getClientFromDb(resultSet);
     }
 
-    private void setSqlScriptData(PreparedStatement preparedStatement, UserWithAdditionalFields client) throws CustomException {
+    private void setSqlScriptData(PreparedStatement preparedStatement, Client client) throws CustomException {
         try {
             preparedStatement.setInt(1, client.getId());
         } catch (SQLException e) {
@@ -46,19 +46,22 @@ public class ClientDAO extends GeneralDAO {
         }
     }
 
-    private UserWithAdditionalFields getClientFromDb(ResultSet resultSet) throws CustomException {
+    private Client getClientFromDb(ResultSet resultSet) throws CustomException {
         try {
-            UserWithAdditionalFields client = new UserWithAdditionalFields();
+            Client client = new Client();
             if (resultSet.next()) {
                 setClientFields(resultSet, client);
+            } else {
+                throw new CustomException(ErrorCode.SQL);
             }
+
             return client;
         } catch (SQLException e) {
             throw new CustomException(e, ErrorCode.SQL_GET_CLIENT);
         }
     }
 
-    private void setClientFields(ResultSet resultSet, UserWithAdditionalFields client) throws CustomException {
+    private void setClientFields(ResultSet resultSet, Client client) throws CustomException {
         UserDAO.setUserFields(resultSet, client);
         try {
             client.setVerificationCode(resultSet.getString("verification_code"));

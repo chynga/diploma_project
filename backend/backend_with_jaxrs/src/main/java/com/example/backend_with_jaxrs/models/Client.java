@@ -2,57 +2,18 @@ package com.example.backend_with_jaxrs.models;
 
 import java.sql.Date;
 
-public class UserWithAdditionalFields extends User {
-    // doctor fields
-    private Date startedWorkingFrom;
-    private boolean available;
-    private int workExperience;
-    private String about;
-
-    // client fields
+public class Client extends User {
     private String verificationCode;
     private Date verificationCodeSentTime;
     private boolean emailVerified;
     private String patientDescription;
 
-    public UserWithAdditionalFields() {
+    public Client() {
 
     }
 
-    public UserWithAdditionalFields(int id) {
+    public Client(int id) {
         super(id);
-    }
-
-    public Date getStartedWorkingFrom() {
-        return startedWorkingFrom;
-    }
-
-    public void setStartedWorkingFrom(Date startedWorkingFrom) {
-        this.startedWorkingFrom = startedWorkingFrom;
-    }
-
-    public boolean isAvailable() {
-        return available;
-    }
-
-    public void setAvailable(boolean available) {
-        this.available = available;
-    }
-
-    public int getWorkExperience() {
-        return workExperience;
-    }
-
-    public void setWorkExperience(int workExperience) {
-        this.workExperience = workExperience;
-    }
-
-    public String getAbout() {
-        return about;
-    }
-
-    public void setAbout(String about) {
-        this.about = about;
     }
 
     public String getVerificationCode() {

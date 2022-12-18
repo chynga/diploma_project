@@ -9,7 +9,6 @@ import javax.ws.rs.core.*;
 
 @Path("/reviews")
 public class ReviewController {
-
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)

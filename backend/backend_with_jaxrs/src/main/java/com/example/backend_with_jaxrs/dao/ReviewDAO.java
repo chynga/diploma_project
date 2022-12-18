@@ -17,6 +17,7 @@ public class ReviewDAO extends GeneralDAO {
         if(INSTANCE == null) {
             INSTANCE = new ReviewDAO();
         }
+
         return INSTANCE;
     }
 
@@ -27,6 +28,7 @@ public class ReviewDAO extends GeneralDAO {
         setSqlScriptData(preparedStatement, review);
         executeUpdate(preparedStatement);
         ResultSet resultSet = getResultSet(preparedStatement);
+
         return getReviewFromDb(resultSet);
     }
 
@@ -46,6 +48,7 @@ public class ReviewDAO extends GeneralDAO {
             if (resultSet.next()) {
                 setReviewFields(resultSet, review);
             }
+
             return review;
         } catch (SQLException e) {
             throw new CustomException(e, ErrorCode.SQL);

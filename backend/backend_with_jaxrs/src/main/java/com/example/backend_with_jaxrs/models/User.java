@@ -1,9 +1,9 @@
 package com.example.backend_with_jaxrs.models;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 public class User {
-    // common fields
     private int id;
     private String fullName;
     private String email;
@@ -11,6 +11,7 @@ public class User {
     private String password;
     private String recoveryCode;
     private Date recoveryCodeSentTime;
+    private ArrayList<Role> roles;
 
     public User() {
     }
@@ -83,5 +84,13 @@ public class User {
 
     public void setRecoveryCodeSentTime(Date recoveryCodeSentTime) {
         this.recoveryCodeSentTime = recoveryCodeSentTime;
+    }
+
+    public ArrayList<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(ArrayList<Role> roles) {
+        this.roles = roles;
     }
 }

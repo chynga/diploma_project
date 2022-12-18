@@ -27,6 +27,7 @@ public class AppointmentDAO extends GeneralDAO {
         String sqlScript = "SELECT * FROM appointments";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
         ResultSet resultSet = executeQuery(preparedStatement);
+
         return getAppointmentsFromDb(resultSet);
     }
 
@@ -37,6 +38,7 @@ public class AppointmentDAO extends GeneralDAO {
         setSqlScriptData(preparedStatement, appointment, AppointmentAction.MAKE_APPOINTMENT);
         executeUpdate(preparedStatement);
         ResultSet resultSet = getResultSet(preparedStatement);
+
         return getAppointmentFromDb(resultSet);
     }
 
@@ -45,6 +47,7 @@ public class AppointmentDAO extends GeneralDAO {
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
         executeUpdate(preparedStatement);
         ResultSet resultSet = getResultSet(preparedStatement);
+
         return getAppointmentFromDb(resultSet);
     }
 
@@ -70,6 +73,7 @@ public class AppointmentDAO extends GeneralDAO {
             if (resultSet.next()) {
                 setAppointmentFields(resultSet, appointment);
             }
+
             return appointment;
         } catch (SQLException e) {
             throw new CustomException(e, ErrorCode.SQL_GET_APPOINTMENT);
@@ -84,6 +88,7 @@ public class AppointmentDAO extends GeneralDAO {
                 setAppointmentFields(resultSet, appointment);
                 appointments.add(appointment);
             }
+
             return appointments;
         } catch (SQLException e) {
             throw new CustomException(e, ErrorCode.SQL_GET_APPOINTMENTS);
@@ -139,6 +144,7 @@ public class AppointmentDAO extends GeneralDAO {
         if (appointment.getId() != null) {
             sqlScript += " WHERE id = " + appointment.getId();
         }
+
         return sqlScript;
     }
 }

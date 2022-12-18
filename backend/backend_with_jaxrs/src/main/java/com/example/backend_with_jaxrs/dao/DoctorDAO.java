@@ -1,6 +1,6 @@
 package com.example.backend_with_jaxrs.dao;
 
-import com.example.backend_with_jaxrs.models.UserWithAdditionalFields;
+import com.example.backend_with_jaxrs.models.Doctor;
 import com.example.backend_with_jaxrs.utils.CustomException;
 import com.example.backend_with_jaxrs.utils.ErrorCode;
 
@@ -22,30 +22,32 @@ public class DoctorDAO extends GeneralDAO {
         return INSTANCE;
     }
 
-    public ArrayList<UserWithAdditionalFields> getAvailableDoctors() throws CustomException {
+    public ArrayList<Doctor> getAvailableDoctors() throws CustomException {
         String sqlScript = "SELECT users.id, full_name, email, phone, started_working_from, available, work_experience, about " +
                 "FROM users JOIN doctors ON users.id = doctors.id" +
                 "WHERE available = true";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
         ResultSet resultSet = executeQuery(preparedStatement);
+
         return getDoctorsFromDb(resultSet);
     }
 
-    private ArrayList<UserWithAdditionalFields> getDoctorsFromDb(ResultSet resultSet) throws CustomException {
+    private ArrayList<Doctor> getDoctorsFromDb(ResultSet resultSet) throws CustomException {
         try {
-            ArrayList<UserWithAdditionalFields> doctors = new ArrayList<>();
+            ArrayList<Doctor> doctors = new ArrayList<>();
             while (resultSet.next()) {
-                UserWithAdditionalFields doctor = new UserWithAdditionalFields();
+                Doctor doctor = new Doctor();
                 setDoctorFields(resultSet, doctor);
                 doctors.add(doctor);
             }
+
             return doctors;
         } catch (SQLException e) {
             throw new CustomException(e, ErrorCode.SQL_GET_DOCTORS);
         }
     }
 
-    private void setDoctorFields(ResultSet resultSet, UserWithAdditionalFields doctor) throws CustomException {
+    private void setDoctorFields(ResultSet resultSet, Doctor doctor) throws CustomException {
         UserDAO.setUserFields(resultSet, doctor);
         try {
             doctor.setStartedWorkingFrom(resultSet.getDate("started_working_from"));

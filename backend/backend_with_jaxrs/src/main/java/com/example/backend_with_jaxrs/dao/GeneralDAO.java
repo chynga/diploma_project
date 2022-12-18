@@ -6,7 +6,6 @@ import com.example.backend_with_jaxrs.utils.ErrorCode;
 import java.sql.*;
 
 public abstract class GeneralDAO {
-
     private Connection connection;
     private String dbConnectionUrl = "jdbc:postgresql://localhost:8081/diploma_project";
     private String dbUser = "postgres";

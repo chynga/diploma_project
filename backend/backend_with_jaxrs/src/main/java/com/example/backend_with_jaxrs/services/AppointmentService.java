@@ -7,7 +7,6 @@ import com.example.backend_with_jaxrs.utils.CustomException;
 import java.util.ArrayList;
 
 public class AppointmentService {
-
     private static AppointmentService INSTANCE;
 
     private AppointmentService() {}

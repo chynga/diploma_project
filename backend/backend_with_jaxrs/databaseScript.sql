@@ -140,7 +140,7 @@ CREATE TABLE IF NOT EXISTS ordered_calls (
      phone VARCHAR(15) NOT NULL
 );
 
--- SELECT * FROM roles;
+SELECT * FROM roles;
 -- SELECT * FROM ordered_calls;
 -- SELECT * FROM users;
 -- SELECT * FROM appointments;
@@ -159,3 +159,14 @@ CREATE TABLE IF NOT EXISTS ordered_calls (
 -- INSERT INTO appointment_statuses (name) VALUES ('pending');
 -- INSERT INTO appointments (client_id, status) VALUES (1, 'pending')
 -- SELECT * FROM appointments
+
+-- SELECT * FROM clients JOIN users u on u.id = clients.id
+-- DELETE FROM roles;
+-- INSERT INTO roles VALUES ('SUPERADMIN');
+-- INSERT INTO roles VALUES ('ADMIN');
+-- INSERT INTO roles VALUES ('MANAGER');
+-- INSERT INTO roles VALUES ('DOCTOR');
+-- INSERT INTO roles VALUES ('CONSULTANT');
+-- INSERT INTO roles VALUES ('CLIENT');
+-- SELECT * FROM roles
+SELECT * from permissions

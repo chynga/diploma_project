@@ -4,14 +4,15 @@ import com.example.backend_with_jaxrs.models.Appointment;
 import com.example.backend_with_jaxrs.services.AppointmentService;
 import com.example.backend_with_jaxrs.utils.CustomException;
 
+import javax.annotation.security.PermitAll;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.util.ArrayList;
 
 @Path("/appointments")
 public class AppointmentController {
-
     @GET
+//    @PermitAll
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAppointments() throws CustomException {
         ArrayList<Appointment> appointments = AppointmentService.getInstance().getAppointments();
@@ -36,5 +37,4 @@ public class AppointmentController {
         Appointment updatedAppointment = AppointmentService.getInstance().updateAppointment(appointment);
         return Response.ok().entity(updatedAppointment).build();
     }
-
 }

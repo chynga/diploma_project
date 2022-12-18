@@ -19,6 +19,7 @@ public class ServiceDAO extends GeneralDAO {
         if(INSTANCE == null) {
             INSTANCE = new ServiceDAO();
         }
+
         return INSTANCE;
     }
 
@@ -26,6 +27,7 @@ public class ServiceDAO extends GeneralDAO {
         String sqlScript = "SELECT * FROM services";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
         ResultSet resultSet = executeQuery(preparedStatement);
+
         return getServicesFromDb(resultSet);
     }
 
@@ -37,6 +39,7 @@ public class ServiceDAO extends GeneralDAO {
                 setServiceFields(rs, service);
                 services.add(service);
             }
+
             return services;
         } catch (SQLException e) {
             throw new CustomException(e, ErrorCode.SQL_GET_SERVICES);

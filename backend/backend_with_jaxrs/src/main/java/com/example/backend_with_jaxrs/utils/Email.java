@@ -11,34 +11,19 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class Email {
-
     public static void sendVerificationCode(String to, String subject, String text) throws MessagingException {
         String from = "testttts325@gmail.com";
         String appPassword = "yntovzpkbjtumscb";
-//        String from = "sdfdsfa3@mail.ru";
-//        String appPassword = "SNrNjksFKfX37dM0j4iK";
 
         Properties properties = System.getProperties();
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "465"); // options: 25, 465, 587
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.ssl.enable", "true");
 
-        if (from.contains("@gmail.com")) {
-            // gmail.com
-            properties.put("mail.smtp.host", "smtp.gmail.com");
-            properties.put("mail.smtp.port", "465"); // options: 25, 465, 587
-            properties.put("mail.smtp.starttls.enable", "true");
-            properties.put("mail.smtp.auth", "true");
-            properties.put("mail.smtp.ssl.enable", "true");
-        } else if (from.contains("@mail.ru")) {
-            // mail.ru
-            properties.put("mail.smtp.host", "smtp.mail.ru");
-            properties.put("mail.smtp.port", "465");
-            properties.put("mail.smtp.starttls.enable", "true");
-            properties.put("mail.smtp.auth", "true");
-            properties.put("mail.smtp.ssl.enable", "true");
-        } else {
-            return;
-        }
-
-        // Get the Session object.// and pass username and password
+        // Get the Session object.
+        // and pass username and password
         Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(from, appPassword);
@@ -68,5 +53,4 @@ public class Email {
         Transport.send(message);
         System.out.println("Sent message successfully....");
     }
-
 }

@@ -22,6 +22,8 @@ public class ErrorCode {
 
     public static final ErrorCode SQL_GET_USER = new ErrorCode("SQL_GET_USER");
     public static final ErrorCode SQL_SET_USER_FIELDS = new ErrorCode("SQL_SET_USER_FIELDS");
+    public static final ErrorCode SQL_GET_ROLES_FOR_USER = new ErrorCode("SQL_GET_ROLES_FOR_USER");
+    public static final ErrorCode SQL_SET_ROLE_FIELDS = new ErrorCode("SQL_SET_ROLE_FIELDS");
 
     public static final ErrorCode SQL_GET_CLIENT = new ErrorCode("SQL_GET_CLIENT");
     public static final ErrorCode SQL_SET_CLIENT_FIELDS = new ErrorCode("SQL_SET_CLIENT_FIELDS");

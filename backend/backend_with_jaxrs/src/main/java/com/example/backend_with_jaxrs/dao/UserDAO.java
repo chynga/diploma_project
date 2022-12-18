@@ -1,10 +1,14 @@
 package com.example.backend_with_jaxrs.dao;
 
+import com.example.backend_with_jaxrs.models.Appointment;
+import com.example.backend_with_jaxrs.models.Role;
 import com.example.backend_with_jaxrs.models.User;
 import com.example.backend_with_jaxrs.utils.CustomException;
 import com.example.backend_with_jaxrs.utils.ErrorCode;
+import com.example.backend_with_jaxrs.utils.enums.UserAction;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class UserDAO extends GeneralDAO {
     private static UserDAO INSTANCE;
@@ -17,6 +21,7 @@ public class UserDAO extends GeneralDAO {
         if(INSTANCE == null) {
             INSTANCE = new UserDAO();
         }
+
         return INSTANCE;
     }
 
@@ -24,9 +29,10 @@ public class UserDAO extends GeneralDAO {
         String sqlScript = "INSERT INTO users (full_name, email, phone, password) " +
                 "VALUES (?, ?, ?, ?)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
-        setSqlScriptData(preparedStatement, user);
+        setSqlScriptData(preparedStatement, user, UserAction.REGISTER);
         executeUpdate(preparedStatement);
         ResultSet resultSet = getResultSet(preparedStatement);
+
         return getUserFromDb(resultSet).getId();
     }
 
@@ -36,18 +42,23 @@ public class UserDAO extends GeneralDAO {
             if (resultSet.next()) {
                 setUserFields(resultSet, user);
             }
+
             return user;
         } catch (SQLException e) {
             throw new CustomException(e, ErrorCode.SQL_GET_USER);
         }
     }
 
-    private void setSqlScriptData(PreparedStatement preparedStatement, User user) throws CustomException {
+    private void setSqlScriptData(PreparedStatement preparedStatement, User user, UserAction userAction) throws CustomException {
         try {
-            preparedStatement.setString(1, user.getFullName());
-            preparedStatement.setString(2, user.getEmail());
-            preparedStatement.setString(3, user.getPhone());
-            preparedStatement.setString(4, user.getPassword());
+            switch (userAction) {
+                case REGISTER:
+                    preparedStatement.setString(1, user.getFullName());
+                    preparedStatement.setString(2, user.getEmail());
+                    preparedStatement.setString(3, user.getPhone());
+                    preparedStatement.setString(4, user.getPassword());
+                    break;
+            }
         } catch (SQLException e) {
             throw new CustomException(e, ErrorCode.SQL_SET_SCRIPT_DATA);
         }

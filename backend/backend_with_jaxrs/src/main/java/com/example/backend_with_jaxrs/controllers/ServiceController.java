@@ -10,14 +10,10 @@ import java.util.ArrayList;
 
 @Path("/services")
 public class ServiceController {
-
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response showServices() throws CustomException {
         ArrayList<Service> services = DentalServiceService.getInstance().getServices();
         return Response.ok().entity(services).build();
     }
-
-
-
 }
