@@ -21,18 +21,18 @@ public class ClientDAO extends GeneralDAO {
         return INSTANCE;
     }
 
-    public void insertClientFields(Client client) throws CustomException {
+    public void insertClientFields(Integer id) throws CustomException {
         String sqlScript = "INSERT INTO clients (id, email_verified) " +
                 "VALUES (?, false)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
-        setSqlScriptData(preparedStatement, client);
+        setSqlScriptData(preparedStatement, new Client(id));
         executeUpdate(preparedStatement);
     }
 
-    public Client getClientById(Client client) throws CustomException {
+    public Client getClientById(Integer id) throws CustomException {
         String sqlScript = "SELECT * FROM users u JOIN clients c on u.id = c.id WHERE c.id = (?)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
-        setSqlScriptData(preparedStatement, client);
+        setSqlScriptData(preparedStatement, new Client(id));
         ResultSet resultSet = executeQuery(preparedStatement);
 
         return getClientFromDb(resultSet);
@@ -52,7 +52,7 @@ public class ClientDAO extends GeneralDAO {
             if (resultSet.next()) {
                 setClientFields(resultSet, client);
             } else {
-                throw new CustomException(ErrorCode.SQL);
+                throw new CustomException(ErrorCode.SQL_CLIENT_NOT_FOUND);
             }
 
             return client;

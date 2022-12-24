@@ -47,11 +47,13 @@ public class ReviewDAO extends GeneralDAO {
             Review review = new Review();
             if (resultSet.next()) {
                 setReviewFields(resultSet, review);
+            } else {
+                throw new CustomException(ErrorCode.SQL_REVIEW_NOT_FOUND);
             }
 
             return review;
         } catch (SQLException e) {
-            throw new CustomException(e, ErrorCode.SQL);
+            throw new CustomException(e, ErrorCode.SQL_GET_REVIEW);
         }
     }
 

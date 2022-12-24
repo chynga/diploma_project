@@ -31,7 +31,7 @@ public class Email {
         });
 
         // Used to debug SMTP issues
-        session.setDebug(true);
+//        session.setDebug(true);
 
         // Create a default MimeMessage object.
         MimeMessage message = new MimeMessage(session);

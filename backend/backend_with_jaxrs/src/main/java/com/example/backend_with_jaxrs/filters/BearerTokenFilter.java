@@ -13,7 +13,6 @@ import javax.ws.rs.container.PreMatching;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.ext.Provider;
-import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +22,7 @@ import java.util.List;
 public class BearerTokenFilter implements ContainerRequestFilter {
     private static Algorithm algorithm = Algorithm.HMAC256("secret");
 
-    public void filter(ContainerRequestContext requestContext) throws IOException {
+    public void filter(ContainerRequestContext requestContext) {
         if (isUriUnProtected(requestContext.getUriInfo().getPath(), requestContext.getMethod())) {
             return;
         }
@@ -69,6 +68,7 @@ public class BearerTokenFilter implements ContainerRequestFilter {
     private boolean isUriUnProtected(String path, String method) {
         ArrayList<Pair> unProtectedUris = new ArrayList<>();
         unProtectedUris.add(new Pair<>("authentication/register", "POST"));
+        unProtectedUris.add(new Pair<>("authentication/login", "POST"));
         unProtectedUris.add(new Pair<>("appointments", "GET"));
         unProtectedUris.add(new Pair<>("reviews", "POST"));
 

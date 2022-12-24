@@ -1,6 +1,7 @@
 package com.example.backend_with_jaxrs.dao;
 
 import com.example.backend_with_jaxrs.models.Appointment;
+import com.example.backend_with_jaxrs.models.Client;
 import com.example.backend_with_jaxrs.models.Role;
 import com.example.backend_with_jaxrs.models.User;
 import com.example.backend_with_jaxrs.utils.CustomException;
@@ -25,15 +26,34 @@ public class UserDAO extends GeneralDAO {
         return INSTANCE;
     }
 
-    public int register(User user) throws CustomException {
+    public int register(User userCredentials) throws CustomException {
         String sqlScript = "INSERT INTO users (full_name, email, phone, password) " +
                 "VALUES (?, ?, ?, ?)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
-        setSqlScriptData(preparedStatement, user, UserAction.REGISTER);
+        setSqlScriptData(preparedStatement, userCredentials, UserAction.REGISTER);
         executeUpdate(preparedStatement);
         ResultSet resultSet = getResultSet(preparedStatement);
 
         return getUserFromDb(resultSet).getId();
+    }
+
+    public User getUserById(Integer id) throws CustomException {
+        String sqlScript = "SELECT * FROM users WHERE id = (?)";
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        setSqlScriptData(preparedStatement, new User(id), UserAction.GET_BY_ID);
+        ResultSet resultSet = executeQuery(preparedStatement);
+
+        return getUserFromDb(resultSet);
+    }
+
+
+    public User getUserByEmail(String email) throws CustomException {
+        String sqlScript = "SELECT * FROM users WHERE email = (?)";
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        setSqlScriptData(preparedStatement, new User(email), UserAction.GET_BY_EMAIL);
+        ResultSet resultSet = executeQuery(preparedStatement);
+
+        return getUserFromDb(resultSet);
     }
 
     private User getUserFromDb(ResultSet resultSet) throws CustomException {
@@ -41,6 +61,8 @@ public class UserDAO extends GeneralDAO {
             User user = new User();
             if (resultSet.next()) {
                 setUserFields(resultSet, user);
+            } else {
+                throw new CustomException(ErrorCode.SQL_USER_NOT_FOUND);
             }
 
             return user;
@@ -57,6 +79,12 @@ public class UserDAO extends GeneralDAO {
                     preparedStatement.setString(2, user.getEmail());
                     preparedStatement.setString(3, user.getPhone());
                     preparedStatement.setString(4, user.getPassword());
+                    break;
+                case GET_BY_ID:
+                    preparedStatement.setInt(1, user.getId());
+                    break;
+                case GET_BY_EMAIL:
+                    preparedStatement.setString(1, user.getEmail());
                     break;
             }
         } catch (SQLException e) {

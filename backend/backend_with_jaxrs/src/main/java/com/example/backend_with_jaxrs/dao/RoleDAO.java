@@ -1,12 +1,10 @@
 package com.example.backend_with_jaxrs.dao;
 
-import com.example.backend_with_jaxrs.models.Client;
 import com.example.backend_with_jaxrs.models.Role;
 import com.example.backend_with_jaxrs.models.User;
 import com.example.backend_with_jaxrs.utils.CustomException;
 import com.example.backend_with_jaxrs.utils.ErrorCode;
 import com.example.backend_with_jaxrs.utils.enums.RoleAction;
-import com.example.backend_with_jaxrs.utils.enums.UserAction;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,10 +26,21 @@ public class RoleDAO extends GeneralDAO {
         return INSTANCE;
     }
 
-    public ArrayList<Role> getRolesForUser(User user) throws CustomException {
+    public ArrayList<String> getRolesById(User user) throws CustomException {
         String sqlScript = "SELECT * FROM permissions WHERE user_id = (?)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
-        setSqlScriptData(preparedStatement, user, null, RoleAction.GET_ROLES);
+        setSqlScriptData(preparedStatement, user, null, RoleAction.GET_ROLES_BY_ID);
+        ResultSet resultSet = executeQuery(preparedStatement);
+
+        return getRolesFromDb(resultSet);
+    }
+
+    public ArrayList<String> getRolesByEmail(User user) throws CustomException {
+        String sqlScript = "SELECT * FROM permissions" +
+                " JOIN users ON permissions.user_id = users.id" +
+                " WHERE email = (?)";
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        setSqlScriptData(preparedStatement, user, null, RoleAction.GET_ROLES_BY_EMAIL);
         ResultSet resultSet = executeQuery(preparedStatement);
 
         return getRolesFromDb(resultSet);
@@ -48,12 +57,15 @@ public class RoleDAO extends GeneralDAO {
     private void setSqlScriptData(PreparedStatement preparedStatement, User user, Role role, RoleAction roleAction) throws CustomException {
         try {
             switch (roleAction) {
-                case GET_ROLES:
+                case GET_ROLES_BY_ID:
                     preparedStatement.setInt(1, user.getId());
+                    break;
+                case GET_ROLES_BY_EMAIL:
+                    preparedStatement.setString(1, user.getEmail());
                     break;
                 case ADD_ROLE:
                     preparedStatement.setInt(1, user.getId());
-                    preparedStatement.setString(2, role.getName());
+                    preparedStatement.setString(2, role.name);
                     break;
             }
         } catch (SQLException e) {
@@ -61,13 +73,11 @@ public class RoleDAO extends GeneralDAO {
         }
     }
 
-    private ArrayList<Role> getRolesFromDb(ResultSet resultSet) throws CustomException {
+    private ArrayList<String> getRolesFromDb(ResultSet resultSet) throws CustomException {
         try {
-            ArrayList<Role> roles = new ArrayList<>();
+            ArrayList<String> roles = new ArrayList<>();
             while (resultSet.next()) {
-                Role role = new Role();
-                setRoleFields(resultSet, role);
-                roles.add(role);
+                roles.add(getRoleName(resultSet));
             }
 
             return roles;
@@ -76,11 +86,11 @@ public class RoleDAO extends GeneralDAO {
         }
     }
 
-    private void setRoleFields(ResultSet resultSet, Role role) throws CustomException {
+    private String getRoleName(ResultSet resultSet) throws CustomException {
         try {
-            role.setName(resultSet.getString("role"));
+            return resultSet.getString("role");
         } catch (SQLException e) {
-            throw new CustomException(e, ErrorCode.SQL_SET_ROLE_FIELDS);
+            throw new CustomException(e, ErrorCode.SQL_GET_ROLE_NAME);
         }
     }
 }

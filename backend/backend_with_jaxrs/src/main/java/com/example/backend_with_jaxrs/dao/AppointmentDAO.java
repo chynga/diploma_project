@@ -72,6 +72,8 @@ public class AppointmentDAO extends GeneralDAO {
             Appointment appointment = new Appointment();
             if (resultSet.next()) {
                 setAppointmentFields(resultSet, appointment);
+            } else {
+                throw new CustomException(ErrorCode.SQL_APPOINTMENT_NOT_FOUND);
             }
 
             return appointment;

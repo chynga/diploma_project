@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS roles (
 CREATE TABLE IF NOT EXISTS permissions (
     user_id INTEGER NOT NULL,
     role VARCHAR(30) NOT NULL,
+    PRIMARY KEY (user_id, role),
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
     FOREIGN KEY (role) REFERENCES roles (name) ON DELETE CASCADE
 );
@@ -140,33 +141,14 @@ CREATE TABLE IF NOT EXISTS ordered_calls (
      phone VARCHAR(15) NOT NULL
 );
 
-SELECT * FROM roles;
--- SELECT * FROM ordered_calls;
--- SELECT * FROM users;
--- SELECT * FROM appointments;
--- SELECT users.id, full_name, email, phone, started_working_from, available, work_experience, about FROM users JOIN doctors ON users.id = doctors.id;
--- SELECT * FROM doctors;-- d JOIN users u on d.id = u.id;
--- SELECT * FROM clients;
-
--- SELECT * FROM reviews;
--- SELECT * FROM doctors;
--- SELECT * FROM users u JOIN clients c on u.id = c.id WHERE c.id = 2
--- SELECT * FROM users;
--- INSERT INTO users (full_name, email, phone, password)
---     VALUES ('user1', 'email1@mail.ru', '870745645', 'password')
--- SELECT * FROM users
--- INSERT INTO clients (id) VALUES (1)
--- INSERT INTO appointment_statuses (name) VALUES ('pending');
--- INSERT INTO appointments (client_id, status) VALUES (1, 'pending')
--- SELECT * FROM appointments
-
--- SELECT * FROM clients JOIN users u on u.id = clients.id
--- DELETE FROM roles;
 -- INSERT INTO roles VALUES ('SUPERADMIN');
 -- INSERT INTO roles VALUES ('ADMIN');
 -- INSERT INTO roles VALUES ('MANAGER');
 -- INSERT INTO roles VALUES ('DOCTOR');
 -- INSERT INTO roles VALUES ('CONSULTANT');
 -- INSERT INTO roles VALUES ('CLIENT');
--- SELECT * FROM roles
-SELECT * from permissions
+SELECT * FROM users;
+-- SELECT * FROM roles;
+-- INSERT INTO permissions VALUES (2, 'SUPERADMIN');
+-- INSERT INTO permissions VALUES (2, 'DOCTOR');
+SELECT * FROM permissions

@@ -11,13 +11,17 @@ public class User {
     private String password;
     private String recoveryCode;
     private Date recoveryCodeSentTime;
-    private ArrayList<Role> roles;
+    private ArrayList<String> roles;
 
     public User() {
     }
 
     public User(int id) {
         this.id = id;
+    }
+
+    public User(String email) {
+        this.email = email;
     }
 
     public User(int id, String fullName, String email, String phone, String password, String recoveryCode, Date recoveryCodeSentTime) {
@@ -30,7 +34,7 @@ public class User {
         this.recoveryCodeSentTime = recoveryCodeSentTime;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -86,11 +90,11 @@ public class User {
         this.recoveryCodeSentTime = recoveryCodeSentTime;
     }
 
-    public ArrayList<Role> getRoles() {
+    public ArrayList<String> getRoles() {
         return roles;
     }
 
-    public void setRoles(ArrayList<Role> roles) {
+    public void setRoles(ArrayList<String> roles) {
         this.roles = roles;
     }
 }

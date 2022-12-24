@@ -2,7 +2,9 @@ package com.example.backend_with_jaxrs.utils;
 
 public class ErrorCode {
     private String message;
-    public static final ErrorCode SQL = new ErrorCode();
+    public static final ErrorCode INVALID_PASSWORD = new ErrorCode("INVALID_PASSWORD");
+    public static final ErrorCode ROLES_NOT_FOUND = new ErrorCode("ROLES_NOT_FOUND");
+
     public static final ErrorCode SQL_CONNECTION = new ErrorCode("SQL_CONNECTION");
     public static final ErrorCode SQL_GET_PREPARED_STATEMENT = new ErrorCode("SQL_GET_PREPARED_STATEMENT");
     public static final ErrorCode SQL_SET_SCRIPT_DATA = new ErrorCode("SQL_SET_SCRIPT_DATA");
@@ -14,19 +16,24 @@ public class ErrorCode {
     public static final ErrorCode SQL_GET_APPOINTMENT = new ErrorCode("SQL_GET_APPOINTMENT");
     public static final ErrorCode SQL_GET_APPOINTMENTS = new ErrorCode("SQL_GET_APPOINTMENTS");
     public static final ErrorCode SQL_SET_APPOINTMENT_FIELDS = new ErrorCode("SQL_SET_APPOINTMENT_FIELDS");
+    public static final ErrorCode SQL_APPOINTMENT_NOT_FOUND = new ErrorCode("SQL_APPOINTMENT_NOT_FOUND");
 
     public static final ErrorCode SQL_GET_SERVICES = new ErrorCode("SQL_GET_SERVICES");
     public static final ErrorCode SQL_SET_SERVICE_FIELDS = new ErrorCode("SQL_SET_SERVICE_FIELDS");
 
     public static final ErrorCode SQL_SET_REVIEW_FIELDS = new ErrorCode("SQL_SET_REVIEW_FIELDS");
+    public static final ErrorCode SQL_GET_REVIEW = new ErrorCode("SQL_GET_REVIEW");
+    public static final ErrorCode SQL_REVIEW_NOT_FOUND = new ErrorCode("SQL_REVIEW_NOT_FOUND");
 
     public static final ErrorCode SQL_GET_USER = new ErrorCode("SQL_GET_USER");
     public static final ErrorCode SQL_SET_USER_FIELDS = new ErrorCode("SQL_SET_USER_FIELDS");
     public static final ErrorCode SQL_GET_ROLES_FOR_USER = new ErrorCode("SQL_GET_ROLES_FOR_USER");
-    public static final ErrorCode SQL_SET_ROLE_FIELDS = new ErrorCode("SQL_SET_ROLE_FIELDS");
+    public static final ErrorCode SQL_GET_ROLE_NAME = new ErrorCode("SQL_GET_ROLE_NAME");
+    public static final ErrorCode SQL_USER_NOT_FOUND = new ErrorCode("SQL_USER_NOT_FOUND");
 
     public static final ErrorCode SQL_GET_CLIENT = new ErrorCode("SQL_GET_CLIENT");
     public static final ErrorCode SQL_SET_CLIENT_FIELDS = new ErrorCode("SQL_SET_CLIENT_FIELDS");
+    public static final ErrorCode SQL_CLIENT_NOT_FOUND = new ErrorCode("SQL_CLIENT_NOT_FOUND");
 
     public static final ErrorCode SQL_GET_DOCTORS = new ErrorCode("SQL_GET_DOCTORS");
     public static final ErrorCode SQL_SET_DOCTOR_FIELDS = new ErrorCode("SQL_SET_DOCTOR_FIELDS");
