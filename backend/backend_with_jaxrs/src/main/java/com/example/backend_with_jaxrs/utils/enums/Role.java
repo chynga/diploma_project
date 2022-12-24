@@ -1,11 +1,13 @@
-package com.example.backend_with_jaxrs.models;
+package com.example.backend_with_jaxrs.utils.enums;
 
 import com.example.backend_with_jaxrs.utils.ErrorCode;
 
 public enum Role {
-    CLIENT("CLIENT"),
     ADMIN("ADMIN"),
-    DOCTOR("DOCTOR");
+    MANAGER("MANAGER"),
+    DOCTOR("DOCTOR"),
+    CONSULTANT("CONSULTANT"),
+    CLIENT("CLIENT");
 
     public final String name;
 

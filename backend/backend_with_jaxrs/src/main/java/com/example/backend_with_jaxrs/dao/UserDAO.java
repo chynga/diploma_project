@@ -1,15 +1,11 @@
 package com.example.backend_with_jaxrs.dao;
 
-import com.example.backend_with_jaxrs.models.Appointment;
-import com.example.backend_with_jaxrs.models.Client;
-import com.example.backend_with_jaxrs.models.Role;
 import com.example.backend_with_jaxrs.models.User;
 import com.example.backend_with_jaxrs.utils.CustomException;
 import com.example.backend_with_jaxrs.utils.ErrorCode;
-import com.example.backend_with_jaxrs.utils.enums.UserAction;
+import com.example.backend_with_jaxrs.utils.enums.daoActions.UserAction;
 
 import java.sql.*;
-import java.util.ArrayList;
 
 public class UserDAO extends GeneralDAO {
     private static UserDAO INSTANCE;

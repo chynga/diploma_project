@@ -1,4 +1,4 @@
-package com.example.backend_with_jaxrs.utils.enums;
+package com.example.backend_with_jaxrs.utils.enums.daoActions;
 
 public enum UserAction {
     REGISTER,

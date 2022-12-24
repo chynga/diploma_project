@@ -1,10 +1,11 @@
 package com.example.backend_with_jaxrs.dao;
 
-import com.example.backend_with_jaxrs.models.Role;
+import com.example.backend_with_jaxrs.models.RoleAssignment;
+import com.example.backend_with_jaxrs.utils.enums.Role;
 import com.example.backend_with_jaxrs.models.User;
 import com.example.backend_with_jaxrs.utils.CustomException;
 import com.example.backend_with_jaxrs.utils.ErrorCode;
-import com.example.backend_with_jaxrs.utils.enums.RoleAction;
+import com.example.backend_with_jaxrs.utils.enums.daoActions.RoleAction;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -48,9 +49,27 @@ public class RoleDAO extends GeneralDAO {
 
     public void addRoleToUser(User user, Role role) throws CustomException {
         String sqlScript = "INSERT INTO permissions (user_id, role) " +
-                "VALUES (?, ?)";
+                           "VALUES (?, ?)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
         setSqlScriptData(preparedStatement, user, role, RoleAction.ADD_ROLE);
+        executeUpdate(preparedStatement);
+    }
+
+    public void addRolesToUser(RoleAssignment roleAssignment) throws CustomException {
+        String sqlScript = "";
+        for (String role : roleAssignment.getRoles()) {
+            sqlScript += "INSERT INTO permissions (user_id, role) " +
+                         "VALUES (" + roleAssignment.getUserId() + ", '" + role + "');\n";
+        }
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        execute(preparedStatement);
+    }
+
+    public void removeRolesByUserId(User user) throws CustomException {
+        String sqlScript = "DELETE FROM permissions " +
+                           "WHERE user_id = (?)";
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        setSqlScriptData(preparedStatement, user, null, RoleAction.REMOVE_ALL_ROLES);
         executeUpdate(preparedStatement);
     }
 
@@ -58,6 +77,7 @@ public class RoleDAO extends GeneralDAO {
         try {
             switch (roleAction) {
                 case GET_ROLES_BY_ID:
+                case REMOVE_ALL_ROLES:
                     preparedStatement.setInt(1, user.getId());
                     break;
                 case GET_ROLES_BY_EMAIL:

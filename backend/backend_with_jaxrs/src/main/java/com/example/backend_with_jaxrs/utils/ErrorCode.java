@@ -4,14 +4,17 @@ public class ErrorCode {
     private String message;
     public static final ErrorCode INVALID_PASSWORD = new ErrorCode("INVALID_PASSWORD");
     public static final ErrorCode ROLES_NOT_FOUND = new ErrorCode("ROLES_NOT_FOUND");
+    public static final ErrorCode NOT_AUTHORIZED = new ErrorCode("NOT_AUTHORIZED");
+    public static final ErrorCode CAN_NOT_ASSIGN_CLIENT_ROLE = new ErrorCode("CAN_NOT_ASSIGN_CLIENT_ROLE");
 
     public static final ErrorCode SQL_CONNECTION = new ErrorCode("SQL_CONNECTION");
     public static final ErrorCode SQL_GET_PREPARED_STATEMENT = new ErrorCode("SQL_GET_PREPARED_STATEMENT");
     public static final ErrorCode SQL_SET_SCRIPT_DATA = new ErrorCode("SQL_SET_SCRIPT_DATA");
-    public static final ErrorCode SQL_EXECUTE_STATEMENT = new ErrorCode("SQL_EXECUTE_STATEMENT");
+    public static final ErrorCode SQL_EXECUTE = new ErrorCode("SQL_EXECUTE");
+    public static final ErrorCode SQL_EXECUTE_UPDATE = new ErrorCode("SQL_EXECUTE_UPDATE");
     public static final ErrorCode SQL_GET_RESULT_SET = new ErrorCode("SQL_GET_RESULT_SET");
     public static final ErrorCode SQL_EXECUTE_QUERY = new ErrorCode("SQL_EXECUTE_QUERY");
-    public static final ErrorCode SQL_NO_ROWS_AFFECTED = new ErrorCode("Creating appointment failed, no rows affected.");
+    public static final ErrorCode SQL_NO_ROWS_AFFECTED = new ErrorCode("SQL_NO_ROWS_AFFECTED");
 
     public static final ErrorCode SQL_GET_APPOINTMENT = new ErrorCode("SQL_GET_APPOINTMENT");
     public static final ErrorCode SQL_GET_APPOINTMENTS = new ErrorCode("SQL_GET_APPOINTMENTS");

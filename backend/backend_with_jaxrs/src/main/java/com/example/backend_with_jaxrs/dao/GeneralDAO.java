@@ -35,14 +35,19 @@ public abstract class GeneralDAO {
         }
     }
 
-    void executeUpdate(PreparedStatement preparedStatement) throws CustomException {
+    int executeUpdate(PreparedStatement preparedStatement) throws CustomException {
         try {
-            int affectedRows = preparedStatement.executeUpdate();
-            if (affectedRows == 0) {
-                throw new CustomException(ErrorCode.SQL_NO_ROWS_AFFECTED);
-            }
+            return preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new CustomException(e, ErrorCode.SQL_EXECUTE_STATEMENT);
+            throw new CustomException(e, ErrorCode.SQL_EXECUTE_UPDATE);
+        }
+    }
+
+    boolean execute(PreparedStatement preparedStatement) throws CustomException {
+        try {
+            return preparedStatement.execute();
+        } catch (SQLException e) {
+            throw new CustomException(e, ErrorCode.SQL_EXECUTE);
         }
     }
 

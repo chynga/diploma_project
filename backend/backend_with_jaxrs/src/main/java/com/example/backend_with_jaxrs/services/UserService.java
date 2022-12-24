@@ -32,6 +32,7 @@ public class UserService {
         User user = UserDAO.getInstance().getUserByEmail(userCredentials.getEmail());
         boolean passwordIsValid = bCryptPasswordEncoder.matches(userCredentials.getPassword(), user.getPassword());
         if (!passwordIsValid) throw new CustomException(ErrorCode.INVALID_PASSWORD);
+        user.setRoles(RoleService.getInstance().getUserRoles(user));
 
         return user;
     }

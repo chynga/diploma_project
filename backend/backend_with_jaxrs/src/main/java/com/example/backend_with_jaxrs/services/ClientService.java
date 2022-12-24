@@ -2,7 +2,7 @@ package com.example.backend_with_jaxrs.services;
 
 import com.example.backend_with_jaxrs.dao.ClientDAO;
 import com.example.backend_with_jaxrs.dao.RoleDAO;
-import com.example.backend_with_jaxrs.models.Role;
+import com.example.backend_with_jaxrs.utils.enums.Role;
 import com.example.backend_with_jaxrs.models.User;
 import com.example.backend_with_jaxrs.models.Client;
 import com.example.backend_with_jaxrs.utils.CustomException;
@@ -33,7 +33,6 @@ public class ClientService {
     public Client login(User user) throws CustomException {
         User loggedInUser = UserService.getInstance().login(user);
         Client client = ClientDAO.getInstance().getClientById(loggedInUser.getId());
-        client.setRoles(RoleService.getInstance().getUserRoles(client));
 
         return client;
     }

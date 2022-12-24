@@ -46,7 +46,6 @@ public class AuthenticationController {
         else {
             user = UserService.getInstance().login(userCredentials);
         }
-        user.setRoles(userRoles);
         JwtToken token = new JwtToken(getToken(user));
 
         return Response.ok().entity(token).build();

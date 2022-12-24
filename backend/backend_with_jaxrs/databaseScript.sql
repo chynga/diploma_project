@@ -148,7 +148,7 @@ CREATE TABLE IF NOT EXISTS ordered_calls (
 -- INSERT INTO roles VALUES ('CONSULTANT');
 -- INSERT INTO roles VALUES ('CLIENT');
 SELECT * FROM users;
--- SELECT * FROM roles;
+SELECT * FROM roles;
 -- INSERT INTO permissions VALUES (2, 'SUPERADMIN');
 -- INSERT INTO permissions VALUES (2, 'DOCTOR');
 SELECT * FROM permissions
