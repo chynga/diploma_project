@@ -1,9 +1,6 @@
 package com.example.backend_with_jaxrs.filters;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.auth0.jwt.interfaces.JWTVerifier;
 import com.example.backend_with_jaxrs.utils.Jwt;
 import javafx.util.Pair;
 

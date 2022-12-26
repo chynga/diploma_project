@@ -5,7 +5,7 @@ import java.sql.Date;
 public class Doctor extends User {
     private Date startedWorkingFrom;
     private boolean available;
-    private int workExperience;
+    private Integer workExperience;
     private String about;
 
     public Date getStartedWorkingFrom() {
@@ -24,11 +24,11 @@ public class Doctor extends User {
         this.available = available;
     }
 
-    public int getWorkExperience() {
+    public Integer getWorkExperience() {
         return workExperience;
     }
 
-    public void setWorkExperience(int workExperience) {
+    public void setWorkExperience(Integer workExperience) {
         this.workExperience = workExperience;
     }
 

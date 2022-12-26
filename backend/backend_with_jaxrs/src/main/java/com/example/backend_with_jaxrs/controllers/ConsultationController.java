@@ -1,6 +1,5 @@
 package com.example.backend_with_jaxrs.controllers;
 
-import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.backend_with_jaxrs.models.message.Message;
 import com.example.backend_with_jaxrs.models.message.MessageDecoder;
 import com.example.backend_with_jaxrs.models.message.MessageEncoder;

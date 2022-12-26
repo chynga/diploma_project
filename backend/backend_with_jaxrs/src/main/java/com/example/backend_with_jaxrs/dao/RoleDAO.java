@@ -78,13 +78,13 @@ public class RoleDAO extends GeneralDAO {
             switch (roleAction) {
                 case GET_ROLES_BY_ID:
                 case REMOVE_ALL_ROLES:
-                    preparedStatement.setInt(1, user.getId());
+                    preparedStatement.setLong(1, user.getId());
                     break;
                 case GET_ROLES_BY_EMAIL:
                     preparedStatement.setString(1, user.getEmail());
                     break;
                 case ADD_ROLE:
-                    preparedStatement.setInt(1, user.getId());
+                    preparedStatement.setLong(1, user.getId());
                     preparedStatement.setString(2, role.name);
                     break;
             }

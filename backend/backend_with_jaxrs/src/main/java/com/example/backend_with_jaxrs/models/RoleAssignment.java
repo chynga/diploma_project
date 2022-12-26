@@ -3,14 +3,14 @@ package com.example.backend_with_jaxrs.models;
 import java.util.ArrayList;
 
 public class RoleAssignment {
-    private Integer userId;
+    private Long userId;
     private ArrayList<String> roles;
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

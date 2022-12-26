@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 public class User {
-    private Integer id;
+    private Long id;
     private String fullName;
     private String email;
     private String phone;
@@ -16,7 +16,7 @@ public class User {
     public User() {
     }
 
-    public User(int id) {
+    public User(Long id) {
         this.id = id;
     }
 
@@ -24,7 +24,7 @@ public class User {
         this.email = email;
     }
 
-    public User(int id, String fullName, String email, String phone, String password, String recoveryCode, Date recoveryCodeSentTime) {
+    public User(Long id, String fullName, String email, String phone, String password, String recoveryCode, Date recoveryCodeSentTime) {
         this.id = id;
         this.fullName = fullName;
         this.email = email;
@@ -34,11 +34,11 @@ public class User {
         this.recoveryCodeSentTime = recoveryCodeSentTime;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

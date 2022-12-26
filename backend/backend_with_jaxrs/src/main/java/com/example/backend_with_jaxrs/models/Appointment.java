@@ -3,9 +3,9 @@ package com.example.backend_with_jaxrs.models;
 import java.sql.Date;
 
 public class Appointment {
-    private int id;
-    private int doctorId;
-    private int clientId;
+    private Long id;
+    private Long doctorId;
+    private Long clientId;
     private String service;
     private String status;
     private Date approvedTime;
@@ -16,7 +16,7 @@ public class Appointment {
 
     public Appointment() {}
 
-    public Appointment(Integer doctorId, Integer clientId, String service, String status, String clientMessage) {
+    public Appointment(Long doctorId, Long clientId, String service, String status, String clientMessage) {
         this.doctorId = doctorId;
         this.clientId = clientId;
         this.service = service;
@@ -24,27 +24,27 @@ public class Appointment {
         this.clientMessage = clientMessage;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getDoctorId() {
+    public Long getDoctorId() {
         return doctorId;
     }
 
-    public void setDoctorId(int doctorId) {
+    public void setDoctorId(Long doctorId) {
         this.doctorId = doctorId;
     }
 
-    public Integer getClientId() {
+    public Long getClientId() {
         return clientId;
     }
 
-    public void setClientId(int clientId) {
+    public void setClientId(Long clientId) {
         this.clientId = clientId;
     }
 

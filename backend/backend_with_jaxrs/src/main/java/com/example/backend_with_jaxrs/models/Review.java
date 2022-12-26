@@ -1,16 +1,16 @@
 package com.example.backend_with_jaxrs.models;
 
 public class Review {
-    private int id;
+    private Long id;
     private String fullName;
     private String body;
-    private int rating;
+    private Integer rating;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -30,11 +30,11 @@ public class Review {
         this.body = body;
     }
 
-    public int getRating() {
+    public Integer getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(Integer rating) {
         this.rating = rating;
     }
 }

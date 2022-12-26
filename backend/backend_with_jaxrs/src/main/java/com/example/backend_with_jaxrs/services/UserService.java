@@ -23,7 +23,7 @@ public class UserService {
     public User register(User userCredentials) throws CustomException {
         String encodedPassword = bCryptPasswordEncoder.encode(userCredentials.getPassword());
         userCredentials.setPassword(encodedPassword);
-        int id = UserDAO.getInstance().register(userCredentials);
+        Long id = UserDAO.getInstance().register(userCredentials);
 
         return UserDAO.getInstance().getUserById(id);
     }

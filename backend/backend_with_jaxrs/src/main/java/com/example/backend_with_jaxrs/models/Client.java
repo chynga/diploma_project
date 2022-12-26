@@ -12,7 +12,7 @@ public class Client extends User {
 
     }
 
-    public Client(int id) {
+    public Client(Long id) {
         super(id);
     }
 

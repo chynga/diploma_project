@@ -55,8 +55,8 @@ public class AppointmentDAO extends GeneralDAO {
         try {
             switch (appointmentAction) {
                 case MAKE_APPOINTMENT:
-                    preparedStatement.setInt(1, appointment.getDoctorId());
-                    preparedStatement.setInt(2, appointment.getClientId());
+                    preparedStatement.setLong(1, appointment.getDoctorId());
+                    preparedStatement.setLong(2, appointment.getClientId());
                     preparedStatement.setString(3, appointment.getService());
                     preparedStatement.setDate(4, appointment.getRequestedTime());
                     preparedStatement.setString(5, appointment.getClientMessage());
@@ -99,9 +99,9 @@ public class AppointmentDAO extends GeneralDAO {
 
     private void setAppointmentFields(ResultSet resultSet, Appointment appointment) throws CustomException {
         try {
-            appointment.setId(resultSet.getInt("id"));
-            appointment.setDoctorId(resultSet.getInt("doctor_id"));
-            appointment.setClientId(resultSet.getInt("client_id"));
+            appointment.setId(resultSet.getLong("id"));
+            appointment.setDoctorId(resultSet.getLong("doctor_id"));
+            appointment.setClientId(resultSet.getLong("client_id"));
             appointment.setService(resultSet.getString("service"));
             appointment.setStatus(resultSet.getString("status"));
             appointment.setApprovedTime(resultSet.getDate("approved_time"));

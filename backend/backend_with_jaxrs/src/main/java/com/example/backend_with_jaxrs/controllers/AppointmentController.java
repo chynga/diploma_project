@@ -30,7 +30,7 @@ public class AppointmentController {
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateAppointment(@PathParam("id") int id, Appointment appointment) throws CustomException {
+    public Response updateAppointment(@PathParam("id") Long id, Appointment appointment) throws CustomException {
         appointment.setId(id);
         Appointment updatedAppointment = AppointmentService.getInstance().updateAppointment(appointment);
         return Response.ok().entity(updatedAppointment).build();

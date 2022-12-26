@@ -22,7 +22,7 @@ public class UserDAO extends GeneralDAO {
         return INSTANCE;
     }
 
-    public int register(User userCredentials) throws CustomException {
+    public Long register(User userCredentials) throws CustomException {
         String sqlScript = "INSERT INTO users (full_name, email, phone, password) " +
                 "VALUES (?, ?, ?, ?)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
@@ -33,7 +33,7 @@ public class UserDAO extends GeneralDAO {
         return getUserFromDb(resultSet).getId();
     }
 
-    public User getUserById(Integer id) throws CustomException {
+    public User getUserById(Long id) throws CustomException {
         String sqlScript = "SELECT * FROM users WHERE id = (?)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
         setSqlScriptData(preparedStatement, new User(id), UserAction.GET_BY_ID);
@@ -77,7 +77,7 @@ public class UserDAO extends GeneralDAO {
                     preparedStatement.setString(4, user.getPassword());
                     break;
                 case GET_BY_ID:
-                    preparedStatement.setInt(1, user.getId());
+                    preparedStatement.setLong(1, user.getId());
                     break;
                 case GET_BY_EMAIL:
                     preparedStatement.setString(1, user.getEmail());
@@ -90,7 +90,7 @@ public class UserDAO extends GeneralDAO {
 
     static void setUserFields(ResultSet resultSet, User user) throws CustomException {
         try {
-            user.setId(resultSet.getInt("id"));
+            user.setId(resultSet.getLong("id"));
             user.setFullName(resultSet.getString("full_name"));
             user.setEmail(resultSet.getString("email"));
             user.setPhone(resultSet.getString("phone"));

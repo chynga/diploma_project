@@ -59,7 +59,7 @@ public class ReviewDAO extends GeneralDAO {
 
     private void setReviewFields(ResultSet resultSet, Review review) throws CustomException {
         try {
-            review.setId(resultSet.getInt("id"));
+            review.setId(resultSet.getLong("id"));
             review.setFullName(resultSet.getString("full_name"));
             review.setBody(resultSet.getString("body"));
             review.setRating(resultSet.getInt("rating"));
