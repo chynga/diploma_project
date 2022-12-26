@@ -3,7 +3,6 @@ package com.example.backend_with_jaxrs.controllers;
 import com.example.backend_with_jaxrs.utils.Email;
 
 import javax.annotation.security.DenyAll;
-import javax.annotation.security.RolesAllowed;
 import javax.mail.MessagingException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;

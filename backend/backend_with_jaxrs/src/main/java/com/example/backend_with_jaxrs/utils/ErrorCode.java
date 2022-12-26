@@ -7,6 +7,11 @@ public class ErrorCode {
     public static final ErrorCode NOT_AUTHORIZED = new ErrorCode("NOT_AUTHORIZED");
     public static final ErrorCode CAN_NOT_ASSIGN_CLIENT_ROLE = new ErrorCode("CAN_NOT_ASSIGN_CLIENT_ROLE");
 
+    public static final ErrorCode NOT_ALLOWED_ROLE_IN_CHAT = new ErrorCode("NOT_ALLOWED_ROLE_IN_CHAT");
+    public static final ErrorCode MESSAGE_SENDING = new ErrorCode("MESSAGE_SENDING");
+    public static final ErrorCode SQL_GET_MESSAGES = new ErrorCode("SQL_GET_MESSAGES");
+    public static final ErrorCode SQL_SET_MESSAGE_FIELDS = new ErrorCode("SQL_SET_MESSAGE_FIELDS");
+
     public static final ErrorCode SQL_CONNECTION = new ErrorCode("SQL_CONNECTION");
     public static final ErrorCode SQL_GET_PREPARED_STATEMENT = new ErrorCode("SQL_GET_PREPARED_STATEMENT");
     public static final ErrorCode SQL_SET_SCRIPT_DATA = new ErrorCode("SQL_SET_SCRIPT_DATA");

@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
+import com.example.backend_with_jaxrs.utils.Jwt;
 import javafx.util.Pair;
 
 import javax.ws.rs.container.ContainerRequestFilter;
@@ -20,8 +21,6 @@ import java.util.List;
 @Provider
 @PreMatching
 public class BearerTokenFilter implements ContainerRequestFilter {
-    private static Algorithm algorithm = Algorithm.HMAC256("secret");
-
     public void filter(ContainerRequestContext requestContext) {
         if (isUriUnProtected(requestContext.getUriInfo().getPath(), requestContext.getMethod())) {
             return;
@@ -32,8 +31,8 @@ public class BearerTokenFilter implements ContainerRequestFilter {
             throw new NotAuthorizedException("Authorization header must be provided");
         }
 
-        String token = authorizationHeader.substring("Bearer".length()).trim();
-        DecodedJWT decodedJWT = decodeToken(token);
+        String token = Jwt.getTokenFromHeader(authorizationHeader);
+        DecodedJWT decodedJWT = Jwt.decodeToken(token);
         List<String> userRoles = decodedJWT.getClaim("roles").asList(String.class);
 
         requestContext.setSecurityContext(new SecurityContext() {
@@ -57,12 +56,6 @@ public class BearerTokenFilter implements ContainerRequestFilter {
                 return null;
             }
         });
-    }
-
-    private DecodedJWT decodeToken(String token) {
-        JWTVerifier verifier = JWT.require(algorithm).build();
-
-        return verifier.verify(token);
     }
 
     private boolean isUriUnProtected(String path, String method) {

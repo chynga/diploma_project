@@ -33,6 +33,7 @@ public class ClientService {
     public Client login(User user) throws CustomException {
         User loggedInUser = UserService.getInstance().login(user);
         Client client = ClientDAO.getInstance().getClientById(loggedInUser.getId());
+        client.setRoles(loggedInUser.getRoles());
 
         return client;
     }
