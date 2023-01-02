@@ -49,7 +49,7 @@ public class ServiceDAO extends GeneralDAO {
     private void setServiceFields(ResultSet resultSet, Service service) throws CustomException {
         try {
             service.setTitle(resultSet.getString("title"));
-            service.setApproxTimeMin(resultSet.getString("approx_time_min"));
+            service.setApproxTimeMin(resultSet.getInt("approx_time_min"));
             service.setApproxCost(resultSet.getString("approx_cost"));
         } catch (SQLException e) {
             throw new CustomException(e, ErrorCode.SQL_SET_SERVICE_FIELDS);

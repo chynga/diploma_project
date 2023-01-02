@@ -10,9 +10,9 @@ CREATE TABLE IF NOT EXISTS users (
     phone VARCHAR(15) NOT NULL,
     password VARCHAR(100) NOT NULL,
     -- verificationCode VARCHAR(6) DEFAULT NULL, /* for verifying email */
-    -- verificationCodeSent timestamp DEFAULT NULL, /* verifying code sent time */
+    -- verificationCodeSent TIMESTAMP DEFAULT NULL, /* verifying code sent time */
     recovery_code VARCHAR(6), /* for password recovery */
-    recovery_code_sent_time timestamp /* password recovery code sent time */
+    recovery_code_sent_time TIMESTAMP /* password recovery code sent time */
     -- emailVerified bool DEFAULT false,
     -- role user_role DEFAULT 'client'
 );
@@ -91,9 +91,9 @@ CREATE TABLE IF NOT EXISTS consultation (
 );
 
 CREATE TABLE IF NOT EXISTS services (
-    title VARCHAR(30) UNIQUE,
-    approx_time_min INTEGER,
-    approx_cost INTEGER
+    title VARCHAR(50) UNIQUE,
+    approx_duration_min INTEGER,
+    approx_cost VARCHAR(50)
 );
 
 CREATE TABLE IF NOT EXISTS doctor_services (
@@ -115,11 +115,10 @@ CREATE TABLE IF NOT EXISTS appointments (
     status VARCHAR(30) NOT null DEFAULT 'pending',
     approved_time TIMESTAMP,
     requested_time TIMESTAMP,
+    duration_min INTEGER,
     confirmed BOOL NOT null DEFAULT false,
     doctor_notes VARCHAR(5000) NOT NULL DEFAULT '',
     client_message VARCHAR(500) NOT NULL DEFAULT '',
---     full_name VARCHAR(50),
---     phone VARCHAR(15),
     FOREIGN KEY (doctor_id) REFERENCES doctors (id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (client_id) REFERENCES clients (id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (service) REFERENCES services (title) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -147,4 +146,18 @@ CREATE TABLE IF NOT EXISTS ordered_calls (
 -- SELECT * FROM users;
 -- SELECT * FROM roles;
 -- SELECT * FROM permissions;
+
+-- INSERT INTO appointment_statuses VALUES ('pending');
+-- INSERT INTO appointment_statuses VALUES ('approved');
+-- INSERT INTO appointment_statuses VALUES ('success');
+-- INSERT INTO appointment_statuses VALUES ('cancelled');
+
+-- INSERT INTO services VALUES ('лечение десен');
+-- INSERT INTO services VALUES ('имплантация');
+
 SELECT * FROM consultation;
+SELECT * FROM services;
+SELECT * FROM appointments;
+SELECT * FROM users JOIN permissions p on users.id = p.user_id;
+SELECT * FROM appointment_statuses;
+SELECT * FROM permissions;

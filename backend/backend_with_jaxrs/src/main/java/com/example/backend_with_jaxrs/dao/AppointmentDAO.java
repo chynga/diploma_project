@@ -23,7 +23,27 @@ public class AppointmentDAO extends GeneralDAO {
         return INSTANCE;
     }
 
-    public ArrayList<Appointment> getAppointments() throws CustomException {
+    public Appointment makeAppointment(Appointment appointment) throws CustomException {
+        String sqlScript = "INSERT INTO appointments (doctor_id, client_id, service, requested_time, client_message, status) " +
+                "VALUES (?, ?, ?, ?, ?, 'pending')";
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        setSqlScriptData(preparedStatement, appointment, null, AppointmentAction.MAKE_APPOINTMENT);
+        executeUpdate(preparedStatement);
+        ResultSet resultSet = getResultSet(preparedStatement);
+
+        return getAppointmentFromDb(resultSet);
+    }
+
+    public ArrayList<Appointment> getClientAppointments(Long id) throws CustomException {
+        String sqlScript = "SELECT * FROM appointments WHERE client_id = (?)";
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        setSqlScriptData(preparedStatement, null, id, AppointmentAction.GET_CLIENT_APPOINTMENTS);
+        ResultSet resultSet = executeQuery(preparedStatement);
+
+        return getAppointmentsFromDb(resultSet);
+    }
+
+    public ArrayList<Appointment> getAllAppointments() throws CustomException {
         String sqlScript = "SELECT * FROM appointments";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
         ResultSet resultSet = executeQuery(preparedStatement);
@@ -31,19 +51,9 @@ public class AppointmentDAO extends GeneralDAO {
         return getAppointmentsFromDb(resultSet);
     }
 
-    public Appointment makeAppointment(Appointment appointment) throws CustomException {
-        String sqlScript = "INSERT INTO appointments (doctor_id, client_id, service, requested_time, client_message) " +
-                "VALUES (?, ?, ?, ?, ?)";
-        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
-        setSqlScriptData(preparedStatement, appointment, AppointmentAction.MAKE_APPOINTMENT);
-        executeUpdate(preparedStatement);
-        ResultSet resultSet = getResultSet(preparedStatement);
-
-        return getAppointmentFromDb(resultSet);
-    }
-
     public Appointment updateAppointment(Appointment appointment) throws CustomException {
         String sqlScript = getSqlScriptForNonNull(appointment);
+        System.out.println(sqlScript);
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
         executeUpdate(preparedStatement);
         ResultSet resultSet = getResultSet(preparedStatement);
@@ -51,15 +61,32 @@ public class AppointmentDAO extends GeneralDAO {
         return getAppointmentFromDb(resultSet);
     }
 
-    private void setSqlScriptData(PreparedStatement preparedStatement, Appointment appointment, AppointmentAction appointmentAction) throws CustomException {
+    public Appointment deleteAppointment(Long id) throws CustomException {
+        String sqlScript = "DELETE FROM appointments WHERE id = (?)";
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        setSqlScriptData(preparedStatement, null, id, AppointmentAction.DELETE_APPOINTMENT);
+        executeUpdate(preparedStatement);
+        ResultSet resultSet = getResultSet(preparedStatement);
+
+        return getAppointmentFromDb(resultSet);
+    }
+
+    private void setSqlScriptData(PreparedStatement preparedStatement, Appointment appointment, Long id, AppointmentAction appointmentAction) throws CustomException {
         try {
             switch (appointmentAction) {
                 case MAKE_APPOINTMENT:
-                    preparedStatement.setLong(1, appointment.getDoctorId());
-                    preparedStatement.setLong(2, appointment.getClientId());
-                    preparedStatement.setString(3, appointment.getService());
-                    preparedStatement.setDate(4, appointment.getRequestedTime());
-                    preparedStatement.setString(5, appointment.getClientMessage());
+                    preparedStatement.setObject(1, appointment.getDoctorId(), Types.INTEGER);
+                    preparedStatement.setObject(2, appointment.getClientId(), Types.INTEGER);
+                    preparedStatement.setObject(3, appointment.getService(), Types.VARCHAR);
+                    preparedStatement.setObject(4, appointment.getRequestedTime(), Types.TIMESTAMP);
+                    preparedStatement.setObject(5,
+                            appointment.getClientMessage() != null ?
+                                    appointment.getClientMessage() :
+                                    "", Types.VARCHAR);
+                    break;
+                case GET_CLIENT_APPOINTMENTS:
+                case DELETE_APPOINTMENT:
+                    preparedStatement.setLong(1, id);
                     break;
             }
         } catch (SQLException e) {
@@ -104,8 +131,8 @@ public class AppointmentDAO extends GeneralDAO {
             appointment.setClientId(resultSet.getLong("client_id"));
             appointment.setService(resultSet.getString("service"));
             appointment.setStatus(resultSet.getString("status"));
-            appointment.setApprovedTime(resultSet.getDate("approved_time"));
-            appointment.setRequestedTime(resultSet.getDate("requested_time"));
+            appointment.setApprovedTime(resultSet.getTimestamp("approved_time"));
+            appointment.setRequestedTime(resultSet.getTimestamp("requested_time"));
             appointment.setConfirmed(resultSet.getBoolean("confirmed"));
             appointment.setDoctorNotes(resultSet.getString("doctor_notes"));
             appointment.setClientMessage(resultSet.getString("client_message"));
@@ -115,35 +142,36 @@ public class AppointmentDAO extends GeneralDAO {
     }
 
     private String getSqlScriptForNonNull(Appointment appointment) {
-        String sqlScript = "UPDATE appointments SET";
+        String sqlScript = "UPDATE appointments SET ";
         if (appointment.getDoctorId() != null) {
-            sqlScript += " doctor_id = " + appointment.getDoctorId();
+            sqlScript += "doctor_id = " + appointment.getDoctorId() + ", ";
         }
         if (appointment.getClientId() != null) {
-            sqlScript += " client_id = " + appointment.getClientId();
+            sqlScript += "client_id = " + appointment.getClientId() + ", ";
         }
         if (appointment.getService() != null) {
-            sqlScript += " service = " + appointment.getService();
+            sqlScript += "service = '" + appointment.getService() + "', ";
         }
         if (appointment.getStatus() != null) {
-            sqlScript += " status = " + appointment.getStatus();
+            sqlScript += "status = '" + appointment.getStatus() + "', ";
         }
         if (appointment.getApprovedTime() != null) {
-            sqlScript += " approved_time = " + appointment.getApprovedTime();
+            sqlScript += "approved_time = '" + appointment.getApprovedTime() + "', ";
         }
         if (appointment.getRequestedTime() != null) {
-            sqlScript += " requested_time = " + appointment.getRequestedTime();
+            sqlScript += "requested_time = '" + appointment.getRequestedTime() + "', ";
         }
         if (appointment.isConfirmed() != null) {
-            sqlScript += " confirmed = " + appointment.isConfirmed();
+            sqlScript += "confirmed = " + appointment.isConfirmed() + ", ";
         }
         if (appointment.getDoctorNotes() != null) {
-            sqlScript += " doctor_notes = " + appointment.getDoctorNotes();
+            sqlScript += "doctor_notes = '" + appointment.getDoctorNotes() + "', ";
         }
-        if (appointment.getClientMessage() != null) {
-            sqlScript += " client_message = " + appointment.getClientMessage();
-        }
+//        if (appointment.getClientMessage() != null) {
+//            sqlScript += " client_message = " + appointment.getClientMessage();
+//        }
         if (appointment.getId() != null) {
+            sqlScript = sqlScript.substring(0, sqlScript.length() - 2);
             sqlScript += " WHERE id = " + appointment.getId();
         }
 

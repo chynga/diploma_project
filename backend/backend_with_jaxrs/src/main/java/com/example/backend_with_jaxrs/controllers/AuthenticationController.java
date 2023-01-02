@@ -36,8 +36,7 @@ public class AuthenticationController {
         User user;
         if (userRoles.contains("CLIENT")) {
             user = ClientService.getInstance().login(userCredentials);
-        }
-        else {
+        } else {
             user = UserService.getInstance().login(userCredentials);
         }
         JwtToken token = new JwtToken(Jwt.getToken(user));

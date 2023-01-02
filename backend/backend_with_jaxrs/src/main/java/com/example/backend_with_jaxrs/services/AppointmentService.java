@@ -19,8 +19,8 @@ public class AppointmentService {
         return INSTANCE;
     }
 
-    public ArrayList<Appointment> getAppointments() throws CustomException {
-        return AppointmentDAO.getInstance().getAppointments();
+    public ArrayList<Appointment> getAllAppointments() throws CustomException {
+        return AppointmentDAO.getInstance().getAllAppointments();
     }
 
     public Appointment makeAppointment(Appointment appointment) throws CustomException {
@@ -29,5 +29,13 @@ public class AppointmentService {
 
     public Appointment updateAppointment(Appointment appointment) throws CustomException {
         return AppointmentDAO.getInstance().updateAppointment(appointment);
+    }
+
+    public ArrayList<Appointment> getClientAppointments(Long clientId) throws CustomException {
+        return AppointmentDAO.getInstance().getClientAppointments(clientId);
+    }
+
+    public Appointment deleteAppointment(Long id) throws CustomException {
+        return AppointmentDAO.getInstance().deleteAppointment(id);
     }
 }
