@@ -6,6 +6,7 @@ public enum Role {
     ADMIN("ADMIN"),
     MANAGER("MANAGER"),
     DOCTOR("DOCTOR"),
+    RECEPTION("RECEPTION"),
     CONSULTANT("CONSULTANT"),
     CLIENT("CLIENT");
 

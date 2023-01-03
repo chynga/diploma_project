@@ -10,8 +10,8 @@ public class Appointment {
     private String status;
     private Timestamp approvedTime;
     private Timestamp requestedTime;
+    private Integer durationMin;
     private Boolean confirmed;
-    private String doctorNotes;
     private String clientMessage;
 
     public Appointment() {}
@@ -80,20 +80,20 @@ public class Appointment {
         this.requestedTime = requestedTime;
     }
 
+    public Integer getDurationMin() {
+        return durationMin;
+    }
+
+    public void setDurationMin(Integer durationMin) {
+        this.durationMin = durationMin;
+    }
+
     public Boolean isConfirmed() {
         return confirmed;
     }
 
     public void setConfirmed(boolean confirmed) {
         this.confirmed = confirmed;
-    }
-
-    public String getDoctorNotes() {
-        return doctorNotes;
-    }
-
-    public void setDoctorNotes(String doctorNotes) {
-        this.doctorNotes = doctorNotes;
     }
 
     public String getClientMessage() {

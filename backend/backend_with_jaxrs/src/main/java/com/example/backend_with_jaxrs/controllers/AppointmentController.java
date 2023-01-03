@@ -1,6 +1,5 @@
 package com.example.backend_with_jaxrs.controllers;
 
-import com.example.backend_with_jaxrs.dao.AppointmentDAO;
 import com.example.backend_with_jaxrs.models.Appointment;
 import com.example.backend_with_jaxrs.services.AppointmentService;
 import com.example.backend_with_jaxrs.utils.CustomException;
@@ -22,6 +21,17 @@ public class AppointmentController {
         ArrayList<Appointment> appointments = AppointmentService.getInstance().getAllAppointments();
 
         return Response.ok().entity(appointments).build();
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response makeAppointment(Appointment appointment, @Context UriInfo uriInfo) throws CustomException {
+        if (!securityContext.isUserInRole(Role.MANAGER.name) &&
+            !securityContext.isUserInRole(Role.RECEPTION.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+        AppointmentService.getInstance().makeAppointment(appointment);
+        UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
+
+        return Response.created(uriBuilder.build()).build();
     }
 
     @PATCH

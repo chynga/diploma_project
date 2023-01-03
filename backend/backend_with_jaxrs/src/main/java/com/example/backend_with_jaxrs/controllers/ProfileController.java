@@ -32,14 +32,13 @@ public class ProfileController {
     @POST
     @Path("/appointments")
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     public Response requestAppointment(Appointment appointment,
                                        @HeaderParam(HttpHeaders.AUTHORIZATION) String authorizationHeader,
                                        @Context UriInfo uriInfo) throws CustomException {
         if (!securityContext.isUserInRole(Role.CLIENT.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
         Long clientId = getClientId(authorizationHeader);
         appointment.setClientId(clientId);
-        AppointmentService.getInstance().makeAppointment(appointment);
+        AppointmentService.getInstance().requestAppointment(appointment);
         UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
 
         return Response.created(uriBuilder.build()).build();

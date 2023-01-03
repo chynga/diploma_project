@@ -27,6 +27,10 @@ public class AppointmentService {
         return AppointmentDAO.getInstance().makeAppointment(appointment);
     }
 
+    public Appointment requestAppointment(Appointment appointment) throws CustomException {
+        return AppointmentDAO.getInstance().requestAppointment(appointment);
+    }
+
     public Appointment updateAppointment(Appointment appointment) throws CustomException {
         return AppointmentDAO.getInstance().updateAppointment(appointment);
     }

@@ -24,10 +24,21 @@ public class AppointmentDAO extends GeneralDAO {
     }
 
     public Appointment makeAppointment(Appointment appointment) throws CustomException {
+        String sqlScript = "INSERT INTO appointments (doctor_id, service, status, approved_time, duration_min, confirmed) " +
+                "VALUES (?, ?, 'success', ?, ?, true)";
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        setSqlScriptData(preparedStatement, appointment, null, AppointmentAction.MAKE_APPOINTMENT);
+        executeUpdate(preparedStatement);
+        ResultSet resultSet = getResultSet(preparedStatement);
+
+        return getAppointmentFromDb(resultSet);
+    }
+
+    public Appointment requestAppointment(Appointment appointment) throws CustomException {
         String sqlScript = "INSERT INTO appointments (doctor_id, client_id, service, requested_time, client_message, status) " +
                 "VALUES (?, ?, ?, ?, ?, 'pending')";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
-        setSqlScriptData(preparedStatement, appointment, null, AppointmentAction.MAKE_APPOINTMENT);
+        setSqlScriptData(preparedStatement, appointment, null, AppointmentAction.REQUEST_APPOINTMENT);
         executeUpdate(preparedStatement);
         ResultSet resultSet = getResultSet(preparedStatement);
 
@@ -75,6 +86,12 @@ public class AppointmentDAO extends GeneralDAO {
         try {
             switch (appointmentAction) {
                 case MAKE_APPOINTMENT:
+                    preparedStatement.setObject(1, appointment.getDoctorId(), Types.INTEGER);
+                    preparedStatement.setObject(2, appointment.getService(), Types.VARCHAR);
+                    preparedStatement.setObject(3, appointment.getApprovedTime(), Types.TIMESTAMP);
+                    preparedStatement.setObject(4, appointment.getDurationMin(), Types.INTEGER);
+                    break;
+                case REQUEST_APPOINTMENT:
                     preparedStatement.setObject(1, appointment.getDoctorId(), Types.INTEGER);
                     preparedStatement.setObject(2, appointment.getClientId(), Types.INTEGER);
                     preparedStatement.setObject(3, appointment.getService(), Types.VARCHAR);
@@ -134,7 +151,6 @@ public class AppointmentDAO extends GeneralDAO {
             appointment.setApprovedTime(resultSet.getTimestamp("approved_time"));
             appointment.setRequestedTime(resultSet.getTimestamp("requested_time"));
             appointment.setConfirmed(resultSet.getBoolean("confirmed"));
-            appointment.setDoctorNotes(resultSet.getString("doctor_notes"));
             appointment.setClientMessage(resultSet.getString("client_message"));
         } catch (SQLException e) {
             throw new CustomException(e, ErrorCode.SQL_SET_APPOINTMENT_FIELDS);
@@ -163,9 +179,6 @@ public class AppointmentDAO extends GeneralDAO {
         }
         if (appointment.isConfirmed() != null) {
             sqlScript += "confirmed = " + appointment.isConfirmed() + ", ";
-        }
-        if (appointment.getDoctorNotes() != null) {
-            sqlScript += "doctor_notes = '" + appointment.getDoctorNotes() + "', ";
         }
 //        if (appointment.getClientMessage() != null) {
 //            sqlScript += " client_message = " + appointment.getClientMessage();

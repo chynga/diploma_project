@@ -109,15 +109,14 @@ CREATE TABLE IF NOT EXISTS appointment_statuses (
 
 CREATE TABLE IF NOT EXISTS appointments (
     id SERIAL PRIMARY KEY,
-    doctor_id INTEGER DEFAULT null,
-    client_id INTEGER NOT null,
-    service VARCHAR(30) DEFAULT null,
-    status VARCHAR(30) NOT null DEFAULT 'pending',
+    doctor_id INTEGER DEFAULT NULL,
+    client_id INTEGER,
+    service VARCHAR(30) DEFAULT NULL,
+    status VARCHAR(30) NOT NULL,
     approved_time TIMESTAMP,
     requested_time TIMESTAMP,
     duration_min INTEGER,
-    confirmed BOOL NOT null DEFAULT false,
-    doctor_notes VARCHAR(5000) NOT NULL DEFAULT '',
+    confirmed BOOL NOT NULL DEFAULT false,
     client_message VARCHAR(500) NOT NULL DEFAULT '',
     FOREIGN KEY (doctor_id) REFERENCES doctors (id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (client_id) REFERENCES clients (id) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -141,6 +140,7 @@ CREATE TABLE IF NOT EXISTS ordered_calls (
 -- INSERT INTO roles VALUES ('ADMIN');
 -- INSERT INTO roles VALUES ('MANAGER');
 -- INSERT INTO roles VALUES ('DOCTOR');
+-- INSERT INTO roles VALUES ('RECEPTION');
 -- INSERT INTO roles VALUES ('CONSULTANT');
 -- INSERT INTO roles VALUES ('CLIENT');
 -- SELECT * FROM users;
@@ -157,7 +157,7 @@ CREATE TABLE IF NOT EXISTS ordered_calls (
 
 SELECT * FROM consultation;
 SELECT * FROM services;
-SELECT * FROM appointments;
 SELECT * FROM users JOIN permissions p on users.id = p.user_id;
 SELECT * FROM appointment_statuses;
 SELECT * FROM permissions;
+SELECT * FROM appointments;
