@@ -1,5 +1,3 @@
--- DROP TABLE IF EXISTS users;
--- DROP TABLE users cascade ;
 -- DROP SCHEMA public CASCADE;
 -- CREATE SCHEMA public;
 
@@ -9,26 +7,13 @@ CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(50) UNIQUE NOT NULL,
     phone VARCHAR(15) NOT NULL,
     password VARCHAR(100) NOT NULL,
-    -- verificationCode VARCHAR(6) DEFAULT NULL, /* for verifying email */
-    -- verificationCodeSent TIMESTAMP DEFAULT NULL, /* verifying code sent time */
     recovery_code VARCHAR(6), /* for password recovery */
     recovery_code_sent_time TIMESTAMP /* password recovery code sent time */
-    -- emailVerified bool DEFAULT false,
-    -- role user_role DEFAULT 'client'
 );
 
 CREATE TABLE IF NOT EXISTS roles (
     name VARCHAR(30) UNIQUE NOT NULL
 );
-
--- DELETE FROM roles;
-
--- INSERT INTO roles VALUES ('super_admin');
--- INSERT INTO roles VALUES ('admin');
--- INSERT INTO roles VALUES ('manager');
--- INSERT INTO roles VALUES ('doctor');
--- INSERT INTO roles VALUES ('operator');
--- INSERT INTO roles VALUES ('client');
 
 CREATE TABLE IF NOT EXISTS permissions (
     user_id INTEGER NOT NULL,
@@ -116,7 +101,7 @@ CREATE TABLE IF NOT EXISTS appointments (
     approved_time TIMESTAMP,
     requested_time TIMESTAMP,
     duration_min INTEGER,
-    cost INTEGER NOT NULL DEFAULT 0,
+    cost DECIMAL NOT NULL DEFAULT 0,
     confirmed BOOL NOT NULL DEFAULT false,
     client_message VARCHAR(500) NOT NULL DEFAULT '',
     FOREIGN KEY (doctor_id) REFERENCES doctors (id) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -144,9 +129,6 @@ CREATE TABLE IF NOT EXISTS ordered_calls (
 -- INSERT INTO roles VALUES ('RECEPTION');
 -- INSERT INTO roles VALUES ('CONSULTANT');
 -- INSERT INTO roles VALUES ('CLIENT');
--- SELECT * FROM users;
--- SELECT * FROM roles;
--- SELECT * FROM permissions;
 
 -- INSERT INTO appointment_statuses VALUES ('pending');
 -- INSERT INTO appointment_statuses VALUES ('approved');
@@ -162,3 +144,4 @@ SELECT * FROM users JOIN permissions p on users.id = p.user_id;
 SELECT * FROM appointment_statuses;
 SELECT * FROM permissions;
 SELECT * FROM appointments;
+SELECT doctor_id, service, approved_time, cost FROM appointments WHERE EXTRACT(MONTH FROM approved_time) = 1 AND status = 'success'
