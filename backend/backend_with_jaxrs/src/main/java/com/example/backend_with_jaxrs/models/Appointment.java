@@ -11,6 +11,7 @@ public class Appointment {
     private Timestamp approvedTime;
     private Timestamp requestedTime;
     private Integer durationMin;
+    private Integer cost;
     private Boolean confirmed;
     private String clientMessage;
 
@@ -86,6 +87,14 @@ public class Appointment {
 
     public void setDurationMin(Integer durationMin) {
         this.durationMin = durationMin;
+    }
+
+    public Integer getCost() {
+        return cost;
+    }
+
+    public void setCost(Integer cost) {
+        this.cost = cost;
     }
 
     public Boolean isConfirmed() {

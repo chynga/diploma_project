@@ -24,8 +24,8 @@ public class AppointmentDAO extends GeneralDAO {
     }
 
     public Appointment makeAppointment(Appointment appointment) throws CustomException {
-        String sqlScript = "INSERT INTO appointments (doctor_id, service, status, approved_time, duration_min, confirmed) " +
-                "VALUES (?, ?, 'success', ?, ?, true)";
+        String sqlScript = "INSERT INTO appointments (doctor_id, service, status, approved_time, duration_min, cost, confirmed) " +
+                "VALUES (?, ?, 'success', ?, ?, ?, true)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
         setSqlScriptData(preparedStatement, appointment, null, AppointmentAction.MAKE_APPOINTMENT);
         executeUpdate(preparedStatement);
@@ -63,7 +63,7 @@ public class AppointmentDAO extends GeneralDAO {
     }
 
     public Appointment updateAppointment(Appointment appointment) throws CustomException {
-        String sqlScript = getSqlScriptForNonNull(appointment);
+        String sqlScript = getSqlUpdateScript(appointment);
         System.out.println(sqlScript);
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
         executeUpdate(preparedStatement);
@@ -90,6 +90,10 @@ public class AppointmentDAO extends GeneralDAO {
                     preparedStatement.setObject(2, appointment.getService(), Types.VARCHAR);
                     preparedStatement.setObject(3, appointment.getApprovedTime(), Types.TIMESTAMP);
                     preparedStatement.setObject(4, appointment.getDurationMin(), Types.INTEGER);
+                    preparedStatement.setObject(5,
+                            appointment.getCost() != null ?
+                                    appointment.getCost() :
+                                    0, Types.INTEGER);
                     break;
                 case REQUEST_APPOINTMENT:
                     preparedStatement.setObject(1, appointment.getDoctorId(), Types.INTEGER);
@@ -150,6 +154,8 @@ public class AppointmentDAO extends GeneralDAO {
             appointment.setStatus(resultSet.getString("status"));
             appointment.setApprovedTime(resultSet.getTimestamp("approved_time"));
             appointment.setRequestedTime(resultSet.getTimestamp("requested_time"));
+            appointment.setDurationMin(resultSet.getInt("duration_min"));
+            appointment.setCost(resultSet.getInt("cost"));
             appointment.setConfirmed(resultSet.getBoolean("confirmed"));
             appointment.setClientMessage(resultSet.getString("client_message"));
         } catch (SQLException e) {
@@ -157,13 +163,10 @@ public class AppointmentDAO extends GeneralDAO {
         }
     }
 
-    private String getSqlScriptForNonNull(Appointment appointment) {
+    private String getSqlUpdateScript(Appointment appointment) {
         String sqlScript = "UPDATE appointments SET ";
         if (appointment.getDoctorId() != null) {
             sqlScript += "doctor_id = " + appointment.getDoctorId() + ", ";
-        }
-        if (appointment.getClientId() != null) {
-            sqlScript += "client_id = " + appointment.getClientId() + ", ";
         }
         if (appointment.getService() != null) {
             sqlScript += "service = '" + appointment.getService() + "', ";
@@ -174,15 +177,15 @@ public class AppointmentDAO extends GeneralDAO {
         if (appointment.getApprovedTime() != null) {
             sqlScript += "approved_time = '" + appointment.getApprovedTime() + "', ";
         }
-        if (appointment.getRequestedTime() != null) {
-            sqlScript += "requested_time = '" + appointment.getRequestedTime() + "', ";
+        if (appointment.getDurationMin() != null) {
+            sqlScript += "duration_min = " + appointment.getDurationMin() + ", ";
+        }
+        if (appointment.getCost() != null) {
+            sqlScript += "cost = " + appointment.getCost() + ", ";
         }
         if (appointment.isConfirmed() != null) {
             sqlScript += "confirmed = " + appointment.isConfirmed() + ", ";
         }
-//        if (appointment.getClientMessage() != null) {
-//            sqlScript += " client_message = " + appointment.getClientMessage();
-//        }
         if (appointment.getId() != null) {
             sqlScript = sqlScript.substring(0, sqlScript.length() - 2);
             sqlScript += " WHERE id = " + appointment.getId();

@@ -116,6 +116,7 @@ CREATE TABLE IF NOT EXISTS appointments (
     approved_time TIMESTAMP,
     requested_time TIMESTAMP,
     duration_min INTEGER,
+    cost INTEGER NOT NULL DEFAULT 0,
     confirmed BOOL NOT NULL DEFAULT false,
     client_message VARCHAR(500) NOT NULL DEFAULT '',
     FOREIGN KEY (doctor_id) REFERENCES doctors (id) ON DELETE CASCADE ON UPDATE CASCADE,
