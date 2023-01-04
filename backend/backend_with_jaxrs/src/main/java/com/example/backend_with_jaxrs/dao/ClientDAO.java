@@ -25,22 +25,58 @@ public class ClientDAO extends GeneralDAO {
         String sqlScript = "INSERT INTO clients (id, email_verified) " +
                 "VALUES (?, false)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
-        setSqlScriptData(preparedStatement, new Client(id));
+        setClientFields(preparedStatement, new Client(id));
         executeUpdate(preparedStatement);
     }
 
     public Client getClientById(Long id) throws CustomException {
         String sqlScript = "SELECT * FROM users u JOIN clients c on u.id = c.id WHERE c.id = (?)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
-        setSqlScriptData(preparedStatement, new Client(id));
+        setClientFields(preparedStatement, new Client(id));
         ResultSet resultSet = executeQuery(preparedStatement);
 
         return getClientFromDb(resultSet);
     }
 
-    private void setSqlScriptData(PreparedStatement preparedStatement, Client client) throws CustomException {
+    public void setVerificationCode(Long id, String verificationCode, Timestamp timestamp) throws CustomException {
+        String sqlScript = "UPDATE clients SET verification_code = (?), verification_code_sent_time = (?) WHERE id = (?)";
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        setFieldsForVerification(preparedStatement, id, verificationCode, timestamp);
+        executeUpdate(preparedStatement);
+    }
+
+    public String getVerificationCode(Long id) throws CustomException {
+        String sqlScript = "SELECT * FROM clients c JOIN users u ON c.id = u.id WHERE c.id = (?)";
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        setClientFields(preparedStatement, new Client(id));
+        ResultSet resultSet = executeQuery(preparedStatement);
+
+        return getClientFromDb(resultSet).getVerificationCode();
+    }
+
+    public void removeVerificationCode(Long id) throws CustomException {
+        String sqlScript = "UPDATE clients SET verification_code = NULL, verification_code_sent_time = NULL, email_verified = true WHERE id = (?)";
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        setClientFields(preparedStatement, new Client(id));
+        execute(preparedStatement);
+    }
+
+    private void setClientFields(PreparedStatement preparedStatement, Client client) throws CustomException {
         try {
             preparedStatement.setLong(1, client.getId());
+        } catch (SQLException e) {
+            throw new CustomException(ErrorCode.SQL_SET_SCRIPT_DATA);
+        }
+    }
+
+    private void setFieldsForVerification(PreparedStatement preparedStatement,
+                                          Long id,
+                                          String verificationCode,
+                                          Timestamp timestamp) throws CustomException {
+        try {
+            preparedStatement.setString(1, verificationCode);
+            preparedStatement.setTimestamp(2, timestamp);
+            preparedStatement.setLong(3, id);
         } catch (SQLException e) {
             throw new CustomException(ErrorCode.SQL_SET_SCRIPT_DATA);
         }

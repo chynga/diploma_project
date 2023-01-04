@@ -64,7 +64,6 @@ public class AppointmentDAO extends GeneralDAO {
 
     public Appointment updateAppointment(Appointment appointment) throws CustomException {
         String sqlScript = getSqlUpdateScript(appointment);
-        System.out.println(sqlScript);
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
         executeUpdate(preparedStatement);
         ResultSet resultSet = getResultSet(preparedStatement);
