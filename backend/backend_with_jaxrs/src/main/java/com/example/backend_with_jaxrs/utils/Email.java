@@ -11,7 +11,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class Email {
-    public static void sendVerificationCode(String to, String subject, String text) throws CustomException {
+    public static void sendCode(String to, String subject, String text) throws CustomException {
         String from = "testttts325@gmail.com";
         String appPassword = "yntovzpkbjtumscb";
 

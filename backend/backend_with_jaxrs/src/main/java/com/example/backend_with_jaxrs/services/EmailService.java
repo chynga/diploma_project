@@ -44,7 +44,7 @@ public class EmailService {
         String subject = "Email Verification";
         String text = "Enter the following code to confirm your email address and complete setup for your account:\n"
                 + "<h2>" + code + "</h2>";
-        Email.sendVerificationCode(email, subject, text);
+        Email.sendCode(email, subject, text);
 
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());

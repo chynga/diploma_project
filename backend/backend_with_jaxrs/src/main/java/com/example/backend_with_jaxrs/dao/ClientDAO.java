@@ -25,14 +25,14 @@ public class ClientDAO extends GeneralDAO {
         String sqlScript = "INSERT INTO clients (id, email_verified) " +
                 "VALUES (?, false)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
-        setClientFields(preparedStatement, new Client(id));
+        setScriptFields(preparedStatement, new Client(id));
         executeUpdate(preparedStatement);
     }
 
     public Client getClientById(Long id) throws CustomException {
         String sqlScript = "SELECT * FROM users u JOIN clients c on u.id = c.id WHERE c.id = (?)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
-        setClientFields(preparedStatement, new Client(id));
+        setScriptFields(preparedStatement, new Client(id));
         ResultSet resultSet = executeQuery(preparedStatement);
 
         return getClientFromDb(resultSet);
@@ -48,7 +48,7 @@ public class ClientDAO extends GeneralDAO {
     public String getVerificationCode(Long id) throws CustomException {
         String sqlScript = "SELECT * FROM clients c JOIN users u ON c.id = u.id WHERE c.id = (?)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
-        setClientFields(preparedStatement, new Client(id));
+        setScriptFields(preparedStatement, new Client(id));
         ResultSet resultSet = executeQuery(preparedStatement);
 
         return getClientFromDb(resultSet).getVerificationCode();
@@ -57,11 +57,11 @@ public class ClientDAO extends GeneralDAO {
     public void removeVerificationCode(Long id) throws CustomException {
         String sqlScript = "UPDATE clients SET verification_code = NULL, verification_code_sent_time = NULL, email_verified = true WHERE id = (?)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
-        setClientFields(preparedStatement, new Client(id));
+        setScriptFields(preparedStatement, new Client(id));
         execute(preparedStatement);
     }
 
-    private void setClientFields(PreparedStatement preparedStatement, Client client) throws CustomException {
+    private void setScriptFields(PreparedStatement preparedStatement, Client client) throws CustomException {
         try {
             preparedStatement.setLong(1, client.getId());
         } catch (SQLException e) {
