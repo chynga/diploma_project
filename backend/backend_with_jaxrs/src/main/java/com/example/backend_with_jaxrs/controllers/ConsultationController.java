@@ -44,8 +44,10 @@ public class ConsultationController {
         String token = getToken(session.getQueryString());
 
         List<String> roles = Jwt.getRoles(token);
+        Long id = Jwt.getUserId(token);
 
         message.setClientId(clientId);
+        message.setConsultantId(roles.contains(Role.CONSULTANT.name) ? id : null);
         message.setIsClient(roles.contains(Role.CLIENT.name));
 
         Date date = new Date();
@@ -73,7 +75,9 @@ public class ConsultationController {
 
     private static void sendMessage(Message message) throws CustomException {
         try {
-            clients.get(message.getClientId()).getBasicRemote().sendObject(message);
+            if (clients.get(message.getClientId()) != null) {
+                clients.get(message.getClientId()).getBasicRemote().sendObject(message);
+            }
         } catch (IOException | EncodeException e) {
             throw new CustomException(ErrorCode.MESSAGE_SENDING);
         }

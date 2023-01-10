@@ -63,7 +63,8 @@ public class BearerTokenFilter implements ContainerRequestFilter {
         unProtectedUris.add(new Pair<>("test", "POST"));
         unProtectedUris.add(new Pair<>("email/verify", "POST"));
         unProtectedUris.add(new Pair<>("password/recover", "POST"));
+        unProtectedUris.add(new Pair<>("test", "*"));
 
-        return unProtectedUris.contains(new Pair<>(path, method));
+        return unProtectedUris.contains(new Pair<>(path, method)) || unProtectedUris.contains(new Pair<>(path, "*"));
     }
 }

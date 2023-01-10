@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 public class Message {
     private Long id;
     private Long clientId;
+    private Long consultantId;
     private String body;
     private Timestamp sentTime;
     private Boolean isClient;
@@ -30,6 +31,14 @@ public class Message {
 
     public void setClientId(Long clientId) {
         this.clientId = clientId;
+    }
+
+    public Long getConsultantId() {
+        return consultantId;
+    }
+
+    public void setConsultantId(Long consultantId) {
+        this.consultantId = consultantId;
     }
 
     public String getBody() {

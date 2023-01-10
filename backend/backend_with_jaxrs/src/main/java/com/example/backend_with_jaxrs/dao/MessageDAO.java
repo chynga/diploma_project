@@ -8,6 +8,7 @@ import com.example.backend_with_jaxrs.utils.enums.daoActions.MessageAction;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 
 public class MessageDAO extends GeneralDAO {
@@ -35,8 +36,8 @@ public class MessageDAO extends GeneralDAO {
     }
 
     public void saveMessage(Message message) throws CustomException {
-        String sqlScript = "INSERT INTO consultation (client_id, body, sent_time, is_client) " +
-                "VALUES (?, ?, ?, ?)";
+        String sqlScript = "INSERT INTO consultation (client_id, consultant_id, body, sent_time, is_client) " +
+                "VALUES (?, ?, ?, ?, ?)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
         setSqlScriptData(preparedStatement, message, MessageAction.SAVE_MESSAGE);
         executeUpdate(preparedStatement);
@@ -47,9 +48,10 @@ public class MessageDAO extends GeneralDAO {
             switch (messageAction) {
                 case SAVE_MESSAGE:
                     preparedStatement.setLong(1, message.getClientId());
-                    preparedStatement.setString(2, message.getBody());
-                    preparedStatement.setTimestamp(3, message.getSentTime());
-                    preparedStatement.setBoolean(4, message.isClient());
+                    preparedStatement.setObject(2, message.getConsultantId(), Types.INTEGER);
+                    preparedStatement.setString(3, message.getBody());
+                    preparedStatement.setTimestamp(4, message.getSentTime());
+                    preparedStatement.setBoolean(5, message.isClient());
                     break;
                 case GET_MESSAGES:
                     preparedStatement.setLong(1, message.getClientId());
