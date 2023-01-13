@@ -1,5 +1,6 @@
 package com.example.backend_with_jaxrs.services;
 
+import com.example.backend_with_jaxrs.dao.DoctorDAO;
 import com.example.backend_with_jaxrs.dao.RoleDAO;
 import com.example.backend_with_jaxrs.models.RoleAssignment;
 import com.example.backend_with_jaxrs.utils.enums.Role;
@@ -44,5 +45,9 @@ public class RoleService {
 
         RoleDAO.getInstance().removeRolesByUserId(new User(roleAssignment.getUserId()));
         RoleDAO.getInstance().addRolesToUser(roleAssignment);
+        if (roleAssignment.getRoles().contains(Role.DOCTOR.name) &&
+            !DoctorDAO.getInstance().doctorExists(roleAssignment.getUserId())) {
+            DoctorDAO.getInstance().createDoctor(roleAssignment.getUserId());
+        }
     }
 }

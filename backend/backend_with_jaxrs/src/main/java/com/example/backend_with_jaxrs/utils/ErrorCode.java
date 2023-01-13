@@ -49,6 +49,7 @@ public class ErrorCode {
 
     public static final ErrorCode SQL_GET_DOCTORS = new ErrorCode("SQL_GET_DOCTORS");
     public static final ErrorCode SQL_SET_DOCTOR_FIELDS = new ErrorCode("SQL_SET_DOCTOR_FIELDS");
+    public static final ErrorCode SQL_GET_DOCTOR = new ErrorCode("SQL_GET_DOCTOR");
 
     public ErrorCode() {
         this.message = "SQL error";
