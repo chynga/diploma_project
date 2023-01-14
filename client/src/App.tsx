@@ -1,11 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+} from "react-router-dom";
+import Header from './features/common/Header';
+import NotFound from './features/common/NotFound';
 
 function App() {
     return (
         <div className="App">
-            <h1 className="text-3xl font-bold underline">Hello World</h1>
+            <Router>
+                <Header />
+                <Routes>
+                    <Route path="/about" />
+                    <Route path="/users" />
+                    <Route path="/" />
+                    <Route path="*" element={<NotFound />} />
+                </Routes>
+            </Router>
         </div>
     );
 }
