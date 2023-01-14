@@ -1,23 +1,5 @@
-.auth {
-    display: flex;
-    justify-content: center;
-}
-
-.form {
-    width: 600px;
-}
-
-.error-message {
-    color: red;
-}
-
-.map {
-    width: 500px;
-    height: 300px;
-}
-
 .App {
-
+  text-align: center;
 }
 
 .App-logo {
