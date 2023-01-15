@@ -1,0 +1,18 @@
+{
+    "login": "Логин",
+    "register": "Регистрация",
+    "logout": "Выйти",
+    "firstName": "Имя",
+    "lastName": "Фамилия",
+    "fullName": "ФИО",
+    "email": "Почта",
+    "phone": "Номер телефона",
+    "password": "Пароль",
+    "newPassword": "Новый Пароль",
+    "forgotPassword": "Забыли Пароль?",
+    "verifyEmail": "Подтвердить почту",
+    "sendCode": "Отправить код",
+    "resetPassword": "Восстановить Пароль",
+    "code": "Шестизначный код",
+    "profile": "Профиль"
+}
