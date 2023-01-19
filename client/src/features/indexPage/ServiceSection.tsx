@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function Service() {
+function ServiceSection() {
     return (
         <div className="pt-12 bg-backgroundSecondary px-20">
             <h2 className="text-center text-xl sm:text-4xl text-primary-white dark:text-primary-dark font-bold">
@@ -43,4 +43,4 @@ function Card() {
     );
 }
 
-export default Service;
+export default ServiceSection;

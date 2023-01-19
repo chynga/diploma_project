@@ -1,7 +1,7 @@
 import Doctor3 from "../common/Doctor3";
 import { Select, Option, Textarea } from "@material-tailwind/react";
 
-function Appointment() {
+function AppointmentSection() {
     return (
         <div className="py-16 px-20 flex justify-center xl:justify-between gap-10">
             <div className="hidden xl:block">
@@ -65,4 +65,4 @@ function Appointment() {
     );
 }
 
-export default Appointment;
+export default AppointmentSection;

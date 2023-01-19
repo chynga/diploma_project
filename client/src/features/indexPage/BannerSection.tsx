@@ -1,4 +1,4 @@
-function Banner() {
+function BannerSection() {
     return (
         <div className="w-full h-[35rem] bg-[url('images/banner.jpg')]
                          bg-cover bg-center flex justify-center items-center
@@ -17,4 +17,4 @@ function Banner() {
     );
 }
 
-export default Banner;
+export default BannerSection;

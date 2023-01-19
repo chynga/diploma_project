@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import Header from './features/common/Header';
 import NotFound from './features/common/NotFound';
-import Home from './features/indexPage/Home';
+import HomePage from './features/indexPage/HomePage';
 import Footer from './features/common/Footer';
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
                 <Routes>
                     <Route path="/about" />
                     <Route path="/users" />
-                    <Route path="/" element={<Home />} />
+                    <Route path="/" element={<HomePage />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
                 <Footer />

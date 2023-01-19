@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Doctor4 from "../common/Doctor4";
 import LinkButton from "../common/LinkButton";
 
-function Advice() {
+function AdviceSection() {
     return (
         <div className="py-16 px-20 xl:h-[730px]">
             <h2 className="mt-12 text-center text-xl sm:text-4xl text-primary-white dark:text-primary-dark font-bold">
@@ -49,4 +49,4 @@ function AdviceCard({ title, text }: Advice) {
     );
 }
 
-export default Advice;
+export default AdviceSection;

@@ -5,7 +5,7 @@ type PromiseContent = {
     text: string,
 }
 
-function About() {
+function AboutSection() {
     return (
         <div className="px-20">
             <h2 className="mt-12 text-center text-xl sm:text-4xl text-primary-white dark:text-primary-dark font-bold">
@@ -54,4 +54,4 @@ function TeethSvg() {
     );
 }
 
-export default About;
+export default AboutSection;

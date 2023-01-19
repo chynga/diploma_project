@@ -1,7 +1,7 @@
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import { useMemo } from "react";
 
-function Location() {
+function LocationSection() {
     return (
         <div className="py-20 px-20">
             <h2 className="text-center text-xl sm:text-4xl text-blue-white dark:text-blue-dark font-bold">
@@ -65,4 +65,4 @@ const Map = () => {
     );
 };
 
-export default Location;
+export default LocationSection;
