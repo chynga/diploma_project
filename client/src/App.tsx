@@ -8,6 +8,7 @@ import Header from './features/common/Header';
 import NotFound from './features/common/NotFound';
 import HomePage from './features/indexPage/HomePage';
 import Footer from './features/common/Footer';
+import ServicesPage from './features/servicesPage/ServicesPage';
 
 function App() {
     return (
@@ -18,6 +19,7 @@ function App() {
                     <Route path="/about" />
                     <Route path="/users" />
                     <Route path="/" element={<HomePage />} />
+                    <Route path="/services" element={<ServicesPage />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
                 <Footer />
