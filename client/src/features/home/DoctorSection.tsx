@@ -1,3 +1,5 @@
+import LinkButton from "../common/LinkButton";
+
 function DoctorSection() {
     return (
         <div className="py-20 px-20">
@@ -10,8 +12,7 @@ function DoctorSection() {
                 <DoctorCard imageUrl={"real-doctor-3.png"} />
             </div>
             <div className="my-16 flex justify-center">
-                <a className="px-6 py-2 bg-blue-white dark:bg-blue-dark text-md text-primary-dark font-semibold drop-shadow-lg rounded-full"
-                    href="#">Просмотр всех врачей</a>
+                <LinkButton to="/doctors" text="Просмотр всех врачей" />
             </div>
         </div>
     );

@@ -1,5 +1,5 @@
 import AppointmentForm from "../common/AppointmentForm";
-import ServiceSection from "../indexPage/ServiceSection";
+import ServiceSection from "../home/ServiceSection";
 
 function ServicesPage() {
     return (

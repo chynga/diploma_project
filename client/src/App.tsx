@@ -6,9 +6,10 @@ import {
 } from "react-router-dom";
 import Header from './features/common/Header';
 import NotFound from './features/common/NotFound';
-import HomePage from './features/indexPage/HomePage';
+import HomePage from './features/home';
 import Footer from './features/common/Footer';
-import ServicesPage from './features/servicesPage/ServicesPage';
+import ServicesPage from './features/services';
+import ServicePage from './features/services/service';
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
                     <Route path="/users" />
                     <Route path="/" element={<HomePage />} />
                     <Route path="/services" element={<ServicesPage />} />
+                    <Route path="/services/:id" element={<ServicePage />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
                 <Footer />
