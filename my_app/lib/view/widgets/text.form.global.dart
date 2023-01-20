@@ -2,12 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:my_app/utils/global.colors.dart';
 
 class TextFormGlobal extends StatelessWidget {
-  const TextFormGlobal({Key? key, required this.controller, required this.text, required this.textInputType, required this.obscure}) : super(key: key);
-  final TextEditingController controller; 
+  const TextFormGlobal(
+      {Key? key,
+      required this.controller,
+      required this.text,
+      required this.textInputType,
+      required this.obscure})
+      : super(key: key);
+  final TextEditingController controller;
   final String text;
   final TextInputType textInputType;
   final bool obscure;
-
 
   @override
   Widget build(BuildContext context) {
@@ -19,20 +24,22 @@ class TextFormGlobal extends StatelessWidget {
         borderRadius: BorderRadius.circular(6),
         boxShadow: [
           BoxShadow(
-            color: GobalColors.shadowColor.withOpacity(0.5),
+            color: GlobalColors.shadowColor.withOpacity(0.5),
             blurRadius: 8,
           )
         ],
       ),
       child: TextFormField(
         controller: controller,
-        keyboardType: TextInputType.emailAddress,
-        obscureText: true,
+        keyboardType: textInputType,
+        obscureText: obscure,
         decoration: InputDecoration(
-          hintText: 'Email',
+          hintText: text,
           border: InputBorder.none,
-          contentPadding: EdgeInsets.all(0),
-
+          contentPadding: const EdgeInsets.all(0),
+          hintStyle: const TextStyle(
+            height: 1,
+          )
         ),
       ),
     );

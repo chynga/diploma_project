@@ -16,7 +16,7 @@ class SplashView extends StatelessWidget {
       Get.to(LoginView());
     });
     return Scaffold(
-      backgroundColor: GobalColors.backgraundColor,
+      backgroundColor: GlobalColors.backgraundColor,
       body: Center(
         child: Text(
           'Logo',

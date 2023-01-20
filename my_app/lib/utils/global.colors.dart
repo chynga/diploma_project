@@ -1,6 +1,6 @@
 import 'package:hexcolor/hexcolor.dart';
 
-class GobalColors {
+class GlobalColors {
   //// 277FF2 main color
   static HexColor mainColor = HexColor('#277FF2');
   //// 393939 text color
