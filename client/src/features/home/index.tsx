@@ -1,10 +1,10 @@
 import BannerSection from "./BannerSection";
 import AboutSection from "./AboutSection";
-import ServiceSection from "./ServiceSection";
-import DoctorSection from "./DoctorSection";
-import ReviewSection from "./ReviewSection";
+import ServicesSection from "./ServicesSection";
+import DoctorsSection from "./DoctorsSection";
+import ReviewsSection from "./ReviewsSection";
 import AppointmentSection from "./AppointmentSection";
-import AdviceSection from "./AdviceSection";
+import AdvicesSection from "./AdvicesSection";
 import LocationSection from "./LocationSection";
 
 function HomePage() {
@@ -12,11 +12,11 @@ function HomePage() {
         <div>
             <BannerSection />
             <AboutSection />
-            <ServiceSection />
-            <DoctorSection />
-            <ReviewSection />
+            <ServicesSection />
+            <DoctorsSection />
+            <ReviewsSection />
             <AppointmentSection />
-            <AdviceSection />
+            <AdvicesSection />
             <LocationSection />
         </div>
     );

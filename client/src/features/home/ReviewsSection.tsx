@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Doctor2 from "../common/Doctor2";
 import LinkButton from "../common/LinkButton";
 
-function ReviewSection() {
+function ReviewsSection() {
     return (
         <div className="py-12 px-20">
             <h2 className="text-xl sm:text-4xl text-blue-white dark:text-blue-dark font-bold">
@@ -69,4 +69,4 @@ function ReviewSection() {
     );
 }
 
-export default ReviewSection;
+export default ReviewsSection;

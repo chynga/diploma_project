@@ -1,6 +1,5 @@
 import AppointmentForm from "../common/AppointmentForm";
 import Doctor1 from "../common/Doctor1";
-import Doctor3 from "../common/Doctor3";
 
 function AppointmentSection() {
     return (
