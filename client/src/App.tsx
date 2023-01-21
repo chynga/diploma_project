@@ -11,6 +11,7 @@ import Footer from './features/common/Footer';
 import ServicesPage from './features/services';
 import ServicePage from './features/services/service';
 import ReviewsPage from './features/reviews';
+import VacancyPage from './features/vacancy';
 
 function App() {
     return (
@@ -24,6 +25,7 @@ function App() {
                     <Route path="/services" element={<ServicesPage />} />
                     <Route path="/services/:id" element={<ServicePage />} />
                     <Route path="/reviews" element={<ReviewsPage />} />
+                    <Route path="/vacancy" element={<VacancyPage />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
                 <Footer />
