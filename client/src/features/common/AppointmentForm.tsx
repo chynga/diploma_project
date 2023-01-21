@@ -2,7 +2,7 @@ import { Select, Option, Textarea } from "@material-tailwind/react";
 
 function AppointmentForm() {
     return (
-        <form className="mt-10 p-12 bg-backgroundSecondary rounded-3xl w-full">
+        <form className="mt-10 p-12 bg-[#277ff280] rounded-3xl w-full">
             <div className="xl:flex gap-5">
                 <div className="xl:mt-0 w-full">
                     <Select label="Врач" className="bg-background-white dark:bg-background-dark text-primary-white dark:text-primary-dark">
