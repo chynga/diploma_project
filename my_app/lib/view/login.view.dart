@@ -17,6 +17,7 @@ class LoginView extends StatelessWidget {
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
+            color: Colors.white,
             width: double.infinity,
             padding: const EdgeInsets.all(15.0),
             child: Column(
@@ -26,15 +27,7 @@ class LoginView extends StatelessWidget {
                 Image.asset('assets/images/woman.png',
                 height: 150,),
                 const SizedBox(height: 20),
-                // Text(
-                //   'Вход',
-                //   textAlign: TextAlign.center,
-                //   style: TextStyle(
-                //     color: GlobalColors.textColor,
-                //     fontSize: 15,
-                //     fontWeight: FontWeight.normal,
-                //   ),
-                // ),
+                VariationToEnter(),
                 const SizedBox(height: 24),
                 //// Email Input
                 TextFormGlobal(
@@ -56,7 +49,7 @@ class LoginView extends StatelessWidget {
 
                 const SizedBox(height: 18),
                 const ButtonGlobal(),
-                VariationToEnter()
+                
               ],
             ),
           ),
