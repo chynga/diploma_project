@@ -30,3 +30,27 @@ class SplashView extends StatelessWidget {
     );
   }
 }
+
+class Entering extends StatelessWidget {
+  const Entering({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    Timer(const Duration(seconds: 2), () {
+      Get.to(LoginView());
+    });
+    return Scaffold(
+      backgroundColor: GlobalColors.backgraundColor,
+      body: Center(
+        child: Text(
+          'Добро пожаловать !',
+          style: TextStyle(
+            color: GlobalColors.mainColor,
+            fontSize: 26,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
+      ),
+    );
+  }
+}
