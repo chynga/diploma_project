@@ -15,6 +15,7 @@ import VacancyPage from './features/vacancy';
 import DoctorsPage from './features/doctors';
 import DoctorPage from './features/doctors/doctor';
 import AdvicesPage from './features/advices';
+import AboutPage from './features/about';
 
 function App() {
     return (
@@ -22,8 +23,6 @@ function App() {
             <Router>
                 <Header />
                 <Routes>
-                    <Route path="/about" />
-                    <Route path="/users" />
                     <Route path="/" element={<HomePage />} />
                     <Route path="/services" element={<ServicesPage />} />
                     <Route path="/services/:id" element={<ServicePage />} />
@@ -32,6 +31,7 @@ function App() {
                     <Route path="/doctors" element={<DoctorsPage />} />
                     <Route path="/doctors/:id" element={<DoctorPage />} />
                     <Route path="/advices" element={<AdvicesPage />} />
+                    <Route path="/about" element={<AboutPage />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
                 <Footer />
