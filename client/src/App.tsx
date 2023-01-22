@@ -14,6 +14,7 @@ import ReviewsPage from './features/reviews';
 import VacancyPage from './features/vacancy';
 import DoctorsPage from './features/doctors';
 import DoctorPage from './features/doctors/doctor';
+import AdvicesPage from './features/advices';
 
 function App() {
     return (
@@ -30,6 +31,7 @@ function App() {
                     <Route path="/vacancy" element={<VacancyPage />} />
                     <Route path="/doctors" element={<DoctorsPage />} />
                     <Route path="/doctors/:id" element={<DoctorPage />} />
+                    <Route path="/advices" element={<AdvicesPage />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
                 <Footer />
