@@ -1,40 +1,20 @@
 import { t } from "i18next";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { toggleTheme } from "./util";
 
 function Header() {
-
     const { t, i18n } = useTranslation(["kz", "ru"]);
-
-    const toggleTheme = (e: any) => {
-        e.preventDefault();
-
-        // if set via local storage previously
-        if (localStorage.getItem('color-theme')) {
-            if (localStorage.getItem('color-theme') === 'light') {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('color-theme', 'dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('color-theme', 'light');
-            }
-
-            // if NOT set via local storage previously
-        } else {
-            if (document.documentElement.classList.contains('dark')) {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('color-theme', 'light');
-            } else {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('color-theme', 'dark');
-            }
-        }
-    }
+    const location = useLocation();
 
     const changeLanguage = (e: any) => {
         i18n.changeLanguage(e.target.value);
     };
+
+    if (location.pathname === "/profile") {
+        return <div></div>
+    }
 
     return (
         <header>
@@ -45,6 +25,9 @@ function Header() {
             </button>
             <button value="kz" className="pr-6" onClick={changeLanguage}>kz</button>
             <button value="ru" onClick={changeLanguage}>ru</button>
+            <Link to="/profile" className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">
+                Profile
+            </Link>
             <Navbar />
         </header>
     );

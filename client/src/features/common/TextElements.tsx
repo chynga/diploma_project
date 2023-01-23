@@ -28,6 +28,14 @@ function HeaderText3({ children, className, blue = false }: TextProps) {
     );
 }
 
+function TextLg({ children, className, blue = false }: TextProps) {
+    return (
+        <div className={`text-lg text-${blue ? 'blue' : 'primary'}-white dark:text-${blue ? 'blue' : 'primary'}-dark ${className} ${className}`}>
+            {children}
+        </div>
+    );
+}
+
 function Paragraph({ children, className }: TextProps) {
     return (
         <p className={`font-light text-primary-white dark:text-primary-dark ${className}`}>
@@ -41,4 +49,5 @@ export {
     HeaderText2,
     HeaderText3,
     Paragraph,
+    TextLg,
 }

@@ -1,11 +1,16 @@
-import { Link } from "react-router-dom";
-import Logo from "./Logo";
+import { Link, useLocation } from "react-router-dom";
+import { Logo } from "./SvgImages";
 
 function Footer() {
+    const location = useLocation();
+
+    if (location.pathname === "/profile") {
+        return <div></div>
+    }
 
     return (
         <footer className="bg-blue-white dark:bg-blue-dark py-16 px-40 flex flex-col md:flex-row items-center justify-between">
-            <Logo />
+            <Logo fill={"primary"} />
             <div className="hidden xl:block">
                 <h3 className="mt-3 font-bold text-lg text-white">Меню</h3>
                 <Link to="/" className="text-sm text-white block">Главная</Link>
