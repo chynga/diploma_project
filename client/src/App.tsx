@@ -16,7 +16,7 @@ import DoctorsPage from './features/doctors';
 import DoctorPage from './features/doctors/doctor';
 import AdvicesPage from './features/advices';
 import AboutPage from './features/about';
-import ProfilePage from './features/profile';
+import ProfilePanel from './features/profile';
 
 function App() {
     return (
@@ -33,7 +33,7 @@ function App() {
                     <Route path="/doctors/:id" element={<DoctorPage />} />
                     <Route path="/advices" element={<AdvicesPage />} />
                     <Route path="/about" element={<AboutPage />} />
-                    <Route path="/profile" element={<ProfilePage />} />
+                    <Route path="/profile" element={<ProfilePanel />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
                 <Footer />

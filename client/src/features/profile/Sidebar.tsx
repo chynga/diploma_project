@@ -6,11 +6,11 @@ import { TextLg } from "../common/TextElements";
 
 type SidebarProps = {
     className?: string,
-    page: Page,
-    setPage: Dispatch<SetStateAction<Page>>
+    pageName: Page,
+    setPageName: Dispatch<SetStateAction<Page>>
 }
 
-function Sidebar({ className = "", page, setPage }: SidebarProps) {
+function Sidebar({ className = "", pageName, setPageName }: SidebarProps) {
     return (
         <div className={`py-6 px-12 h-screen bg-background-white dark:bg-background-dark shadow-[4px_0_20px_rgba(39,127,242,0.5)] ${className}`}>
             <div className="flex flex-col justify-between h-full">
@@ -24,18 +24,18 @@ function Sidebar({ className = "", page, setPage }: SidebarProps) {
                         Айдар Зейнеп
                     </h2>
                     <div className="w-full flex gap-5 items-center hover:cursor-pointer"
-                        onClick={() => { setPage("appointments") }}>
-                        <People fill={page === "appointments" ? "blue" : "primary"} />
-                        <TextLg blue={page === "appointments" ? true : false}>
+                        onClick={() => { setPageName("appointments") }}>
+                        <People fill={pageName === "appointments" ? "blue" : "primary"} />
+                        <TextLg blue={pageName === "appointments" ? true : false}>
                             <p>Мои Записи</p>
                         </TextLg>
                     </div>
                     <div className="w-full flex gap-5 items-center hover:cursor-pointer"
                         onClick={() => {
-                            setPage("consultation")
+                            setPageName("consultation")
                         }}>
-                        <Envelop fill={page === "consultation" ? "blue" : "primary"} />
-                        <TextLg blue={page === "consultation" ? true : false}>
+                        <Envelop fill={pageName === "consultation" ? "blue" : "primary"} />
+                        <TextLg blue={pageName === "consultation" ? true : false}>
                             <p>Сообщения</p>
                         </TextLg>
                     </div>
@@ -43,10 +43,10 @@ function Sidebar({ className = "", page, setPage }: SidebarProps) {
                 <div>
                     <div className="w-full flex gap-5 items-center hover:cursor-pointer"
                         onClick={() => {
-                            setPage("profile")
+                            setPageName("profile")
                         }}>
-                        <Person fill={page === "profile" ? "blue" : "primary"} />
-                        <TextLg blue={page === "profile" ? true : false}>
+                        <Person fill={pageName === "profile" ? "blue" : "primary"} />
+                        <TextLg blue={pageName === "profile" ? true : false}>
                             <p>Профиль</p>
                         </TextLg>
                     </div>
