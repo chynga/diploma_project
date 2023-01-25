@@ -30,7 +30,15 @@ function HeaderText3({ children, className, blue = false }: TextProps) {
 
 function TextLg({ children, className, blue = false }: TextProps) {
     return (
-        <div className={`text-lg text-${blue ? 'blue' : 'primary'}-white dark:text-${blue ? 'blue' : 'primary'}-dark ${className} ${className}`}>
+        <div className={`text-lg text-${blue ? 'blue' : 'primary'}-white dark:text-${blue ? 'blue' : 'primary'}-dark ${className}`}>
+            {children}
+        </div>
+    );
+}
+
+function TextBase({ children, className, blue = false }: TextProps) {
+    return (
+        <div className={`text-base font-normal text-${blue ? 'blue' : 'primary'}-white dark:text-${blue ? 'blue' : 'primary'}-dark ${className}`}>
             {children}
         </div>
     );
@@ -50,4 +58,5 @@ export {
     HeaderText3,
     Paragraph,
     TextLg,
+    TextBase,
 }
