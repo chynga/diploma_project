@@ -2,7 +2,7 @@ import { useState } from "react";
 import Sidebar from "./Sidebar";
 import { ModeToggler } from "../common/SvgImages";
 import { toggleTheme } from "../common/util";
-import AppointmentsPage from "./AppointmentsPage";
+import AppointmentsPage from "./appointmentsPage";
 import ConsultationPage from "./ConsultationPage";
 import ProfilePage from "./ProfilePage";
 
