@@ -1,11 +1,10 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_app/utils/global.colors.dart';
 import 'package:my_app/view/login.view.dart';
+import 'package:my_app/view/main.page.dart';
 
 class SplashView extends StatelessWidget {
   const SplashView({Key? key}) : super(key: key);
@@ -17,7 +16,7 @@ class SplashView extends StatelessWidget {
     });
     return Scaffold(
       backgroundColor: GlobalColors.backgraundColor,
-      body: Center(
+      body: const Center(
         child: Text(
           'Logo',
           style: TextStyle(
@@ -37,7 +36,7 @@ class Entering extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Timer(const Duration(seconds: 2), () {
-      Get.to(LoginView());
+      Get.to(Home());
     });
     return Scaffold(
       backgroundColor: GlobalColors.backgraundColor,

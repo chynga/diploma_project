@@ -1,7 +1,4 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:my_app/utils/global.colors.dart';
 import 'package:my_app/view/widgets/button.global.dart';
 import 'package:my_app/view/widgets/login.logup.dart';
 import 'package:my_app/view/widgets/text.form.global.dart';
@@ -14,6 +11,7 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
@@ -23,11 +21,13 @@ class LoginView extends StatelessWidget {
             child: Column(
               children: [
                 const SizedBox(height: 40),
-                Text('Logo'),
-                Image.asset('assets/images/woman.png',
-                height: 150,),
+                const Text('Logo'),
+                Image.asset(
+                  'assets/images/woman.png',
+                  height: 150,
+                ),
                 const SizedBox(height: 20),
-                VariationToEnter(),
+                const VariationToEnter(),
                 const SizedBox(height: 24),
                 //// Email Input
                 TextFormGlobal(
@@ -44,12 +44,10 @@ class LoginView extends StatelessWidget {
                     controller: passwordController,
                     text: 'Password',
                     textInputType: TextInputType.text,
-                    obscure: true
-                    ),
+                    obscure: true),
 
                 const SizedBox(height: 18),
                 const ButtonGlobal(),
-                
               ],
             ),
           ),
@@ -70,6 +68,7 @@ class LogUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
@@ -79,14 +78,16 @@ class LogUp extends StatelessWidget {
             child: Column(
               children: [
                 const SizedBox(height: 40),
-                Text('Logo'),
-                Image.asset('assets/images/woman.png',
-                height: 100,),
+                const Text('Logo'),
+                Image.asset(
+                  'assets/images/woman.png',
+                  height: 100,
+                ),
                 const SizedBox(height: 8),
-                Registration(),
+                const Registration(),
                 const SizedBox(height: 2),
 
-                //// input name 
+                //// input name
                 TextFormGlobal(
                   controller: nameController,
                   text: 'Name',
@@ -95,7 +96,7 @@ class LogUp extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
 
-                 //// input second name
+                //// input second name
                 TextFormGlobal(
                   controller: secondNameController,
                   text: 'Family Name',
@@ -113,7 +114,7 @@ class LogUp extends StatelessWidget {
                 ),
 
                 const SizedBox(height: 8),
-                
+
                 //// input phone  number
                 TextFormGlobal(
                   controller: phoneController,
@@ -127,14 +128,10 @@ class LogUp extends StatelessWidget {
                     controller: passwordController,
                     text: 'Password',
                     textInputType: TextInputType.text,
-                    obscure: true
-                    ),
-
-                    
+                    obscure: true),
 
                 const SizedBox(height: 18),
                 const ButtonRegister(),
-                
               ],
             ),
           ),

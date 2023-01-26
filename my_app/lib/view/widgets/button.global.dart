@@ -13,11 +13,13 @@ class ButtonGlobal extends StatelessWidget {
       onPressed: () {
         print('Добро пожаловать');
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Entering()));
+            context, MaterialPageRoute(builder: (context) => const Entering()));
       },
-       style: ElevatedButton.styleFrom(
-        primary: Color.fromARGB(255, 255, 255, 255),
-          backgroundColor: Color.fromARGB(0, 255, 255, 255), elevation: 0),
+      style: ElevatedButton.styleFrom(
+          // ignore: deprecated_member_use
+          primary: const Color.fromARGB(255, 255, 255, 255),
+          backgroundColor: const Color.fromARGB(0, 255, 255, 255),
+          elevation: 0),
       child: Container(
           alignment: Alignment.center,
           height: 55,
@@ -30,7 +32,7 @@ class ButtonGlobal extends StatelessWidget {
                   blurRadius: 10,
                 )
               ]),
-          child: Text(
+          child: const Text(
             'Войти ',
             style: TextStyle(
               color: Colors.white,
@@ -49,11 +51,13 @@ class ButtonRegister extends StatelessWidget {
       onPressed: () {
         print('Регистрация успешна');
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Entering()));
+            context, MaterialPageRoute(builder: (context) => const Entering()));
       },
       style: ElevatedButton.styleFrom(
-        primary: Color.fromARGB(255, 255, 255, 255),
-          backgroundColor: Color.fromARGB(0, 255, 255, 255), elevation: 0),
+          // ignore: deprecated_member_use
+          primary: const Color.fromARGB(255, 255, 255, 255),
+          backgroundColor: const Color.fromARGB(0, 255, 255, 255),
+          elevation: 0),
       child: Container(
           alignment: Alignment.center,
           height: 55,
@@ -66,7 +70,7 @@ class ButtonRegister extends StatelessWidget {
                   blurRadius: 10,
                 )
               ]),
-          child: Text(
+          child: const Text(
             'Регистрация',
             style: TextStyle(
               color: Colors.white,

@@ -31,7 +31,7 @@ class VariationToEnter extends StatelessWidget {
                       MaterialPageRoute(builder: (context) => LogUp()));
                 }),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromARGB(0, 255, 255, 255),
+                  backgroundColor: const Color.fromARGB(0, 255, 255, 255),
                   elevation: 0,
                 ),
                 child: Text(
@@ -68,7 +68,7 @@ class Registration extends StatelessWidget {
                       MaterialPageRoute(builder: (context) => LoginView()));
                 }),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromARGB(0, 255, 255, 255),
+                  backgroundColor: const Color.fromARGB(0, 255, 255, 255),
                   elevation: 0,
                 ),
                 child: Text(
