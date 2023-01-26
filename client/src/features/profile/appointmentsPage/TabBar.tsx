@@ -1,30 +1,27 @@
-import { Dispatch, SetStateAction } from "react";
-import { Tab } from ".";
+import { Link, useLocation } from "react-router-dom";
 import { TextLg } from "../../common/TextElements";
 
 type TabBarProps = {
     className?: string,
-    tabName: Tab,
-    setTabName: Dispatch<SetStateAction<Tab>>
 }
 
-function TabBar({ className = "", tabName, setTabName }: TabBarProps) {
+function TabBar({ className = "" }: TabBarProps) {
+    const location = useLocation();
+
     return (
         <div className={`flex ${className}`}>
-            <div className={`px-3 hover:cursor-pointer
-                ${tabName === "futureAppointments" ? 'border-b-2 border-blue-white dark:border-blue-dark' : ''}`}
-                onClick={() => setTabName('futureAppointments')}>
-                <TextLg blue={tabName === "futureAppointments" ? true : false}>
+            <Link to={"appointments/future"} className={`px-3 hover:cursor-pointer
+                ${location.pathname.includes("future") ? 'border-b-2 border-blue-white dark:border-blue-dark' : ''}`}>
+                <TextLg blue={location.pathname.includes("future") ? true : false}>
                     Мои записи
                 </TextLg>
-            </div>
-            <div className={`px-3 hover:cursor-pointer
-                ${tabName === "oldAppointments" ? 'border-b-2 border-blue-white dark:border-blue-dark' : ''}`}
-                onClick={() => setTabName('oldAppointments')}>
-                <TextLg blue={tabName === "oldAppointments" ? true : false}>
+            </Link>
+            <Link to={"appointments/past"} className={`px-3 hover:cursor-pointer
+                ${location.pathname.includes("past") ? 'border-b-2 border-blue-white dark:border-blue-dark' : ''}`}>
+                <TextLg blue={location.pathname.includes("past") ? true : false}>
                     Прошлые записи
                 </TextLg>
-            </div>
+            </Link>
         </div>
     );
 }

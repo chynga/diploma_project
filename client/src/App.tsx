@@ -33,7 +33,7 @@ function App() {
                     <Route path="/doctors/:id" element={<DoctorPage />} />
                     <Route path="/advices" element={<AdvicesPage />} />
                     <Route path="/about" element={<AboutPage />} />
-                    <Route path="/profile" element={<ProfilePanel />} />
+                    <Route path="/profile-panel/*" element={<ProfilePanel />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
                 <Footer />

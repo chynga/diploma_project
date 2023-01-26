@@ -1,16 +1,14 @@
-import { Dispatch, SetStateAction } from "react";
-import { Link } from "react-router-dom";
-import { Page } from ".";
+import { Link, useLocation } from "react-router-dom";
 import { Envelop, Logo, People, Person, ProfileNoPicture } from "../common/SvgImages";
 import { TextLg } from "../common/TextElements";
 
 type SidebarProps = {
     className?: string,
-    pageName: Page,
-    setPageName: Dispatch<SetStateAction<Page>>
 }
 
-function Sidebar({ className = "", pageName, setPageName }: SidebarProps) {
+function Sidebar({ className = "" }: SidebarProps) {
+    const location = useLocation();
+
     return (
         <div className={`py-6 px-12 h-screen bg-background-white dark:bg-background-dark shadow-[4px_0_20px_rgba(39,127,242,0.5)] ${className}`}>
             <div className="flex flex-col justify-between h-full">
@@ -23,33 +21,26 @@ function Sidebar({ className = "", pageName, setPageName }: SidebarProps) {
                     <h2 className="text-2xl text-primary-white dark:text-primary-dark font-bold">
                         Айдар Зейнеп
                     </h2>
-                    <div className="w-full flex gap-5 items-center hover:cursor-pointer"
-                        onClick={() => { setPageName("appointments") }}>
-                        <People fill={pageName === "appointments" ? "blue" : "primary"} />
-                        <TextLg blue={pageName === "appointments" ? true : false}>
+                    <Link to={"appointments/future"} className="w-full flex gap-5 items-center hover:cursor-pointer">
+                        <People fill={location.pathname.includes("/profile-panel/appointments") ? "blue" : "primary"} />
+                        <TextLg blue={location.pathname.includes("/profile-panel/appointments") ? true : false}>
                             <p>Мои Записи</p>
                         </TextLg>
-                    </div>
-                    <div className="w-full flex gap-5 items-center hover:cursor-pointer"
-                        onClick={() => {
-                            setPageName("consultation")
-                        }}>
-                        <Envelop fill={pageName === "consultation" ? "blue" : "primary"} />
-                        <TextLg blue={pageName === "consultation" ? true : false}>
+                    </Link>
+                    <Link to={"consultation"} className="w-full flex gap-5 items-center hover:cursor-pointer">
+                        <Envelop fill={location.pathname.includes("/profile-panel/consultation") ? "blue" : "primary"} />
+                        <TextLg blue={location.pathname.includes("/profile-panel/consultation") ? true : false}>
                             <p>Сообщения</p>
                         </TextLg>
-                    </div>
+                    </Link>
                 </div>
                 <div>
-                    <div className="w-full flex gap-5 items-center hover:cursor-pointer"
-                        onClick={() => {
-                            setPageName("profile")
-                        }}>
-                        <Person fill={pageName === "profile" ? "blue" : "primary"} />
-                        <TextLg blue={pageName === "profile" ? true : false}>
+                    <Link to={"profile"} className="w-full flex gap-5 items-center hover:cursor-pointer">
+                        <Person fill={location.pathname.includes("/profile-panel/profile") ? "blue" : "primary"} />
+                        <TextLg blue={location.pathname.includes("/profile-panel/profile") ? true : false}>
                             <p>Профиль</p>
                         </TextLg>
-                    </div>
+                    </Link>
                 </div>
             </div>
         </div>

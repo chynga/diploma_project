@@ -1,27 +1,26 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
+import NotFound from "../../common/NotFound";
 import FutureAppointments from "./FutureAppointments";
-import OldAppointments from "./OldAppointments";
+import PastAppointments from "./PastAppointments";
 import TabBar from "./TabBar";
 
-export type Tab = 'futureAppointments' | 'oldAppointments'
-
 function AppointmentsPage() {
-    const [tabName, setTabName] = useState<Tab>('futureAppointments');
-
+    const location = useLocation();
     let selectedTab: JSX.Element;
-    switch (tabName) {
-        case 'futureAppointments':
-            selectedTab = <FutureAppointments />;
-            break;
-        case 'oldAppointments':
-            selectedTab = <OldAppointments />;
-            break;
+
+    if (location.pathname.includes("/appointments/future")) {
+        selectedTab = <FutureAppointments />;
+    } else if (location.pathname.includes("/appointments/past")) {
+        selectedTab = <PastAppointments />;
+    } else {
+        selectedTab = <NotFound />;
     }
 
     return (
         <div>
-            <TabBar tabName={tabName} setTabName={setTabName} />
-            <div className="mt-5 h-[600px] overflow-auto">
+            <TabBar />
+            <div className="mt-5 h-[500px] overflow-auto">
                 {selectedTab}
             </div>
         </div>

@@ -1,6 +1,6 @@
 import { TextBase } from "../../common/TextElements";
 
-function OldAppointments() {
+function PastAppointments() {
     return (
         <div>
             <table className="table-auto w-full">
@@ -97,4 +97,4 @@ function OldAppointments() {
     );
 }
 
-export default OldAppointments;
+export default PastAppointments;

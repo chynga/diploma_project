@@ -5,29 +5,27 @@ import { toggleTheme } from "../common/util";
 import AppointmentsPage from "./appointmentsPage";
 import ConsultationPage from "./ConsultationPage";
 import ProfilePage from "./ProfilePage";
-
-export type Page = 'appointments' | 'consultation' | 'profile'
+import { useLocation } from "react-router-dom";
+import NotFound from "../common/NotFound";
 
 function ProfilePanel() {
-    const [pageName, setPageName] = useState<Page>('appointments');
+    const location = useLocation();
     let selectedPage: JSX.Element;
 
-    switch (pageName) {
-        case 'appointments':
-            selectedPage = <AppointmentsPage />;
-            break;
-        case 'consultation':
-            selectedPage = <ConsultationPage />;
-            break;
-        case 'profile':
-            selectedPage = <ProfilePage />;
-            break;
+    if (location.pathname.includes("/profile-panel/appointments")) {
+        selectedPage = <AppointmentsPage />;
+    } else if (location.pathname.includes("/profile-panel/consultation")) {
+        selectedPage = <ConsultationPage />;
+    } else if (location.pathname.includes("/profile-panel/profile")) {
+        selectedPage = <ProfilePage />;
+    } else {
+        selectedPage = <NotFound />;
     }
 
     return (
         <div className="flex">
             <div >
-                <Sidebar className="w-[370px]" pageName={pageName} setPageName={setPageName} />
+                <Sidebar className="w-[370px]" />
             </div>
 
             <div className="w-full p-6">
