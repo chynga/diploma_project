@@ -28,6 +28,22 @@ function HeaderText3({ children, className, blue = false }: TextProps) {
     );
 }
 
+function Text2Xl({ children, className, blue = false }: TextProps) {
+    return (
+        <div className={`text-2xl text-${blue ? 'blue' : 'primary'}-white dark:text-${blue ? 'blue' : 'primary'}-dark ${className}`}>
+            {children}
+        </div>
+    );
+}
+
+function TextXl({ children, className, blue = false }: TextProps) {
+    return (
+        <div className={`text-xl text-${blue ? 'blue' : 'primary'}-white dark:text-${blue ? 'blue' : 'primary'}-dark ${className}`}>
+            {children}
+        </div>
+    );
+}
+
 function TextLg({ children, className, blue = false }: TextProps) {
     return (
         <div className={`text-lg text-${blue ? 'blue' : 'primary'}-white dark:text-${blue ? 'blue' : 'primary'}-dark ${className}`}>
@@ -57,6 +73,8 @@ export {
     HeaderText2,
     HeaderText3,
     Paragraph,
+    Text2Xl,
+    TextXl,
     TextLg,
     TextBase,
 }

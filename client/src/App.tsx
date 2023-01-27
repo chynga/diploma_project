@@ -16,7 +16,7 @@ import DoctorsPage from './features/doctors';
 import DoctorPage from './features/doctors/doctor';
 import AdvicesPage from './features/advices';
 import AboutPage from './features/about';
-import ProfilePanel from './features/profile';
+import ProfilePanel from './features/profilePanel';
 
 function App() {
     return (

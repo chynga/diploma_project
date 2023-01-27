@@ -4,7 +4,7 @@ import { ModeToggler } from "../common/SvgImages";
 import { toggleTheme } from "../common/util";
 import AppointmentsPage from "./appointmentsPage";
 import ConsultationPage from "./ConsultationPage";
-import ProfilePage from "./ProfilePage";
+import ProfilePage from "./profilePage";
 import { useLocation } from "react-router-dom";
 import NotFound from "../common/NotFound";
 
@@ -32,8 +32,9 @@ function ProfilePanel() {
                 <button onClick={toggleTheme} id="theme-toggle" type="button" className="block ml-auto">
                     <ModeToggler />
                 </button>
-
-                {selectedPage}
+                <div className="mt-5 h-[500px] overflow-auto">
+                    {selectedPage}
+                </div>
             </div>
         </div>
     );

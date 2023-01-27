@@ -26,10 +26,14 @@ function Logo({ fill }: SvgParams) {
     );
 }
 
-function ProfileNoPicture() {
+type ProfilePictureProps = {
+    className?: string
+}
+
+function ProfileNoPicture({ className }: ProfilePictureProps) {
     return (
-        <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fillRule="evenodd" clipRule="evenodd" d="M50 0C22.5 0 0 22.5 0 50C0 77.5 22.5 100 50 100C77.5 100 100 77.5 100 50C100 22.5 77.5 0 50 0ZM50 15C58.5 15 65 21.5 65 30C65 38.5 58.5 45 50 45C41.5 45 35 38.5 35 30C35 21.5 41.5 15 50 15ZM50 86C37.5 86 26.5 79.5 20 70C20 60 40 54.5 50 54.5C60 54.5 80 60 80 70C73.5 79.5 62.5 86 50 86Z" fill="#666666" />
+        <svg className={`w-[100px] h-[100px] ${className}`} viewBox="0 0 168 168" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fillRule="evenodd" clipRule="evenodd" d="M84 0C37.8 0 0 37.8 0 84C0 130.2 37.8 168 84 168C130.2 168 168 130.2 168 84C168 37.8 130.2 0 84 0ZM84 25.2C98.28 25.2 109.2 36.12 109.2 50.4C109.2 64.68 98.28 75.6 84 75.6C69.72 75.6 58.8 64.68 58.8 50.4C58.8 36.12 69.72 25.2 84 25.2ZM84 144.48C63 144.48 44.52 133.56 33.6 117.6C33.6 100.8 67.2 91.56 84 91.56C100.8 91.56 134.4 100.8 134.4 117.6C123.48 133.56 105 144.48 84 144.48Z" fill="#666666" />
         </svg>
     );
 }

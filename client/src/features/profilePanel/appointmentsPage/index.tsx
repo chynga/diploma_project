@@ -20,9 +20,8 @@ function AppointmentsPage() {
     return (
         <div>
             <TabBar />
-            <div className="mt-5 h-[500px] overflow-auto">
-                {selectedTab}
-            </div>
+
+            {selectedTab}
         </div>
     );
 }
