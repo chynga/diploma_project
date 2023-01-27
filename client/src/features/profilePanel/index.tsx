@@ -1,9 +1,8 @@
-import { useState } from "react";
 import Sidebar from "./Sidebar";
 import { ModeToggler } from "../common/SvgImages";
 import { toggleTheme } from "../common/util";
 import AppointmentsPage from "./appointmentsPage";
-import ConsultationPage from "./ConsultationPage";
+import ConsultationPage from "./consultationPage";
 import ProfilePage from "./profilePage";
 import { useLocation } from "react-router-dom";
 import NotFound from "../common/NotFound";

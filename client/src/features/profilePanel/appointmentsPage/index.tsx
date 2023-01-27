@@ -21,7 +21,9 @@ function AppointmentsPage() {
         <div>
             <TabBar />
 
-            {selectedTab}
+            <div className="mt-5">
+                {selectedTab}
+            </div>
         </div>
     );
 }
