@@ -24,14 +24,14 @@ function ProfilePanel() {
     return (
         <div className="flex">
             <div >
-                <Sidebar className="w-[370px]" />
+                <Sidebar className="fixed w-[370px]" />
             </div>
 
-            <div className="w-full p-6">
+            <div className="w-full ml-[370px] p-6">
                 <button onClick={toggleTheme} id="theme-toggle" type="button" className="block ml-auto">
                     <ModeToggler />
                 </button>
-                <div className="mt-5 h-[500px] overflow-auto">
+                <div className="mt-5">
                     {selectedPage}
                 </div>
             </div>
