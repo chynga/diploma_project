@@ -2,7 +2,7 @@ import { t } from "i18next";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
-import { ArrowDown, Bell, Burger, Close, Logo, Person, ThemeToggler } from "./SvgImages";
+import { ArrowDown, Bell, Burger, Close, Logo, Person, ProfileNoPicture, ThemeToggler } from "./SvgImages";
 import { TextBase, TextLg } from "./TextElements";
 import { toggleTheme } from "./util";
 
@@ -14,9 +14,11 @@ function Header() {
     const [showNav, setShowNav] = useState(false);
     const { t, i18n } = useTranslation(["kz", "ru"]);
     const location = useLocation();
+    // TODO: Implement log in
+    const isLoggedIn = true;
 
-    const changeLanguage = (e: any) => {
-        i18n.changeLanguage(e.target.value);
+    const changeLanguage = (lang: string) => {
+        i18n.changeLanguage(lang);
     };
 
     if (location.pathname.includes("/profile-panel")) {
@@ -45,13 +47,66 @@ function Header() {
                         <div className="hover:cursor-pointer">
                             <Bell className="w-[20px] md:w-auto" />
                         </div>
-                        <div className="hover:cursor-pointer flex items-center gap-3">
-                            <TextBase blue>РУС</TextBase>
+                        <div className="group relative min-h-[40px] hover:cursor-pointer flex items-center gap-3">
+                            <TextBase blue>
+                                {i18n.language === "ru" ?
+                                    "РУС" :
+                                    "КАЗ"}
+                            </TextBase>
                             <ArrowDown />
+                            <div className="hidden group-hover:block absolute bg-background-white dark:bg-background-dark top-[100%] right-0 w-[90px] border-[1px] border-blue-white dark:border-blue-dark rounded-2xl rounded-tr-none">
+                                <div className="p-2 border-b-[1px] border-blue-white dark:border-blue-dark">
+                                    <TextBase blue>
+                                        {i18n.language === "ru" ?
+                                            "РУС" :
+                                            "КАЗ"}
+                                    </TextBase>
+                                </div>
+                                <div className="p-2" onClick={() => {
+                                    i18n.language === "ru" ?
+                                        changeLanguage("kz") :
+                                        changeLanguage("ru")
+                                }}>
+                                    <TextBase>
+                                        {i18n.language === "kz" ?
+                                            "РУС" :
+                                            "КАЗ"}
+                                    </TextBase>
+                                </div>
+                            </div>
                         </div>
-                        <div className="hidden md:flex hover:cursor-pointer items-center gap-3">
+                        <div className="group relative hidden lg:flex hover:cursor-pointer items-center gap-3">
                             <Person fill={"blue"} />
                             <ArrowDown />
+                            {isLoggedIn ?
+                                <div className="hidden group-hover:block py-5 w-[276px] flex flex-col items-center justify-around gap-3 group-hover:flex absolute bg-background-white dark:bg-background-dark top-[100%] right-0 rounded-b-2xl drop-shadow-lg">
+                                    <ProfileNoPicture />
+                                    <div>
+                                        <TextBase>Курбан Шынгыс</TextBase>
+                                    </div>
+                                    <div>
+                                        <TextBase>example@gmail.com</TextBase>
+                                    </div>
+                                    <div>
+                                        <TextBase>+77078109027</TextBase>
+                                    </div>
+                                    <div>
+                                        <TextBase>Личный кабинет</TextBase>
+                                    </div>
+                                    <div className="text-base text-red-400">
+                                        Выйти
+                                    </div>
+                                </div>
+                                :
+                                <div className="hidden group-hover:block absolute bg-background-white dark:bg-background-dark top-[100%] right-0 border-[1px] border-blue-white dark:border-blue-dark rounded-2xl rounded-tr-none">
+                                    <div className="p-2 border-b-[1px] border-blue-white dark:border-blue-dark">
+                                        <TextBase>Регистрация</TextBase>
+                                    </div>
+                                    <div className="p-2">
+                                        <TextBase>Войти</TextBase>
+                                    </div>
+                                </div>
+                            }
                         </div>
                         <div className="lg:hidden hover:cursor-pointer" onClick={() => { setShowNav(!showNav) }}>
                             <Burger className="w-[20px] md:w-[40px] h-[20px] md:h-[40px]" fill={"blue"} />
