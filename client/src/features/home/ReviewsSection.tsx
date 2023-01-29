@@ -14,7 +14,7 @@ function ReviewsSection() {
                 </div>
                 <div className="mt-5 relative">
                     <Review />
-                    <div className="hidden xl:block md:absolute top-[-265px] left-[890px]">
+                    <div className="hidden 2xl:block md:absolute top-[-265px] left-[890px]">
                         <DoctorSvg />
                     </div>
                 </div>

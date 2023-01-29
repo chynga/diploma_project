@@ -1,5 +1,5 @@
 import Sidebar from "./Sidebar";
-import { ModeToggler } from "../common/SvgImages";
+import { ThemeToggler } from "../common/SvgImages";
 import { toggleTheme } from "../common/util";
 import AppointmentsPage from "./appointmentsPage";
 import ConsultationPage from "./consultationPage";
@@ -29,7 +29,7 @@ function ProfilePanel() {
 
             <div className="w-full ml-[370px] p-6">
                 <button onClick={toggleTheme} id="theme-toggle" type="button" className="block ml-auto">
-                    <ModeToggler />
+                    <ThemeToggler />
                 </button>
                 <div className="mt-5">
                     {selectedPage}

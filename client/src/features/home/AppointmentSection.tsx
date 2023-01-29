@@ -2,7 +2,7 @@ import AppointmentForm from "../common/AppointmentForm";
 
 function AppointmentSection() {
     return (
-        <div className="py-16 px-20 flex justify-center xl:justify-between gap-10">
+        <div className="py-16 px-3 md:px-20 flex justify-center xl:justify-between gap-10">
             <div className="hidden xl:block">
                 <DoctorSvg />
             </div>

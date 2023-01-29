@@ -1,10 +1,11 @@
 type SvgParams = {
-    fill: 'blue' | 'primary'
+    fill?: 'blue' | 'primary',
+    className?: string
 }
 
-function Logo({ fill }: SvgParams) {
+function Logo({ fill, className }: SvgParams) {
     return (
-        <svg width="210" height="33" viewBox="0 0 210 33" className={`${fill === 'primary' ? 'fill-white' : 'fill-blue-white dark:fill-blue-dark'}`} xmlns="http://www.w3.org/2000/svg">
+        <svg width="210" height="33" viewBox="0 0 210 33" className={`${fill === 'primary' ? 'fill-white' : 'fill-blue-white dark:fill-blue-dark'} ${className}`} xmlns="http://www.w3.org/2000/svg">
             <g clipPath="url(#clip0_622_16472)">
                 <path d="M24.1452 16.2725C24.1452 21.9619 21.8248 26.456 17.1842 29.7549C14.6454 31.5899 11.5884 32.5673 8.45704 32.545H6.21291V28.4599H7.92458C11.5211 28.4599 14.3998 27.204 16.5608 24.6921C18.5712 22.3623 19.5764 19.5558 19.5764 16.2725C19.5764 12.9892 18.5712 10.2156 16.5608 7.95162C14.2873 5.38776 11.1488 4.10669 7.14537 4.10842H4.3532V32.545H0V0H6.64148C9.88992 0 12.6561 0.499254 14.9401 1.49776C18.1452 2.90537 20.6387 5.37129 22.4205 8.89552C23.5701 11.1833 24.1612 13.7115 24.1452 16.2725Z" />
                 <path d="M50.1717 22.6508C50.1717 24.731 49.4012 26.7583 47.8601 28.7328C46.9637 29.8849 45.8354 30.8355 44.5484 31.5229C43.6606 32.0152 42.7123 32.3893 41.7277 32.6358C40.6918 32.885 39.6294 33.0072 38.5641 32.9998C36.7679 33.003 34.9948 32.5957 33.3797 31.8089C31.4278 30.8941 29.7935 29.4164 28.6863 27.5653C27.5681 25.7023 26.9873 23.5656 27.0084 21.3922C27.0084 18.0986 28.1114 15.3371 30.3174 13.1078C32.5234 10.8785 35.2732 9.76643 38.5667 9.77163C40.7922 9.76073 42.9772 10.3683 44.8783 11.5268C46.8176 12.6969 48.3016 14.4668 49.3302 16.8366L34.3096 25.2068L32.6317 21.9591L43.6263 15.8302C42.9707 15.0673 42.1272 14.4891 41.1796 14.1531C40.3101 13.8582 39.399 13.7045 38.481 13.698C36.2732 13.698 34.5087 14.4244 33.1875 15.8771C31.8663 17.3297 31.2048 19.1681 31.2031 21.3922C31.2031 24.4033 32.3139 26.6196 34.5355 28.0411C35.7198 28.7717 37.0903 29.1429 38.481 29.1098C39.4687 29.1389 40.455 29.0161 41.4056 28.7458C41.8582 28.5859 42.2933 28.3803 42.7043 28.1321C44.9432 26.8771 46.0618 24.8835 46.0601 22.1515L50.1717 22.6508Z" />
@@ -26,11 +27,7 @@ function Logo({ fill }: SvgParams) {
     );
 }
 
-type ProfilePictureProps = {
-    className?: string
-}
-
-function ProfileNoPicture({ className }: ProfilePictureProps) {
+function ProfileNoPicture({ className }: SvgParams) {
     return (
         <svg className={`w-[100px] h-[100px] ${className}`} viewBox="0 0 168 168" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fillRule="evenodd" clipRule="evenodd" d="M84 0C37.8 0 0 37.8 0 84C0 130.2 37.8 168 84 168C130.2 168 168 130.2 168 84C168 37.8 130.2 0 84 0ZM84 25.2C98.28 25.2 109.2 36.12 109.2 50.4C109.2 64.68 98.28 75.6 84 75.6C69.72 75.6 58.8 64.68 58.8 50.4C58.8 36.12 69.72 25.2 84 25.2ZM84 144.48C63 144.48 44.52 133.56 33.6 117.6C33.6 100.8 67.2 91.56 84 91.56C100.8 91.56 134.4 100.8 134.4 117.6C123.48 133.56 105 144.48 84 144.48Z" fill="#666666" />
@@ -38,12 +35,48 @@ function ProfileNoPicture({ className }: ProfilePictureProps) {
     );
 }
 
-function ModeToggler() {
+function ThemeToggler({ className }: SvgParams) {
     return (
-        <svg width="31" height="32" viewBox="0 0 31 32" className="fill-blue-white dark:fill-blue-dark" xmlns="http://www.w3.org/2000/svg">
+        <svg width="31" height="32" viewBox="0 0 31 32" className={`fill-blue-white dark:fill-blue-dark ${className}`} xmlns="http://www.w3.org/2000/svg">
             <path d="M8.64648 1.50008C5.96148 3.22508 4.14648 6.27008 4.14648 9.75008C4.14648 13.2301 5.96148 16.2751 8.69148 18.0001C4.08648 18.0001 0.396484 14.3101 0.396484 9.75008C0.396484 7.56204 1.26568 5.46362 2.81285 3.91645C4.36003 2.36927 6.45845 1.50008 8.64648 1.50008ZM26.0015 3.75008L28.1465 5.89508L4.79148 29.2501L2.64648 27.1051L26.0015 3.75008ZM16.7315 7.39508L14.5115 6.00008L12.3515 7.50008L12.9815 4.95008L10.8965 3.36008L13.5215 3.18008L14.3915 0.705078L15.3965 3.15008L17.9915 3.19508L15.9665 4.89008L16.7315 7.39508ZM11.7815 12.8101L10.0415 11.7151L8.36148 12.8851L8.87148 10.9051L7.23648 9.66008L9.27648 9.52508L9.95148 7.59008L10.7165 9.49508L12.7565 9.54008L11.1815 10.8451L11.7815 12.8101ZM25.5079 18.7364C25.5079 20.9245 24.6387 23.0229 23.0915 24.5701C21.5443 26.1173 19.4459 26.9864 17.2579 26.9864C15.4279 26.9864 13.7329 26.3864 12.3679 25.3814L23.9029 13.8464C24.9079 15.2114 25.5079 16.9064 25.5079 18.7364ZM19.2965 28.6201L23.4515 26.8951L23.0915 31.9201L19.2965 28.6201ZM25.7915 24.5701L27.5165 20.4151L30.8165 24.2251L25.7915 24.5701ZM27.5165 17.1301L25.8065 12.9601L30.8165 13.3201L27.5165 17.1301ZM11.8415 26.8951L15.9965 28.6201L12.2015 31.9051L11.8415 26.8951Z" />
         </svg>
     );
+}
+
+function Bell({ className }: SvgParams) {
+    return (
+        <svg width="37" height="37" fill="none" viewBox="0 0 37 37" className={`${className}`} xmlns="http://www.w3.org/2000/svg">
+            <path d="M27.3945 12.5C27.3945 10.1131 26.4463 7.82387 24.7585 6.13604C23.0707 4.44821 20.7815 3.5 18.3945 3.5C16.0076 3.5 13.7184 4.44821 12.0306 6.13604C10.3427 7.82387 9.39453 10.1131 9.39453 12.5C9.39453 23 4.89453 26 4.89453 26H31.8945C31.8945 26 27.3945 23 27.3945 12.5Z" className="stroke-blue-white dark:stroke-blue-dark" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M20.9908 32C20.7271 32.4546 20.3485 32.832 19.8931 33.0943C19.4377 33.3566 18.9213 33.4947 18.3958 33.4947C17.8702 33.4947 17.3539 33.3566 16.8984 33.0943C16.443 32.832 16.0645 32.4546 15.8008 32" className="stroke-blue-white dark:stroke-blue-dark" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+
+    );
+}
+
+function ArrowDown({ className }: SvgParams) {
+    return (
+        <svg width="15" height="9" viewBox="0 0 15 9" className={`${className}`} fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.39453 1.5L7.39453 7.5L13.3945 1.5" className="stroke-blue-white dark:stroke-blue-dark" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+    );
+}
+
+function Burger({ className }: SvgParams) {
+    return (
+        <svg width="800px" height="800px" viewBox="0 0 28 28" className={`fill-blue-white dark:fill-blue-dark ${className}`} xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 7C3 6.44771 3.44772 6 4 6H24C24.5523 6 25 6.44771 25 7C25 7.55229 24.5523 8 24 8H4C3.44772 8 3 7.55229 3 7Z" />
+            <path d="M3 14C3 13.4477 3.44772 13 4 13H24C24.5523 13 25 13.4477 25 14C25 14.5523 24.5523 15 24 15H4C3.44772 15 3 14.5523 3 14Z" />
+            <path d="M4 20C3.44772 20 3 20.4477 3 21C3 21.5523 3.44772 22 4 22H24C24.5523 22 25 21.5523 25 21C25 20.4477 24.5523 20 24 20H4Z" />
+        </svg>
+    );
+}
+
+function Close({ className }: SvgParams) {
+    return (
+        <svg height="512px" id="Layer_1" style={{ /*enableBackground: 'new 0 0 512 512'*/ }} version="1.1" viewBox="0 0 512 512" width="512px" xmlSpace="preserve" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+            <path d="M437.5,386.6L306.9,256l130.6-130.6c14.1-14.1,14.1-36.8,0-50.9c-14.1-14.1-36.8-14.1-50.9,0L256,205.1L125.4,74.5  c-14.1-14.1-36.8-14.1-50.9,0c-14.1,14.1-14.1,36.8,0,50.9L205.1,256L74.5,386.6c-14.1,14.1-14.1,36.8,0,50.9  c14.1,14.1,36.8,14.1,50.9,0L256,306.9l130.6,130.6c14.1,14.1,36.8,14.1,50.9,0C451.5,423.4,451.5,400.6,437.5,386.6z" />
+        </svg>
+    )
 }
 
 function People({ fill }: SvgParams) {
@@ -84,7 +117,11 @@ function Person({ fill }: SvgParams) {
 export {
     Logo,
     ProfileNoPicture,
-    ModeToggler,
+    ThemeToggler,
+    Bell,
+    ArrowDown,
+    Burger,
+    Close,
     People,
     Envelop,
     Person,

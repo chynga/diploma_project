@@ -4,7 +4,7 @@ function BannerSection() {
                          bg-cover bg-center flex justify-center items-center
                          bg-black">
             <div className="flex flex-col max-w-2xl justify-center items-center">
-                <h1 className="text-center text-4xl text-primary-white dark:text-primary-dark font-bold">Все виды
+                <h1 className="text-center text-xl md:text-4xl text-primary-white dark:text-primary-dark font-bold">Все виды
                     <span className="text-blue-white dark:text-blue-dark"> стамотологических услуг </span><br />
                     с фиксированной ценой<br />
                     и гарантией на 1 год
