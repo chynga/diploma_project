@@ -21,14 +21,18 @@ class LoginView extends StatelessWidget {
             child: Column(
               children: [
                 const SizedBox(height: 40),
-                const Text('Logo'),
+                Image.asset(
+                  'assets/images/logo.png',
+                  height: 60,
+                ),
+                const SizedBox(height: 10),
                 Image.asset(
                   'assets/images/woman.png',
-                  height: 150,
+                  height: 130,
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
                 const VariationToEnter(),
-                const SizedBox(height: 24),
+                const SizedBox(height: 14),
                 //// Email Input
                 TextFormGlobal(
                   controller: emailController,
@@ -78,10 +82,14 @@ class LogUp extends StatelessWidget {
             child: Column(
               children: [
                 const SizedBox(height: 40),
-                const Text('Logo'),
+                Image.asset(
+                  'assets/images/logo.png',
+                  height: 50,
+                ),
+                const SizedBox(height: 10),
                 Image.asset(
                   'assets/images/woman.png',
-                  height: 100,
+                  height: 70,
                 ),
                 const SizedBox(height: 8),
                 const Registration(),

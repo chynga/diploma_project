@@ -10,7 +10,7 @@ class EnrollPage extends StatefulWidget {
 class _EnrollPageState extends State<EnrollPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: Colors.white,
        body: Center(
         child: Text('Enroll'),

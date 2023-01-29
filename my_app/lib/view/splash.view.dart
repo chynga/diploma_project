@@ -4,26 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_app/utils/global.colors.dart';
 import 'package:my_app/view/login.view.dart';
-import 'package:my_app/view/main.page.dart';
+import 'package:my_app/view/nav.dart';
 
 class SplashView extends StatelessWidget {
-  const SplashView({Key? key}) : super(key: key);
+  const SplashView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Timer(const Duration(seconds: 2), () {
-      Get.to(LoginView());
+    Timer(const Duration(seconds: 2),  () {
+      Get.to(()=> LoginView());
     });
     return Scaffold(
       backgroundColor: GlobalColors.backgraundColor,
-      body: const Center(
-        child: Text(
-          'Logo',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 36,
-            fontWeight: FontWeight.bold,
-          ),
+      body: const Align(
+        alignment: Alignment.center,
+        child: Image(
+          image: AssetImage('assets/images/logo.png'),
+          height: 60,
         ),
       ),
     );
@@ -36,12 +33,13 @@ class Entering extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Timer(const Duration(seconds: 2), () {
-      Get.to(Home());
+      Get.to(()=>const MyApp());
     });
     return Scaffold(
       backgroundColor: GlobalColors.backgraundColor,
       body: Center(
-        child: Text(
+        child: 
+         Text(
           'Добро пожаловать !',
           style: TextStyle(
             color: GlobalColors.mainColor,
