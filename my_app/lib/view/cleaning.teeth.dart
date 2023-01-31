@@ -13,7 +13,8 @@ class _CleanTeethPageState extends State<CleanTeethPage> {
     return const Scaffold(
       backgroundColor: Colors.white,
        body: Center(
-        child: Text('Clean'),
+        child: ElevatedButton(onPressed: null, child: Text('Start clean teeth')),
+        
       ),
     );
   }
