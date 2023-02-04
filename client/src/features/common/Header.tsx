@@ -2,7 +2,8 @@ import { t } from "i18next";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
-import { ArrowDown, Bell, Burger, Close, Logo, Person, ProfileNoPicture, ThemeToggler } from "./SvgImages";
+import AuthModal from "./AuthModal";
+import { ArrowDown, Bell, Burger, Logo, Person, ProfileNoPicture, ThemeToggler } from "./SvgImages";
 import { TextBase, TextLg } from "./TextElements";
 import { toggleTheme } from "./util";
 
@@ -12,10 +13,11 @@ type NavbarProps = {
 
 function Header() {
     const [showNav, setShowNav] = useState(false);
+    const [showModal, setShowModal] = useState(false);
     const { t, i18n } = useTranslation(["kz", "ru"]);
     const location = useLocation();
     // TODO: Implement log in
-    const isLoggedIn = true;
+    const isLoggedIn = false;
 
     const changeLanguage = (lang: string) => {
         i18n.changeLanguage(lang);
@@ -102,7 +104,7 @@ function Header() {
                                     <div className="p-2 border-b-[1px] border-blue-white dark:border-blue-dark">
                                         <TextBase>Регистрация</TextBase>
                                     </div>
-                                    <div className="p-2">
+                                    <div onClick={() => setShowModal(true)} className="p-2">
                                         <TextBase>Войти</TextBase>
                                     </div>
                                 </div>
@@ -115,6 +117,7 @@ function Header() {
                 </div>
                 <Navbar showNav={showNav} />
             </div>
+            {showModal ? <AuthModal showModal={showModal} setShowModal={setShowModal} /> : <></>}
         </header>
     );
 }
