@@ -1,7 +1,6 @@
 package com.example.backend_with_jaxrs.controllers;
 
 import com.example.backend_with_jaxrs.models.PasswordRecovery;
-import com.example.backend_with_jaxrs.services.EmailService;
 import com.example.backend_with_jaxrs.services.UserService;
 import com.example.backend_with_jaxrs.utils.CustomException;
 

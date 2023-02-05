@@ -4,19 +4,19 @@ import {
     Routes,
     Route,
 } from "react-router-dom";
-import Header from './features/common/Header';
-import NotFound from './features/common/NotFound';
-import HomePage from './features/home';
-import Footer from './features/common/Footer';
-import ServicesPage from './features/services';
-import ServicePage from './features/services/service';
-import ReviewsPage from './features/reviews';
-import VacancyPage from './features/vacancy';
-import DoctorsPage from './features/doctors';
-import DoctorPage from './features/doctors/doctor';
-import AdvicesPage from './features/advices';
-import AboutPage from './features/about';
-import ProfilePanel from './features/profilePanel';
+import Header from './routes/common/Header';
+import NotFound from './routes/common/NotFound';
+import HomePage from './routes/home';
+import Footer from './routes/common/Footer';
+import ServicesPage from './routes/services';
+import ServicePage from './routes/services/service';
+import ReviewsPage from './routes/reviews';
+import VacancyPage from './routes/vacancy';
+import DoctorsPage from './routes/doctors';
+import DoctorPage from './routes/doctors/doctor';
+import AdvicesPage from './routes/advices';
+import AboutPage from './routes/about';
+import ProfilePanel from './routes/profilePanel';
 
 function App() {
     return (

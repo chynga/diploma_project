@@ -2,7 +2,7 @@ import { t } from "i18next";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
-import AuthModal from "./AuthModal";
+import AuthModal, { AuthPage } from "./authModal";
 import { ArrowDown, Bell, Burger, Logo, Person, ProfileNoPicture, ThemeToggler } from "./SvgImages";
 import { TextBase, TextLg } from "./TextElements";
 import { toggleTheme } from "./util";
@@ -13,7 +13,7 @@ type NavbarProps = {
 
 function Header() {
     const [showNav, setShowNav] = useState(false);
-    const [showModal, setShowModal] = useState(false);
+    const [authPage, setAuthPage] = useState<AuthPage>(null);
     const { t, i18n } = useTranslation(["kz", "ru"]);
     const location = useLocation();
     // TODO: Implement log in
@@ -101,10 +101,11 @@ function Header() {
                                 </div>
                                 :
                                 <div className="hidden group-hover:block absolute bg-background-white dark:bg-background-dark top-[100%] right-0 border-[1px] border-blue-white dark:border-blue-dark rounded-2xl rounded-tr-none">
-                                    <div className="p-2 border-b-[1px] border-blue-white dark:border-blue-dark">
+                                    <div className="p-2 border-b-[1px] border-blue-white dark:border-blue-dark"
+                                        onClick={() => setAuthPage("register")}>
                                         <TextBase>Регистрация</TextBase>
                                     </div>
-                                    <div onClick={() => setShowModal(true)} className="p-2">
+                                    <div onClick={() => setAuthPage("login")} className="p-2">
                                         <TextBase>Войти</TextBase>
                                     </div>
                                 </div>
@@ -117,7 +118,7 @@ function Header() {
                 </div>
                 <Navbar showNav={showNav} />
             </div>
-            {showModal ? <AuthModal showModal={showModal} setShowModal={setShowModal} /> : <></>}
+            {authPage ? <AuthModal authPage={authPage} setAuthPage={setAuthPage} /> : <></>}
         </header>
     );
 }
