@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import CloseButton from "./CloseButton";
 import LoginForm from "./LoginForm";
+import PasswordRecoveryForm from "./PasswordRecoveryForm";
 import RegisterForm from "./RegisterForm";
 
 export type AuthPage = "login" | "register" | "forgotPassword" | "emailConfirmation" | null
@@ -19,9 +20,6 @@ function AuthModal({ authPage, setAuthPage }: ModalProps) {
                         <CloseButton />
                     </div>
                 </div>
-                <div>
-                    { }
-                </div>
                 <div className="mt-10 pb-6 h-96 overflow-auto flex flex-col items-center gap-6">
                     {(() => {
                         switch (authPage) {
@@ -29,10 +27,8 @@ function AuthModal({ authPage, setAuthPage }: ModalProps) {
                                 return <LoginForm setAuthPage={setAuthPage} />
                             case "register":
                                 return <RegisterForm />
-                            case "emailConfirmation":
-                                return "email confirmation"
                             case "forgotPassword":
-                                return "forgot password"
+                                return <PasswordRecoveryForm setAuthPage={setAuthPage} />
                         }
                     })()}
                 </div>
