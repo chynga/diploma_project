@@ -3,17 +3,17 @@ import { RootState } from '../../app/store'
 import authAPI from './authAPI'
 import { EmailCodeCredentials, PasswordInfo, ProfileInfo, UserCredentials } from './authTypes'
 
-const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")!) : null
+const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")!) : null;
+
+type Roles = 'ADMIN' | 'MANAGER' | 'DOCTOR' | 'CONSULTANT' | 'CLIENT' | 'RECEPTION';
 
 export type User = {
     id: number
-    firstName: string
-    lastName: string
+    fullName: string
     email: string
     phone: string
-    emailVerified: boolean
     token: string
-    role: 'admin' | 'client' | 'doctor'
+    roles: Roles[]
 }
 
 export type AuthError = {
@@ -39,8 +39,8 @@ export const register = createAsyncThunk("auth/register", async (user: UserCrede
         const response = await authAPI.register(user);
         return response.data as User;
     } catch (err) {
-        const error: any = err
-        const { status } = error.response
+        const error: any = err;
+        const { status } = error.response;
         const message =
             (error.response &&
                 error.response.data &&
@@ -58,8 +58,8 @@ export const login = createAsyncThunk("auth/login", async (user: UserCredentials
         const response = await authAPI.login(user);
         return response.data as User;
     } catch (err) {
-        const error: any = err
-        const { status } = error.response
+        const error: any = err;
+        const { status } = error.response;
         const message =
             (error.response &&
                 error.response.data &&
@@ -199,6 +199,7 @@ export const authSlice = createSlice({
             .addCase(register.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.user = action.payload;
+                state.error = undefined;
             })
             .addCase(register.rejected, (state, action) => {
                 state.isLoading = false;
@@ -210,6 +211,7 @@ export const authSlice = createSlice({
             .addCase(login.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.user = action.payload;
+                state.error = undefined;
             })
             .addCase(login.rejected, (state, action) => {
                 state.isLoading = false;
@@ -230,9 +232,6 @@ export const authSlice = createSlice({
             })
             .addCase(verify.fulfilled, state => {
                 state.isLoading = false;
-                if (state.user !== undefined) {
-                    state.user.emailVerified = true;
-                }
             })
             .addCase(verify.rejected, (state, action) => {
                 state.isLoading = false;

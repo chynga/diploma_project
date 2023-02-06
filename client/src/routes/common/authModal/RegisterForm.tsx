@@ -1,24 +1,40 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { register } from "../../../features/auth/authSlice";
 import { emailRegex, nameRegex, passwordRegex, phoneRegex, state } from "../util";
 import Button from "./Button";
 import FormGroup from "./FormGroup";
 
 function RegisterForm() {
-
-    const [name, setName] = useState(state);
+    const [fullName, setFullName] = useState(state);
     const [phone, setPhone] = useState(state);
     const [email, setEmail] = useState(state);
     const [password, setPassword] = useState(state);
+    const dispatch = useDispatch<any>();
+
+    const onSubmit = (e: any) => {
+        e.preventDefault();
+
+        const userData = {
+            fullName: fullName.value,
+            phone: phone.value,
+            email: email.value,
+            password: password.value,
+        };
+
+        console.log(userData);
+        dispatch(register(userData));
+    };
 
     return (
-        <form action="">
+        <form onSubmit={onSubmit}>
             <FormGroup
                 labelText="ФИО"
                 type="name"
                 id="name"
                 name="name"
-                field={name}
-                setField={setName}
+                field={fullName}
+                setField={setFullName}
                 regex={nameRegex}
                 validationMessage="Enter valid name" />
             <FormGroup

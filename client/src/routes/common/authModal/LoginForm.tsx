@@ -8,7 +8,6 @@ import Button from "./Button";
 import FormGroup from "./FormGroup";
 
 function LoginForm({ setAuthPage }: ModalProps) {
-
     const [email, setEmail] = useState(state);
     const [password, setPassword] = useState(state);
     const dispatch = useDispatch<any>();
@@ -24,11 +23,6 @@ function LoginForm({ setAuthPage }: ModalProps) {
         console.log(userData);
         dispatch(login(userData));
     };
-
-    const onClick = async () => {
-        const response = await axios.post("/api/test");
-        console.log(response)
-    }
 
     return (
         <form onSubmit={onSubmit}>
@@ -55,7 +49,6 @@ function LoginForm({ setAuthPage }: ModalProps) {
                 className="mt-3 hover:cursor-pointer text-2xl text-blue-white">
                 Забыли пароль?
             </div>
-            <div onClick={onClick}>asdf</div>
         </form>
     );
 }

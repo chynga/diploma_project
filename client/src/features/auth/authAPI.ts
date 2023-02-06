@@ -1,14 +1,18 @@
 import axios from "axios";
 import { UserCredentials, EmailCodeCredentials, ProfileInfo, PasswordInfo } from "./authTypes";
+import jwt_decode from "jwt-decode";
+import { User } from "./authSlice";
 
 const API_URL = "/api/authentication/";
 
 // Register user
 const register = async (userData: UserCredentials) => {
     const response = await axios.post(API_URL + "register", userData);
-
     if (response.data) {
-        localStorage.setItem("user", JSON.stringify(response.data))
+        const token = response.data.accessToken;
+        var user: User = jwt_decode(token);
+        localStorage.setItem("user", JSON.stringify({...user, token}));
+        response.data = {...user, token};
     }
 
     return response
@@ -16,13 +20,12 @@ const register = async (userData: UserCredentials) => {
 
 // Login user
 const login = async (userData: UserCredentials) => {
-    console.log(API_URL);
-    console.log(userData);
-    const response = await axios.post("/api/authentication/login", userData);
-    console.log(1234);
-    console.log(response);
+    const response = await axios.post(API_URL + "login", userData);
     if (response.data) {
-        localStorage.setItem("user", JSON.stringify(response.data));
+        const token = response.data.accessToken;
+        var user: User = jwt_decode(token);
+        localStorage.setItem("user", JSON.stringify({...user, token}));
+        response.data = {...user, token};
     }
 
     return response;

@@ -95,6 +95,10 @@ function Header() {
                                     <div>
                                         <TextBase>Личный кабинет</TextBase>
                                     </div>
+                                    <Link className="hover:text-blue-white dark:hover:text-blue-dark"
+                                        to={"/admin"}>
+                                        <TextBase>Панель Администрирования</TextBase>
+                                    </Link>
                                     <div className="text-base text-red-400">
                                         Выйти
                                     </div>

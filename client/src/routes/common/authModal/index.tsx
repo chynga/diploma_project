@@ -19,6 +19,9 @@ function AuthModal({ authPage, setAuthPage }: ModalProps) {
                         <CloseButton />
                     </div>
                 </div>
+                <div>
+                    { }
+                </div>
                 <div className="mt-10 pb-6 h-96 overflow-auto flex flex-col items-center gap-6">
                     {(() => {
                         switch (authPage) {
