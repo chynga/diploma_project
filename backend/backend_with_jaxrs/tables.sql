@@ -112,6 +112,14 @@ CREATE TABLE IF NOT EXISTS appointments (
     FOREIGN KEY (status) REFERENCES appointment_statuses (name) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS teeth_brush_sessions (
+    id SERIAL PRIMARY KEY,
+    client_id INTEGER,
+    teeth_brushed_time TIMESTAMP,
+    duration INTEGER,
+    FOREIGN KEY (client_id) REFERENCES clients (id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
 CREATE TABLE IF NOT EXISTS reviews (
     id SERIAL PRIMARY KEY,
     full_name VARCHAR(50) NOT NULL,

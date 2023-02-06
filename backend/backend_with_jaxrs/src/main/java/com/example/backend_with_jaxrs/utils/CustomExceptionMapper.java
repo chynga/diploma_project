@@ -8,8 +8,7 @@ import javax.ws.rs.ext.Provider;
 @Provider
 public class CustomExceptionMapper implements ExceptionMapper<CustomException> {
     @Override
-    public Response toResponse(CustomException exception)
-    {
+    public Response toResponse(CustomException exception) {
         return Response.status(Status.BAD_REQUEST).entity(exception.getCode()).build();
     }
 }

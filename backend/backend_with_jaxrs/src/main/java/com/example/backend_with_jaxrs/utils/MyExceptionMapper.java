@@ -9,7 +9,7 @@ import javax.ws.rs.ext.Provider;
 public class MyExceptionMapper implements ExceptionMapper<Exception> {
     @Override
     public Response toResponse(Exception exception) {
-        System.out.println(exception);
-        return Response.status(Status.BAD_REQUEST).entity(exception.getMessage()).build();
+        ErrorCode message = new ErrorCode(exception.getMessage());
+        return Response.status(Status.BAD_REQUEST).entity(message).build();
     }
 }

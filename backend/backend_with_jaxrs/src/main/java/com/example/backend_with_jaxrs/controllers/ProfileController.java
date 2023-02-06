@@ -1,8 +1,10 @@
 package com.example.backend_with_jaxrs.controllers;
 
 import com.example.backend_with_jaxrs.models.Appointment;
+import com.example.backend_with_jaxrs.models.TeethBrushSession;
 import com.example.backend_with_jaxrs.models.message.Message;
 import com.example.backend_with_jaxrs.services.AppointmentService;
+import com.example.backend_with_jaxrs.services.BrushSessionService;
 import com.example.backend_with_jaxrs.services.MessageService;
 import com.example.backend_with_jaxrs.utils.CustomException;
 import com.example.backend_with_jaxrs.utils.ErrorCode;
@@ -17,6 +19,32 @@ import java.util.ArrayList;
 public class ProfileController {
     @Context
     SecurityContext securityContext;
+
+    @GET
+    @Path("/brush-sessions")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getBrushSessions(@HeaderParam(HttpHeaders.AUTHORIZATION) String authorizationHeader) throws CustomException {
+        if (!securityContext.isUserInRole(Role.CLIENT.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+        Long clientId = getClientId(authorizationHeader);
+        ArrayList<TeethBrushSession> sessions = BrushSessionService.getInstance().getBrushSessions(clientId);
+
+        return Response.ok().entity(sessions).build();
+    }
+
+    @POST
+    @Path("/brush-sessions")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createBrushSession(@HeaderParam(HttpHeaders.AUTHORIZATION) String authorizationHeader,
+                                       @Context UriInfo uriInfo,
+                                       TeethBrushSession brushSession) throws CustomException {
+        if (!securityContext.isUserInRole(Role.CLIENT.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+        Long clientId = getClientId(authorizationHeader);
+        brushSession.setClientId(clientId);
+        BrushSessionService.getInstance().createBrushSession(brushSession);
+        UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
+
+        return Response.created(uriBuilder.build()).build();
+    }
 
     @GET
     @Path("/appointments")

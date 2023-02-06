@@ -23,3 +23,4 @@
 SELECT * FROM users JOIN permissions p on users.id = p.user_id;
 SELECT * FROM users;
 SELECT * FROM consultation;
+SELECT * FROM teeth_brush_sessions;
