@@ -3,13 +3,14 @@ import { ThemeToggler } from "../common/SvgImages";
 import { toggleTheme } from "../common/util";
 import { useLocation } from "react-router-dom";
 import NotFound from "../common/NotFound";
+import AppointmentsPage from "./appointmentsPage";
 
 function AdminPanel() {
     const location = useLocation();
     let selectedPage: JSX.Element = <NotFound />;
 
     if (location.pathname.includes("/admin/appointments")) {
-        // selectedPage = <AppointmentsPage />;
+        selectedPage = <AppointmentsPage />;
     } else if (location.pathname.includes("/admin/consultation")) {
         // selectedPage = <ConsultationPage />;
     } else if (location.pathname.includes("/admin/profile")) {
@@ -28,8 +29,10 @@ function AdminPanel() {
                 <button onClick={toggleTheme} id="theme-toggle" type="button" className="block ml-auto">
                     <ThemeToggler />
                 </button>
-                <div className="mt-5">
-                    {selectedPage}
+                <div className="p-10 shadow-lg rounded-lg">
+                    <div className="mt-5">
+                        {selectedPage}
+                    </div>
                 </div>
             </div>
         </div>
