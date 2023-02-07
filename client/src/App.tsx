@@ -17,6 +17,7 @@ import DoctorPage from './routes/doctors/doctor';
 import AdvicesPage from './routes/advices';
 import AboutPage from './routes/about';
 import ProfilePanel from './routes/profilePanel';
+import AdminPanel from './routes/adminPanel';
 
 function App() {
     return (
@@ -34,6 +35,7 @@ function App() {
                     <Route path="/advices" element={<AdvicesPage />} />
                     <Route path="/about" element={<AboutPage />} />
                     <Route path="/profile-panel/*" element={<ProfilePanel />} />
+                    <Route path="/admin/*" element={<AdminPanel />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
                 <Footer />

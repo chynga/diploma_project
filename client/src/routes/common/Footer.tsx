@@ -4,7 +4,8 @@ import { Logo } from "./SvgImages";
 function Footer() {
     const location = useLocation();
 
-    if (location.pathname.includes("/profile-panel")) {
+    if (location.pathname.includes("/profile-panel") ||
+        location.pathname.includes("/admin")) {
         return <div></div>
     }
 

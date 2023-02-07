@@ -1,7 +1,10 @@
 import { t } from "i18next";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
+import { useAppSelector } from "../../app/hooks";
+import { logout, selectAuth } from "../../features/auth/authSlice";
 import AuthModal, { AuthPage } from "./authModal";
 import { ArrowDown, Bell, Burger, Logo, Person, ProfileNoPicture, ThemeToggler } from "./SvgImages";
 import { TextBase, TextLg } from "./TextElements";
@@ -16,16 +19,24 @@ function Header() {
     const [authPage, setAuthPage] = useState<AuthPage>(null);
     const { t, i18n } = useTranslation(["kz", "ru"]);
     const location = useLocation();
-    // TODO: Implement log in
-    const isLoggedIn = false;
+    const dispatch = useDispatch<any>();
+
+    const { user } = useAppSelector(selectAuth);
 
     const changeLanguage = (lang: string) => {
         i18n.changeLanguage(lang);
     };
 
-    if (location.pathname.includes("/profile-panel")) {
+    if (location.pathname.includes("/profile-panel") ||
+        location.pathname.includes("/admin")) {
         return <div></div>
     }
+
+    const onLogout = (e: any) => {
+        e.preventDefault();
+
+        dispatch(logout());
+    };
 
     return (
         <header className="mb-[64px] lg:mb-[136px]">
@@ -78,28 +89,35 @@ function Header() {
                             </div>
                         </div>
                         <div className="group relative hidden lg:flex hover:cursor-pointer items-center gap-3">
-                            <Person fill={"blue"} />
+                            {user ?
+                                <ProfileNoPicture className="w-[50px] h-[50px]" /> :
+                                <Person fill={"blue"} />
+                            }
                             <ArrowDown />
-                            {isLoggedIn ?
+                            {user ?
                                 <div className="hidden group-hover:block py-5 w-[276px] flex flex-col items-center justify-around gap-3 group-hover:flex absolute bg-background-white dark:bg-background-dark top-[100%] right-0 rounded-b-2xl drop-shadow-lg">
                                     <ProfileNoPicture />
                                     <div>
-                                        <TextBase>Курбан Шынгыс</TextBase>
+                                        <TextBase>{user.fullName}</TextBase>
                                     </div>
                                     <div>
-                                        <TextBase>example@gmail.com</TextBase>
+                                        <TextBase>{user.email}</TextBase>
                                     </div>
                                     <div>
-                                        <TextBase>+77078109027</TextBase>
+                                        <TextBase>{user.phone}</TextBase>
                                     </div>
                                     <div>
                                         <TextBase>Личный кабинет</TextBase>
                                     </div>
-                                    <Link className="hover:text-blue-white dark:hover:text-blue-dark"
-                                        to={"/admin"}>
-                                        <TextBase>Панель Администрирования</TextBase>
-                                    </Link>
-                                    <div className="text-base text-red-400">
+                                    {!user.roles.includes("CLIENT") && user.roles.length > 0 ?
+                                        <Link className="hover:text-blue-white dark:hover:text-blue-dark"
+                                            to={"/admin"}>
+                                            <TextBase>Панель Администрирования</TextBase>
+                                        </Link> :
+                                        <></>
+                                    }
+                                    <div className="text-base text-red-400"
+                                        onClick={onLogout}>
                                         Выйти
                                     </div>
                                 </div>
@@ -178,6 +196,13 @@ function Navbar({ showNav }: NavbarProps) {
                         <Link to="/vacancy" className="block">
                             <TextLg className="text-[#353535]">
                                 {t('vacancy:title')}
+                            </TextLg>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/admin" className="block">
+                            <TextLg className="text-[#353535]">
+                                {t('admin:admin')}
                             </TextLg>
                         </Link>
                     </li>
