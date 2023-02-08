@@ -114,7 +114,7 @@ CREATE TABLE IF NOT EXISTS appointments (
 
 CREATE TABLE IF NOT EXISTS teeth_brush_sessions (
     id SERIAL PRIMARY KEY,
-    client_id INTEGER,
+    client_id INTEGER NOT NULL,
     teeth_brushed_time TIMESTAMP,
     duration INTEGER,
     FOREIGN KEY (client_id) REFERENCES clients (id) ON DELETE CASCADE ON UPDATE CASCADE
@@ -122,13 +122,17 @@ CREATE TABLE IF NOT EXISTS teeth_brush_sessions (
 
 CREATE TABLE IF NOT EXISTS reviews (
     id SERIAL PRIMARY KEY,
+    client_id INTEGER NOT NULL,
     full_name VARCHAR(50) NOT NULL,
     body varchar(5000) NOT NULL,
-    rating INTEGER
+    rating INTEGER,
+    FOREIGN KEY (client_id) REFERENCES clients (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS ordered_calls (
      id SERIAL PRIMARY KEY,
+     client_id INTEGER NOT NULL,
      name VARCHAR(30) NOT NULL,
-     phone VARCHAR(15) NOT NULL
+     phone VARCHAR(15) NOT NULL,
+     FOREIGN KEY (client_id) REFERENCES clients (id) ON DELETE CASCADE ON UPDATE CASCADE
 );

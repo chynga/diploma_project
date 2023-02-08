@@ -20,7 +20,8 @@
 -- SELECT doctor_id, service, approved_time, cost FROM appointments WHERE EXTRACT(MONTH FROM approved_time) = 1 AND status = 'success';
 -- SELECT * FROM permissions;
 -- SELECT * FROM consultation;
-SELECT * FROM users JOIN permissions p on users.id = p.user_id;
-SELECT * FROM users;
 SELECT * FROM consultation;
+SELECT * FROM roles;
+SELECT * FROM users JOIN permissions p on users.id = p.user_id;
+SELECT * FROM permissions;
 SELECT * FROM teeth_brush_sessions;
