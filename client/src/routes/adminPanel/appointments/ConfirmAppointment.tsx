@@ -1,8 +1,7 @@
-import { Select, Option, Input } from "@material-tailwind/react";
+import { Select, Option } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
-import { TextBase } from "../../common/TextElements";
-import { useState } from "react";
 import DatePicker from "../../common/DatePicker";
+import { ArrowBack } from "../../common/SvgImages";
 
 function ConfirmAppointment() {
     const navigate = useNavigate();
@@ -66,15 +65,6 @@ function ConfirmAppointment() {
                 </div>
             </form>
         </div>
-    );
-}
-
-function ArrowBack() {
-    return (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M19 12H5" stroke="#353535" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M12 19L5 12L12 5" stroke="#353535" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
     );
 }
 

@@ -1,6 +1,20 @@
 import { Select, Option, Textarea } from "@material-tailwind/react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 function AppointmentForm() {
+
+    const [doctors, setDoctors] = useState();
+
+    useEffect(() => {
+        const apiUrl = "api/doctors";
+        axios.get(apiUrl).then((resp) => {
+            const doctors = resp.data;
+            console.log(doctors)
+            setDoctors(doctors);
+        });
+    }, []);
+
     return (
         <form className="mt-10 p-12 bg-[#277ff280] rounded-3xl w-full">
             <div className="xl:flex gap-5">

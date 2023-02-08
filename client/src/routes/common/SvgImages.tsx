@@ -116,6 +116,26 @@ function Person({ fill }: SvgParams) {
     );
 }
 
+function TrashBin() {
+    return (
+        <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3.59961 6H5.59961H21.5996" stroke="#353535" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M19.5996 6V20C19.5996 20.5304 19.3889 21.0391 19.0138 21.4142C18.6387 21.7893 18.13 22 17.5996 22H7.59961C7.06918 22 6.56047 21.7893 6.1854 21.4142C5.81032 21.0391 5.59961 20.5304 5.59961 20V6M8.59961 6V4C8.59961 3.46957 8.81032 2.96086 9.1854 2.58579C9.56047 2.21071 10.0692 2 10.5996 2H14.5996C15.13 2 15.6387 2.21071 16.0138 2.58579C16.3889 2.96086 16.5996 3.46957 16.5996 4V6" stroke="#353535" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M10.5996 11V17" stroke="#353535" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M14.5996 11V17" stroke="#353535" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+    );
+}
+
+function ArrowBack() {
+    return (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 12H5" stroke="#353535" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M12 19L5 12L12 5" stroke="#353535" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+    );
+}
+
 export {
     Logo,
     ProfileNoPicture,
@@ -128,4 +148,6 @@ export {
     People,
     Envelop,
     Person,
+    TrashBin,
+    ArrowBack,
 }

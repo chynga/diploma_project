@@ -7,7 +7,7 @@ import CompletedAppointments from "./CompletedAppointments";
 import CanceledAppointments from "./CanceledAppointments";
 import ConfirmAppointment from "./ConfirmAppointment";
 
-function AppointmentsPage() {
+function Appointments() {
     const location = useLocation();
     let selectedTab: JSX.Element;
     const appointmentRegex = new RegExp(/^\/admin\/appointments\/requested\/[0-9]+$/);
@@ -25,7 +25,7 @@ function AppointmentsPage() {
     }
 
     return (
-        <div>
+        <div className="p-10 shadow-lg rounded-lg">
             {appointmentRegex.test(location.pathname) ?
                 <ConfirmAppointment /> :
                 <div>
@@ -40,4 +40,4 @@ function AppointmentsPage() {
     );
 }
 
-export default AppointmentsPage;
+export default Appointments;

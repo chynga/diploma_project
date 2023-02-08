@@ -88,7 +88,7 @@ function Header() {
                                 </div>
                             </div>
                         </div>
-                        <div className="group relative hidden lg:flex hover:cursor-pointer items-center gap-3">
+                        <div className="h-[50px] group relative hidden lg:flex hover:cursor-pointer items-center gap-3">
                             {user ?
                                 <ProfileNoPicture className="w-[50px] h-[50px]" /> :
                                 <Person fill={"blue"} />
