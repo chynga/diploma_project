@@ -1,7 +1,9 @@
 package com.example.backend_with_jaxrs.services;
 
+import com.example.backend_with_jaxrs.dao.RoleDAO;
 import com.example.backend_with_jaxrs.dao.UserDAO;
 import com.example.backend_with_jaxrs.models.PasswordRecovery;
+import com.example.backend_with_jaxrs.models.RoleAssignment;
 import com.example.backend_with_jaxrs.models.User;
 import com.example.backend_with_jaxrs.utils.CustomException;
 import com.example.backend_with_jaxrs.utils.Email;
@@ -70,5 +72,10 @@ public class UserService {
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
         UserDAO.getInstance().setRecoveryCode(userId, code, timestamp);
+    }
+
+    public void createUser(User user) throws CustomException {
+        User newUser = register(user);
+        RoleService.getInstance().addRolesToUser(new RoleAssignment(newUser.getId(), user.getRoles()));
     }
 }

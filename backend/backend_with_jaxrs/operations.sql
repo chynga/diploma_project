@@ -22,6 +22,6 @@
 -- SELECT * FROM consultation;
 SELECT * FROM consultation;
 SELECT * FROM roles;
-SELECT * FROM users JOIN permissions p on users.id = p.user_id;
 SELECT * FROM permissions;
 SELECT * FROM teeth_brush_sessions;
+SELECT * FROM users JOIN permissions p on users.id = p.user_id;

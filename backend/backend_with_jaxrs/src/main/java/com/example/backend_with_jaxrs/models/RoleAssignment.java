@@ -6,6 +6,14 @@ public class RoleAssignment {
     private Long userId;
     private ArrayList<String> roles;
 
+    public RoleAssignment() {
+    }
+
+    public RoleAssignment(Long userId, ArrayList<String> roles) {
+        this.userId = userId;
+        this.roles = roles;
+    }
+
     public Long getUserId() {
         return userId;
     }
