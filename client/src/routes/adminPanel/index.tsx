@@ -1,14 +1,25 @@
 import Sidebar from "./Sidebar";
 import { ThemeToggler } from "../common/SvgImages";
 import { toggleTheme } from "../common/util";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import NotFound from "../common/NotFound";
 import Appointments from "./appointments";
 import Employees from "./users/employees";
+import { useEffect } from "react";
+import { useAppSelector } from "../../app/hooks";
+import { selectAuth } from "../../features/auth/authSlice";
 
 function AdminPanel() {
     const location = useLocation();
     let selectedPage: JSX.Element = <NotFound />;
+    const { user } = useAppSelector(selectAuth);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!user || user.roles.includes("CLIENT")) {
+            navigate("/");
+        }
+    }, [])
 
     if (location.pathname.includes("/admin/appointments")) {
         selectedPage = <Appointments />;
