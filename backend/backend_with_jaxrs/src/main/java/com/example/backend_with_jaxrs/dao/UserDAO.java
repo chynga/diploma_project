@@ -1,10 +1,12 @@
 package com.example.backend_with_jaxrs.dao;
 
+import com.example.backend_with_jaxrs.models.Appointment;
 import com.example.backend_with_jaxrs.models.User;
 import com.example.backend_with_jaxrs.utils.CustomException;
 import com.example.backend_with_jaxrs.utils.ErrorCode;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class UserDAO extends GeneralDAO {
     private static UserDAO INSTANCE;
@@ -80,6 +82,21 @@ public class UserDAO extends GeneralDAO {
         execute(preparedStatement);
     }
 
+    public ArrayList<User> getEmployees() throws CustomException {
+        String sqlScript = "SELECT DISTINCT ON(id) * FROM users u JOIN permissions p ON u.id = p.user_id WHERE role != 'CLIENT'";
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        ResultSet resultSet = executeQuery(preparedStatement);
+
+        return getUsersFromDb(resultSet);
+    }
+
+    public void updateUserInfo(User employee) throws CustomException {
+        String sqlScript = "UPDATE users SET full_name = (?), email = (?), phone = (?) WHERE id = (?)";
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        setSqlScriptForUserUpdate(preparedStatement, employee);
+        execute(preparedStatement);
+    }
+
     private User getUserFromDb(ResultSet resultSet) throws CustomException {
         try {
             User user = new User();
@@ -92,6 +109,32 @@ public class UserDAO extends GeneralDAO {
             return user;
         } catch (SQLException e) {
             throw new CustomException(e, ErrorCode.SQL_GET_USER);
+        }
+    }
+
+    private ArrayList<User> getUsersFromDb(ResultSet resultSet) throws CustomException {
+        try {
+            ArrayList<User> users = new ArrayList<>();
+            while (resultSet.next()) {
+                User user = new User();
+                setUserFields(resultSet, user);
+                users.add(user);
+            }
+
+            return users;
+        } catch (SQLException e) {
+            throw new CustomException(e, ErrorCode.SQL_GET_APPOINTMENTS);
+        }
+    }
+
+    private void setSqlScriptForUserUpdate(PreparedStatement preparedStatement, User employee) throws CustomException {
+        try {
+            preparedStatement.setString(1, employee.getFullName());
+            preparedStatement.setString(2, employee.getEmail());
+            preparedStatement.setString(3, employee.getPhone());
+            preparedStatement.setLong(4, employee.getId());
+        } catch (SQLException e) {
+            throw new CustomException(e, ErrorCode.SQL_SET_SCRIPT_DATA);
         }
     }
 

@@ -27,11 +27,31 @@ public class UserController {
     }
 
     @POST
-    public Response createUser(User user, @Context UriInfo uriInfo) throws CustomException {
+    @Path("/employees")
+    public Response createUser(User employee, @Context UriInfo uriInfo) throws CustomException {
         if (!securityContext.isUserInRole(Role.ADMIN.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
-        UserService.getInstance().createUser(user);
+        UserService.getInstance().createEmployee(employee);
         UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
 
         return Response.created(uriBuilder.build()).build();
+    }
+
+    @GET
+    @Path("/employees")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getEmployees() throws CustomException {
+        if (!securityContext.isUserInRole(Role.ADMIN.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+        ArrayList<User> employees = UserService.getInstance().getEmployees();
+
+        return Response.ok().entity(employees).build();
+    }
+
+    @PATCH
+    @Path("/employees")
+    public Response createUser(User employee) throws CustomException {
+        if (!securityContext.isUserInRole(Role.ADMIN.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+        UserService.getInstance().updateEmployee(employee);
+
+        return Response.ok().build();
     }
 }

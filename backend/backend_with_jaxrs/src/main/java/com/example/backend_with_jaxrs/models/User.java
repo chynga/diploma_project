@@ -1,5 +1,8 @@
 package com.example.backend_with_jaxrs.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.sql.Date;
 import java.util.ArrayList;
 
@@ -66,10 +69,12 @@ public class User {
         this.phone = phone;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
 
+    @JsonProperty
     public void setPassword(String password) {
         this.password = password;
     }

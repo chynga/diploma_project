@@ -1,6 +1,5 @@
 package com.example.backend_with_jaxrs.services;
 
-import com.example.backend_with_jaxrs.dao.RoleDAO;
 import com.example.backend_with_jaxrs.dao.UserDAO;
 import com.example.backend_with_jaxrs.models.PasswordRecovery;
 import com.example.backend_with_jaxrs.models.RoleAssignment;
@@ -11,6 +10,7 @@ import com.example.backend_with_jaxrs.utils.ErrorCode;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
@@ -74,8 +74,24 @@ public class UserService {
         UserDAO.getInstance().setRecoveryCode(userId, code, timestamp);
     }
 
-    public void createUser(User user) throws CustomException {
-        User newUser = register(user);
-        RoleService.getInstance().addRolesToUser(new RoleAssignment(newUser.getId(), user.getRoles()));
+    public void createEmployee(User employee) throws CustomException {
+        User newEmployee = register(employee);
+        RoleService.getInstance().addRolesToUser(new RoleAssignment(newEmployee.getId(), employee.getRoles()));
+    }
+
+    public ArrayList<User> getEmployees() throws CustomException {
+        ArrayList<User> employees = UserDAO.getInstance().getEmployees();
+        ArrayList<String> roles;
+        for (User employee : employees) {
+            roles = RoleService.getInstance().getUserRoles(employee);
+            employee.setRoles(roles);
+        }
+
+        return employees;
+    }
+
+    public void updateEmployee(User employee) throws CustomException {
+        UserDAO.getInstance().updateUserInfo(employee);
+        RoleService.getInstance().addRolesToUser(new RoleAssignment(employee.getId(), employee.getRoles()));
     }
 }
