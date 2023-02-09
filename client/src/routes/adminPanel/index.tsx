@@ -3,11 +3,12 @@ import { ThemeToggler } from "../common/SvgImages";
 import { toggleTheme } from "../common/util";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import NotFound from "../common/NotFound";
-import Appointments from "./appointments";
-import Employees from "./users/employees";
+import AppointmentsPage from "./appointments";
+import EmployeesPage from "./users/employees";
 import { useEffect } from "react";
 import { useAppSelector } from "../../app/hooks";
 import { selectAuth } from "../../features/auth/authSlice";
+import ClientsPage from "./users/clients";
 
 function AdminPanel() {
     const { user } = useAppSelector(selectAuth);
@@ -33,8 +34,9 @@ function AdminPanel() {
                 </button>
                 <div className="mt-5">
                     <Routes>
-                        <Route path="/appointments/*" element={<Appointments />} />
-                        <Route path="/employees/*" element={<Employees />} />
+                        <Route path="/appointments/*" element={<AppointmentsPage />} />
+                        <Route path="/employees/*" element={<EmployeesPage />} />
+                        <Route path="/clients/*" element={<ClientsPage />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </div>

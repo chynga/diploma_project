@@ -76,8 +76,8 @@ function Sidebar({ className = "" }: SidebarProps) {
                                             Врачи
                                         </TextLg>
                                     </Link>
-                                    <Link to={"patients"} className="hover:cursor-pointer">
-                                        <TextLg className="font-light" blue={location.pathname.includes("/admin/patients") ? true : false}>
+                                    <Link to={"clients"} className="hover:cursor-pointer">
+                                        <TextLg className="font-light" blue={location.pathname.includes("/admin/clients") ? true : false}>
                                             Пациенты
                                         </TextLg>
                                     </Link>

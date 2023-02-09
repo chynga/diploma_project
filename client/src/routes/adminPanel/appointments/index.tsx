@@ -7,7 +7,7 @@ import CompletedAppointments from "./CompletedAppointments";
 import CanceledAppointments from "./CanceledAppointments";
 import ConfirmAppointment from "./ConfirmAppointment";
 
-function Appointments() {
+function AppointmentsPage() {
     const location = useLocation();
     const appointmentRegex = new RegExp(/^\/admin\/appointments\/requested\/[0-9]+$/);
 
@@ -34,4 +34,4 @@ function Appointments() {
     );
 }
 
-export default Appointments;
+export default AppointmentsPage;
