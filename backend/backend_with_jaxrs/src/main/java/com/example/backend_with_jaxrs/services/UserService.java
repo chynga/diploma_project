@@ -102,4 +102,10 @@ public class UserService {
         UserDAO.getInstance().updateUserInfo(employee);
         RoleService.getInstance().addRolesToUser(new RoleAssignment(employee.getId(), employee.getRoles()));
     }
+
+    public ArrayList<User> getClients() throws CustomException {
+        ArrayList<User> clients = UserDAO.getInstance().getClients();
+
+        return clients;
+    }
 }

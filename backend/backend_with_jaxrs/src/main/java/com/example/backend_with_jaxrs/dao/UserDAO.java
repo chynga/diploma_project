@@ -106,6 +106,14 @@ public class UserDAO extends GeneralDAO {
         execute(preparedStatement);
     }
 
+    public ArrayList<User> getClients() throws CustomException {
+        String sqlScript = "SELECT * FROM users u JOIN permissions p ON u.id = p.user_id WHERE role = 'CLIENT'";
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        ResultSet resultSet = executeQuery(preparedStatement);
+
+        return getUsersFromDb(resultSet);
+    }
+
     private User getUserFromDb(ResultSet resultSet) throws CustomException {
         try {
             User user = new User();

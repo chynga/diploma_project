@@ -26,6 +26,16 @@ public class UserController {
         return Response.ok().entity(messages).build();
     }
 
+    @GET
+    @Path("/clients")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getClients() throws CustomException {
+        if (!securityContext.isUserInRole(Role.ADMIN.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+        ArrayList<User> clients = UserService.getInstance().getClients();
+
+        return Response.ok().entity(clients).build();
+    }
+
     @POST
     @Path("/employees")
     public Response createUser(User employee, @Context UriInfo uriInfo) throws CustomException {
