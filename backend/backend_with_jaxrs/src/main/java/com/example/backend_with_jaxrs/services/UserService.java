@@ -90,6 +90,14 @@ public class UserService {
         return employees;
     }
 
+    public User getEmployee(Long id) throws CustomException {
+        User employee = UserDAO.getInstance().getEmployee(id);
+        ArrayList<String> roles = RoleService.getInstance().getUserRoles(employee);
+        employee.setRoles(roles);
+
+        return employee;
+    }
+
     public void updateEmployee(User employee) throws CustomException {
         UserDAO.getInstance().updateUserInfo(employee);
         RoleService.getInstance().addRolesToUser(new RoleAssignment(employee.getId(), employee.getRoles()));

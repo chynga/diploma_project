@@ -90,6 +90,15 @@ public class UserDAO extends GeneralDAO {
         return getUsersFromDb(resultSet);
     }
 
+    public User getEmployee(Long id) throws CustomException {
+        String sqlScript = "SELECT * FROM users WHERE id = (?)";
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        setIdForSqlScript(preparedStatement, id);
+        ResultSet resultSet = executeQuery(preparedStatement);
+
+        return getUserFromDb(resultSet);
+    }
+
     public void updateUserInfo(User employee) throws CustomException {
         String sqlScript = "UPDATE users SET full_name = (?), email = (?), phone = (?) WHERE id = (?)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);

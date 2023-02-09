@@ -46,6 +46,16 @@ public class UserController {
         return Response.ok().entity(employees).build();
     }
 
+    @GET
+    @Path("/employees/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getEmployees(@PathParam("id") Long id) throws CustomException {
+        if (!securityContext.isUserInRole(Role.ADMIN.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+        User employee = UserService.getInstance().getEmployee(id);
+
+        return Response.ok().entity(employee).build();
+    }
+
     @PATCH
     @Path("/employees")
     public Response createUser(User employee) throws CustomException {
