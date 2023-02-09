@@ -5,7 +5,7 @@ function FutureAppointments() {
     const navigate = useNavigate();
 
     const onClick = () => {
-        navigate("appointments/requested/1")
+        navigate("1")
     }
 
     return (

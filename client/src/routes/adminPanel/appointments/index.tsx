@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import NotFound from "../../common/NotFound";
 import RequestedAppointments from "./RequestedAppointments";
 import ApprovedAppointments from "./ApprovedAppointments";
@@ -9,20 +9,7 @@ import ConfirmAppointment from "./ConfirmAppointment";
 
 function Appointments() {
     const location = useLocation();
-    let selectedTab: JSX.Element;
     const appointmentRegex = new RegExp(/^\/admin\/appointments\/requested\/[0-9]+$/);
-
-    if (location.pathname.includes("/appointments/requested")) {
-        selectedTab = <RequestedAppointments />;
-    } else if (location.pathname.includes("/appointments/approved")) {
-        selectedTab = <ApprovedAppointments />;
-    } else if (location.pathname.includes("/appointments/completed")) {
-        selectedTab = <CompletedAppointments />;
-    } else if (location.pathname.includes("/appointments/canceled")) {
-        selectedTab = <CanceledAppointments />;
-    } else {
-        selectedTab = <NotFound />;
-    }
 
     return (
         <div className="p-10 shadow-lg rounded-lg">
@@ -32,7 +19,14 @@ function Appointments() {
                     <TabBar />
 
                     <div className="mt-5">
-                        {selectedTab}
+                        <Routes>
+                            <Route path="/requested" element={<RequestedAppointments />} />
+                            <Route path="/approved" element={<ApprovedAppointments />} />
+                            <Route path="/completed" element={<CompletedAppointments />} />
+                            <Route path="/canceled" element={<CanceledAppointments />} />
+                            <Route path="*" element={<NotFound />} />
+                        </Routes>
+                        {/* {selectedTab} */}
                     </div>
                 </div>
             }

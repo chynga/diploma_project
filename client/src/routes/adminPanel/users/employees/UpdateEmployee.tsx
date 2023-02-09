@@ -1,15 +1,14 @@
 import axios from "axios";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAppSelector } from "../../../../app/hooks";
-import { Role, selectAuth } from "../../../../features/auth/authSlice";
+import { Role, selectAuth, User } from "../../../../features/auth/authSlice";
 import { ArrowBack } from "../../../common/SvgImages";
 
-function AddEmployee() {
+function UpdateEmployee() {
     const [fullName, setFullName] = useState("");
     const [phone, setPhone] = useState("");
     const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
     const [isRoleAdminChecked, setRoleAdminChecked] = useState(false);
     const [isRoleManagerChecked, setRoleManagerChecked] = useState(false);
     const [isRoleDoctorChecked, setRoleDoctorChecked] = useState(false);
@@ -17,7 +16,38 @@ function AddEmployee() {
     const [isRoleConsultantChecked, setRoleConsultantChecked] = useState(false);
 
     const navigate = useNavigate();
-    const { user } = useAppSelector(selectAuth);
+    const { user: loggedInUser } = useAppSelector(selectAuth);
+    const { id } = useParams();
+
+    useEffect(() => {
+        const apiUrl = `/api/users/employees/${id}`;
+        const config = {
+            headers: {
+                Authorization: `Bearer ${loggedInUser?.token}`,
+            },
+        };
+        axios.get(apiUrl, config).then((resp) => {
+            const employee: User = resp.data;
+            setFullName(employee.fullName);
+            setPhone(employee.phone);
+            setEmail(employee.email);
+            if (employee.roles.includes("ADMIN")) {
+                setRoleAdminChecked(true);
+            }
+            if (employee.roles.includes("MANAGER")) {
+                setRoleManagerChecked(true);
+            }
+            if (employee.roles.includes("DOCTOR")) {
+                setRoleDoctorChecked(true);
+            }
+            if (employee.roles.includes("RECEPTION")) {
+                setRoleReceptionChecked(true);
+            }
+            if (employee.roles.includes("CONSULTANT")) {
+                setRoleConsultantChecked(true);
+            }
+        });
+    }, []);
 
     const goBack = () => {
         navigate("/admin/employees");
@@ -44,19 +74,19 @@ function AddEmployee() {
         }
 
         const userData = {
+            id,
             fullName,
             email,
             phone,
-            password,
             roles,
         };
 
         const config = {
             headers: {
-                Authorization: `Bearer ${user?.token}`,
+                Authorization: `Bearer ${loggedInUser?.token}`,
             },
         };
-        axios.post("/api/users/employees", userData, config)
+        axios.patch("/api/users/employees", userData, config)
             .catch(error => {
                 console.log(error);
             })
@@ -76,23 +106,18 @@ function AddEmployee() {
                 <div className="w-[200px]">
                     <div>
                         <label htmlFor="name" className="text-sm text-blue-gray-200">ФИО</label>
-                        <input id="name" type="text" className="block w-full p-2 border-[1px] border-blue-gray-200 rounded-md"
+                        <input value={fullName} id="name" type="text" className="block w-full p-2 border-[1px] border-blue-gray-200 rounded-md"
                             onChange={(e: any) => setFullName(e.target.value)} />
                     </div>
                     <div>
                         <label htmlFor="email" className="text-sm text-blue-gray-200">Email</label>
-                        <input id="email" type="text" className="block w-full p-2 border-[1px] border-blue-gray-200 rounded-md"
+                        <input value={email} id="email" type="text" className="block w-full p-2 border-[1px] border-blue-gray-200 rounded-md"
                             onChange={(e: any) => setEmail(e.target.value)} />
                     </div>
                     <div>
                         <label htmlFor="phone" className="text-sm text-blue-gray-200">Номер телефона</label>
-                        <input id="phone" type="text" className="block w-full p-2 border-[1px] border-blue-gray-200 rounded-md"
+                        <input value={phone} id="phone" type="text" className="block w-full p-2 border-[1px] border-blue-gray-200 rounded-md"
                             onChange={(e: any) => setPhone(e.target.value)} />
-                    </div>
-                    <div>
-                        <label htmlFor="password" className="text-sm text-blue-gray-200">Пароль</label>
-                        <input id="password" type="password" className="block w-full p-2 border-[1px] border-blue-gray-200 rounded-md"
-                            onChange={(e: any) => setPassword(e.target.value)} />
                     </div>
                     <div>
                         <div className="text-sm text-blue-gray-200">Роли</div>
@@ -130,4 +155,4 @@ function AddEmployee() {
     );
 }
 
-export default AddEmployee;
+export default UpdateEmployee;

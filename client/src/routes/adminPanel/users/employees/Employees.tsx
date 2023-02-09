@@ -1,29 +1,77 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"
+import { useAppSelector } from "../../../../app/hooks";
+import { Role, selectAuth, User } from "../../../../features/auth/authSlice";
 import { TrashBin } from "../../../common/SvgImages"
 import { TextBase } from "../../../common/TextElements"
 
 function Employees() {
     const navigate = useNavigate();
+    const [employees, setEmployees] = useState<User[]>();
+    const { user } = useAppSelector(selectAuth);
+
+    useEffect(() => {
+        const apiUrl = "/api/users/employees";
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user?.token}`,
+            },
+        };
+        axios.get(apiUrl, config).then((resp) => {
+            const employees = resp.data;
+            setEmployees(employees);
+        });
+    }, []);
+
+    const getRolesString = (roles: Role[]) => {
+        let separator: string;
+        const rolesString = roles.map((role, i, roles) => {
+            separator = (i === roles.length - 1 ? "" : ", ");
+            switch (role) {
+                case "ADMIN":
+                    return "admin" + separator;
+                case "MANAGER":
+                    return "manager" + separator;
+                case "DOCTOR":
+                    return "doctor" + separator;
+                case "RECEPTION":
+                    return "reception" + separator;
+                case "CONSULTANT":
+                    return "consultant" + separator;
+            }
+            // return role + (i === roles.length - 1 ? ", " : "");
+        })
+        return rolesString
+    }
+
     return (
         <>
             <table className="table-auto w-full">
                 <thead>
                     <tr className="bg-blue-white dark:bg-blue-dark">
                         <th className="p-3"><TextBase>ФИО</TextBase></th>
-                        <th className="p-3"><TextBase>Врач</TextBase></th>
-                        <th className="p-3"><TextBase>Услуга</TextBase></th>
-                        <th className="p-3"><TextBase>Время</TextBase></th>
-                        <th className="p-3"> </th>
+                        <th className="p-3"><TextBase>Email</TextBase></th>
+                        <th className="p-3"><TextBase>Номер телефона</TextBase></th>
+                        <th className="p-3"><TextBase>Роли</TextBase></th>
                     </tr>
                 </thead>
                 <tbody className="text-center border-[1px]">
-                    <tr>
-                        <td className="p-3" onClick={() => { console.log(1) }}><TextBase>Курмангазы Бекзат</TextBase></td>
-                        <td className="p-3" onClick={() => { console.log(1) }}><TextBase>Нысанбаева Айым</TextBase></td>
-                        <td className="p-3" onClick={() => { console.log(1) }}><TextBase>Чистка зубов</TextBase></td>
-                        <td className="p-3" onClick={() => { console.log(1) }}><TextBase>20.01.2022 15:00</TextBase></td>
-                        <td className="p-3" onClick={() => { console.log(2) }}><TrashBin /></td>
-                    </tr>
+                    {
+                        employees?.map(employee => {
+                            return (
+                                <tr key={employee.id}
+                                    onClick={() => navigate(`/admin/employees/${employee.id}`)}
+                                    className="hover:cursor-pointer">
+                                    <td className="p-3"><TextBase>{employee.fullName}</TextBase></td>
+                                    <td className="p-3"><TextBase>{employee.email}</TextBase></td>
+                                    <td className="p-3"><TextBase>{employee.phone}</TextBase></td>
+                                    <td className="p-3"><TextBase>{getRolesString(employee.roles)}</TextBase></td>
+                                </tr>
+                            )
+                        })
+                    }
+
                 </tbody>
             </table>
 
