@@ -21,13 +21,6 @@ import java.util.ArrayList;
 public class UserController {
     @Context SecurityContext securityContext;
 
-    private final FirebaseMessaging fcm;
-
-    @Inject
-    public UserController(FirebaseMessaging fcm) {
-        this.fcm = fcm;
-    }
-
     @GET
     @Path("/clients/{clientId}/messages")
     @Produces(MediaType.APPLICATION_JSON)
@@ -58,7 +51,7 @@ public class UserController {
                 .setToken(registrationToken)
                 .putData("body", message.getBody())
                 .build();
-        String messageId = fcm.send(msg);
+        FirebaseMessaging.getInstance().send(msg);
 
         return Response.accepted().build();
     }

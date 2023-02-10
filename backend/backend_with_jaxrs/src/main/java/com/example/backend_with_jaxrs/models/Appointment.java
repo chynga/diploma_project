@@ -6,7 +6,7 @@ public class Appointment {
     private Long id;
     private Long doctorId;
     private Long clientId;
-    private String service;
+    private Long serviceId;
     private String status;
     private Timestamp approvedTime;
     private Timestamp requestedTime;
@@ -17,10 +17,10 @@ public class Appointment {
 
     public Appointment() {}
 
-    public Appointment(Long doctorId, Long clientId, String service, String status, String clientMessage) {
+    public Appointment(Long doctorId, Long clientId, Long serviceId, String status, String clientMessage) {
         this.doctorId = doctorId;
         this.clientId = clientId;
-        this.service = service;
+        this.serviceId = serviceId;
         this.status = status;
         this.clientMessage = clientMessage;
     }
@@ -49,12 +49,12 @@ public class Appointment {
         this.clientId = clientId;
     }
 
-    public String getService() {
-        return service;
+    public Long getServiceId() {
+        return serviceId;
     }
 
-    public void setService(String service) {
-        this.service = service;
+    public void setServiceId(Long serviceId) {
+        this.serviceId = serviceId;
     }
 
     public String getStatus() {

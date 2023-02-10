@@ -78,15 +78,16 @@ CREATE TABLE IF NOT EXISTS consultation (
 );
 
 CREATE TABLE IF NOT EXISTS services (
+    id SERIAL PRIMARY KEY,
     title VARCHAR(50) UNIQUE,
     approx_duration_min INTEGER,
     approx_cost VARCHAR(50)
 );
 
 CREATE TABLE IF NOT EXISTS doctor_services (
-    service VARCHAR(30) NOT NULL,
+    service_id INTEGER NOT NULL,
     doctor_id INTEGER NOT NULL,
-    FOREIGN KEY (service) REFERENCES services (title) ON DELETE CASCADE,
+    FOREIGN KEY (service_id) REFERENCES services (id) ON DELETE CASCADE,
     FOREIGN KEY (doctor_id) REFERENCES doctors (id) ON DELETE CASCADE
 );
 
@@ -98,7 +99,7 @@ CREATE TABLE IF NOT EXISTS appointments (
     id SERIAL PRIMARY KEY,
     doctor_id INTEGER DEFAULT NULL,
     client_id INTEGER,
-    service VARCHAR(30) DEFAULT NULL,
+    service_id INTEGER DEFAULT NULL,
     status VARCHAR(30) NOT NULL,
     approved_time TIMESTAMP,
     requested_time TIMESTAMP,
@@ -108,7 +109,7 @@ CREATE TABLE IF NOT EXISTS appointments (
     client_message VARCHAR(500) NOT NULL DEFAULT '',
     FOREIGN KEY (doctor_id) REFERENCES doctors (id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (client_id) REFERENCES clients (id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (service) REFERENCES services (title) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (service_id) REFERENCES services (id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (status) REFERENCES appointment_statuses (name) ON DELETE CASCADE
 );
 

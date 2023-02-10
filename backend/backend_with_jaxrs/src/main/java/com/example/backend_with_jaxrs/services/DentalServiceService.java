@@ -22,4 +22,8 @@ public class DentalServiceService {
     public ArrayList<Service> getServices() throws CustomException {
         return ServiceDAO.getInstance().getServices();
     }
+
+    public void addService(Service service) throws CustomException {
+        ServiceDAO.getInstance().addService(service);
+    }
 }

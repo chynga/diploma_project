@@ -1,6 +1,7 @@
 package com.example.backend_with_jaxrs.models;
 
 public class Service {
+    private Long id;
     private String title;
     private Integer approxDurationMin;
     private String approxCost;
@@ -15,6 +16,14 @@ public class Service {
         this.approxCost = approxCost;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -23,11 +32,11 @@ public class Service {
         this.title = title;
     }
 
-    public Integer getApproxTimeMin() {
+    public Integer getApproxDurationMin() {
         return approxDurationMin;
     }
 
-    public void setApproxTimeMin(Integer approxDurationMin) {
+    public void setApproxDurationMin(Integer approxDurationMin) {
         this.approxDurationMin = approxDurationMin;
     }
 
