@@ -1,6 +1,7 @@
 package com.example.backend_with_jaxrs.dao;
 
 import com.example.backend_with_jaxrs.models.Client;
+import com.example.backend_with_jaxrs.models.PushNotificationCredentials;
 import com.example.backend_with_jaxrs.utils.CustomException;
 import com.example.backend_with_jaxrs.utils.ErrorCode;
 
@@ -61,9 +62,37 @@ public class ClientDAO extends GeneralDAO {
         execute(preparedStatement);
     }
 
+    public void subscribeToNotifications(PushNotificationCredentials credentials) throws CustomException {
+        String sqlScript = "INSERT INTO notification_subscriptions (client_id, token) " +
+                "VALUES (?, ?) " +
+                "ON CONFLICT (client_id) DO UPDATE " +
+                "SET token = EXCLUDED.token;";
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        setScriptFields(preparedStatement, credentials);
+        executeUpdate(preparedStatement);
+    }
+
+    public PushNotificationCredentials getNotificationToken(Long clientId) throws CustomException {
+        String sqlScript = "SELECT * FROM notification_subscriptions WHERE client_id = (?)";
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        setScriptFields(preparedStatement, new Client(clientId));
+        ResultSet resultSet = executeQuery(preparedStatement);
+
+        return getNotificationCredentialsFromDb(resultSet);
+    }
+
     private void setScriptFields(PreparedStatement preparedStatement, Client client) throws CustomException {
         try {
             preparedStatement.setLong(1, client.getId());
+        } catch (SQLException e) {
+            throw new CustomException(ErrorCode.SQL_SET_SCRIPT_DATA);
+        }
+    }
+
+    private void setScriptFields(PreparedStatement preparedStatement, PushNotificationCredentials credentials) throws CustomException {
+        try {
+            preparedStatement.setLong(1, credentials.getClientId());
+            preparedStatement.setString(2, credentials.getRegistrationToken());
         } catch (SQLException e) {
             throw new CustomException(ErrorCode.SQL_SET_SCRIPT_DATA);
         }
@@ -106,6 +135,22 @@ public class ClientDAO extends GeneralDAO {
             client.setPatientDescription(resultSet.getString("patient_description"));
         } catch (SQLException e) {
             throw new CustomException(e, ErrorCode.SQL_SET_CLIENT_FIELDS);
+        }
+    }
+
+    private PushNotificationCredentials getNotificationCredentialsFromDb(ResultSet resultSet) throws CustomException {
+        try {
+            PushNotificationCredentials credentials = new PushNotificationCredentials();
+            if (resultSet.next()) {
+                credentials.setClientId(resultSet.getLong("client_id"));
+                credentials.setRegistrationToken(resultSet.getString("token"));
+            } else {
+                throw new CustomException(ErrorCode.SQL_CREDENTIALS_NOT_FOUND);
+            }
+
+            return credentials;
+        } catch (SQLException e) {
+            throw new CustomException(e, ErrorCode.SQL_GET_CREDENTIALS);
         }
     }
 }

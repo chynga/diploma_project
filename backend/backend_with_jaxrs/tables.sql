@@ -130,9 +130,15 @@ CREATE TABLE IF NOT EXISTS reviews (
 );
 
 CREATE TABLE IF NOT EXISTS ordered_calls (
-     id SERIAL PRIMARY KEY,
-     client_id INTEGER NOT NULL,
-     name VARCHAR(30) NOT NULL,
-     phone VARCHAR(15) NOT NULL,
-     FOREIGN KEY (client_id) REFERENCES clients (id) ON DELETE CASCADE ON UPDATE CASCADE
+    id SERIAL PRIMARY KEY,
+    client_id INTEGER NOT NULL,
+    name VARCHAR(30) NOT NULL,
+    phone VARCHAR(15) NOT NULL,
+    FOREIGN KEY (client_id) REFERENCES clients (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS notification_subscriptions (
+    client_id INTEGER UNIQUE NOT NULL,
+    token VARCHAR NOT NULL,
+    FOREIGN KEY (client_id) REFERENCES clients (id) ON DELETE CASCADE ON UPDATE CASCADE
+)

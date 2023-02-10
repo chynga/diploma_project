@@ -13,15 +13,11 @@
 -- INSERT INTO services VALUES ('лечение десен');
 -- INSERT INTO services VALUES ('имплантация');
 
--- SELECT * FROM services;
--- SELECT * FROM users JOIN permissions p on users.id = p.user_id;
--- SELECT * FROM appointment_statuses;
--- SELECT * FROM appointments;
--- SELECT doctor_id, service, approved_time, cost FROM appointments WHERE EXTRACT(MONTH FROM approved_time) = 1 AND status = 'success';
--- SELECT * FROM permissions;
 -- SELECT * FROM consultation;
-SELECT * FROM consultation;
-SELECT * FROM roles;
-SELECT * FROM permissions;
-SELECT * FROM teeth_brush_sessions;
-SELECT * FROM users JOIN permissions p on users.id = p.user_id;
+-- SELECT * FROM roles;
+-- SELECT * FROM permissions;
+-- SELECT * FROM teeth_brush_sessions;
+-- SELECT * FROM users JOIN permissions p on users.id = p.user_id;
+-- SELECT * FROM users JOIN doctors ON users.id = doctors.id;
+-- SELECT * FROM doctors;
+SELECT * FROM notification_subscriptions;

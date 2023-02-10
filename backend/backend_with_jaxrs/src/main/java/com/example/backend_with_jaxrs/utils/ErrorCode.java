@@ -47,6 +47,9 @@ public class ErrorCode {
     public static final ErrorCode SQL_SET_CLIENT_FIELDS = new ErrorCode("SQL_SET_CLIENT_FIELDS");
     public static final ErrorCode SQL_CLIENT_NOT_FOUND = new ErrorCode("SQL_CLIENT_NOT_FOUND");
 
+    public static final ErrorCode SQL_CREDENTIALS_NOT_FOUND = new ErrorCode("SQL_CREDENTIALS_NOT_FOUND");
+    public static final ErrorCode SQL_GET_CREDENTIALS = new ErrorCode("SQL_GET_CREDENTIALS");
+
     public static final ErrorCode SQL_GET_BRUSH_SESSIONS = new ErrorCode("SQL_GET_BRUSH_SESSIONS");
     public static final ErrorCode SQL_SET_BRUSH_SESSION_FIELDS = new ErrorCode("SQL_SET_BRUSH_SESSION_FIELDS");
 

@@ -1,16 +1,20 @@
 package com.example.backend_with_jaxrs.controllers;
 
 import com.example.backend_with_jaxrs.models.Appointment;
+import com.example.backend_with_jaxrs.models.PushNotificationCredentials;
 import com.example.backend_with_jaxrs.models.TeethBrushSession;
 import com.example.backend_with_jaxrs.models.message.Message;
 import com.example.backend_with_jaxrs.services.AppointmentService;
 import com.example.backend_with_jaxrs.services.BrushSessionService;
+import com.example.backend_with_jaxrs.services.ClientService;
 import com.example.backend_with_jaxrs.services.MessageService;
 import com.example.backend_with_jaxrs.utils.CustomException;
 import com.example.backend_with_jaxrs.utils.ErrorCode;
 import com.example.backend_with_jaxrs.utils.Jwt;
 import com.example.backend_with_jaxrs.utils.enums.Role;
+import com.google.firebase.messaging.FirebaseMessaging;
 
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.util.ArrayList;
@@ -83,7 +87,19 @@ public class ProfileController {
         return Response.ok().entity(messages).build();
     }
 
-    private Long getClientId(String authorizationHeader) throws CustomException {
+    @POST
+    @Path("/notifications/subscribe")
+    public Response subscribeToNotifications(@HeaderParam(HttpHeaders.AUTHORIZATION) String authorizationHeader,
+                                             PushNotificationCredentials credentials) throws CustomException {
+        if (!securityContext.isUserInRole(Role.CLIENT.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+        Long clientId = getClientId(authorizationHeader);
+        credentials.setClientId(clientId);
+        ClientService.getInstance().subscribeToNotifications(credentials);
+
+        return Response.ok().build();
+    }
+
+    private Long getClientId(String authorizationHeader) {
         String token = Jwt.getTokenFromHeader(authorizationHeader);
         return Jwt.getUserId(token);
     }

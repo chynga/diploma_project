@@ -2,6 +2,7 @@ package com.example.backend_with_jaxrs.services;
 
 import com.example.backend_with_jaxrs.dao.ClientDAO;
 import com.example.backend_with_jaxrs.dao.RoleDAO;
+import com.example.backend_with_jaxrs.models.PushNotificationCredentials;
 import com.example.backend_with_jaxrs.utils.enums.Role;
 import com.example.backend_with_jaxrs.models.User;
 import com.example.backend_with_jaxrs.models.Client;
@@ -36,5 +37,15 @@ public class ClientService {
         client.setRoles(loggedInUser.getRoles());
 
         return client;
+    }
+
+    public void subscribeToNotifications(PushNotificationCredentials credentials) throws CustomException {
+        ClientDAO.getInstance().subscribeToNotifications(credentials);
+    }
+
+    public String getNotificationToken(Long clientId) throws CustomException {
+        PushNotificationCredentials credentials = ClientDAO.getInstance().getNotificationToken(clientId);
+
+        return credentials.getRegistrationToken();
     }
 }
