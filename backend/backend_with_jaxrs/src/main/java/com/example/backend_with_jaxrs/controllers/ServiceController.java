@@ -21,6 +21,14 @@ public class ServiceController {
         return Response.ok().entity(services).build();
     }
 
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getService(@PathParam("id") Long id) throws CustomException {
+        Service service = DentalServiceService.getInstance().getService(id);
+        return Response.ok().entity(service).build();
+    }
+
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public Response addService(Service service, @Context UriInfo uriInfo) throws CustomException {
@@ -28,5 +36,22 @@ public class ServiceController {
         DentalServiceService.getInstance().addService(service);
         UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
         return Response.created(uriBuilder.build()).build();
+    }
+
+    @PATCH
+    @Path("/{id}")
+    public Response addService(@PathParam("id") Long id, Service service) throws CustomException {
+        if (!securityContext.isUserInRole(Role.MANAGER.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+        service.setId(id);
+        DentalServiceService.getInstance().updateService(service);
+        return Response.ok().build();
+    }
+
+    @DELETE
+    @Path("/{id}")
+    public Response deleteService(@PathParam("id") Long id) throws CustomException {
+        if (!securityContext.isUserInRole(Role.MANAGER.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+        DentalServiceService.getInstance().deleteService(id);
+        return Response.ok().build();
     }
 }

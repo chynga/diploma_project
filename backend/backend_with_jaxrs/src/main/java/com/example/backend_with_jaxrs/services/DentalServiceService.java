@@ -23,7 +23,19 @@ public class DentalServiceService {
         return ServiceDAO.getInstance().getServices();
     }
 
+    public Service getService(Long id) throws CustomException {
+        return ServiceDAO.getInstance().getService(id);
+    }
+
     public void addService(Service service) throws CustomException {
         ServiceDAO.getInstance().addService(service);
+    }
+
+    public void updateService(Service service) throws CustomException {
+        ServiceDAO.getInstance().updateService(service);
+    }
+
+    public void deleteService(Long id) throws CustomException {
+        ServiceDAO.getInstance().deleteService(id);
     }
 }

@@ -80,8 +80,12 @@ CREATE TABLE IF NOT EXISTS consultation (
 CREATE TABLE IF NOT EXISTS services (
     id SERIAL PRIMARY KEY,
     title VARCHAR(50) UNIQUE,
+    description VARCHAR,
     approx_duration_min INTEGER,
-    approx_cost VARCHAR(50)
+    approx_cost VARCHAR(50),
+    img_main_url VARCHAR,
+    img_before_url VARCHAR,
+    img_after_url VARCHAR
 );
 
 CREATE TABLE IF NOT EXISTS doctor_services (
