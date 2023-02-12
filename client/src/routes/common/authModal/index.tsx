@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import CloseButton from "./CloseButton";
+import { CloseButton } from "../SvgImages";
 import LoginForm from "./LoginForm";
 import PasswordRecoveryForm from "./PasswordRecoveryForm";
 import RegisterForm from "./RegisterForm";
