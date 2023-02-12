@@ -1,9 +1,9 @@
 import axios from "axios";
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom";
-import { Service } from ".";
 import { useAppSelector } from "../../../app/hooks";
 import { selectAuth } from "../../../features/auth/authSlice";
+import { Service } from "../../common/types";
 
 function EditService() {
     const [title, setTitle] = useState("");

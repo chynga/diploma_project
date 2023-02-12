@@ -5,18 +5,11 @@ import { useAppSelector } from "../../../app/hooks";
 import { selectAuth } from "../../../features/auth/authSlice";
 import NotFound from "../../common/NotFound";
 import { CloseButton } from "../../common/SvgImages";
+import { Service } from "../../common/types";
 import { AddServiceCard, ServiceCard } from "./Cards";
 import EditService from "./EditService";
 import NewService from "./NewService";
 import ViewService from "./ViewService";
-
-export type Service = {
-    id: number
-    title: string
-    description: string
-    approxDurationMin: number
-    approxCost: string
-}
 
 function ServicesPage() {
     const location = useLocation();

@@ -1,11 +1,11 @@
 import axios from "axios";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { Service } from ".";
 import { useAppSelector } from "../../../app/hooks";
 import { selectAuth } from "../../../features/auth/authSlice";
 import NotFound from "../../common/NotFound";
 import { TrashBin } from "../../common/SvgImages";
+import { Service } from "../../common/types";
 
 type ViewServiceProps = {
     services: Service[] | undefined

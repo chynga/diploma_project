@@ -1,6 +1,6 @@
 import { MouseEventHandler } from "react";
-import { Service } from ".";
 import { PlusCircle, ServiceSvg } from "../../common/SvgImages";
+import { Service } from "../../common/types";
 
 type CardProps = {
     service?: Service
