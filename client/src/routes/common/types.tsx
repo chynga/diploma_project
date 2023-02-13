@@ -13,6 +13,8 @@ export type User = {
     phone: string
 }
 
+export type Status = "pending" | "approved" | "success" | "cancelled"
+
 export type Appointment = {
     id: number
     doctorId: number
@@ -21,7 +23,7 @@ export type Appointment = {
     client?: User
     serviceId: number
     service?: Service
-    status: string
+    status: Status
     approvedTime?: number
     requestedTime?: number
     durationMin?: number

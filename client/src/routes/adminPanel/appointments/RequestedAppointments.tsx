@@ -19,7 +19,6 @@ function FutureAppointments() {
 
         axios.get(apiUrl, config).then((resp) => {
             const appointments: Appointment[] = resp.data;
-            console.log(appointments)
             setAppointments(appointments);
         });
     }, [])

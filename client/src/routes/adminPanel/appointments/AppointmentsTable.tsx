@@ -35,7 +35,7 @@ function AppointmentsTable({ appointments, includeCost = false, time = "approved
                             displayedTime = dayjs(appointment.approvedTime ? appointment.approvedTime : appointment.requestedTime);
                         }
                         return (
-                            <tr key={appointment.id} className="hover:cursor-pointer">
+                            <tr onClick={() => { navigate(`${appointment.id}`) }} key={appointment.id} className="hover:cursor-pointer">
                                 <td className="p-3"><TextBase>{appointment.client?.fullName}</TextBase></td>
                                 <td className="p-3"><TextBase>{appointment.doctor?.fullName}</TextBase></td>
                                 <td className="p-3"><TextBase>{appointment.service?.title}</TextBase></td>
