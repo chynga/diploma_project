@@ -31,6 +31,14 @@ public class AppointmentService {
         return appointments;
     }
 
+
+    public Appointment getAppointment(Long id) throws CustomException {
+        Appointment appointment = AppointmentDAO.getInstance().getAppointment(id);
+        setObjectField(appointment);
+
+        return appointment;
+    }
+
     public ArrayList<Appointment> getStatusAppointments(String status) throws CustomException {
         ArrayList<Appointment> appointments = AppointmentDAO.getInstance().getStatusAppointments(status);
         setObjectFields(appointments);
@@ -58,22 +66,26 @@ public class AppointmentService {
     }
 
     private void setObjectFields(ArrayList<Appointment> appointments) {
+        for (Appointment appointment : appointments) {
+            setObjectField(appointment);
+        }
+    }
+
+    private void setObjectField(Appointment appointment) {
         User doctor;
         User client;
         Service service;
-        for (Appointment appointment : appointments) {
-            try {
-                doctor = UserDAO.getInstance().getUserById(appointment.getDoctorId());
-                appointment.setDoctor(doctor);
-            } catch (CustomException e) {}
-            try {
-                client = UserDAO.getInstance().getUserById(appointment.getClientId());
-                appointment.setClient(client);
-            } catch (CustomException e) {}
-            try {
-                service = ServiceDAO.getInstance().getService(appointment.getServiceId());
-                appointment.setService(service);
-            } catch (CustomException e) {}
-        }
+        try {
+            doctor = UserDAO.getInstance().getUserById(appointment.getDoctorId());
+            appointment.setDoctor(doctor);
+        } catch (CustomException e) {}
+        try {
+            client = UserDAO.getInstance().getUserById(appointment.getClientId());
+            appointment.setClient(client);
+        } catch (CustomException e) {}
+        try {
+            service = ServiceDAO.getInstance().getService(appointment.getServiceId());
+            appointment.setService(service);
+        } catch (CustomException e) {}
     }
 }

@@ -27,7 +27,7 @@ public class AppointmentDAO extends GeneralDAO {
         String sqlScript = "INSERT INTO appointments (doctor_id, service_id, status, approved_time, duration_min, cost, confirmed) " +
                 "VALUES (?, ?, 'success', ?, ?, ?, true)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
-        setSqlScriptData(preparedStatement, appointment, null, AppointmentAction.MAKE_APPOINTMENT);
+        setSqlScriptData(preparedStatement, appointment, AppointmentAction.MAKE_APPOINTMENT);
         executeUpdate(preparedStatement);
         ResultSet resultSet = getResultSet(preparedStatement);
 
@@ -38,7 +38,7 @@ public class AppointmentDAO extends GeneralDAO {
         String sqlScript = "INSERT INTO appointments (doctor_id, client_id, service_id, requested_time, client_message, status) " +
                 "VALUES (?, ?, ?, ?, ?, 'pending')";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
-        setSqlScriptData(preparedStatement, appointment, null, AppointmentAction.REQUEST_APPOINTMENT);
+        setSqlScriptData(preparedStatement, appointment, AppointmentAction.REQUEST_APPOINTMENT);
         executeUpdate(preparedStatement);
         ResultSet resultSet = getResultSet(preparedStatement);
 
@@ -48,7 +48,7 @@ public class AppointmentDAO extends GeneralDAO {
     public ArrayList<Appointment> getClientAppointments(Long id) throws CustomException {
         String sqlScript = "SELECT * FROM appointments WHERE client_id = (?)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
-        setSqlScriptData(preparedStatement, null, id, AppointmentAction.GET_CLIENT_APPOINTMENTS);
+        setSqlScriptData(preparedStatement,  id);
         ResultSet resultSet = executeQuery(preparedStatement);
 
         return getAppointmentsFromDb(resultSet);
@@ -60,6 +60,15 @@ public class AppointmentDAO extends GeneralDAO {
         ResultSet resultSet = executeQuery(preparedStatement);
 
         return getAppointmentsFromDb(resultSet);
+    }
+
+    public Appointment getAppointment(Long id) throws CustomException {
+        String sqlScript = "SELECT * FROM appointments WHERE id = (?)";
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        setSqlScriptData(preparedStatement, id);
+        ResultSet resultSet = executeQuery(preparedStatement);
+
+        return getAppointmentFromDb(resultSet);
     }
 
     public ArrayList<Appointment> getStatusAppointments(String status) throws CustomException {
@@ -83,7 +92,7 @@ public class AppointmentDAO extends GeneralDAO {
     public Appointment deleteAppointment(Long id) throws CustomException {
         String sqlScript = "DELETE FROM appointments WHERE id = (?)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
-        setSqlScriptData(preparedStatement, null, id, AppointmentAction.DELETE_APPOINTMENT);
+        setSqlScriptData(preparedStatement, id);
         executeUpdate(preparedStatement);
         ResultSet resultSet = getResultSet(preparedStatement);
 
@@ -98,7 +107,15 @@ public class AppointmentDAO extends GeneralDAO {
         }
     }
 
-    private void setSqlScriptData(PreparedStatement preparedStatement, Appointment appointment, Long id, AppointmentAction appointmentAction) throws CustomException {
+    private void setSqlScriptData(PreparedStatement preparedStatement, Long id) throws CustomException {
+        try {
+            preparedStatement.setLong(1, id);
+        } catch (SQLException e) {
+            throw new CustomException(e, ErrorCode.SQL_SET_SCRIPT_DATA);
+        }
+    }
+
+    private void setSqlScriptData(PreparedStatement preparedStatement, Appointment appointment, AppointmentAction appointmentAction) throws CustomException {
         try {
             switch (appointmentAction) {
                 case MAKE_APPOINTMENT:
@@ -120,10 +137,6 @@ public class AppointmentDAO extends GeneralDAO {
                             appointment.getClientMessage() != null ?
                                     appointment.getClientMessage() :
                                     "", Types.VARCHAR);
-                    break;
-                case GET_CLIENT_APPOINTMENTS:
-                case DELETE_APPOINTMENT:
-                    preparedStatement.setLong(1, id);
                     break;
             }
         } catch (SQLException e) {
