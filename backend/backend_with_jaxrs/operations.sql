@@ -13,7 +13,7 @@
 -- INSERT INTO services VALUES ('лечение десен');
 -- INSERT INTO services VALUES ('имплантация');
 
--- SELECT * FROM consultation;
+SELECT * FROM consultation;
 -- SELECT * FROM roles;
 -- SELECT * FROM permissions;
 -- SELECT * FROM teeth_brush_sessions;
@@ -21,4 +21,4 @@
 -- SELECT * FROM users JOIN doctors ON users.id = doctors.id;
 -- SELECT * FROM doctors;
 -- SELECT * FROM notification_subscriptions;
-SELECT * FROM appointments;
+-- SELECT * FROM appointments;

@@ -19,8 +19,8 @@ public class MessageService {
         return INSTANCE;
     }
 
-    public void saveMessage(Message message) throws CustomException {
-        MessageDAO.getInstance().saveMessage(message);
+    public Message saveMessage(Message message) throws CustomException {
+        return MessageDAO.getInstance().saveMessage(message);
     }
 
     public ArrayList<Message> getMessages(Long clientId) throws CustomException {

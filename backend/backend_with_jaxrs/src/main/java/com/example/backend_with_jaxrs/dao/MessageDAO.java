@@ -35,12 +35,15 @@ public class MessageDAO extends GeneralDAO {
         return getMessagesFromDb(resultSet);
     }
 
-    public void saveMessage(Message message) throws CustomException {
+    public Message saveMessage(Message message) throws CustomException {
         String sqlScript = "INSERT INTO consultation (client_id, consultant_id, body, sent_time, is_client) " +
                 "VALUES (?, ?, ?, ?, ?)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
         setSqlScriptData(preparedStatement, message, MessageAction.SAVE_MESSAGE);
         executeUpdate(preparedStatement);
+        ResultSet resultSet = getResultSet(preparedStatement);
+
+        return getMessageFromDb(resultSet);
     }
 
     private void setSqlScriptData(PreparedStatement preparedStatement, Message message, MessageAction messageAction) throws CustomException {
@@ -72,6 +75,20 @@ public class MessageDAO extends GeneralDAO {
             }
 
             return messages;
+        } catch (SQLException e) {
+            throw new CustomException(e, ErrorCode.SQL_GET_MESSAGES);
+        }
+    }
+
+    private Message getMessageFromDb(ResultSet resultSet) throws CustomException {
+        try {
+            if (resultSet.next()) {
+                Message message = new Message();
+                setMessageFields(resultSet, message);
+                return message;
+            } else {
+                throw new CustomException(ErrorCode.SQL_MESSAGE_NOT_FOUND);
+            }
         } catch (SQLException e) {
             throw new CustomException(e, ErrorCode.SQL_GET_MESSAGES);
         }

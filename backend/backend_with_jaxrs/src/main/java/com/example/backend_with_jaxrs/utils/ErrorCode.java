@@ -15,6 +15,7 @@ public class ErrorCode {
     public static final ErrorCode MESSAGE_SENDING = new ErrorCode("MESSAGE_SENDING");
     public static final ErrorCode SQL_GET_MESSAGES = new ErrorCode("SQL_GET_MESSAGES");
     public static final ErrorCode SQL_SET_MESSAGE_FIELDS = new ErrorCode("SQL_SET_MESSAGE_FIELDS");
+    public static final ErrorCode SQL_MESSAGE_NOT_FOUND = new ErrorCode("SQL_MESSAGE_NOT_FOUND");
 
     public static final ErrorCode SQL_CONNECTION = new ErrorCode("SQL_CONNECTION");
     public static final ErrorCode SQL_GET_PREPARED_STATEMENT = new ErrorCode("SQL_GET_PREPARED_STATEMENT");

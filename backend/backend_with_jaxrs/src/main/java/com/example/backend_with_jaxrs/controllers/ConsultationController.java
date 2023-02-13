@@ -53,7 +53,7 @@ public class ConsultationController {
         Date date = new Date();
         Timestamp ts = new Timestamp(date.getTime());
         message.setSentTime(ts);
-        MessageService.getInstance().saveMessage(message);
+        message = MessageService.getInstance().saveMessage(message);
 
         sendMessage(message);
     }

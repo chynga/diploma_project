@@ -1,5 +1,7 @@
 package com.example.backend_with_jaxrs.models.message;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.sql.Timestamp;
 
 public class Message {
@@ -8,6 +10,7 @@ public class Message {
     private Long consultantId;
     private String body;
     private Timestamp sentTime;
+    @JsonProperty("isClient")
     private Boolean isClient;
 
     public Message() {
