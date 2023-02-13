@@ -1,58 +1,31 @@
-import { useNavigate } from "react-router-dom";
-import { TextBase } from "../../common/TextElements";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useAppSelector } from "../../../app/hooks";
+import { selectAuth } from "../../../features/auth/authSlice";
+import { Appointment } from "../../common/types";
+import AppointmentsTable from "./AppointmentsTable";
 
 function FutureAppointments() {
-    const navigate = useNavigate();
+    const [appointments, setAppointments] = useState<Appointment[]>([]);
+    const { user } = useAppSelector(selectAuth);
 
-    const onClick = () => {
-        navigate("1")
-    }
+    useEffect(() => {
+        const apiUrl = "/api/appointments/statuses/pending";
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user?.token}`,
+            },
+        };
+
+        axios.get(apiUrl, config).then((resp) => {
+            const appointments: Appointment[] = resp.data;
+            console.log(appointments)
+            setAppointments(appointments);
+        });
+    }, [])
 
     return (
-        <div>
-            <table className="table-auto w-full">
-                <thead>
-                    <tr className="bg-blue-white dark:bg-blue-dark">
-                        <th className="p-3"><TextBase>ФИО</TextBase></th>
-                        <th className="p-3"><TextBase>Врач</TextBase></th>
-                        <th className="p-3"><TextBase>Услуга</TextBase></th>
-                        <th className="p-3"><TextBase>Время</TextBase></th>
-                    </tr>
-                </thead>
-                <tbody className="text-center border-[1px]">
-                    <tr onClick={onClick} className="hover:cursor-pointer">
-                        <td className="p-3"><TextBase>Курмангазы Бекзат</TextBase></td>
-                        <td className="p-3"><TextBase>Нысанбаева Айым</TextBase></td>
-                        <td className="p-3"><TextBase>Чистка зубов</TextBase></td>
-                        <td className="p-3"><TextBase>20.01.2022 15:00</TextBase></td>
-                    </tr>
-                    <tr>
-                        <td className="p-3"><TextBase>Курмангазы Бекзат</TextBase></td>
-                        <td className="p-3"><TextBase> </TextBase></td>
-                        <td className="p-3"><TextBase>Чистка зубов</TextBase></td>
-                        <td className="p-3"><TextBase>20.01.2022 15:00</TextBase></td>
-                    </tr>
-                    <tr>
-                        <td className="p-3"><TextBase>Курмангазы Бекзат</TextBase></td>
-                        <td className="p-3"><TextBase>Нысанбаева Айым</TextBase></td>
-                        <td className="p-3"><TextBase>Чистка зубов</TextBase></td>
-                        <td className="p-3"><TextBase>20.01.2022 15:00</TextBase></td>
-                    </tr>
-                    <tr>
-                        <td className="p-3"><TextBase>Курмангазы Бекзат</TextBase></td>
-                        <td className="p-3"><TextBase>Нысанбаева Айым</TextBase></td>
-                        <td className="p-3"><TextBase>Чистка зубов</TextBase></td>
-                        <td className="p-3"><TextBase>20.01.2022 15:00</TextBase></td>
-                    </tr>
-                    <tr>
-                        <td className="p-3"><TextBase>Курмангазы Бекзат</TextBase></td>
-                        <td className="p-3"><TextBase>Нысанбаева Айым</TextBase></td>
-                        <td className="p-3"><TextBase>Чистка зубов</TextBase></td>
-                        <td className="p-3"><TextBase>20.01.2022 15:00</TextBase></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <AppointmentsTable appointments={appointments} time={"requested"} />
     );
 }
 

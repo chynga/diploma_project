@@ -23,7 +23,6 @@ function ServicesPage() {
                 Authorization: `Bearer ${user?.token}`,
             },
         };
-        console.log(1)
 
         axios.get(apiUrl, config).then((resp) => {
             const services: Service[] = resp.data;

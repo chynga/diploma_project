@@ -3,16 +3,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { DatePicker, TimePicker } from 'antd';
 import dayjs, { Dayjs } from "dayjs";
-import { Doctor, Service } from "./types";
+import { User, Service, dateFormat, timeFormat } from "./types";
 import { useAppSelector } from "../../app/hooks";
 import { selectAuth } from "../../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 
-const dateFormat = 'DD/MM/YYYY';
-const timeFormat = 'HH:mm';
-
 function AppointmentForm() {
-    const [doctors, setDoctors] = useState<Doctor[]>([]);
+    const [doctors, setDoctors] = useState<User[]>([]);
     const [services, setServices] = useState<Service[]>([]);
     const [doctorId, setDoctorId] = useState();
     const [serviceId, setServiceId] = useState();
