@@ -23,6 +23,16 @@ public class AppointmentController {
         return Response.ok().entity(appointments).build();
     }
 
+    @GET
+    @Path("/{status}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getStatusAppointments(@PathParam("status") String status) throws CustomException {
+        if (!securityContext.isUserInRole(Role.MANAGER.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+        ArrayList<Appointment> appointments = AppointmentService.getInstance().getStatusAppointments(status);
+
+        return Response.ok().entity(appointments).build();
+    }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response makeAppointment(Appointment appointment, @Context UriInfo uriInfo) throws CustomException {

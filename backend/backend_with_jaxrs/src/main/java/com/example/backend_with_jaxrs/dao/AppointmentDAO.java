@@ -62,6 +62,15 @@ public class AppointmentDAO extends GeneralDAO {
         return getAppointmentsFromDb(resultSet);
     }
 
+    public ArrayList<Appointment> getStatusAppointments(String status) throws CustomException {
+        String sqlScript = "SELECT * FROM appointments WHERE status = (?)";
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        setSqlScriptData(preparedStatement, status);
+        ResultSet resultSet = executeQuery(preparedStatement);
+
+        return getAppointmentsFromDb(resultSet);
+    }
+
     public Appointment updateAppointment(Appointment appointment) throws CustomException {
         String sqlScript = getSqlUpdateScript(appointment);
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
@@ -81,12 +90,20 @@ public class AppointmentDAO extends GeneralDAO {
         return getAppointmentFromDb(resultSet);
     }
 
+    private void setSqlScriptData(PreparedStatement preparedStatement, String status) throws CustomException {
+        try {
+            preparedStatement.setString(1, status);
+        } catch (SQLException e) {
+            throw new CustomException(e, ErrorCode.SQL_SET_SCRIPT_DATA);
+        }
+    }
+
     private void setSqlScriptData(PreparedStatement preparedStatement, Appointment appointment, Long id, AppointmentAction appointmentAction) throws CustomException {
         try {
             switch (appointmentAction) {
                 case MAKE_APPOINTMENT:
                     preparedStatement.setObject(1, appointment.getDoctorId(), Types.INTEGER);
-                    preparedStatement.setLong(2, appointment.getServiceId());
+                    preparedStatement.setObject(2, appointment.getServiceId(), Types.INTEGER);
                     preparedStatement.setObject(3, appointment.getApprovedTime(), Types.TIMESTAMP);
                     preparedStatement.setObject(4, appointment.getDurationMin(), Types.INTEGER);
                     preparedStatement.setObject(5,
@@ -96,8 +113,8 @@ public class AppointmentDAO extends GeneralDAO {
                     break;
                 case REQUEST_APPOINTMENT:
                     preparedStatement.setObject(1, appointment.getDoctorId(), Types.INTEGER);
-                    preparedStatement.setLong(2, appointment.getClientId());
-                    preparedStatement.setLong(3, appointment.getServiceId());
+                    preparedStatement.setObject(2, appointment.getClientId(), Types.INTEGER);
+                    preparedStatement.setObject(3, appointment.getServiceId(), Types.INTEGER);
                     preparedStatement.setObject(4, appointment.getRequestedTime(), Types.TIMESTAMP);
                     preparedStatement.setObject(5,
                             appointment.getClientMessage() != null ?

@@ -20,4 +20,5 @@
 -- SELECT * FROM users JOIN permissions p on users.id = p.user_id;
 -- SELECT * FROM users JOIN doctors ON users.id = doctors.id;
 -- SELECT * FROM doctors;
-SELECT * FROM notification_subscriptions;
+-- SELECT * FROM notification_subscriptions;
+SELECT * FROM appointments;

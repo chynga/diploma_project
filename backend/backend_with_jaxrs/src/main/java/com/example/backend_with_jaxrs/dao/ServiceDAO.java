@@ -111,8 +111,9 @@ public class ServiceDAO extends GeneralDAO {
 
     private Service getServiceFromDb(ResultSet resultSet) throws CustomException {
         try {
-            Service service = new Service();
+            Service service = null;
             if (resultSet.next()) {
+                service = new Service();
                 setServiceFields(resultSet, service);
             }
 

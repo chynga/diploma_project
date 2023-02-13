@@ -5,8 +5,11 @@ import java.sql.Timestamp;
 public class Appointment {
     private Long id;
     private Long doctorId;
+    private User doctor;
     private Long clientId;
+    private User client;
     private Long serviceId;
+    private Service service;
     private String status;
     private Timestamp approvedTime;
     private Timestamp requestedTime;
@@ -41,6 +44,14 @@ public class Appointment {
         this.doctorId = doctorId;
     }
 
+    public User getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(User doctor) {
+        this.doctor = doctor;
+    }
+
     public Long getClientId() {
         return clientId;
     }
@@ -49,12 +60,28 @@ public class Appointment {
         this.clientId = clientId;
     }
 
+    public User getClient() {
+        return client;
+    }
+
+    public void setClient(User client) {
+        this.client = client;
+    }
+
     public Long getServiceId() {
         return serviceId;
     }
 
     public void setServiceId(Long serviceId) {
         this.serviceId = serviceId;
+    }
+
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
     }
 
     public String getStatus() {

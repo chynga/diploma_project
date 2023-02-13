@@ -1,7 +1,12 @@
 package com.example.backend_with_jaxrs.services;
 
 import com.example.backend_with_jaxrs.dao.AppointmentDAO;
+import com.example.backend_with_jaxrs.dao.DoctorDAO;
+import com.example.backend_with_jaxrs.dao.ServiceDAO;
+import com.example.backend_with_jaxrs.dao.UserDAO;
 import com.example.backend_with_jaxrs.models.Appointment;
+import com.example.backend_with_jaxrs.models.Service;
+import com.example.backend_with_jaxrs.models.User;
 import com.example.backend_with_jaxrs.utils.CustomException;
 
 import java.util.ArrayList;
@@ -20,8 +25,17 @@ public class AppointmentService {
     }
 
     public ArrayList<Appointment> getAllAppointments() throws CustomException {
-        return AppointmentDAO.getInstance().getAllAppointments();
+        ArrayList<Appointment> appointments = AppointmentDAO.getInstance().getAllAppointments();
+        setObjectFields(appointments);
+
+        return appointments;
     }
+
+    public ArrayList<Appointment> getStatusAppointments(String status) throws CustomException {
+        ArrayList<Appointment> appointments = AppointmentDAO.getInstance().getStatusAppointments(status);
+        setObjectFields(appointments);
+
+        return appointments;    }
 
     public Appointment makeAppointment(Appointment appointment) throws CustomException {
         return AppointmentDAO.getInstance().makeAppointment(appointment);
@@ -41,5 +55,25 @@ public class AppointmentService {
 
     public Appointment deleteAppointment(Long id) throws CustomException {
         return AppointmentDAO.getInstance().deleteAppointment(id);
+    }
+
+    private void setObjectFields(ArrayList<Appointment> appointments) {
+        User doctor;
+        User client;
+        Service service;
+        for (Appointment appointment : appointments) {
+            try {
+                doctor = UserDAO.getInstance().getUserById(appointment.getDoctorId());
+                appointment.setDoctor(doctor);
+            } catch (CustomException e) {}
+            try {
+                client = UserDAO.getInstance().getUserById(appointment.getClientId());
+                appointment.setClient(client);
+            } catch (CustomException e) {}
+            try {
+                service = ServiceDAO.getInstance().getService(appointment.getServiceId());
+                appointment.setService(service);
+            } catch (CustomException e) {}
+        }
     }
 }
