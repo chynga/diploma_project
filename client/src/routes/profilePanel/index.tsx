@@ -4,22 +4,10 @@ import { toggleTheme } from "../common/util";
 import AppointmentsPage from "./appointmentsPage";
 import ConsultationPage from "./consultationPage";
 import ProfilePage from "./profilePage";
-import { useLocation } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import NotFound from "../common/NotFound";
 
 function ProfilePanel() {
-    const location = useLocation();
-    let selectedPage: JSX.Element;
-
-    if (location.pathname.includes("/profile-panel/appointments")) {
-        selectedPage = <AppointmentsPage />;
-    } else if (location.pathname.includes("/profile-panel/consultation")) {
-        selectedPage = <ConsultationPage />;
-    } else if (location.pathname.includes("/profile-panel/profile")) {
-        selectedPage = <ProfilePage />;
-    } else {
-        selectedPage = <NotFound />;
-    }
 
     return (
         <div className="flex">
@@ -32,7 +20,12 @@ function ProfilePanel() {
                     <ThemeToggler />
                 </button>
                 <div className="mt-5">
-                    {selectedPage}
+                    <Routes>
+                        <Route path="/appointments/*" element={<AppointmentsPage />} />
+                        <Route path="/consultation/*" element={<ConsultationPage />} />
+                        <Route path="/profile/*" element={<ProfilePage />} />
+                        <Route path="*" element={<NotFound />} />
+                    </Routes>
                 </div>
             </div>
         </div>

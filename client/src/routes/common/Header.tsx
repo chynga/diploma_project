@@ -106,9 +106,9 @@ function Header() {
                                     <div>
                                         <TextBase>{user.phone}</TextBase>
                                     </div>
-                                    <div>
+                                    <Link to={"profile-panel/appointments/future"}>
                                         <TextBase>Личный кабинет</TextBase>
-                                    </div>
+                                    </Link>
                                     {!user.roles.includes("CLIENT") && user.roles.length > 0 ?
                                         <Link className="hover:text-blue-white dark:hover:text-blue-dark"
                                             to={"/admin"}>

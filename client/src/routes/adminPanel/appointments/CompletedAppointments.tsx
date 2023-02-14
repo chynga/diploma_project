@@ -10,7 +10,7 @@ function CompletedAppointments() {
     const { user } = useAppSelector(selectAuth);
 
     useEffect(() => {
-        const apiUrl = "/api/appointments/statuses/success";
+        const apiUrl = "http://localhost:8080/api/appointments/statuses/success";
         const config = {
             headers: {
                 Authorization: `Bearer ${user?.token}`,
@@ -20,6 +20,8 @@ function CompletedAppointments() {
         axios.get(apiUrl, config).then((resp) => {
             const appointments: Appointment[] = resp.data;
             setAppointments(appointments);
+        }).catch(error => {
+            console.log(error)
         });
     }, [])
 
