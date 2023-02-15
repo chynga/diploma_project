@@ -23,4 +23,5 @@ SELECT * FROM consultation;
 -- SELECT * FROM notification_subscriptions;
 -- SELECT * FROM appointments;
 
-SELECT * FROM users u JOIN consultation c ON u.id = c.client_id
+SELECT * FROM users u JOIN consultation c ON u.id = c.client_id;
+SELECT * FROM reviews;

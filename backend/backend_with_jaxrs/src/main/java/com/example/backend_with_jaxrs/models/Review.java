@@ -2,7 +2,8 @@ package com.example.backend_with_jaxrs.models;
 
 public class Review {
     private Long id;
-    private String fullName;
+    private Long clientId;
+    private User client;
     private String body;
     private Integer rating;
 
@@ -14,12 +15,20 @@ public class Review {
         this.id = id;
     }
 
-    public String getFullName() {
-        return fullName;
+    public Long getClientId() {
+        return clientId;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setClientId(Long clientId) {
+        this.clientId = clientId;
+    }
+
+    public User getClient() {
+        return client;
+    }
+
+    public void setClient(User client) {
+        this.client = client;
     }
 
     public String getBody() {

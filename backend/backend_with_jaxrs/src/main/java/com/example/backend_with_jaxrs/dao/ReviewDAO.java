@@ -1,10 +1,12 @@
 package com.example.backend_with_jaxrs.dao;
 
 import com.example.backend_with_jaxrs.models.Review;
+import com.example.backend_with_jaxrs.models.Service;
 import com.example.backend_with_jaxrs.utils.CustomException;
 import com.example.backend_with_jaxrs.utils.ErrorCode;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class ReviewDAO extends GeneralDAO {
     private static ReviewDAO INSTANCE;
@@ -21,24 +23,44 @@ public class ReviewDAO extends GeneralDAO {
         return INSTANCE;
     }
 
-    public Review writeReview(Review review) throws CustomException {
-        String sql = "INSERT INTO reviews (full_name, body, rating) " +
+    public ArrayList<Review> getReviews() throws CustomException {
+        String sqlScript = "SELECT * FROM reviews";
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        ResultSet resultSet = executeQuery(preparedStatement);
+
+        return getReviewsFromDb(resultSet);
+    }
+
+    public void writeReview(Review review) throws CustomException {
+        String sql = "INSERT INTO reviews (client_id, body, rating) " +
                 "VALUES (?, ?, ?)";
         PreparedStatement preparedStatement = getPreparedStatement(sql);
         setSqlScriptData(preparedStatement, review);
         executeUpdate(preparedStatement);
-        ResultSet resultSet = getResultSet(preparedStatement);
-
-        return getReviewFromDb(resultSet);
     }
 
     private void setSqlScriptData(PreparedStatement preparedStatement, Review review) throws CustomException {
         try {
-            preparedStatement.setString(1, review.getFullName());
+            preparedStatement.setLong(1, review.getClientId());
             preparedStatement.setString(2, review.getBody());
             preparedStatement.setInt(3, review.getRating());
         } catch (SQLException e) {
             throw new CustomException(e, ErrorCode.SQL_SET_SCRIPT_DATA);
+        }
+    }
+
+    private ArrayList<Review> getReviewsFromDb(ResultSet resultSet) throws CustomException {
+        try {
+            ArrayList<Review> reviews = new ArrayList<>();
+            while (resultSet.next()) {
+                Review review = new Review();
+                setReviewFields(resultSet, review);
+                reviews.add(review);
+            }
+
+            return reviews;
+        } catch (SQLException e) {
+            throw new CustomException(e, ErrorCode.SQL_GET_REVIEWS);
         }
     }
 
@@ -60,7 +82,7 @@ public class ReviewDAO extends GeneralDAO {
     private void setReviewFields(ResultSet resultSet, Review review) throws CustomException {
         try {
             review.setId(resultSet.getLong("id"));
-            review.setFullName(resultSet.getString("full_name"));
+            review.setClientId(resultSet.getLong("client_id"));
             review.setBody(resultSet.getString("body"));
             review.setRating(resultSet.getInt("rating"));
         } catch (SQLException e) {

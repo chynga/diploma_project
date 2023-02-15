@@ -128,7 +128,6 @@ CREATE TABLE IF NOT EXISTS teeth_brush_sessions (
 CREATE TABLE IF NOT EXISTS reviews (
     id SERIAL PRIMARY KEY,
     client_id INTEGER NOT NULL,
-    full_name VARCHAR(50) NOT NULL,
     body varchar(5000) NOT NULL,
     rating INTEGER,
     FOREIGN KEY (client_id) REFERENCES clients (id) ON DELETE CASCADE ON UPDATE CASCADE

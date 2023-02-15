@@ -35,6 +35,7 @@ public class ErrorCode {
     public static final ErrorCode SQL_SET_SERVICE_FIELDS = new ErrorCode("SQL_SET_SERVICE_FIELDS");
 
     public static final ErrorCode SQL_SET_REVIEW_FIELDS = new ErrorCode("SQL_SET_REVIEW_FIELDS");
+    public static final ErrorCode SQL_GET_REVIEWS = new ErrorCode("SQL_GET_REVIEWS");
     public static final ErrorCode SQL_GET_REVIEW = new ErrorCode("SQL_GET_REVIEW");
     public static final ErrorCode SQL_REVIEW_NOT_FOUND = new ErrorCode("SQL_REVIEW_NOT_FOUND");
 

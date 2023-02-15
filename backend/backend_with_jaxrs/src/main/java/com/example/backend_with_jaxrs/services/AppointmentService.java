@@ -1,7 +1,6 @@
 package com.example.backend_with_jaxrs.services;
 
 import com.example.backend_with_jaxrs.dao.AppointmentDAO;
-import com.example.backend_with_jaxrs.dao.DoctorDAO;
 import com.example.backend_with_jaxrs.dao.ServiceDAO;
 import com.example.backend_with_jaxrs.dao.UserDAO;
 import com.example.backend_with_jaxrs.models.Appointment;
@@ -26,7 +25,7 @@ public class AppointmentService {
 
     public ArrayList<Appointment> getAllAppointments() throws CustomException {
         ArrayList<Appointment> appointments = AppointmentDAO.getInstance().getAllAppointments();
-        setObjectFields(appointments);
+        setFieldsForAppointments(appointments);
 
         return appointments;
     }
@@ -34,14 +33,14 @@ public class AppointmentService {
 
     public Appointment getAppointment(Long id) throws CustomException {
         Appointment appointment = AppointmentDAO.getInstance().getAppointment(id);
-        setObjectField(appointment);
+        setAppointmentFields(appointment);
 
         return appointment;
     }
 
     public ArrayList<Appointment> getStatusAppointments(String status) throws CustomException {
         ArrayList<Appointment> appointments = AppointmentDAO.getInstance().getStatusAppointments(status);
-        setObjectFields(appointments);
+        setFieldsForAppointments(appointments);
 
         return appointments;    }
 
@@ -65,13 +64,13 @@ public class AppointmentService {
         return AppointmentDAO.getInstance().deleteAppointment(id);
     }
 
-    private void setObjectFields(ArrayList<Appointment> appointments) {
+    private void setFieldsForAppointments(ArrayList<Appointment> appointments) {
         for (Appointment appointment : appointments) {
-            setObjectField(appointment);
+            setAppointmentFields(appointment);
         }
     }
 
-    private void setObjectField(Appointment appointment) {
+    private void setAppointmentFields(Appointment appointment) {
         User doctor;
         User client;
         Service service;
