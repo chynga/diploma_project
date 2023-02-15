@@ -12,6 +12,7 @@ import ClientsPage from "./users/clients";
 import ServicesPage from "./services";
 import MessagesPage from "./messages";
 import ReviewsPage from "./reviews";
+import OrderedCallsPage from "./orderedCalls";
 
 function AdminPanel() {
     const { user } = useAppSelector(selectAuth);
@@ -42,6 +43,7 @@ function AdminPanel() {
                         <Route path="/clients/*" element={<ClientsPage />} />
                         <Route path="/messages/*" element={<MessagesPage />} />
                         <Route path="/reviews/*" element={<ReviewsPage />} />
+                        <Route path="/ordered-calls/*" element={<OrderedCallsPage />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </div>

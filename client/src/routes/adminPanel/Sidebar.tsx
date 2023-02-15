@@ -100,8 +100,8 @@ function Sidebar({ className = "" }: SidebarProps) {
                             </Link>
                         </div>
                         <div className="w-full">
-                            <Link to={"phone-requests"} className="hover:cursor-pointer">
-                                <TextLg className="font-medium" blue={location.pathname.includes("/admin/phone-requests") ? true : false}>
+                            <Link to={"ordered-calls"} className="hover:cursor-pointer">
+                                <TextLg className="font-medium" blue={location.pathname.includes("/admin/ordered-calls") ? true : false}>
                                     Запросы
                                 </TextLg>
                             </Link>
