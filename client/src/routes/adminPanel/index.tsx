@@ -11,6 +11,7 @@ import { selectAuth } from "../../features/auth/authSlice";
 import ClientsPage from "./users/clients";
 import ServicesPage from "./services";
 import MessagesPage from "./messages";
+import ReviewsPage from "./reviews";
 
 function AdminPanel() {
     const { user } = useAppSelector(selectAuth);
@@ -40,6 +41,7 @@ function AdminPanel() {
                         <Route path="/employees/*" element={<EmployeesPage />} />
                         <Route path="/clients/*" element={<ClientsPage />} />
                         <Route path="/messages/*" element={<MessagesPage />} />
+                        <Route path="/reviews/*" element={<ReviewsPage />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </div>
