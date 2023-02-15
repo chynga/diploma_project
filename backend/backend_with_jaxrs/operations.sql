@@ -22,3 +22,5 @@ SELECT * FROM consultation;
 -- SELECT * FROM doctors;
 -- SELECT * FROM notification_subscriptions;
 -- SELECT * FROM appointments;
+
+SELECT * FROM users u JOIN consultation c ON u.id = c.client_id

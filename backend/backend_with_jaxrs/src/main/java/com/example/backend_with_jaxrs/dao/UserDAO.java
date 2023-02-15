@@ -114,6 +114,14 @@ public class UserDAO extends GeneralDAO {
         return getUsersFromDb(resultSet);
     }
 
+    public ArrayList<User> getMessagedClients() throws CustomException {
+        String sqlScript = "SELECT DISTINCT ON(client_id) * FROM users u JOIN consultation c ON u.id = c.client_id";
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        ResultSet resultSet = executeQuery(preparedStatement);
+
+        return getUsersFromDb(resultSet);
+    }
+
     private User getUserFromDb(ResultSet resultSet) throws CustomException {
         try {
             User user = new User();

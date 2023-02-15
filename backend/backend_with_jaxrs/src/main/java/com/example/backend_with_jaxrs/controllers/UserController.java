@@ -22,16 +22,6 @@ public class UserController {
     @Context SecurityContext securityContext;
 
     @GET
-    @Path("/clients/{clientId}/messages")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getMessages(@PathParam("clientId") Long clientId) throws CustomException {
-        if (!securityContext.isUserInRole(Role.CONSULTANT.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
-        ArrayList<Message> messages = MessageService.getInstance().getMessages(clientId);
-
-        return Response.ok().entity(messages).build();
-    }
-
-    @GET
     @Path("/clients")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getClients() throws CustomException {

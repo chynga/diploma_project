@@ -2,7 +2,6 @@ package com.example.backend_with_jaxrs.filters;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.backend_with_jaxrs.utils.Jwt;
-import javafx.util.Pair;
 
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -57,16 +56,52 @@ public class BearerTokenFilter implements ContainerRequestFilter {
 
     private boolean isUriUnProtected(String path, String method) {
         ArrayList<Pair> unProtectedUris = new ArrayList<>();
-        unProtectedUris.add(new Pair<>("authentication/register", "POST"));
-        unProtectedUris.add(new Pair<>("authentication/login", "POST"));
-        unProtectedUris.add(new Pair<>("reviews", "POST"));
-        unProtectedUris.add(new Pair<>("doctors", "GET"));
-        unProtectedUris.add(new Pair<>("services", "GET"));
-        unProtectedUris.add(new Pair<>("test", "POST"));
-        unProtectedUris.add(new Pair<>("email/verify", "POST"));
-        unProtectedUris.add(new Pair<>("password/recover", "POST"));
-        unProtectedUris.add(new Pair<>("test", "*"));
+        unProtectedUris.add(new Pair("authentication/register", "POST"));
+        unProtectedUris.add(new Pair("authentication/login", "POST"));
+        unProtectedUris.add(new Pair("reviews", "POST"));
+        unProtectedUris.add(new Pair("doctors", "GET"));
+        unProtectedUris.add(new Pair("services", "GET"));
+        unProtectedUris.add(new Pair("test", "POST"));
+        unProtectedUris.add(new Pair("email/verify", "POST"));
+        unProtectedUris.add(new Pair("password/recover", "POST"));
+        unProtectedUris.add(new Pair("test", "*"));
 
-        return unProtectedUris.contains(new Pair<>(path, method)) || unProtectedUris.contains(new Pair<>(path, "*"));
+        return compareUrl(unProtectedUris, path, method);
+    }
+
+    private boolean compareUrl(ArrayList<Pair> pairs, String path, String method) {
+        for (Pair pair : pairs) {
+            if (path.equals(pair.getPath()) && method.equals(pair.getMethod())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+}
+
+class Pair {
+    private String path;
+    private String method;
+
+    public Pair(String path, String method) {
+        this.path = path;
+        this.method = method;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
     }
 }

@@ -1,6 +1,8 @@
 package com.example.backend_with_jaxrs.services;
 
 import com.example.backend_with_jaxrs.dao.MessageDAO;
+import com.example.backend_with_jaxrs.dao.UserDAO;
+import com.example.backend_with_jaxrs.models.User;
 import com.example.backend_with_jaxrs.models.message.Message;
 import com.example.backend_with_jaxrs.utils.CustomException;
 
@@ -25,5 +27,9 @@ public class MessageService {
 
     public ArrayList<Message> getMessages(Long clientId) throws CustomException {
         return MessageDAO.getInstance().getMessages(new Message(clientId));
+    }
+
+    public ArrayList<User> getMessagedClients() throws CustomException {
+        return UserDAO.getInstance().getMessagedClients();
     }
 }
