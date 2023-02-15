@@ -10,7 +10,7 @@ function CompletedAppointments() {
     const { user } = useAppSelector(selectAuth);
 
     useEffect(() => {
-        const apiUrl = "http://localhost:8080/api/appointments/statuses/success";
+        const apiUrl = "/api/appointments/statuses/success";
         const config = {
             headers: {
                 Authorization: `Bearer ${user?.token}`,

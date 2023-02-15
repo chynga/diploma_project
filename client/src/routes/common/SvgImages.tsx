@@ -36,7 +36,7 @@ function ServiceSvg() {
 
 function ProfileNoPicture({ className }: SvgParams) {
     return (
-        <svg className={`w-[100px] h-[100px] ${className}`} viewBox="0 0 168 168" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg className={`${className}`} viewBox="0 0 168 168" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fillRule="evenodd" clipRule="evenodd" d="M84 0C37.8 0 0 37.8 0 84C0 130.2 37.8 168 84 168C130.2 168 168 130.2 168 84C168 37.8 130.2 0 84 0ZM84 25.2C98.28 25.2 109.2 36.12 109.2 50.4C109.2 64.68 98.28 75.6 84 75.6C69.72 75.6 58.8 64.68 58.8 50.4C58.8 36.12 69.72 25.2 84 25.2ZM84 144.48C63 144.48 44.52 133.56 33.6 117.6C33.6 100.8 67.2 91.56 84 91.56C100.8 91.56 134.4 100.8 134.4 117.6C123.48 133.56 105 144.48 84 144.48Z" fill="#666666" />
         </svg>
     );

@@ -96,7 +96,7 @@ function Header() {
                             <ArrowDown />
                             {user ?
                                 <div className="hidden group-hover:block py-5 w-[276px] flex flex-col items-center justify-around gap-3 group-hover:flex absolute bg-background-white dark:bg-background-dark top-[100%] right-0 rounded-b-2xl drop-shadow-lg">
-                                    <ProfileNoPicture />
+                                    <ProfileNoPicture className="w-[100px] h-[100px]" />
                                     <div>
                                         <TextBase>{user.fullName}</TextBase>
                                     </div>

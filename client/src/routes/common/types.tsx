@@ -32,5 +32,14 @@ export type Appointment = {
     clientMessage?: string
 }
 
+export type Message = {
+    id: number
+    clientId: number
+    consultantId?: number
+    body: string
+    sentTime: number
+    isClient: boolean
+}
+
 export const dateFormat = 'DD/MM/YYYY';
 export const timeFormat = 'HH:mm';

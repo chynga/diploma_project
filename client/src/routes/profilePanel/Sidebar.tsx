@@ -17,7 +17,7 @@ function Sidebar({ className = "" }: SidebarProps) {
                         {"<< "}Вернуться на главную
                     </Link>
                     <Logo fill={"blue"} />
-                    <ProfileNoPicture />
+                    <ProfileNoPicture className="w-[100px] h-[100px]" />
                     <h2 className="text-2xl text-primary-white dark:text-primary-dark font-bold">
                         Айдар Зейнеп
                     </h2>
