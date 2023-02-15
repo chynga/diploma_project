@@ -26,9 +26,9 @@ public class ReviewController {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response requestAppointment(Review review,
-                                       @Context UriInfo uriInfo,
-                                       @HeaderParam(HttpHeaders.AUTHORIZATION) String authorizationHeader) throws CustomException {
+    public Response writeReview(Review review,
+                                @Context UriInfo uriInfo,
+                                @HeaderParam(HttpHeaders.AUTHORIZATION) String authorizationHeader) throws CustomException {
 //        if (!securityContext.isUserInRole(Role.CLIENT.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
         String token = Jwt.getTokenFromHeader(authorizationHeader);
         Long clientId = Jwt.getUserId(token);
@@ -36,5 +36,15 @@ public class ReviewController {
         ReviewService.getInstance().writeReview(review);
         UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
         return Response.created(uriBuilder.build()).build();
+    }
+
+    @DELETE
+    @Path("{id}")
+    public Response deleteReview(@PathParam("id") Long id,
+                                 @HeaderParam(HttpHeaders.AUTHORIZATION) String authorizationHeader) throws CustomException {
+        if (!securityContext.isUserInRole(Role.MANAGER.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+        ReviewService.getInstance().deleteReview(id);
+
+        return Response.ok().build();
     }
 }

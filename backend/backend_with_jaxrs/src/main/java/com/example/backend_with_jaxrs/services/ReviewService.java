@@ -35,4 +35,8 @@ public class ReviewService {
 
         return reviews;
     }
+
+    public void deleteReview(Long id) throws CustomException {
+        ReviewDAO.getInstance().deleteReview(id);
+    }
 }

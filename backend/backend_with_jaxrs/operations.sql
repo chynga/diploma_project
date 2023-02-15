@@ -25,3 +25,4 @@ SELECT * FROM consultation;
 
 SELECT * FROM users u JOIN consultation c ON u.id = c.client_id;
 SELECT * FROM reviews;
+SELECT * FROM ordered_calls;

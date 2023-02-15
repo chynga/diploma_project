@@ -39,11 +39,26 @@ public class ReviewDAO extends GeneralDAO {
         executeUpdate(preparedStatement);
     }
 
+    public void deleteReview(Long id) throws CustomException {
+        String sql = "DELETE FROM reviews WHERE id = (?)";
+        PreparedStatement preparedStatement = getPreparedStatement(sql);
+        setSqlScriptData(preparedStatement, id);
+        executeUpdate(preparedStatement);
+    }
+
     private void setSqlScriptData(PreparedStatement preparedStatement, Review review) throws CustomException {
         try {
             preparedStatement.setLong(1, review.getClientId());
             preparedStatement.setString(2, review.getBody());
             preparedStatement.setInt(3, review.getRating());
+        } catch (SQLException e) {
+            throw new CustomException(e, ErrorCode.SQL_SET_SCRIPT_DATA);
+        }
+    }
+
+    private void setSqlScriptData(PreparedStatement preparedStatement, Long id) throws CustomException {
+        try {
+            preparedStatement.setLong(1, id);
         } catch (SQLException e) {
             throw new CustomException(e, ErrorCode.SQL_SET_SCRIPT_DATA);
         }
