@@ -18,12 +18,20 @@ import AdvicesPage from './routes/advices';
 import AboutPage from './routes/about';
 import ProfilePanel from './routes/profilePanel';
 import AdminPanel from './routes/adminPanel';
+import { OrderCallButton, OrderCallForm } from './routes/common/OrderCall';
+import { SetStateAction, useState } from 'react';
 
 function App() {
+    const [showOrderCall, setShowOrderCall] = useState(false);
+
     return (
         <div className="App bg-background-white dark:bg-background-dark">
             <Router>
                 <Header />
+                <div className="fixed right-20 bottom-20">
+                    <OrderCallButton setShowOrderCall={setShowOrderCall} />
+                </div>
+                <OrderCallForm showOrderCall={showOrderCall} setShowOrderCall={setShowOrderCall} />
                 <Routes>
                     <Route path="/" element={<HomePage />} />
                     <Route path="/services" element={<ServicesPage />} />
