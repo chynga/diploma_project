@@ -55,6 +55,9 @@ public class ErrorCode {
     public static final ErrorCode SQL_GET_BRUSH_SESSIONS = new ErrorCode("SQL_GET_BRUSH_SESSIONS");
     public static final ErrorCode SQL_SET_BRUSH_SESSION_FIELDS = new ErrorCode("SQL_SET_BRUSH_SESSION_FIELDS");
 
+    public static final ErrorCode SQL_GET_ORDERED_CALLS = new ErrorCode("SQL_GET_ORDERED_CALLS");
+    public static final ErrorCode SQL_SET_ORDERED_CALL_FIELDS = new ErrorCode("SQL_SET_ORDERED_CALL_FIELDS");
+
     public static final ErrorCode SQL_GET_DOCTORS = new ErrorCode("SQL_GET_DOCTORS");
     public static final ErrorCode SQL_SET_DOCTOR_FIELDS = new ErrorCode("SQL_SET_DOCTOR_FIELDS");
     public static final ErrorCode SQL_GET_DOCTOR = new ErrorCode("SQL_GET_DOCTOR");
