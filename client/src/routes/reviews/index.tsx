@@ -1,19 +1,33 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
 import { selectAuth } from "../../features/auth/authSlice";
-import Review from "../common/Review";
+import ReviewCard from "../common/ReviewCard";
+import { Review } from "../common/types";
 import Rating from "./Rating";
 
 function ReviewsPage() {
+    const [reviews, setReviews] = useState<Review[]>();
+
+    useEffect(() => {
+        const apiUrl = "/api/reviews";
+
+        axios.get(apiUrl).then((resp) => {
+            const reviews: Review[] = resp.data;
+            setReviews(reviews);
+        });
+    }, [])
+
     return (
         <div className="px-20">
             <div className="py-20 flex justify-between gap-5">
                 <div className="flex flex-col gap-5">
-                    <Review />
-                    <Review />
-                    <Review />
-                    <Review />
+                    {reviews?.map(review => {
+                        return (
+                            <ReviewCard key={review.id} review={review} />
+                        );
+                    })}
                 </div>
                 <div className="mt-20 hidden lg:block">
                     <DoctorSvg />
@@ -28,6 +42,7 @@ function ReviewForm() {
     const [rating, setRating] = useState(1);
     const [body, setBody] = useState("");
     const { user } = useAppSelector(selectAuth);
+    const navigate = useNavigate();
 
     const onChange = (e: any) => {
         setBody(e.target.value);
@@ -48,6 +63,9 @@ function ReviewForm() {
         };
 
         axios.post("/api/reviews", review, config)
+            .then((resp) => {
+                navigate(0);
+            })
             .catch(error => {
                 console.log(error);
             })

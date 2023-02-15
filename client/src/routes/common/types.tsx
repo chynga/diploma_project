@@ -41,5 +41,13 @@ export type Message = {
     isClient: boolean
 }
 
+export type Review = {
+    id: number
+    clientId: number
+    client: User
+    body: string
+    rating: number
+}
+
 export const dateFormat = 'DD/MM/YYYY';
 export const timeFormat = 'HH:mm';

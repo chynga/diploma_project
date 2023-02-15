@@ -1,5 +1,6 @@
 import LinkButton from "../common/LinkButton";
-import Review from "../common/Review";
+import ReviewCard from "../common/ReviewCard";
+import { Star } from "../common/SvgImages";
 
 function ReviewsSection() {
     return (
@@ -10,10 +11,30 @@ function ReviewsSection() {
 
             <div className="mt-16">
                 <div className="mt-5 relative" >
-                    <Review />
+                    <div className="px-8 pb-5 max-w-[936px] min-h-[120px] border-[1px] border-blue-white dark:border-blue-dark rounded-2xl">
+                        <h3 className="mt-3 font-bold text-lg text-primary-white dark:text-primary-dark">Ольга</h3>
+                        <p className="font-light text-primary-white dark:text-primary-dark">Отличная клиника ! Всё чисто, аккуратно и очень дружлюбный отзывчивый персонал, начиная с девушки-администратора </p>
+                        <div className="flex gap-3 mt-2">
+                            <Star filled />
+                            <Star filled />
+                            <Star filled />
+                            <Star />
+                            <Star />
+                        </div>
+                    </div>
                 </div>
                 <div className="mt-5 relative">
-                    <Review />
+                    <div className="px-8 pb-5 max-w-[936px] min-h-[120px] border-[1px] border-blue-white dark:border-blue-dark rounded-2xl">
+                        <h3 className="mt-3 font-bold text-lg text-primary-white dark:text-primary-dark">Ольга</h3>
+                        <p className="font-light text-primary-white dark:text-primary-dark">Отличная клиника ! Всё чисто, аккуратно и очень дружлюбный отзывчивый персонал, начиная с девушки-администратора </p>
+                        <div className="flex gap-3 mt-2">
+                            <Star filled />
+                            <Star filled />
+                            <Star filled />
+                            <Star />
+                            <Star />
+                        </div>
+                    </div>
                     <div className="hidden 2xl:block md:absolute top-[-265px] left-[890px]">
                         <DoctorSvg />
                     </div>
