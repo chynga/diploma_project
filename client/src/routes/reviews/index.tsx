@@ -1,4 +1,9 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useAppSelector } from "../../app/hooks";
+import { selectAuth } from "../../features/auth/authSlice";
 import Review from "../common/Review";
+import Rating from "./Rating";
 
 function ReviewsPage() {
     return (
@@ -20,21 +25,43 @@ function ReviewsPage() {
 }
 
 function ReviewForm() {
+    const [rating, setRating] = useState(1);
+    const [body, setBody] = useState("");
+    const { user } = useAppSelector(selectAuth);
+
+    const onChange = (e: any) => {
+        setBody(e.target.value);
+    }
+
+    const onSubmit = (e: any) => {
+        e.preventDefault();
+
+        const review = {
+            body,
+            rating,
+        };
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user?.token}`,
+            },
+        };
+
+        axios.post("/api/reviews", review, config)
+            .catch(error => {
+                console.log(error);
+            })
+    }
+
     return (
-        <form className="pb-20">
+        <form className="pb-20" onSubmit={onSubmit}>
             <h2 className="text-xl sm:text-4xl text-primary-white dark:text-[#797979] font-bold">
                 Оставьте отзыв
             </h2>
-            <textarea placeholder="Отзыв..." name="" id="" cols={30} rows={7} className="mt-5 px-6 py-2 bg-[#797979] text-white border-[1px] rounded-md w-full">
+            <textarea value={body} onChange={onChange} placeholder="Отзыв..." cols={30} rows={7} className="mt-5 px-6 py-2 bg:background-white dark:bg-[#797979] text-primary-white dark:text-primary-dark border-[1px] border-[#353535] dark:border-none rounded-md w-full">
 
             </textarea>
-            <div className="mt-5 flex gap-3">
-                <StarSvg />
-                <StarSvg />
-                <StarSvg />
-                <StarSvg />
-                <StarSvg />
-            </div>
+            <Rating rating={rating} setRating={setRating} />
             <button className="mt-6 px-8 py-3 inline-block bg-blue-white dark:bg-blue-dark text-lg text-primary-dark font-semibold drop-shadow-lg rounded-full">
                 Отправить
             </button>
@@ -42,13 +69,6 @@ function ReviewForm() {
     );
 }
 
-function StarSvg() {
-    return (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="hover:cursor-pointer">
-            <path d="M23.0515 12.6831C23.4696 12.2751 23.7653 11.7582 23.9051 11.1909C24.0449 10.6236 24.0232 10.0285 23.8425 9.47293C23.6618 8.91732 23.3293 8.42332 22.8825 8.04678C22.4358 7.67024 21.8926 7.42616 21.3145 7.34214L17.4055 6.77414C17.224 6.74773 17.0518 6.67759 16.9035 6.56974C16.7553 6.4619 16.6355 6.31961 16.5545 6.15514L14.8065 2.61414C14.548 2.09007 14.148 1.6488 13.6517 1.34025C13.1555 1.03169 12.5828 0.868164 11.9985 0.868164C11.4141 0.868164 10.8414 1.03169 10.3452 1.34025C9.84895 1.6488 9.44896 2.09007 9.19046 2.61414L7.44246 6.15514C7.36147 6.31961 7.24168 6.4619 7.09342 6.56974C6.94516 6.67759 6.77288 6.74773 6.59146 6.77414L2.68246 7.34214C2.10408 7.42602 1.56069 7.67007 1.11377 8.04668C0.666853 8.42328 0.334223 8.91743 0.153501 9.47322C-0.0272217 10.029 -0.0488263 10.6243 0.0911303 11.1917C0.231087 11.7592 0.527021 12.2761 0.945465 12.6841L3.77446 15.4401C3.90574 15.568 4.00399 15.7257 4.06078 15.8999C4.11757 16.0741 4.13119 16.2595 4.10046 16.4401L3.43346 20.3321C3.33497 20.9078 3.39943 21.4995 3.61958 22.0404C3.83972 22.5814 4.20677 23.0499 4.67924 23.3932C5.15171 23.7365 5.71078 23.9408 6.29326 23.983C6.87575 24.0252 7.45843 23.9037 7.97546 23.6321L11.4755 21.7941C11.6375 21.7084 11.8181 21.6636 12.0015 21.6636C12.1848 21.6636 12.3654 21.7084 12.5275 21.7941L16.0275 23.6321C16.5443 23.9069 17.1281 24.0302 17.7119 23.9879C18.2956 23.9456 18.8556 23.7395 19.3275 23.3931C19.8021 23.0514 20.1707 22.5827 20.3909 22.0409C20.6111 21.499 20.6741 20.9061 20.5725 20.3301L19.8985 16.4411C19.8677 16.2605 19.8812 16.0751 19.938 15.9009C19.9948 15.7267 20.0931 15.5689 20.2245 15.4411L23.0515 12.6831Z" fill="white" />
-        </svg>
-    );
-}
 
 function DoctorSvg() {
     return (
