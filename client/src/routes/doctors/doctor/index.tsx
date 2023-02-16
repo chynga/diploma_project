@@ -1,7 +1,21 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import DoctorProfile from "../../common/DoctorProfile";
 import ServiceCard from "../../common/ServiceCard";
+import { Service } from "../../common/types";
 
 function DoctorPage() {
+    const [services, setServices] = useState<Service[]>([]);
+
+    useEffect(() => {
+        const apiUrl = `/api/services`;
+
+        axios.get(apiUrl).then((resp) => {
+            const services: Service[] = resp.data;
+            setServices(services);
+        });
+    }, [])
+
     return (
         <div className="p-20">
             <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-20 items-start">
@@ -30,10 +44,11 @@ function DoctorPage() {
                 </h2>
                 <div className="mt-12">
                     <div className="max-w-5xl mx-auto flex flex-wrap justify-center items-center gap-x-14 gap-y-6">
-                        <ServiceCard />
-                        <ServiceCard />
-                        <ServiceCard />
-                        <ServiceCard />
+                        {services.map(service => {
+                            return (
+                                <ServiceCard service={service} />
+                            );
+                        })}
                     </div>
                 </div>
             </div>
