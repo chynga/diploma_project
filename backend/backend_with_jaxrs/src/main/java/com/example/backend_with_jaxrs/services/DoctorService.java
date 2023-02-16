@@ -23,6 +23,10 @@ public class DoctorService {
         return DoctorDAO.getInstance().getAvailableDoctors();
     }
 
+    public Doctor getAvailableDoctor(Long id) throws CustomException {
+        return DoctorDAO.getInstance().getAvailableDoctor(id);
+    }
+
     public ArrayList<Doctor> getDoctors() throws CustomException {
         return DoctorDAO.getInstance().getDoctors();
     }

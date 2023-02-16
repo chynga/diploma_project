@@ -13,6 +13,8 @@ import javax.ws.rs.ext.Provider;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Provider
 @PreMatching
@@ -61,6 +63,7 @@ public class BearerTokenFilter implements ContainerRequestFilter {
         unProtectedUris.add(new Pair("reviews", "GET"));
         unProtectedUris.add(new Pair("reviews", "POST"));
         unProtectedUris.add(new Pair("doctors", "GET"));
+        unProtectedUris.add(new Pair("doctors/[0-9]+", "GET"));
         unProtectedUris.add(new Pair("services", "GET"));
         unProtectedUris.add(new Pair("test", "POST"));
         unProtectedUris.add(new Pair("email/verify", "POST"));
@@ -71,8 +74,12 @@ public class BearerTokenFilter implements ContainerRequestFilter {
     }
 
     private boolean compareUrl(ArrayList<Pair> pairs, String path, String method) {
+        Pattern pathPattern;
+        Pattern methodPattern;
         for (Pair pair : pairs) {
-            if (path.equals(pair.getPath()) && method.equals(pair.getMethod())) {
+            pathPattern = Pattern.compile(pair.getPathRegex());
+            methodPattern = Pattern.compile(pair.getMethodRegex());
+            if (pathPattern.matcher(path).matches() && methodPattern.matcher(method).matches()) {
                 return true;
             }
         }
@@ -82,27 +89,27 @@ public class BearerTokenFilter implements ContainerRequestFilter {
 }
 
 class Pair {
-    private String path;
-    private String method;
+    private String pathRegex;
+    private String methodRegex;
 
-    public Pair(String path, String method) {
-        this.path = path;
-        this.method = method;
+    public Pair(String pathRegex, String methodRegex) {
+        this.pathRegex = pathRegex;
+        this.methodRegex = methodRegex;
     }
 
-    public String getPath() {
-        return path;
+    public String getPathRegex() {
+        return pathRegex;
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setPathRegex(String pathRegex) {
+        this.pathRegex = pathRegex;
     }
 
-    public String getMethod() {
-        return method;
+    public String getMethodRegex() {
+        return methodRegex;
     }
 
-    public void setMethod(String method) {
-        this.method = method;
+    public void setMethodRegex(String methodRegex) {
+        this.methodRegex = methodRegex;
     }
 }

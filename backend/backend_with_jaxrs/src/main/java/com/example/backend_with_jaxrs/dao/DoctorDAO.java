@@ -34,6 +34,17 @@ public class DoctorDAO extends GeneralDAO {
         return getDoctorsFromDb(resultSet);
     }
 
+    public Doctor getAvailableDoctor(Long id) throws CustomException {
+        String sqlScript = "SELECT * " +
+                "FROM users JOIN doctors ON users.id = doctors.id " +
+                "WHERE doctors.id = (?) AND available = true";
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        setSqlScriptData(preparedStatement, id);
+        ResultSet resultSet = executeQuery(preparedStatement);
+
+        return getDoctorFromDb(resultSet);
+    }
+
     public ArrayList<Doctor> getDoctors() throws CustomException {
         String sqlScript = "SELECT * FROM users JOIN doctors ON users.id = doctors.id";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
@@ -100,6 +111,20 @@ public class DoctorDAO extends GeneralDAO {
             return doctors;
         } catch (SQLException e) {
             throw new CustomException(e, ErrorCode.SQL_GET_DOCTORS);
+        }
+    }
+
+    private Doctor getDoctorFromDb(ResultSet resultSet) throws CustomException {
+        try {
+            if (resultSet.next()) {
+                Doctor doctor = new Doctor();
+                setDoctorFields(resultSet, doctor);
+                return doctor;
+            } else {
+                throw new CustomException(ErrorCode.SQL_GET_DOCTOR);
+            }
+        } catch (SQLException e) {
+            throw new CustomException(e, ErrorCode.SQL_GET_DOCTOR);
         }
     }
 

@@ -16,4 +16,12 @@ public class DoctorController {
         ArrayList<Doctor> doctors = DoctorService.getInstance().getAvailableDoctors();
         return Response.ok().entity(doctors).build();
     }
+
+    @GET
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAvailableDoctor(@PathParam("id") Long id) throws CustomException {
+        Doctor doctor = DoctorService.getInstance().getAvailableDoctor(id);
+        return Response.ok().entity(doctor).build();
+    }
 }
