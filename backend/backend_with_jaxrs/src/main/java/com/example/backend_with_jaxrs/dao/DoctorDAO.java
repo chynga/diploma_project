@@ -34,6 +34,22 @@ public class DoctorDAO extends GeneralDAO {
         return getDoctorsFromDb(resultSet);
     }
 
+    public ArrayList<Doctor> getDoctors() throws CustomException {
+        String sqlScript = "SELECT * FROM users JOIN doctors ON users.id = doctors.id";
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        ResultSet resultSet = executeQuery(preparedStatement);
+
+        return getDoctorsFromDb(resultSet);
+    }
+
+    public void updateDoctorInfo(Doctor doctor) throws CustomException {
+        String sqlScript = "UPDATE doctors SET started_working_from = (?), available = (?), " +
+                "about = (?) WHERE id = (?)";
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        setSqlScriptData(preparedStatement, doctor);
+        execute(preparedStatement);
+    }
+
     public void createDoctor(Long userId) throws CustomException {
         String sqlScript = "INSERT INTO doctors (id) " +
                 "VALUES (?)";
@@ -43,7 +59,7 @@ public class DoctorDAO extends GeneralDAO {
     }
 
     public boolean doctorExists(Long userId) throws CustomException {
-        String sqlScript = "SELECT users.id, full_name, email, phone, started_working_from, available, work_experience, about " +
+        String sqlScript = "SELECT users.id, full_name, email, phone, started_working_from, available, about " +
                 "FROM users JOIN doctors ON users.id = doctors.id " +
                 "WHERE users.id = (?)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
@@ -56,6 +72,17 @@ public class DoctorDAO extends GeneralDAO {
     private void setSqlScriptData(PreparedStatement preparedStatement, Long id) throws CustomException {
         try {
             preparedStatement.setLong(1, id);
+        } catch (SQLException e) {
+            throw new CustomException(e, ErrorCode.SQL_SET_SCRIPT_DATA);
+        }
+    }
+
+    private void setSqlScriptData(PreparedStatement preparedStatement, Doctor doctor) throws CustomException {
+        try {
+            preparedStatement.setTimestamp(1, doctor.getStartedWorkingFrom());
+            preparedStatement.setBoolean(2, doctor.isAvailable());
+            preparedStatement.setString(3, doctor.getAbout());
+            preparedStatement.setLong(4, doctor.getId());
         } catch (SQLException e) {
             throw new CustomException(e, ErrorCode.SQL_SET_SCRIPT_DATA);
         }
@@ -87,9 +114,8 @@ public class DoctorDAO extends GeneralDAO {
     private void setDoctorFields(ResultSet resultSet, Doctor doctor) throws CustomException {
         UserDAO.setUserFields(resultSet, doctor);
         try {
-            doctor.setStartedWorkingFrom(resultSet.getDate("started_working_from"));
+            doctor.setStartedWorkingFrom(resultSet.getTimestamp("started_working_from"));
             doctor.setAvailable(resultSet.getBoolean("available"));
-            doctor.setWorkExperience(resultSet.getInt("work_experience"));
             doctor.setAbout(resultSet.getString("about"));
         } catch (SQLException e) {
             throw new CustomException(e, ErrorCode.SQL_SET_DOCTOR_FIELDS);

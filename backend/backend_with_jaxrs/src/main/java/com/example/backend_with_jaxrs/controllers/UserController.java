@@ -1,9 +1,11 @@
 package com.example.backend_with_jaxrs.controllers;
 
+import com.example.backend_with_jaxrs.models.Doctor;
 import com.example.backend_with_jaxrs.models.NotificationMessage;
 import com.example.backend_with_jaxrs.models.User;
 import com.example.backend_with_jaxrs.models.message.Message;
 import com.example.backend_with_jaxrs.services.ClientService;
+import com.example.backend_with_jaxrs.services.DoctorService;
 import com.example.backend_with_jaxrs.services.MessageService;
 import com.example.backend_with_jaxrs.services.UserService;
 import com.example.backend_with_jaxrs.utils.CustomException;
@@ -81,6 +83,25 @@ public class UserController {
     public Response createUser(User employee) throws CustomException {
         if (!securityContext.isUserInRole(Role.ADMIN.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
         UserService.getInstance().updateEmployee(employee);
+
+        return Response.ok().build();
+    }
+
+    @GET
+    @Path("/doctors")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getDoctors() throws CustomException {
+        if (!securityContext.isUserInRole(Role.MANAGER.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+        ArrayList<Doctor> doctors = DoctorService.getInstance().getDoctors();
+        return Response.ok().entity(doctors).build();
+    }
+
+    @PATCH
+    @Path("/doctors/{id}")
+    public Response updateDoctorInfo(@PathParam("id") Long id, Doctor doctor) throws CustomException {
+        if (!securityContext.isUserInRole(Role.MANAGER.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+        doctor.setId(id);
+        DoctorService.getInstance().updateDoctorInfo(doctor);
 
         return Response.ok().build();
     }

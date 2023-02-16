@@ -36,7 +36,6 @@ CREATE TABLE IF NOT EXISTS doctors (
     id INTEGER NOT NULL UNIQUE,
     started_working_from TIMESTAMP,
     available BOOL DEFAULT false,
-    work_experience INTEGER,
     about VARCHAR,
     FOREIGN KEY (id) REFERENCES users (id) ON DELETE CASCADE
 );

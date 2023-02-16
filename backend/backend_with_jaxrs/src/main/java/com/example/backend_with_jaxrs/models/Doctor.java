@@ -1,18 +1,17 @@
 package com.example.backend_with_jaxrs.models;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Doctor extends User {
-    private Date startedWorkingFrom;
+    private Timestamp startedWorkingFrom;
     private boolean available;
-    private Integer workExperience;
     private String about;
 
-    public Date getStartedWorkingFrom() {
+    public Timestamp getStartedWorkingFrom() {
         return startedWorkingFrom;
     }
 
-    public void setStartedWorkingFrom(Date startedWorkingFrom) {
+    public void setStartedWorkingFrom(Timestamp startedWorkingFrom) {
         this.startedWorkingFrom = startedWorkingFrom;
     }
 
@@ -22,14 +21,6 @@ public class Doctor extends User {
 
     public void setAvailable(boolean available) {
         this.available = available;
-    }
-
-    public Integer getWorkExperience() {
-        return workExperience;
-    }
-
-    public void setWorkExperience(Integer workExperience) {
-        this.workExperience = workExperience;
     }
 
     public String getAbout() {

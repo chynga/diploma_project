@@ -22,4 +22,12 @@ public class DoctorService {
     public ArrayList<Doctor> getAvailableDoctors() throws CustomException {
         return DoctorDAO.getInstance().getAvailableDoctors();
     }
+
+    public ArrayList<Doctor> getDoctors() throws CustomException {
+        return DoctorDAO.getInstance().getDoctors();
+    }
+
+    public void updateDoctorInfo(Doctor doctor) throws CustomException {
+        DoctorDAO.getInstance().updateDoctorInfo(doctor);
+    }
 }

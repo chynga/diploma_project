@@ -25,4 +25,6 @@ SELECT * FROM consultation;
 
 SELECT * FROM users u JOIN consultation c ON u.id = c.client_id;
 SELECT * FROM reviews;
-SELECT * FROM ordered_calls;
+SELECT * FROM doctors;
+-- SELECT * FROM users;
+-- SELECT * FROM users JOIN doctors ON users.id = doctors.id;
