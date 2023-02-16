@@ -53,11 +53,8 @@ function ViewService() {
             <h2 className="font-medium text-primary-white dark:text-primary-dark">{service?.title}</h2>
             <img src="/service-image.png" className="max-w-[220px]" />
             <h2 className="font-medium text-primary-white dark:text-primary-dark">Описание услуги</h2>
-            <p className="text-sm text-primary-white dark:text-primary-dark">Неправильное пережевывание пищи <br />
-                атрофия десны и костной ткани<br />
-                смещение зубного ряда<br />
-                изменение височно-нижнечелюстного сустава<br />
-                В конце концов, нарушается эстетика. Поэтому, потеряв зуб необходимо пройти ортопедическое лечение. В нашей клинике понятие эстетическое протезирование и есть само протезирование в целом. Соответственно всё, что изготавливается в клинике «ИМАТЭК-ДЕНТ» это высоко эстетичные конструкции, ведь красота и эстетика – веление времени.
+            <p className="text-sm text-primary-white dark:text-primary-dark">
+                {service?.description}
             </p>
             <h2 className="font-medium text-primary-white dark:text-primary-dark">Цена</h2>
             <p className="text-sm font-medium text-primary-white dark:text-primary-dark">{service?.approxCost}</p>

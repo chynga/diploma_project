@@ -1,18 +1,23 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import DoctorProfile from "../../common/DoctorProfile";
 import ServiceCard from "../../common/ServiceCard";
-import { Service } from "../../common/types";
+import { Doctor, Service } from "../../common/types";
 
 function DoctorPage() {
+    const [doctor, setDoctor] = useState<Doctor>();
     const [services, setServices] = useState<Service[]>([]);
+    const { id } = useParams();
 
     useEffect(() => {
-        const apiUrl = `/api/services`;
-
-        axios.get(apiUrl).then((resp) => {
+        axios.get(`/api/services`).then((resp) => {
             const services: Service[] = resp.data;
             setServices(services);
+        });
+        axios.get(`/api/doctors/${id}`).then((resp) => {
+            const doctor: Doctor = resp.data;
+            setDoctor(doctor);
         });
     }, [])
 
@@ -24,12 +29,10 @@ function DoctorPage() {
                 </div>
                 <div>
                     <h2 className="text-xl sm:text-4xl text-center lg:text-left text-primary-white dark:text-primary-dark font-bold">
-                        Сунтаева Карлыгаш Усеновна
+                        {doctor?.fullName}
                     </h2>
                     <p className="mt-6 max-w-[550px] text-center lg:text-left font-light text-primary-white dark:text-primary-dark">
-                        Директор и ведущий ортопед стоматологической клиники «DentalCare», врач стоматолог-ортопед высшей категории. <br /><br />
-
-                        Член ассоциации стоматологов Казахстана, входит в 10-ку лучших стоматологов Казахстана. В июле 2017г. на конгрессе в г.Астане была награждена почетной грамотой «Лучший врач-стоматолог Республики Казахстан», за огромный вклад в стоматологическую службу и процветание Республики Казахстан.
+                        {doctor?.about}
                     </p>
                     <div className="flex justify-center lg:justify-start">
                         <div className="mt-20 px-8 py-3 inline-block bg-blue-white dark:bg-blue-dark text-lg text-primary-dark font-semibold drop-shadow-lg rounded-full hover:cursor-pointer">
@@ -46,7 +49,7 @@ function DoctorPage() {
                     <div className="max-w-5xl mx-auto flex flex-wrap justify-center items-center gap-x-14 gap-y-6">
                         {services.map(service => {
                             return (
-                                <ServiceCard service={service} />
+                                <ServiceCard key={service.id} service={service} />
                             );
                         })}
                     </div>

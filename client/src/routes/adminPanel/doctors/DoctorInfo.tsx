@@ -5,9 +5,14 @@ import { useAppSelector } from "../../../app/hooks";
 import { selectAuth } from "../../../features/auth/authSlice";
 
 function DoctorInfo({ selectedDoctor }: DoctorsProps) {
-    const [available, setAvailable] = useState(selectedDoctor?.available);
-    const [about, setAbout] = useState(selectedDoctor?.about);
+    const [available, setAvailable] = useState<boolean>();
+    const [about, setAbout] = useState<string>();
     const { user } = useAppSelector(selectAuth);
+
+    useEffect(() => {
+        setAvailable(selectedDoctor?.available);
+        setAbout(selectedDoctor?.about);
+    }, [selectedDoctor])
 
     const onChange = (e: any) => {
         setAbout(e.target.value);

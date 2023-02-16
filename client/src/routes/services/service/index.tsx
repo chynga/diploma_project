@@ -1,23 +1,32 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { Service } from "../../common/types";
 import WhyUsSection from "./WhyUsSection";
 
 function ServicePage() {
+    const [service, setService] = useState<Service>();
+    const { id } = useParams();
+
+    useEffect(() => {
+        axios.get(`/api/services/${id}`).then((resp) => {
+            const service: Service = resp.data;
+            setService(service);
+        });
+    }, [])
     return (
         <div className="py-12 px-20">
-            <div className="flex justify-between items-center gap-6">
+            <div className="flex justify-around items-center gap-6">
                 <img src="/service-image.png" alt="" className="w-[300px]" />
                 <div>
                     <h2 className="text-xl sm:text-4xl text-primary-white dark:text-primary-dark font-bold">
-                        Ортопедия
+                        {service?.title}
                     </h2>
                     <p className="mt-6 font-light text-center lg:text-start text-primary-white dark:text-primary-dark">
-                        Неправильное пережевывание пищи
-                        атрофия десны и костной ткани
-                        смещение зубного ряда
-                        изменение височно-нижнечелюстного сустава
-                        В конце концов, нарушается эстетика. Поэтому, потеряв зуб необходимо пройти ортопедическое лечение. В нашей клинике понятие эстетическое протезирование и есть само протезирование в целом. Соответственно всё, что изготавливается в клинике «ИМАТЭК-ДЕНТ» это высоко эстетичные конструкции, ведь красота и эстетика – веление времени.
+                        {service?.description}
                     </p>
                     <p className="mt-6 font-medium text-center lg:text-start text-primary-white dark:text-primary-dark">
-                        Цена: 20 000 - 30 000 тг
+                        Цена: {service?.approxCost} тг
                     </p>
                     <div className="mt-6 px-8 py-3 inline-block bg-blue-white dark:bg-blue-dark text-lg text-primary-dark font-semibold drop-shadow-lg rounded-full">
                         Записаться
