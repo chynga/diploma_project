@@ -48,7 +48,6 @@ function OrderedCallsPage() {
                             </tr>
                         )
                     })}
-
                 </tbody>
             </table>
         </div>

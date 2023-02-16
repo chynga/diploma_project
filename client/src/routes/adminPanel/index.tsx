@@ -1,7 +1,7 @@
 import Sidebar from "./Sidebar";
 import { ThemeToggler } from "../common/SvgImages";
 import { toggleTheme } from "../common/util";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import NotFound from "../common/NotFound";
 import AppointmentsPage from "./appointments";
 import EmployeesPage from "./users/employees";
@@ -13,11 +13,11 @@ import ServicesPage from "./services";
 import MessagesPage from "./messages";
 import ReviewsPage from "./reviews";
 import OrderedCallsPage from "./orderedCalls";
+import DoctorsPage from "./doctors";
 
 function AdminPanel() {
     const { user } = useAppSelector(selectAuth);
     const navigate = useNavigate();
-    const location = useLocation();
 
     useEffect(() => {
         if (!user || user.roles.includes("CLIENT")) {
@@ -40,6 +40,7 @@ function AdminPanel() {
                         <Route path="/services/*" element={<ServicesPage />} />
                         <Route path="/appointments/*" element={<AppointmentsPage />} />
                         <Route path="/employees/*" element={<EmployeesPage />} />
+                        <Route path="/doctors/*" element={<DoctorsPage />} />
                         <Route path="/clients/*" element={<ClientsPage />} />
                         <Route path="/messages/*" element={<MessagesPage />} />
                         <Route path="/reviews/*" element={<ReviewsPage />} />

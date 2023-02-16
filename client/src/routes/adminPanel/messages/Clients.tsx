@@ -12,7 +12,7 @@ type ClientsProps = {
 }
 
 function Clients({ selectedClient, setSelectedClient }: ClientsProps) {
-    const [clients, setClients] = useState<User[]>();
+    const [clients, setClients] = useState<User[]>([]);
     const { user } = useAppSelector(selectAuth);
 
     useEffect(() => {

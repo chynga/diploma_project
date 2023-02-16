@@ -13,6 +13,12 @@ export type User = {
     phone: string
 }
 
+export type Doctor = User & {
+    startedWorkingFrom: number
+    available: boolean
+    about: string
+}
+
 export type Status = "pending" | "approved" | "success" | "cancelled"
 
 export type Appointment = {
