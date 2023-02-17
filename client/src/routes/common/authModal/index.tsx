@@ -26,7 +26,7 @@ function AuthModal({ authPage, setAuthPage }: ModalProps) {
                             case "login":
                                 return <LoginForm setAuthPage={setAuthPage} />
                             case "register":
-                                return <RegisterForm />
+                                return <RegisterForm setAuthPage={setAuthPage} />
                             case "forgotPassword":
                                 return <PasswordRecoveryForm setAuthPage={setAuthPage} />
                         }

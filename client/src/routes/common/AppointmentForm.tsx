@@ -11,8 +11,8 @@ import { useNavigate } from "react-router-dom";
 function AppointmentForm() {
     const [doctors, setDoctors] = useState<User[]>([]);
     const [services, setServices] = useState<Service[]>([]);
-    const [doctorId, setDoctorId] = useState();
-    const [serviceId, setServiceId] = useState();
+    const [selectedDoctorId, setSelectedDoctorId] = useState();
+    const [selectedServiceId, setSelectedServiceId] = useState();
     const [date, setDate] = useState<string>(dayjs().format(dateFormat));
     const [time, setTime] = useState<string>("13:00");
     const [clientMessage, setClientMessage] = useState<string>("");
@@ -40,12 +40,12 @@ function AppointmentForm() {
         setTime(value.format("HH:mm"));
     }
 
-    const onDoctorSelect = (value: any) => {
-        setDoctorId(value)
+    const onDoctorSelect = (e: any) => {
+        setSelectedDoctorId(e.target.value)
     }
 
-    const onServiceSelect = (value: any) => {
-        setServiceId(value)
+    const onServiceSelect = (e: any) => {
+        setSelectedServiceId(e.target.value)
     }
 
     const onMessageChange = (e: any) => {
@@ -59,8 +59,8 @@ function AppointmentForm() {
         const requestedTime = dayjs(timeStr, format);
         console.log(requestedTime)
         const appointment = {
-            doctorId,
-            serviceId,
+            doctorId: selectedDoctorId,
+            serviceId: selectedServiceId,
             clientMessage,
             requestedTime,
         }
@@ -83,22 +83,24 @@ function AppointmentForm() {
         <form onSubmit={onSubmit} className="mt-10 p-12 bg-[#277ff280] rounded-3xl w-full">
             <div className="xl:flex gap-5">
                 <div className="xl:mt-0 w-full">
-                    <Select value={doctorId} onChange={onDoctorSelect} label="Врач" className="bg-background-white dark:bg-background-dark text-primary-white dark:text-primary-dark">
-                        {doctors.map(doctor => {
+                    <select value={selectedDoctorId} onChange={onDoctorSelect} name="doctor" id="doctor" className="p-2 border-[1px] border-blue-gray-200 rounded-md w-full">
+                        <option value={0} disabled hidden>Please Choose...</option>
+                        {doctors?.map(doctor => {
                             return (
-                                <Option value={`${doctor.id}`} key={doctor.id}>{doctor.fullName}</Option>
-                            )
+                                <option key={doctor.id} value={doctor.id}>{doctor.fullName}</option>
+                            );
                         })}
-                    </Select>
+                    </select>
                 </div>
                 <div className="mt-5 xl:mt-0 w-full">
-                    <Select value={serviceId} onChange={onServiceSelect} label="Услуга" className="bg-background-white dark:bg-background-dark text-primary-white dark:text-primary-dark">
-                        {services.map(service => {
+                    <select value={selectedServiceId} onChange={onServiceSelect} name="service" id="service" className="p-2 border-[1px] border-blue-gray-200 rounded-md w-full">
+                        <option value={0} disabled hidden>Please Choose...</option>
+                        {services?.map(service => {
                             return (
-                                <Option value={`${service.id}`} key={service.id}>{service.title}</Option>
-                            )
+                                <option key={service.id} value={service.id}>{service.title}</option>
+                            );
                         })}
-                    </Select>
+                    </select>
                 </div>
             </div>
             <div className="xl:mt-5 xl:flex gap-5">

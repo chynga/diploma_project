@@ -24,7 +24,7 @@ function ServicesSection() {
                 <div className="max-w-5xl mx-auto flex flex-wrap justify-center items-center gap-x-14 gap-y-6">
                     {services.map(service => {
                         return (
-                            <ServiceCard service={service} />
+                            <ServiceCard key={service.id} service={service} />
                         );
                     })}
                 </div>

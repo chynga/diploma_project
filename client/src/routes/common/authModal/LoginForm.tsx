@@ -19,8 +19,8 @@ function LoginForm({ setAuthPage }: ModalProps) {
             password: password.value,
         };
 
-        console.log(userData);
         dispatch(login(userData));
+        setAuthPage(null);
     };
 
     return (

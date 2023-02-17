@@ -1,27 +1,49 @@
-import { useLocation } from "react-router-dom";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
+import { useAppSelector } from "../../../app/hooks";
+import { selectAuth } from "../../../features/auth/authSlice";
 import NotFound from "../../common/NotFound";
+import { Appointment } from "../../common/types";
 import FutureAppointments from "./FutureAppointments";
 import PastAppointments from "./PastAppointments";
 import TabBar from "./TabBar";
 
-function AppointmentsPage() {
-    const location = useLocation();
-    let selectedTab: JSX.Element;
+export type AppointmentsPageProps = {
+    appointments: Appointment[]
+}
 
-    if (location.pathname.includes("/appointments/future")) {
-        selectedTab = <FutureAppointments />;
-    } else if (location.pathname.includes("/appointments/past")) {
-        selectedTab = <PastAppointments />;
-    } else {
-        selectedTab = <NotFound />;
-    }
+function AppointmentsPage() {
+    const [pastAppointments, setPastAppointments] = useState<Appointment[]>([]);
+    const [futureAppointments, setFutureAppointments] = useState<Appointment[]>([]);
+    const { user } = useAppSelector(selectAuth);
+
+    useEffect(() => {
+        const apiUrl = "/api/profile/appointments";
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user?.token}`,
+            },
+        };
+
+        axios.get(apiUrl, config).then((resp) => {
+            const appointments: Appointment[] = resp.data;
+            const pastAppointments = appointments.filter(appointment => appointment.status === "success");
+            const futureAppointments = appointments.filter(appointment => appointment.status === "approved" || appointment.status === "pending");
+            setPastAppointments(pastAppointments);
+            setFutureAppointments(futureAppointments);
+        });
+    }, []);
 
     return (
         <div>
             <TabBar />
-
             <div className="mt-5">
-                {selectedTab}
+                <Routes>
+                    <Route path="/future" element={<FutureAppointments appointments={futureAppointments} />} />
+                    <Route path="/past" element={<PastAppointments appointments={pastAppointments} />} />
+                    <Route path="*" element={<NotFound />} />
+                </Routes>
             </div>
         </div>
     );

@@ -1,6 +1,9 @@
+import dayjs from "dayjs";
+import { AppointmentsPageProps } from ".";
 import { TextBase } from "../../common/TextElements";
+import { dateFormat, timeFormat } from "../../common/types";
 
-function PastAppointments() {
+function PastAppointments({ appointments }: AppointmentsPageProps) {
     return (
         <div>
             <table className="table-auto w-full">
@@ -13,84 +16,16 @@ function PastAppointments() {
                     </tr>
                 </thead>
                 <tbody className="text-center border-[1px]">
-                    <tr>
-                        <td className="p-3"><TextBase>Нысанбай Ибрагим</TextBase></td>
-                        <td className="p-3"><TextBase>Чистка зубов</TextBase></td>
-                        <td className="p-3"><TextBase>20.01.2022 15:00</TextBase></td>
-                        <td className="p-3"><TextBase>50 000тг</TextBase></td>
-                    </tr>
-                    <tr>
-                        <td className="p-3"><TextBase>Нысанбай Ибрагим</TextBase></td>
-                        <td className="p-3"><TextBase>Чистка зубов</TextBase></td>
-                        <td className="p-3"><TextBase>20.01.2022 15:00</TextBase></td>
-                        <td className="p-3"><TextBase>20 000тг</TextBase></td>
-                    </tr>
-                    <tr>
-                        <td className="p-3"><TextBase>Нысанбай Ибрагим</TextBase></td>
-                        <td className="p-3"><TextBase>Чистка зубов</TextBase></td>
-                        <td className="p-3"><TextBase>20.01.2022 15:00</TextBase></td>
-                        <td className="p-3"><TextBase>20 000тг</TextBase></td>
-                    </tr>
-                    <tr>
-                        <td className="p-3"><TextBase>Нысанбай Ибрагим</TextBase></td>
-                        <td className="p-3"><TextBase>Чистка зубов</TextBase></td>
-                        <td className="p-3"><TextBase>20.01.2022 15:00</TextBase></td>
-                        <td className="p-3"><TextBase>50 000тг</TextBase></td>
-                    </tr>
-                    <tr>
-                        <td className="p-3"><TextBase>Нысанбай Ибрагим</TextBase></td>
-                        <td className="p-3"><TextBase>Чистка зубов</TextBase></td>
-                        <td className="p-3"><TextBase>20.01.2022 15:00</TextBase></td>
-                        <td className="p-3"><TextBase>20 000тг</TextBase></td>
-                    </tr>
-                    <tr>
-                        <td className="p-3"><TextBase>Нысанбай Ибрагим</TextBase></td>
-                        <td className="p-3"><TextBase>Чистка зубов</TextBase></td>
-                        <td className="p-3"><TextBase>20.01.2022 15:00</TextBase></td>
-                        <td className="p-3"><TextBase>20 000тг</TextBase></td>
-                    </tr>
-                    <tr>
-                        <td className="p-3"><TextBase>Нысанбай Ибрагим</TextBase></td>
-                        <td className="p-3"><TextBase>Чистка зубов</TextBase></td>
-                        <td className="p-3"><TextBase>20.01.2022 15:00</TextBase></td>
-                        <td className="p-3"><TextBase>20 000тг</TextBase></td>
-                    </tr>
-                    <tr>
-                        <td className="p-3"><TextBase>Нысанбай Ибрагим</TextBase></td>
-                        <td className="p-3"><TextBase>Чистка зубов</TextBase></td>
-                        <td className="p-3"><TextBase>20.01.2022 15:00</TextBase></td>
-                        <td className="p-3"><TextBase>20 000тг</TextBase></td>
-                    </tr>
-                    <tr>
-                        <td className="p-3"><TextBase>Нысанбай Ибрагим</TextBase></td>
-                        <td className="p-3"><TextBase>Чистка зубов</TextBase></td>
-                        <td className="p-3"><TextBase>20.01.2022 15:00</TextBase></td>
-                        <td className="p-3"><TextBase>20 000тг</TextBase></td>
-                    </tr>
-                    <tr>
-                        <td className="p-3"><TextBase>Нысанбай Ибрагим</TextBase></td>
-                        <td className="p-3"><TextBase>Чистка зубов</TextBase></td>
-                        <td className="p-3"><TextBase>20.01.2022 15:00</TextBase></td>
-                        <td className="p-3"><TextBase>20 000тг</TextBase></td>
-                    </tr>
-                    <tr>
-                        <td className="p-3"><TextBase>Нысанбай Ибрагим</TextBase></td>
-                        <td className="p-3"><TextBase>Чистка зубов</TextBase></td>
-                        <td className="p-3"><TextBase>20.01.2022 15:00</TextBase></td>
-                        <td className="p-3"><TextBase>20 000тг</TextBase></td>
-                    </tr>
-                    <tr>
-                        <td className="p-3"><TextBase>Нысанбай Ибрагим</TextBase></td>
-                        <td className="p-3"><TextBase>Чистка зубов</TextBase></td>
-                        <td className="p-3"><TextBase>20.01.2022 15:00</TextBase></td>
-                        <td className="p-3"><TextBase>20 000тг</TextBase></td>
-                    </tr>
-                    <tr>
-                        <td className="p-3"><TextBase>Нысанбай Ибрагим</TextBase></td>
-                        <td className="p-3"><TextBase>Чистка зубов</TextBase></td>
-                        <td className="p-3"><TextBase>20.01.2022 15:00</TextBase></td>
-                        <td className="p-3"><TextBase>20 000тг</TextBase></td>
-                    </tr>
+                    {appointments.map(appointment => {
+                        return (
+                            <tr key={appointment.id}>
+                                <td className="p-3"><TextBase>{appointment.doctor?.fullName}</TextBase></td>
+                                <td className="p-3"><TextBase>{appointment.service?.title}</TextBase></td>
+                                <td className="p-3"><TextBase>{dayjs(appointment.approvedTime).format(dateFormat + " " + timeFormat)}</TextBase></td>
+                                <td className="p-3"><TextBase>{appointment.cost}</TextBase></td>
+                            </tr>
+                        )
+                    })}
                 </tbody>
             </table>
         </div>

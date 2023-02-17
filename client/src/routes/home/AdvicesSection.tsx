@@ -21,7 +21,7 @@ function AdvicesSection() {
                     <DoctorSvg />
                 </div>
                 <div className="mt-8 xl:absolute top-[440px]">
-                    <LinkButton to={"/advice"} text={"Узнать больше"} />
+                    <LinkButton to={"/advices"} text={"Узнать больше"} />
                 </div>
             </div>
         </div>

@@ -19,7 +19,7 @@ import AboutPage from './routes/about';
 import ProfilePanel from './routes/profilePanel';
 import AdminPanel from './routes/adminPanel';
 import { OrderCallButton, OrderCallForm } from './routes/common/OrderCall';
-import { SetStateAction, useState } from 'react';
+import { useState } from 'react';
 
 function App() {
     const [showOrderCall, setShowOrderCall] = useState(false);

@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useAppSelector } from "../../../app/hooks";
+import { selectAuth } from "../../../features/auth/authSlice";
 import { ProfileNoPicture } from "../../common/SvgImages";
 import { Text2Xl, TextXl } from "../../common/TextElements";
 
 function ProfilePage() {
     const [isEditMode, setEditMode] = useState(false);
+    const { user } = useAppSelector(selectAuth);
 
     return (
         <div>
@@ -13,19 +16,11 @@ function ProfilePage() {
 
             <div className="mt-5">
                 <div>
-                    <TextXl><label htmlFor="name">Имя</label></TextXl>
+                    <TextXl><label htmlFor="name">ФИО</label></TextXl>
                     {isEditMode ?
                         <Input id="name" value={"Зейнеп"} />
                         :
-                        <Text2Xl className="font-semibold">Зейнеп</Text2Xl>
-                    }
-                </div>
-                <div className="mt-3">
-                    <TextXl><label htmlFor="surname">Фамилия</label></TextXl>
-                    {isEditMode ?
-                        <Input id="surname" value={"Айдар"} />
-                        :
-                        <Text2Xl className="font-semibold">Айдар</Text2Xl>
+                        <Text2Xl className="font-semibold">{user?.fullName}</Text2Xl>
                     }
                 </div>
                 <div className="mt-3">
@@ -33,7 +28,7 @@ function ProfilePage() {
                     {isEditMode ?
                         <Input id="email" value={"camomilell@mail.ru"} />
                         :
-                        <Text2Xl className="font-semibold">camomilell@mail.ru</Text2Xl>
+                        <Text2Xl className="font-semibold">{user?.email}</Text2Xl>
                     }
                 </div>
                 <div className="mt-3">
@@ -41,7 +36,7 @@ function ProfilePage() {
                     {isEditMode ?
                         <Input id="phone" value={"+7 707 810 90 27"} />
                         :
-                        <Text2Xl className="font-semibold">+7 707 810 90 27</Text2Xl>
+                        <Text2Xl className="font-semibold">{user?.phone}</Text2Xl>
                     }
                 </div>
 
