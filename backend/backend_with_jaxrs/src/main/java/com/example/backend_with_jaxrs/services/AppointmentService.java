@@ -42,7 +42,8 @@ public class AppointmentService {
         ArrayList<Appointment> appointments = AppointmentDAO.getInstance().getStatusAppointments(status);
         setFieldsForAppointments(appointments);
 
-        return appointments;    }
+        return appointments;
+    }
 
     public Appointment makeAppointment(Appointment appointment) throws CustomException {
         return AppointmentDAO.getInstance().makeAppointment(appointment);
@@ -57,7 +58,10 @@ public class AppointmentService {
     }
 
     public ArrayList<Appointment> getClientAppointments(Long clientId) throws CustomException {
-        return AppointmentDAO.getInstance().getClientAppointments(clientId);
+        ArrayList<Appointment> appointments = AppointmentDAO.getInstance().getClientAppointments(clientId);
+        setFieldsForAppointments(appointments);
+
+        return appointments;
     }
 
     public Appointment deleteAppointment(Long id) throws CustomException {

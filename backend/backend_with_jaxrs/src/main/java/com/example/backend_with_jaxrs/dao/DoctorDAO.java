@@ -55,7 +55,7 @@ public class DoctorDAO extends GeneralDAO {
 
     public void updateDoctorInfo(Doctor doctor) throws CustomException {
         String sqlScript = "UPDATE doctors SET started_working_from = (?), available = (?), " +
-                "about = (?) WHERE id = (?)";
+                "about = (?), image_url = (?) WHERE id = (?)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
         setSqlScriptData(preparedStatement, doctor);
         execute(preparedStatement);
@@ -93,7 +93,8 @@ public class DoctorDAO extends GeneralDAO {
             preparedStatement.setTimestamp(1, doctor.getStartedWorkingFrom());
             preparedStatement.setBoolean(2, doctor.isAvailable());
             preparedStatement.setString(3, doctor.getAbout());
-            preparedStatement.setLong(4, doctor.getId());
+            preparedStatement.setString(4, doctor.getImageUrl());
+            preparedStatement.setLong(5, doctor.getId());
         } catch (SQLException e) {
             throw new CustomException(e, ErrorCode.SQL_SET_SCRIPT_DATA);
         }
@@ -142,6 +143,7 @@ public class DoctorDAO extends GeneralDAO {
             doctor.setStartedWorkingFrom(resultSet.getTimestamp("started_working_from"));
             doctor.setAvailable(resultSet.getBoolean("available"));
             doctor.setAbout(resultSet.getString("about"));
+            doctor.setImageUrl(resultSet.getString("image_url"));
         } catch (SQLException e) {
             throw new CustomException(e, ErrorCode.SQL_SET_DOCTOR_FIELDS);
         }

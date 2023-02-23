@@ -13,7 +13,6 @@ import javax.ws.rs.ext.Provider;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Provider
@@ -65,10 +64,10 @@ public class BearerTokenFilter implements ContainerRequestFilter {
         unProtectedUris.add(new Pair("doctors", "GET"));
         unProtectedUris.add(new Pair("doctors/[0-9]+", "GET"));
         unProtectedUris.add(new Pair("services", "GET"));
-        unProtectedUris.add(new Pair("test", "POST"));
+        unProtectedUris.add(new Pair("services/[0-9]+", "GET"));
         unProtectedUris.add(new Pair("email/verify", "POST"));
         unProtectedUris.add(new Pair("password/recover", "POST"));
-        unProtectedUris.add(new Pair("test", "*"));
+        unProtectedUris.add(new Pair("test", "^*$"));
 
         return compareUrl(unProtectedUris, path, method);
     }

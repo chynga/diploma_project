@@ -7,8 +7,8 @@ CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(50) UNIQUE NOT NULL,
     phone VARCHAR(15) NOT NULL,
     password VARCHAR(100) NOT NULL,
-    recovery_code VARCHAR(6), /* for password recovery */
-    recovery_code_sent_time TIMESTAMP /* password recovery code sent time */
+    recovery_code VARCHAR(6),
+    recovery_code_sent_time TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS roles (
@@ -37,6 +37,7 @@ CREATE TABLE IF NOT EXISTS doctors (
     started_working_from TIMESTAMP,
     available BOOL DEFAULT false,
     about VARCHAR,
+    image_url VARCHAR,
     FOREIGN KEY (id) REFERENCES users (id) ON DELETE CASCADE
 );
 

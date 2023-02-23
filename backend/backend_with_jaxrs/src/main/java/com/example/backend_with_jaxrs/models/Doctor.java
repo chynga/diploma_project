@@ -6,6 +6,7 @@ public class Doctor extends User {
     private Timestamp startedWorkingFrom;
     private boolean available;
     private String about;
+    private String imageUrl;
 
     public Timestamp getStartedWorkingFrom() {
         return startedWorkingFrom;
@@ -29,5 +30,13 @@ public class Doctor extends User {
 
     public void setAbout(String about) {
         this.about = about;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

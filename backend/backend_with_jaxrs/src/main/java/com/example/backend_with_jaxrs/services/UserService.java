@@ -45,6 +45,10 @@ public class UserService {
         return user;
     }
 
+    public void updateUserInfo(User user) throws CustomException {
+        UserDAO.getInstance().updateUserInfo(user);
+    }
+
     public void recoverPassword(PasswordRecovery passwordRecoveryCredentials) throws CustomException {
         User user = UserDAO.getInstance().getUserByEmail(passwordRecoveryCredentials.getEmail());
         if (passwordRecoveryCredentials.getCode() == null) {
