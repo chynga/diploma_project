@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { Routes } from "react-router-dom";
-import { Doctor } from "../../common/types";
+import { Doctor } from "../../../common/types";
 import DoctorInfo from "./DoctorInfo";
 import DoctorsList from "./DoctorsList";
 

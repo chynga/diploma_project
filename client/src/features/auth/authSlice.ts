@@ -8,12 +8,13 @@ const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("use
 export type Role = 'ADMIN' | 'MANAGER' | 'DOCTOR' | 'CONSULTANT' | 'CLIENT' | 'RECEPTION';
 
 export type User = {
-    id: number
-    fullName: string
-    email: string
-    phone: string
-    token: string
-    roles: Role[]
+    id?: number
+    fullName?: string
+    email?: string
+    phone?: string
+    profileImageUrl?: string
+    token?: string
+    roles?: Role[]
 }
 
 export type AuthError = {
@@ -59,6 +60,24 @@ export const login = createAsyncThunk("auth/login", async (user: UserCredentials
     try {
         const response = await authAPI.login(user);
         return response.data as User;
+    } catch (err) {
+        const error: any = err;
+        const { status } = error.response;
+        const message =
+            (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+            error.message ||
+            error.toString();
+
+        return rejectWithValue({ status, message });
+    }
+});
+
+export const updateUserInfo = createAsyncThunk("auth/updateUserInfo", async (user: User, { rejectWithValue, getState }: any) => {
+    try {
+        const token = getState().auth.user.token;
+        return await authAPI.updateUserInfo(user, token) as User;
     } catch (err) {
         const error: any = err;
         const { status } = error.response;
@@ -127,6 +146,18 @@ export const authSlice = createSlice({
                 state.error = undefined;
             })
             .addCase(login.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload as AuthError;
+            })
+            .addCase(updateUserInfo.pending, state => {
+                state.isLoading = true;
+            })
+            .addCase(updateUserInfo.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.user = action.payload;
+                state.error = undefined;
+            })
+            .addCase(updateUserInfo.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload as AuthError;
             })

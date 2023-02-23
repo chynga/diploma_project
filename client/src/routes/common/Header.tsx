@@ -6,7 +6,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
 import { logout, selectAuth } from "../../features/auth/authSlice";
 import AuthModal, { AuthPage } from "./authModal";
-import { ArrowDown, Bell, Burger, Logo, Person, ProfileNoPicture, ThemeToggler } from "./SvgImages";
+import { ArrowDown, Bell, Burger, Logo, Person, ProfilePicture, ThemeToggler } from "./SvgImages";
 import { TextBase, TextLg } from "./TextElements";
 import { toggleTheme } from "./util";
 
@@ -90,13 +90,13 @@ function Header() {
                         </div>
                         <div className="h-[50px] group relative hidden lg:flex hover:cursor-pointer items-center gap-3">
                             {user ?
-                                <ProfileNoPicture className="w-[50px] h-[50px]" /> :
+                                <ProfilePicture imageUrl={user.profileImageUrl} className="w-[50px] h-[50px]" /> :
                                 <Person fill={"blue"} />
                             }
                             <ArrowDown />
                             {user ?
                                 <div className="hidden group-hover:block py-5 w-[276px] flex flex-col items-center justify-around gap-3 group-hover:flex absolute bg-background-white dark:bg-background-dark top-[100%] right-0 rounded-b-2xl drop-shadow-lg">
-                                    <ProfileNoPicture className="w-[100px] h-[100px]" />
+                                    <ProfilePicture imageUrl={user.profileImageUrl} className="w-[100px] h-[100px]" />
                                     <div>
                                         <TextBase>{user.fullName}</TextBase>
                                     </div>
@@ -109,7 +109,7 @@ function Header() {
                                     <Link to={"profile-panel/appointments/future"}>
                                         <TextBase>Личный кабинет</TextBase>
                                     </Link>
-                                    {!user.roles.includes("CLIENT") && user.roles.length > 0 ?
+                                    {!user.roles?.includes("CLIENT") ?
                                         <Link className="hover:text-blue-white dark:hover:text-blue-dark"
                                             to={"/admin"}>
                                             <TextBase>Панель Администрирования</TextBase>

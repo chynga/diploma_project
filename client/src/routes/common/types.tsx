@@ -11,6 +11,7 @@ export type User = {
     fullName: string
     email: string
     phone: string
+    profileImageUrl: string
 }
 
 export type Doctor = User & {

@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 type SvgParams = {
     fill?: 'blue' | 'primary',
     className?: string
@@ -34,11 +32,24 @@ function ServiceSvg() {
     )
 }
 
-function ProfileNoPicture({ className }: SvgParams) {
+type ProfilePictureParams = {
+    imageUrl: string | undefined
+    className: string
+}
+
+function ProfilePicture({ imageUrl, className }: ProfilePictureParams) {
     return (
-        <svg className={`${className}`} viewBox="0 0 168 168" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fillRule="evenodd" clipRule="evenodd" d="M84 0C37.8 0 0 37.8 0 84C0 130.2 37.8 168 84 168C130.2 168 168 130.2 168 84C168 37.8 130.2 0 84 0ZM84 25.2C98.28 25.2 109.2 36.12 109.2 50.4C109.2 64.68 98.28 75.6 84 75.6C69.72 75.6 58.8 64.68 58.8 50.4C58.8 36.12 69.72 25.2 84 25.2ZM84 144.48C63 144.48 44.52 133.56 33.6 117.6C33.6 100.8 67.2 91.56 84 91.56C100.8 91.56 134.4 100.8 134.4 117.6C123.48 133.56 105 144.48 84 144.48Z" fill="#666666" />
-        </svg>
+        <>
+            {imageUrl ?
+                <div className={className}>
+                    <img src={imageUrl} className={`rounded-full object-cover ${className}`} alt="" />
+                </div>
+                :
+                <svg className={`${className}`} viewBox="0 0 168 168" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fillRule="evenodd" clipRule="evenodd" d="M84 0C37.8 0 0 37.8 0 84C0 130.2 37.8 168 84 168C130.2 168 168 130.2 168 84C168 37.8 130.2 0 84 0ZM84 25.2C98.28 25.2 109.2 36.12 109.2 50.4C109.2 64.68 98.28 75.6 84 75.6C69.72 75.6 58.8 64.68 58.8 50.4C58.8 36.12 69.72 25.2 84 25.2ZM84 144.48C63 144.48 44.52 133.56 33.6 117.6C33.6 100.8 67.2 91.56 84 91.56C100.8 91.56 134.4 100.8 134.4 117.6C123.48 133.56 105 144.48 84 144.48Z" fill="#666666" />
+                </svg>
+            }
+        </>
     );
 }
 
@@ -202,10 +213,19 @@ function Phone() {
     )
 }
 
+function EditIcon({ className }: SvgParams) {
+    return (
+        <svg className={`w-[100px] h-[100px] ${className}`} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 83.3333H87.5" stroke="black" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M68.75 14.5832C70.4076 12.9256 72.6558 11.9944 75 11.9944C76.1607 11.9944 77.3101 12.223 78.3825 12.6672C79.4549 13.1114 80.4292 13.7625 81.25 14.5832C82.0708 15.404 82.7218 16.3784 83.166 17.4507C83.6102 18.5231 83.8388 19.6725 83.8388 20.8332C83.8388 21.994 83.6102 23.1433 83.166 24.2157C82.7218 25.2881 82.0708 26.2625 81.25 27.0832L29.1667 79.1666L12.5 83.3332L16.6667 66.6666L68.75 14.5832Z" stroke="black" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+    )
+}
+
 export {
     Logo,
     ServiceSvg,
-    ProfileNoPicture,
+    ProfilePicture,
     ThemeToggler,
     Bell,
     ArrowDown,
@@ -221,4 +241,5 @@ export {
     CloseButton,
     Star,
     Phone,
+    EditIcon,
 }

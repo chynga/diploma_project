@@ -1,5 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
-import { Envelop, Logo, People, Person, ProfileNoPicture } from "../common/SvgImages";
+import { useAppSelector } from "../../app/hooks";
+import { selectAuth } from "../../features/auth/authSlice";
+import { Envelop, Logo, People, Person, ProfilePicture } from "../common/SvgImages";
 import { TextLg } from "../common/TextElements";
 
 type SidebarProps = {
@@ -8,6 +10,7 @@ type SidebarProps = {
 
 function Sidebar({ className = "" }: SidebarProps) {
     const location = useLocation();
+    const { user } = useAppSelector(selectAuth);
 
     return (
         <div className={`py-6 px-12 h-screen bg-background-white dark:bg-background-dark shadow-[4px_0_20px_rgba(39,127,242,0.5)] ${className}`}>
@@ -17,9 +20,9 @@ function Sidebar({ className = "" }: SidebarProps) {
                         {"<< "}Вернуться на главную
                     </Link>
                     <Logo fill={"blue"} />
-                    <ProfileNoPicture className="w-[100px] h-[100px]" />
+                    <ProfilePicture imageUrl={user?.profileImageUrl} className="w-[100px] h-[100px]" />
                     <h2 className="text-2xl text-primary-white dark:text-primary-dark font-bold">
-                        Айдар Зейнеп
+                        {user?.fullName}
                     </h2>
                     <Link to={"appointments/future"} className="w-full flex gap-5 items-center hover:cursor-pointer">
                         <People fill={location.pathname.includes("/profile-panel/appointments") ? "blue" : "primary"} />

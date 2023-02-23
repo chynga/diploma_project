@@ -8,7 +8,6 @@ import { Route, Routes } from "react-router-dom";
 import NotFound from "../common/NotFound";
 
 function ProfilePanel() {
-
     return (
         <div className="flex">
             <div >

@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { DoctorsProps } from ".";
-import { useAppSelector } from "../../../app/hooks";
-import { selectAuth } from "../../../features/auth/authSlice";
-import { Doctor } from "../../common/types";
+import { useAppSelector } from "../../../../app/hooks";
+import { selectAuth } from "../../../../features/auth/authSlice";
+import { Doctor } from "../../../common/types";
 
 function DoctorsList({ selectedDoctor, setSelectedDoctor }: DoctorsProps) {
     const [doctors, setDoctors] = useState<Doctor[]>([]);

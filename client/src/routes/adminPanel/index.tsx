@@ -13,14 +13,14 @@ import ServicesPage from "./services";
 import MessagesPage from "./messages";
 import ReviewsPage from "./reviews";
 import OrderedCallsPage from "./orderedCalls";
-import DoctorsPage from "./doctors";
+import DoctorsPage from "./users/doctors";
 
 function AdminPanel() {
     const { user } = useAppSelector(selectAuth);
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!user || user.roles.includes("CLIENT")) {
+        if (!user || user.roles?.includes("CLIENT")) {
             navigate("/");
         }
     }, [])

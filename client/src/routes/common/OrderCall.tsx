@@ -17,7 +17,7 @@ export function OrderCallButton({ setShowOrderCall }: OrderCallProps) {
         setShowOrderCall(true);
     }
 
-    if (!user?.roles.includes("CLIENT")) {
+    if (!user?.roles?.includes("CLIENT")) {
         return <></>
     }
 
@@ -57,7 +57,7 @@ export function OrderCallForm({ showOrderCall, setShowOrderCall }: OrderCallProp
             });
     }
 
-    if (!showOrderCall || !user?.roles.includes("CLIENT")) {
+    if (!showOrderCall || !user?.roles?.includes("CLIENT")) {
         return <></>
     }
 

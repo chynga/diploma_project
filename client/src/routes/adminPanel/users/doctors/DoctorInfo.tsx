@@ -1,11 +1,11 @@
 import axios from "axios";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useEffect, useState } from "react";
-import { v4 } from "uuid";
+import { v4 as uuid } from "uuid";
 import { DoctorsProps } from ".";
-import { useAppSelector } from "../../../app/hooks";
-import { selectAuth } from "../../../features/auth/authSlice";
-import { storage } from "../../../firebase";
+import { useAppSelector } from "../../../../app/hooks";
+import { selectAuth } from "../../../../features/auth/authSlice";
+import { storage } from "../../../../firebase";
 
 function DoctorInfo({ selectedDoctor }: DoctorsProps) {
     const [available, setAvailable] = useState<boolean>();
@@ -26,7 +26,7 @@ function DoctorInfo({ selectedDoctor }: DoctorsProps) {
 
     const uploadFile = (imageUpload: File) => {
         if (imageUpload == null) return;
-        const imageRef = ref(storage, `doctors/${imageUpload.name + v4()}`);
+        const imageRef = ref(storage, `doctors/${imageUpload.name + uuid()}`);
         uploadBytes(imageRef, imageUpload).then((snapshot) => {
             getDownloadURL(snapshot.ref).then((url) => {
                 setImageUrl(url);

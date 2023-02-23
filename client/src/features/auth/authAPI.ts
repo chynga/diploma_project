@@ -29,6 +29,20 @@ const login = async (userData: UserCredentials) => {
     return response;
 };
 
+const updateUserInfo = async (userData: User, token: string) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
+
+    await axios.patch("/api/profile", userData, config);
+    const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")!) : null;
+    localStorage.setItem("user", JSON.stringify({...user, ...userData}));
+
+    return localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")!) : null;
+};
+
 const recoverPassword = async (recoveryData: EmailCodeCredentials) => {
     await axios.post("/api/password/recover", recoveryData);
 };
@@ -41,6 +55,7 @@ const logout = () => {
 const authAPI = {
     register,
     logout,
+    updateUserInfo,
     recoverPassword,
     login,
 };

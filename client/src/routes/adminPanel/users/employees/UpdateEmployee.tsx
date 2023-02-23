@@ -28,22 +28,22 @@ function UpdateEmployee() {
         };
         axios.get(apiUrl, config).then((resp) => {
             const employee: User = resp.data;
-            setFullName(employee.fullName);
-            setPhone(employee.phone);
-            setEmail(employee.email);
-            if (employee.roles.includes("ADMIN")) {
+            setFullName(employee.fullName ? employee.fullName : "");
+            setPhone(employee.phone ? employee.phone : "");
+            setEmail(employee.email ? employee.email : "");
+            if (employee.roles?.includes("ADMIN")) {
                 setRoleAdminChecked(true);
             }
-            if (employee.roles.includes("MANAGER")) {
+            if (employee.roles?.includes("MANAGER")) {
                 setRoleManagerChecked(true);
             }
-            if (employee.roles.includes("DOCTOR")) {
+            if (employee.roles?.includes("DOCTOR")) {
                 setRoleDoctorChecked(true);
             }
-            if (employee.roles.includes("RECEPTION")) {
+            if (employee.roles?.includes("RECEPTION")) {
                 setRoleReceptionChecked(true);
             }
-            if (employee.roles.includes("CONSULTANT")) {
+            if (employee.roles?.includes("CONSULTANT")) {
                 setRoleConsultantChecked(true);
             }
         });

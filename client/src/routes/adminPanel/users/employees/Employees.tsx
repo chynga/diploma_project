@@ -66,7 +66,7 @@ function Employees() {
                                     <td className="p-3"><TextBase>{employee.fullName}</TextBase></td>
                                     <td className="p-3"><TextBase>{employee.email}</TextBase></td>
                                     <td className="p-3"><TextBase>{employee.phone}</TextBase></td>
-                                    <td className="p-3"><TextBase>{getRolesString(employee.roles)}</TextBase></td>
+                                    <td className="p-3"><TextBase>{getRolesString(employee.roles ? employee.roles : [])}</TextBase></td>
                                 </tr>
                             )
                         })

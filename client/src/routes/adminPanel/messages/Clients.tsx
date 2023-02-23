@@ -2,7 +2,7 @@ import axios from "axios";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useAppSelector } from "../../../app/hooks";
 import { selectAuth } from "../../../features/auth/authSlice";
-import { ProfileNoPicture } from "../../common/SvgImages";
+import { ProfilePicture } from "../../common/SvgImages";
 import { TextLg } from "../../common/TextElements";
 import { User } from "../../common/types";
 
@@ -35,7 +35,7 @@ function Clients({ selectedClient, setSelectedClient }: ClientsProps) {
                 return (
                     <div key={client.id} className="p-1 flex items-center gap-1 border-b border-[#B9B9B9] hover:cursor-pointer"
                         onClick={() => setSelectedClient(client)}>
-                        <ProfileNoPicture className="w-[50px] h-[50px]" />
+                        <ProfilePicture imageUrl={client.profileImageUrl} className="w-[50px] h-[50px]" />
                         <TextLg className="font-medium">{client.fullName}</TextLg>
                     </div>
                 )
