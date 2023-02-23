@@ -22,18 +22,18 @@ public class ClientDAO extends GeneralDAO {
         return INSTANCE;
     }
 
-    public void insertClientFields(Long id) throws CustomException {
+    public void insertClientFields(Long clientId) throws CustomException {
         String sqlScript = "INSERT INTO clients (id, email_verified) " +
                 "VALUES (?, false)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
-        setScriptFields(preparedStatement, new Client(id));
+        setScriptFields(preparedStatement, clientId);
         executeUpdate(preparedStatement);
     }
 
-    public Client getClientById(Long id) throws CustomException {
+    public Client getClientById(Long clientId) throws CustomException {
         String sqlScript = "SELECT * FROM users u JOIN clients c on u.id = c.id WHERE c.id = (?)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
-        setScriptFields(preparedStatement, new Client(id));
+        setScriptFields(preparedStatement, clientId);
         ResultSet resultSet = executeQuery(preparedStatement);
 
         return getClientFromDb(resultSet);
@@ -46,19 +46,19 @@ public class ClientDAO extends GeneralDAO {
         executeUpdate(preparedStatement);
     }
 
-    public String getVerificationCode(Long id) throws CustomException {
+    public String getVerificationCode(Long clientId) throws CustomException {
         String sqlScript = "SELECT * FROM clients c JOIN users u ON c.id = u.id WHERE c.id = (?)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
-        setScriptFields(preparedStatement, new Client(id));
+        setScriptFields(preparedStatement, clientId);
         ResultSet resultSet = executeQuery(preparedStatement);
 
         return getClientFromDb(resultSet).getVerificationCode();
     }
 
-    public void removeVerificationCode(Long id) throws CustomException {
+    public void removeVerificationCode(Long clientId) throws CustomException {
         String sqlScript = "UPDATE clients SET verification_code = NULL, verification_code_sent_time = NULL, email_verified = true WHERE id = (?)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
-        setScriptFields(preparedStatement, new Client(id));
+        setScriptFields(preparedStatement, clientId);
         execute(preparedStatement);
     }
 
@@ -75,15 +75,15 @@ public class ClientDAO extends GeneralDAO {
     public PushNotificationCredentials getNotificationToken(Long clientId) throws CustomException {
         String sqlScript = "SELECT * FROM notification_subscriptions WHERE client_id = (?)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
-        setScriptFields(preparedStatement, new Client(clientId));
+        setScriptFields(preparedStatement, clientId);
         ResultSet resultSet = executeQuery(preparedStatement);
 
         return getNotificationCredentialsFromDb(resultSet);
     }
 
-    private void setScriptFields(PreparedStatement preparedStatement, Client client) throws CustomException {
+    private void setScriptFields(PreparedStatement preparedStatement, Long clientId) throws CustomException {
         try {
-            preparedStatement.setLong(1, client.getId());
+            preparedStatement.setLong(1, clientId);
         } catch (SQLException e) {
             throw new CustomException(ErrorCode.SQL_SET_SCRIPT_DATA);
         }

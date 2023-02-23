@@ -26,9 +26,9 @@ public class RoleService {
     public ArrayList<String> getUserRoles(User user) throws CustomException {
         ArrayList<String> roles;
         if (user.getId() != null) {
-            roles = RoleDAO.getInstance().getRolesById(user);
+            roles = RoleDAO.getInstance().getRolesById(user.getId());
         } else if (user.getEmail() != null) {
-            roles = RoleDAO.getInstance().getRolesByEmail(user);
+            roles = RoleDAO.getInstance().getRolesByEmail(user.getEmail());
         } else {
             throw new CustomException(ErrorCode.ROLES_NOT_FOUND);
         }
@@ -37,13 +37,13 @@ public class RoleService {
     }
 
     public void addRoleToUser(User user, Role role) throws CustomException {
-        RoleDAO.getInstance().addRoleToUser(user, role);
+        RoleDAO.getInstance().addRoleToUser(user.getId(), role);
     }
 
     public void addRolesToUser(RoleAssignment roleAssignment) throws CustomException {
         if (roleAssignment.getRoles().contains(Role.CLIENT.name)) throw new CustomException(ErrorCode.CAN_NOT_ASSIGN_CLIENT_ROLE);
 
-        RoleDAO.getInstance().removeRolesByUserId(new User(roleAssignment.getUserId()));
+        RoleDAO.getInstance().removeRolesByUserId(roleAssignment.getUserId());
         RoleDAO.getInstance().addRolesToUser(roleAssignment);
         if (roleAssignment.getRoles().contains(Role.DOCTOR.name) &&
             !DoctorDAO.getInstance().doctorExists(roleAssignment.getUserId())) {

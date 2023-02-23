@@ -100,7 +100,7 @@ public class UserDAO extends GeneralDAO {
     }
 
     public void updateUserInfo(User employee) throws CustomException {
-        String sqlScript = "UPDATE users SET full_name = (?), email = (?), phone = (?) WHERE id = (?)";
+        String sqlScript = "UPDATE users SET full_name = (?), email = (?), phone = (?), profile_image_url = (?) WHERE id = (?)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
         setSqlScriptForUserUpdate(preparedStatement, employee);
         execute(preparedStatement);
@@ -157,7 +157,8 @@ public class UserDAO extends GeneralDAO {
             preparedStatement.setString(1, employee.getFullName());
             preparedStatement.setString(2, employee.getEmail());
             preparedStatement.setString(3, employee.getPhone());
-            preparedStatement.setLong(4, employee.getId());
+            preparedStatement.setString(4, employee.getProfileImageUrl());
+            preparedStatement.setLong(5, employee.getId());
         } catch (SQLException e) {
             throw new CustomException(e, ErrorCode.SQL_SET_SCRIPT_DATA);
         }
@@ -218,6 +219,7 @@ public class UserDAO extends GeneralDAO {
             user.setFullName(resultSet.getString("full_name"));
             user.setEmail(resultSet.getString("email"));
             user.setPhone(resultSet.getString("phone"));
+            user.setProfileImageUrl(resultSet.getString("profile_image_url"));
             user.setPassword(resultSet.getString("password"));
             user.setRecoveryCode(resultSet.getString("recovery_code"));
             user.setRecoveryCodeSentTime(resultSet.getDate("recovery_code_sent_time"));

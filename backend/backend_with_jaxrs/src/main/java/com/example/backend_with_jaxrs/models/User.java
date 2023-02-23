@@ -11,31 +11,11 @@ public class User {
     private String fullName;
     private String email;
     private String phone;
+    private String profileImageUrl;
     private String password;
     private String recoveryCode;
     private Date recoveryCodeSentTime;
     private ArrayList<String> roles;
-
-    public User() {
-    }
-
-    public User(Long id) {
-        this.id = id;
-    }
-
-    public User(String email) {
-        this.email = email;
-    }
-
-    public User(Long id, String fullName, String email, String phone, String password, String recoveryCode, Date recoveryCodeSentTime) {
-        this.id = id;
-        this.fullName = fullName;
-        this.email = email;
-        this.phone = phone;
-        this.password = password;
-        this.recoveryCode = recoveryCode;
-        this.recoveryCodeSentTime = recoveryCodeSentTime;
-    }
 
     public Long getId() {
         return id;
@@ -67,6 +47,14 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getProfileImageUrl() {
+        return profileImageUrl;
+    }
+
+    public void setProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
     }
 
     @JsonIgnore

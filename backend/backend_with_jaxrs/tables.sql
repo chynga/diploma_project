@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS users (
     full_name VARCHAR(50) NOT NULL,
     email VARCHAR(50) UNIQUE NOT NULL,
     phone VARCHAR(15) NOT NULL,
+    profile_image_url VARCHAR,
     password VARCHAR(100) NOT NULL,
     recovery_code VARCHAR(6),
     recovery_code_sent_time TIMESTAMP

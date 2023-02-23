@@ -8,14 +8,6 @@ public class Client extends User {
     private boolean emailVerified;
     private String patientDescription;
 
-    public Client() {
-
-    }
-
-    public Client(Long id) {
-        super(id);
-    }
-
     public String getVerificationCode() {
         return verificationCode;
     }

@@ -2,10 +2,8 @@ package com.example.backend_with_jaxrs.dao;
 
 import com.example.backend_with_jaxrs.models.RoleAssignment;
 import com.example.backend_with_jaxrs.utils.enums.Role;
-import com.example.backend_with_jaxrs.models.User;
 import com.example.backend_with_jaxrs.utils.CustomException;
 import com.example.backend_with_jaxrs.utils.ErrorCode;
-import com.example.backend_with_jaxrs.utils.enums.daoActions.RoleAction;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,31 +25,31 @@ public class RoleDAO extends GeneralDAO {
         return INSTANCE;
     }
 
-    public ArrayList<String> getRolesById(User user) throws CustomException {
+    public ArrayList<String> getRolesById(Long userId) throws CustomException {
         String sqlScript = "SELECT * FROM permissions WHERE user_id = (?)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
-        setSqlScriptData(preparedStatement, user, null, RoleAction.GET_ROLES_BY_ID);
+        setSqlScriptData(preparedStatement, userId);
         ResultSet resultSet = executeQuery(preparedStatement);
 
         return getRolesFromDb(resultSet);
     }
 
-    public ArrayList<String> getRolesByEmail(User user) throws CustomException {
+    public ArrayList<String> getRolesByEmail(String email) throws CustomException {
         String sqlScript = "SELECT * FROM permissions" +
                 " JOIN users ON permissions.user_id = users.id" +
                 " WHERE email = (?)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
-        setSqlScriptData(preparedStatement, user, null, RoleAction.GET_ROLES_BY_EMAIL);
+        setSqlScriptData(preparedStatement, email);
         ResultSet resultSet = executeQuery(preparedStatement);
 
         return getRolesFromDb(resultSet);
     }
 
-    public void addRoleToUser(User user, Role role) throws CustomException {
+    public void addRoleToUser(Long userId, Role role) throws CustomException {
         String sqlScript = "INSERT INTO permissions (user_id, role) " +
                            "VALUES (?, ?)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
-        setSqlScriptData(preparedStatement, user, role, RoleAction.ADD_ROLE);
+        setSqlScriptData(preparedStatement, userId, role);
         executeUpdate(preparedStatement);
     }
 
@@ -65,29 +63,34 @@ public class RoleDAO extends GeneralDAO {
         execute(preparedStatement);
     }
 
-    public void removeRolesByUserId(User user) throws CustomException {
+    public void removeRolesByUserId(Long userId) throws CustomException {
         String sqlScript = "DELETE FROM permissions " +
                            "WHERE user_id = (?)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
-        setSqlScriptData(preparedStatement, user, null, RoleAction.REMOVE_ALL_ROLES);
+        setSqlScriptData(preparedStatement, userId);
         executeUpdate(preparedStatement);
     }
 
-    private void setSqlScriptData(PreparedStatement preparedStatement, User user, Role role, RoleAction roleAction) throws CustomException {
+    private void setSqlScriptData(PreparedStatement preparedStatement, Long userId) throws CustomException {
         try {
-            switch (roleAction) {
-                case GET_ROLES_BY_ID:
-                case REMOVE_ALL_ROLES:
-                    preparedStatement.setLong(1, user.getId());
-                    break;
-                case GET_ROLES_BY_EMAIL:
-                    preparedStatement.setString(1, user.getEmail());
-                    break;
-                case ADD_ROLE:
-                    preparedStatement.setLong(1, user.getId());
-                    preparedStatement.setString(2, role.name);
-                    break;
-            }
+            preparedStatement.setLong(1, userId);
+        } catch (SQLException e) {
+            throw new CustomException(e, ErrorCode.SQL_SET_SCRIPT_DATA);
+        }
+    }
+
+    private void setSqlScriptData(PreparedStatement preparedStatement, String email) throws CustomException {
+        try {
+            preparedStatement.setString(1, email);
+        } catch (SQLException e) {
+            throw new CustomException(e, ErrorCode.SQL_SET_SCRIPT_DATA);
+        }
+    }
+
+    private void setSqlScriptData(PreparedStatement preparedStatement, Long userId, Role role) throws CustomException {
+        try {
+            preparedStatement.setLong(1, userId);
+            preparedStatement.setString(2, role.name);
         } catch (SQLException e) {
             throw new CustomException(e, ErrorCode.SQL_SET_SCRIPT_DATA);
         }

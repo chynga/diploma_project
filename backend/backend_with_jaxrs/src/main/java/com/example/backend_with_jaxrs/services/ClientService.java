@@ -26,7 +26,7 @@ public class ClientService {
         ClientDAO.getInstance().insertClientFields(registeredUser.getId());
         Client client = ClientDAO.getInstance().getClientById(registeredUser.getId());
         RoleService.getInstance().addRoleToUser(client, Role.CLIENT);
-        client.setRoles(RoleDAO.getInstance().getRolesById(client));
+        client.setRoles(RoleDAO.getInstance().getRolesById(client.getId()));
 
         return client;
     }
