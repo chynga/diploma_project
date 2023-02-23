@@ -199,13 +199,6 @@ function Navbar({ showNav }: NavbarProps) {
                             </TextLg>
                         </Link>
                     </li>
-                    <li>
-                        <Link to="/admin" className="block">
-                            <TextLg className="text-[#353535]">
-                                {t('admin:admin')}
-                            </TextLg>
-                        </Link>
-                    </li>
                 </ul>
             </div>
         </div>

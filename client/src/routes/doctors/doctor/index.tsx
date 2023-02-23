@@ -25,7 +25,7 @@ function DoctorPage() {
         <div className="p-20">
             <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-20 items-start">
                 <div>
-                    <DoctorProfile imageUrl={"/real-doctor-2.png"} />
+                    <DoctorProfile imageUrl={doctor?.imageUrl} />
                 </div>
                 <div>
                     <h2 className="text-xl sm:text-4xl text-center lg:text-left text-primary-white dark:text-primary-dark font-bold">

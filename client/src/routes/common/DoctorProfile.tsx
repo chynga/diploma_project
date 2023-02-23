@@ -1,4 +1,4 @@
-type ImageInfo = { imageUrl: string }
+type ImageInfo = { imageUrl: string | undefined }
 
 function DoctorProfile({ imageUrl }: ImageInfo) {
     return (
