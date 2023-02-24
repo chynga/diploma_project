@@ -17,7 +17,7 @@ function FutureAppointments({ appointments }: AppointmentsPageProps) {
                 </thead>
                 <tbody className="text-center border-[1px]">
                     {appointments.map(appointment => {
-                        const time = appointment.approvedTime ? appointment.approvedTime : appointment.requestedTime;
+                        const time = appointment.time;
                         return (
                             <tr key={appointment.id}>
                                 <td className="p-3"><TextBase>{appointment.doctor?.fullName}</TextBase></td>

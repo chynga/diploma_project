@@ -41,8 +41,8 @@ function AppointmentPage({ changeStatusTo = undefined }: AppointmentProps) {
             setClient(appointment.client);
             setSelectedDoctorId(appointment.doctorId);
             setSelectedServiceId(appointment.serviceId);
-            setDate(dayjs(appointment.requestedTime).format(dateFormat));
-            setTime(dayjs(appointment.requestedTime).format(timeFormat));
+            setDate(dayjs(appointment.time).format(dateFormat));
+            setTime(dayjs(appointment.time).format(timeFormat));
             setDurationMin(appointment.durationMin);
             if (appointment.cost) {
                 setCost(appointment.cost);

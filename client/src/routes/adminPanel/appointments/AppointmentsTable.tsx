@@ -26,14 +26,7 @@ function AppointmentsTable({ appointments, includeCost = false, time = "approved
                 </thead>
                 <tbody className="text-center border-[1px]">
                     {appointments.map(appointment => {
-                        let displayedTime;
-                        if (time === "requested") {
-                            displayedTime = dayjs(appointment.requestedTime);
-                        } else if (time === "approved") {
-                            displayedTime = dayjs(appointment.approvedTime);
-                        } else {
-                            displayedTime = dayjs(appointment.approvedTime ? appointment.approvedTime : appointment.requestedTime);
-                        }
+                        let displayedTime = dayjs(appointment.time);
                         return (
                             <tr onClick={() => { navigate(`${appointment.id}`) }} key={appointment.id} className="hover:cursor-pointer">
                                 <td className="p-3"><TextBase>{appointment.client?.fullName}</TextBase></td>
@@ -60,14 +53,7 @@ function AppointmentsTable({ appointments, includeCost = false, time = "approved
                 </thead>
                 <tbody className="text-center border-[1px]">
                     {appointments.map(appointment => {
-                        let displayedTime;
-                        if (time === "requested") {
-                            displayedTime = dayjs(appointment.requestedTime);
-                        } else if (time === "approved") {
-                            displayedTime = dayjs(appointment.approvedTime);
-                        } else {
-                            displayedTime = dayjs(appointment.approvedTime ? appointment.approvedTime : appointment.requestedTime);
-                        }
+                        let displayedTime = dayjs(appointment.time);
                         return (
                             <tr onClick={() => { navigate(`${appointment.id}`) }} key={appointment.id} className="hover:cursor-pointer">
                                 <td className="p-3"><TextBase>{appointment.client?.fullName}</TextBase></td>

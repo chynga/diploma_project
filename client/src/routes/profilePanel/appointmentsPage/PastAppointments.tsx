@@ -21,7 +21,7 @@ function PastAppointments({ appointments }: AppointmentsPageProps) {
                             <tr key={appointment.id}>
                                 <td className="p-3"><TextBase>{appointment.doctor?.fullName}</TextBase></td>
                                 <td className="p-3"><TextBase>{appointment.service?.title}</TextBase></td>
-                                <td className="p-3"><TextBase>{dayjs(appointment.approvedTime).format(dateFormat + " " + timeFormat)}</TextBase></td>
+                                <td className="p-3"><TextBase>{dayjs(appointment.time).format(dateFormat + " " + timeFormat)}</TextBase></td>
                                 <td className="p-3"><TextBase>{appointment.cost}</TextBase></td>
                             </tr>
                         )

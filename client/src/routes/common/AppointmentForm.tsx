@@ -1,9 +1,9 @@
-import { Select, Option, Textarea } from "@material-tailwind/react";
+import { Textarea } from "@material-tailwind/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { DatePicker, TimePicker } from 'antd';
+import { DatePicker } from 'antd';
 import dayjs, { Dayjs } from "dayjs";
-import { User, Service, dateFormat, timeFormat } from "./types";
+import { User, Service, dateFormat, timeFormat, AppointmentSession } from "./types";
 import { useAppSelector } from "../../app/hooks";
 import { selectAuth } from "../../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
@@ -11,41 +11,86 @@ import { useNavigate } from "react-router-dom";
 function AppointmentForm() {
     const [doctors, setDoctors] = useState<User[]>([]);
     const [services, setServices] = useState<Service[]>([]);
-    const [selectedDoctorId, setSelectedDoctorId] = useState();
-    const [selectedServiceId, setSelectedServiceId] = useState();
+    const [doctorSchedule, setDoctorSchedule] = useState<AppointmentSession[]>([]);
+
+    const [selectedDoctorId, setSelectedDoctorId] = useState<number>();
+    const [selectedService, setSelectedService] = useState<Service>();
     const [date, setDate] = useState<string>(dayjs().format(dateFormat));
-    const [time, setTime] = useState<string>("13:00");
+    const [time, setTime] = useState<string>();
     const [clientMessage, setClientMessage] = useState<string>("");
+
+    const [availableTimes, setAvailableTimes] = useState<Dayjs[]>([]);
+    const dayStart = dayjs("27/02/2023 07:00", dateFormat + " " + timeFormat);
+    const dayEnd = dayjs("27/02/2023 18:00", dateFormat + " " + timeFormat);
 
     const { user } = useAppSelector(selectAuth);
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log()
         axios.get("api/doctors").then((resp) => {
-            const doctors = resp.data;
+            const doctors: User[] = resp.data;
             setDoctors(doctors);
+            if (doctors[0] && !selectedDoctorId) {
+                setSelectedDoctorId(doctors[0].id);
+            }
         });
         axios.get("api/services").then((resp) => {
-            const services = resp.data;
+            const services: Service[] = resp.data;
             setServices(services);
+            if (services[0] && !selectedService) {
+                setSelectedService(services[0]);
+            }
         });
-    }, []);
+        if (selectedDoctorId) {
+            axios.get(`api/doctors/${selectedDoctorId}/schedule`).then((resp) => {
+                let sessions: AppointmentSession[] = resp.data;
+                sessions = sessions.filter(session => dayjs(session.time).format(dateFormat) === date);
+                sessions.unshift({ time: dayStart.valueOf(), durationMin: 0 });
+                sessions.push({ time: dayEnd.valueOf(), durationMin: 0 });
+                setDoctorSchedule(sessions);
+
+                let minutesBetweenSessions;
+                let sessionsCount;
+                let prevTime;
+                const availableTimes = [];
+                if (selectedService) {
+                    for (let i = 0; i < sessions.length - 1; i++) {
+                        prevTime = sessions[i].time + sessions[i].durationMin * 60 * 1000;
+                        minutesBetweenSessions = new Date(sessions[i + 1].time - prevTime).getTime() / (1000 * 60);
+                        sessionsCount = minutesBetweenSessions / selectedService.approxDurationMin | 0; // | 0 -> gets int value
+
+                        for (let j = 0; j < sessionsCount; j++) {
+                            availableTimes.push(dayjs(prevTime));
+                            prevTime += selectedService.approxDurationMin * 60 * 1000;
+                        }
+                    }
+
+                    setAvailableTimes(availableTimes);
+                }
+            });
+
+        }
+    }, [selectedDoctorId, selectedService, date]);
 
     const onDateChange = (date: any, dateString: any) => {
         setDate(dateString);
     }
 
-    const onTimeChange = (value: Dayjs) => {
-        setTime(value.format("HH:mm"));
+    const onTimeChange = (e: any) => {
+        setTime(e.target.value);
     }
 
     const onDoctorSelect = (e: any) => {
-        setSelectedDoctorId(e.target.value)
+        setSelectedDoctorId(e.target.value);
     }
 
     const onServiceSelect = (e: any) => {
-        setSelectedServiceId(e.target.value)
+        const id = e.target.value;
+        services.forEach(service => {
+            if (service.id == id) {
+                setSelectedService(service);
+            }
+        })
     }
 
     const onMessageChange = (e: any) => {
@@ -60,7 +105,7 @@ function AppointmentForm() {
         console.log(requestedTime)
         const appointment = {
             doctorId: selectedDoctorId,
-            serviceId: selectedServiceId,
+            serviceId: selectedService?.id,
             clientMessage,
             requestedTime,
         }
@@ -93,7 +138,7 @@ function AppointmentForm() {
                     </select>
                 </div>
                 <div className="mt-5 xl:mt-0 w-full">
-                    <select value={selectedServiceId} onChange={onServiceSelect} name="service" id="service" className="p-2 border-[1px] border-blue-gray-200 rounded-md w-full">
+                    <select value={selectedService?.id} onChange={onServiceSelect} name="service" id="service" className="p-2 border-[1px] border-blue-gray-200 rounded-md w-full">
                         <option value={0} disabled hidden>Please Choose...</option>
                         {services?.map(service => {
                             return (
@@ -105,8 +150,16 @@ function AppointmentForm() {
             </div>
             <div className="xl:mt-5 xl:flex gap-5">
                 <DatePicker className="w-full py-2" value={dayjs(date, dateFormat)} onChange={onDateChange} format={dateFormat} />
-                <TimePicker className="w-full py-2" value={dayjs(time, timeFormat)} format={timeFormat} minuteStep={30} showNow={false}
-                    onSelect={onTimeChange} />
+                {/* <TimePicker className="w-full py-2" value={dayjs(time, timeFormat)} format={timeFormat} minuteStep={30} showNow={false}
+                    onSelect={onTimeChange} /> */}
+                <select value={time} onChange={onTimeChange} name="time" id="time" className="p-2 border-[1px] border-blue-gray-200 rounded-md w-full">
+                    <option value={0} disabled hidden>Please Choose...</option>
+                    {availableTimes?.map(time => {
+                        return (
+                            <option key={time.toString()} value={time.format(timeFormat)}>{time.format(timeFormat)}</option>
+                        );
+                    })}
+                </select>
             </div>
             <div className="mt-6">
                 <Textarea label="Message" value={clientMessage} onChange={onMessageChange} className="bg-background-white dark:bg-background-dark text-primary-white dark:text-primary-dark" />

@@ -32,12 +32,16 @@ export type Appointment = {
     serviceId: number
     service?: Service
     status: Status
-    approvedTime?: number
-    requestedTime?: number
+    time?: number
     durationMin?: number
     cost?: number
     confirmed?: boolean
     clientMessage?: string
+}
+
+export type AppointmentSession = {
+    time: number
+    durationMin: number
 }
 
 export type Message = {

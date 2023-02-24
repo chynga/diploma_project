@@ -37,8 +37,8 @@ function RequestedAppointment() {
             setClient(appointment.client);
             setSelectedDoctorId(appointment.doctorId);
             setSelectedServiceId(appointment.serviceId);
-            setDate(dayjs(appointment.requestedTime).format(dateFormat));
-            setTime(dayjs(appointment.requestedTime).format(timeFormat));
+            setDate(dayjs(appointment.time).format(dateFormat));
+            setTime(dayjs(appointment.time).format(timeFormat));
         });
 
         axios.get("/api/doctors", config).then((resp) => {
@@ -87,8 +87,8 @@ function RequestedAppointment() {
             clientId: client?.id,
             doctorId: selectedDoctorId,
             serviceId: selectedServiceId,
-            status: "approved",
-            approvedTime,
+            status: "success",
+            time: approvedTime,
             durationMin
         }
 
