@@ -103,13 +103,12 @@ CREATE TABLE IF NOT EXISTS appointment_statuses (
 
 CREATE TABLE IF NOT EXISTS appointments (
     id SERIAL PRIMARY KEY,
-    doctor_id INTEGER DEFAULT NULL,
-    client_id INTEGER,
-    service_id INTEGER DEFAULT NULL,
+    doctor_id INTEGER NOT NULL,
+    client_id INTEGER NOT NULL,
+    service_id INTEGER NOT NULL,
     status VARCHAR(30) NOT NULL,
-    approved_time TIMESTAMP,
-    requested_time TIMESTAMP,
-    duration_min INTEGER,
+    time TIMESTAMP NOT NULL,
+    duration_min INTEGER NOT NULL,
     cost DECIMAL NOT NULL DEFAULT 0,
     confirmed BOOL NOT NULL DEFAULT false,
     client_message VARCHAR(500) NOT NULL DEFAULT '',

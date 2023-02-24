@@ -1,8 +1,6 @@
 package com.example.backend_with_jaxrs.models;
 
-import java.sql.Timestamp;
-
-public class Appointment {
+public class Appointment extends AppointmentSession {
     private Long id;
     private Long doctorId;
     private User doctor;
@@ -11,22 +9,9 @@ public class Appointment {
     private Long serviceId;
     private Service service;
     private String status;
-    private Timestamp approvedTime;
-    private Timestamp requestedTime;
-    private Integer durationMin;
     private Integer cost;
     private Boolean confirmed;
     private String clientMessage;
-
-    public Appointment() {}
-
-    public Appointment(Long doctorId, Long clientId, Long serviceId, String status, String clientMessage) {
-        this.doctorId = doctorId;
-        this.clientId = clientId;
-        this.serviceId = serviceId;
-        this.status = status;
-        this.clientMessage = clientMessage;
-    }
 
     public Long getId() {
         return id;
@@ -90,30 +75,6 @@ public class Appointment {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public Timestamp getApprovedTime() {
-        return approvedTime;
-    }
-
-    public void setApprovedTime(Timestamp approvedTime) {
-        this.approvedTime = approvedTime;
-    }
-
-    public Timestamp getRequestedTime() {
-        return requestedTime;
-    }
-
-    public void setRequestedTime(Timestamp requestedTime) {
-        this.requestedTime = requestedTime;
-    }
-
-    public Integer getDurationMin() {
-        return durationMin;
-    }
-
-    public void setDurationMin(Integer durationMin) {
-        this.durationMin = durationMin;
     }
 
     public Integer getCost() {

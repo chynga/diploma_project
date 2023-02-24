@@ -1,6 +1,8 @@
 package com.example.backend_with_jaxrs.services;
 
+import com.example.backend_with_jaxrs.dao.AppointmentDAO;
 import com.example.backend_with_jaxrs.dao.DoctorDAO;
+import com.example.backend_with_jaxrs.models.AppointmentSession;
 import com.example.backend_with_jaxrs.models.Doctor;
 import com.example.backend_with_jaxrs.utils.CustomException;
 
@@ -33,5 +35,9 @@ public class DoctorService {
 
     public void updateDoctorInfo(Doctor doctor) throws CustomException {
         DoctorDAO.getInstance().updateDoctorInfo(doctor);
+    }
+
+    public ArrayList<AppointmentSession> getDoctorSchedule(Long doctorId) throws CustomException {
+        return AppointmentDAO.getInstance().getDoctorSchedule(doctorId);
     }
 }

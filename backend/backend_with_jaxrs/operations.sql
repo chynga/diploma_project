@@ -6,7 +6,6 @@
 -- INSERT INTO roles VALUES ('CLIENT');
 
 -- INSERT INTO appointment_statuses VALUES ('pending');
--- INSERT INTO appointment_statuses VALUES ('approved');
 -- INSERT INTO appointment_statuses VALUES ('success');
 -- INSERT INTO appointment_statuses VALUES ('cancelled');
 
@@ -15,3 +14,4 @@
 
 SELECT * FROM permissions;
 SELECT * FROM doctors;
+SELECT * FROM appointment_statuses;

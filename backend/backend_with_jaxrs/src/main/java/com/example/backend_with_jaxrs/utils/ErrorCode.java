@@ -31,6 +31,9 @@ public class ErrorCode {
     public static final ErrorCode SQL_SET_APPOINTMENT_FIELDS = new ErrorCode("SQL_SET_APPOINTMENT_FIELDS");
     public static final ErrorCode SQL_APPOINTMENT_NOT_FOUND = new ErrorCode("SQL_APPOINTMENT_NOT_FOUND");
 
+    public static final ErrorCode SQL_GET_APPOINTMENT_SESSIONS = new ErrorCode("SQL_GET_APPOINTMENT_SESSIONS");
+    public static final ErrorCode SQL_SET_APPOINTMENT_SESSION_FIELDS = new ErrorCode("SQL_SET_APPOINTMENT_SESSION_FIELDS");
+
     public static final ErrorCode SQL_GET_SERVICES = new ErrorCode("SQL_GET_SERVICES");
     public static final ErrorCode SQL_SET_SERVICE_FIELDS = new ErrorCode("SQL_SET_SERVICE_FIELDS");
 
