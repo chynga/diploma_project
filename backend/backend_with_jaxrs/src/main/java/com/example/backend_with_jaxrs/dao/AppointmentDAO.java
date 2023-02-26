@@ -240,7 +240,7 @@ public class AppointmentDAO extends GeneralDAO {
             sqlScript += "status = '" + appointment.getStatus() + "', ";
         }
         if (appointment.getTime() != null) {
-            sqlScript += "approved_time = '" + appointment.getTime() + "', ";
+            sqlScript += "time = '" + appointment.getTime() + "', ";
         }
         if (appointment.getDurationMin() != null) {
             sqlScript += "duration_min = " + appointment.getDurationMin() + ", ";

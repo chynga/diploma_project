@@ -50,6 +50,8 @@ public class AppointmentService {
     }
 
     public Appointment requestAppointment(Appointment appointment) throws CustomException {
+        Service service = DentalServiceService.getInstance().getService(appointment.getServiceId());
+        appointment.setDurationMin(service.getApproxDurationMin());
         return AppointmentDAO.getInstance().requestAppointment(appointment);
     }
 
