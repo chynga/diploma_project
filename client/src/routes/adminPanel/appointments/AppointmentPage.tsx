@@ -92,7 +92,7 @@ function AppointmentPage({ changeStatusTo = undefined }: AppointmentProps) {
         e.preventDefault();
         let timeStr = date + ' ' + time + ":00";
         const format = dateFormat + " " + timeFormat;
-        const approvedTime = dayjs(timeStr, format);
+        const appointmentTime = dayjs(timeStr, format);
 
         const appointmentData = {
             id: appointment?.id,
@@ -100,7 +100,7 @@ function AppointmentPage({ changeStatusTo = undefined }: AppointmentProps) {
             doctorId: selectedDoctorId !== 0 ? selectedDoctorId : null,
             serviceId: selectedServiceId !== 0 ? selectedServiceId : null,
             status: changeStatusTo === undefined ? appointment?.status : changeStatusTo,
-            approvedTime,
+            time: appointmentTime,
             durationMin,
             cost,
         }

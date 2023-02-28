@@ -6,10 +6,9 @@ import { Appointment, dateFormat, timeFormat } from "../../common/types";
 type AppointmentTableProps = {
     appointments: Appointment[]
     includeCost?: boolean
-    time?: "requested" | "approved" | "approvedFirst"
 }
 
-function AppointmentsTable({ appointments, includeCost = false, time = "approved" }: AppointmentTableProps) {
+function AppointmentsTable({ appointments, includeCost = false }: AppointmentTableProps) {
     const navigate = useNavigate();
 
     if (includeCost) {

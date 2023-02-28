@@ -24,7 +24,7 @@ function FutureAppointments() {
     }, [])
 
     return (
-        <AppointmentsTable appointments={appointments} time={"requested"} />
+        <AppointmentsTable appointments={appointments} />
     );
 }
 

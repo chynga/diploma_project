@@ -20,8 +20,8 @@ function AppointmentForm() {
     const [clientMessage, setClientMessage] = useState<string>("");
 
     const [availableTimes, setAvailableTimes] = useState<Dayjs[]>([]);
-    const dayStart = dayjs("27/02/2023 07:00", dateFormat + " " + timeFormat);
-    const dayEnd = dayjs("27/02/2023 18:00", dateFormat + " " + timeFormat);
+    const dayStart = dayjs(date, dateFormat).set('hour', 7).set('minute', 0).set('second', 0);
+    const dayEnd = dayjs(date, dateFormat).set('hour', 18).set('minute', 0).set('second', 0);
 
     const { user } = useAppSelector(selectAuth);
     const navigate = useNavigate();
@@ -57,7 +57,7 @@ function AppointmentForm() {
                     for (let i = 0; i < sessions.length - 1; i++) {
                         prevTime = sessions[i].time + sessions[i].durationMin * 60 * 1000;
                         minutesBetweenSessions = new Date(sessions[i + 1].time - prevTime).getTime() / (1000 * 60);
-                        sessionsCount = minutesBetweenSessions / selectedService.approxDurationMin | 0; // | 0 -> gets int value
+                        sessionsCount = minutesBetweenSessions / selectedService.approxDurationMin | 0; // | 0 -> gets int value: 1.333 -> 1, 3.666 -> 3
 
                         for (let j = 0; j < sessionsCount; j++) {
                             availableTimes.push(dayjs(prevTime));
@@ -66,6 +66,7 @@ function AppointmentForm() {
                     }
 
                     setAvailableTimes(availableTimes);
+                    setTime(availableTimes[0].format(timeFormat));
                 }
             });
 
@@ -100,14 +101,14 @@ function AppointmentForm() {
     const onSubmit = (e: any) => {
         e.preventDefault();
         let timeStr = date + ' ' + time + ":00";
+        console.log(timeStr)
         const format = dateFormat + " " + timeFormat;
-        const requestedTime = dayjs(timeStr, format);
-        console.log(requestedTime)
+        const appointmentTime = dayjs(timeStr, format);
         const appointment = {
             doctorId: selectedDoctorId,
             serviceId: selectedService?.id,
             clientMessage,
-            requestedTime,
+            time: appointmentTime,
         }
 
         const config = {
@@ -115,6 +116,7 @@ function AppointmentForm() {
                 Authorization: `Bearer ${user?.token}`,
             },
         };
+        console.log(appointment)
         axios.post("/api/profile/appointments", appointment, config)
             .then(() => {
                 navigate(0);
@@ -150,8 +152,6 @@ function AppointmentForm() {
             </div>
             <div className="xl:mt-5 xl:flex gap-5">
                 <DatePicker className="w-full py-2" value={dayjs(date, dateFormat)} onChange={onDateChange} format={dateFormat} />
-                {/* <TimePicker className="w-full py-2" value={dayjs(time, timeFormat)} format={timeFormat} minuteStep={30} showNow={false}
-                    onSelect={onTimeChange} /> */}
                 <select value={time} onChange={onTimeChange} name="time" id="time" className="p-2 border-[1px] border-blue-gray-200 rounded-md w-full">
                     <option value={0} disabled hidden>Please Choose...</option>
                     {availableTimes?.map(time => {
