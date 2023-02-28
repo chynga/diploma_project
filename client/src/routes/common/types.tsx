@@ -4,6 +4,9 @@ export type Service = {
     description: string
     approxDurationMin: number
     approxCost: string
+    imgMainUrl: string
+    imgBeforeUrl: string
+    imgAfterUrl: string
 }
 
 export type User = {

@@ -16,7 +16,7 @@ function EditProfile({ user }: ProfileProps) {
     const [profileImageUrl, setProfileImageUrl] = useState(user?.profileImageUrl);
     const dispatch = useDispatch<any>();
     const navigate = useNavigate();
-    const inputFile = useRef<HTMLInputElement | null>(null);
+    const inputProfileFile = useRef<HTMLInputElement | null>(null);
 
     const onNameChange = (e: React.FormEvent<HTMLInputElement>) => {
         setFullName(e.currentTarget.value);
@@ -58,12 +58,12 @@ function EditProfile({ user }: ProfileProps) {
         <form onSubmit={onSubmit}>
             <div className="flex justify-center">
                 <div className="group relative w-[168px] h-[168px] flex justify-center items-center hover:cursor-pointer"
-                    onClick={() => inputFile.current?.click()}>
+                    onClick={() => inputProfileFile.current?.click()}>
                     <ProfilePicture imageUrl={profileImageUrl} className="absolute w-[168px] h-[168px]" />
                     <EditIcon className="absolute hidden group-hover:block" />
                 </div>
 
-                <input type='file' id='file' ref={inputFile} style={{ display: 'none' }}
+                <input type='file' id='file' ref={inputProfileFile} style={{ display: 'none' }}
                     onChange={(event: any) => {
                         uploadFile(event.target.files[0]);
                     }} />
