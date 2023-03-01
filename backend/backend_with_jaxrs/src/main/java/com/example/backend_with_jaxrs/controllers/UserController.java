@@ -1,12 +1,10 @@
 package com.example.backend_with_jaxrs.controllers;
 
 import com.example.backend_with_jaxrs.models.Doctor;
-import com.example.backend_with_jaxrs.models.NotificationMessage;
+import com.example.backend_with_jaxrs.models.PushNotificationMessage;
 import com.example.backend_with_jaxrs.models.User;
-import com.example.backend_with_jaxrs.models.message.Message;
 import com.example.backend_with_jaxrs.services.ClientService;
 import com.example.backend_with_jaxrs.services.DoctorService;
-import com.example.backend_with_jaxrs.services.MessageService;
 import com.example.backend_with_jaxrs.services.UserService;
 import com.example.backend_with_jaxrs.utils.CustomException;
 import com.example.backend_with_jaxrs.utils.ErrorCode;
@@ -14,7 +12,6 @@ import com.example.backend_with_jaxrs.utils.enums.Role;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingException;
 
-import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.util.ArrayList;
@@ -36,7 +33,7 @@ public class UserController {
     @POST
     @Path("/clients/{id}/notify")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response sendNotificationToClient(@PathParam("id") Long id, NotificationMessage message) throws CustomException, FirebaseMessagingException {
+    public Response sendNotificationToClient(@PathParam("id") Long id, PushNotificationMessage message) throws CustomException, FirebaseMessagingException {
         if (securityContext.isUserInRole(Role.CLIENT.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
         String registrationToken = ClientService.getInstance().getNotificationToken(id);
         com.google.firebase.messaging.Message msg = com.google.firebase.messaging.Message.builder()

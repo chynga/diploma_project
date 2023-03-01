@@ -12,6 +12,9 @@
 -- INSERT INTO services VALUES ('лечение десен');
 -- INSERT INTO services VALUES ('имплантация');
 
+-- INSERT INTO notification_types VALUES ('message');
+-- INSERT INTO notification_types VALUES ('appointment');
+
 SELECT * FROM permissions;
 SELECT * FROM doctors;
-SELECT * FROM services;
+SELECT * FROM notifications;

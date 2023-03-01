@@ -144,5 +144,19 @@ CREATE TABLE IF NOT EXISTS push_notification_subscriptions (
     client_id INTEGER UNIQUE NOT NULL,
     token VARCHAR NOT NULL,
     FOREIGN KEY (client_id) REFERENCES clients (id) ON DELETE CASCADE ON UPDATE CASCADE
-)
+);
 
+CREATE TABLE IF NOT EXISTS notification_types (
+    title VARCHAR(30) UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS notifications (
+    id SERIAL PRIMARY KEY,
+    client_id INTEGER NOT NULL,
+    type VARCHAR(30) NOT NULL,
+    is_viewed BOOL DEFAULT false,
+    message VARCHAR NOT NULL,
+    time TIMESTAMP NOT NULL,
+    FOREIGN KEY (client_id) REFERENCES clients (id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (type) REFERENCES notification_types (title) ON DELETE CASCADE ON UPDATE CASCADE
+);

@@ -1,6 +1,6 @@
 package com.example.backend_with_jaxrs.models;
 
-public class NotificationMessage {
+public class PushNotificationMessage {
     private String body;
 
     public String getBody() {
