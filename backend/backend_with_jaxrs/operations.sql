@@ -14,4 +14,4 @@
 
 SELECT * FROM permissions;
 SELECT * FROM doctors;
-SELECT * FROM appointment_statuses;
+SELECT * FROM services;

@@ -63,7 +63,7 @@ public class ClientDAO extends GeneralDAO {
     }
 
     public void subscribeToNotifications(PushNotificationCredentials credentials) throws CustomException {
-        String sqlScript = "INSERT INTO notification_subscriptions (client_id, token) " +
+        String sqlScript = "INSERT INTO push_notification_subscriptions (client_id, token) " +
                 "VALUES (?, ?) " +
                 "ON CONFLICT (client_id) DO UPDATE " +
                 "SET token = EXCLUDED.token;";
@@ -73,7 +73,7 @@ public class ClientDAO extends GeneralDAO {
     }
 
     public PushNotificationCredentials getNotificationToken(Long clientId) throws CustomException {
-        String sqlScript = "SELECT * FROM notification_subscriptions WHERE client_id = (?)";
+        String sqlScript = "SELECT * FROM push_notification_subscriptions WHERE client_id = (?)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
         setScriptFields(preparedStatement, clientId);
         ResultSet resultSet = executeQuery(preparedStatement);

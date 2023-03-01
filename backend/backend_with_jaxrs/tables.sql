@@ -140,8 +140,9 @@ CREATE TABLE IF NOT EXISTS ordered_calls (
     FOREIGN KEY (client_id) REFERENCES clients (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS notification_subscriptions (
+CREATE TABLE IF NOT EXISTS push_notification_subscriptions (
     client_id INTEGER UNIQUE NOT NULL,
     token VARCHAR NOT NULL,
     FOREIGN KEY (client_id) REFERENCES clients (id) ON DELETE CASCADE ON UPDATE CASCADE
 )
+
