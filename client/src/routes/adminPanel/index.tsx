@@ -26,12 +26,12 @@ function AdminPanel() {
     }, [])
 
     return (
-        <div className="flex">
+        <div className="flex min-h-screen bg-[#F2F3F3] dark:bg-[#4F4F4F]">
             <div >
                 <Sidebar className="fixed w-[370px]" />
             </div>
 
-            <div className="w-full min-h-screen ml-[370px] p-6 bg-[#F2F3F3] dark:bg-[#4F4F4F]">
+            <div className="w-full ml-[370px] p-6">
                 <button onClick={toggleTheme} id="theme-toggle" type="button" className="block ml-auto">
                     <ThemeToggler />
                 </button>

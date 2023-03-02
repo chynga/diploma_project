@@ -4,7 +4,7 @@ import { v4 as uuid } from "uuid";
 import { storage } from "../../../firebase";
 import { EditIcon } from "../../common/SvgImages";
 import { Service } from "../../common/types";
-import ServicePicture from "./ServicePicture";
+import PictureUpload from "../../common/PictureUpload";
 
 type ServiceFormProps = {
     onSubmit: (e: any) => void
@@ -57,7 +57,7 @@ function ServiceForm({ onSubmit, service, setService }: ServiceFormProps) {
             <div className="flex justify-center">
                 <div className="group relative w-[220px] h-[200px] flex justify-center items-center hover:cursor-pointer"
                     onClick={() => inputMainPicture.current?.click()}>
-                    <ServicePicture imageUrl={service?.imgMainUrl} className="absolute w-[220px] h-[200px]" editing />
+                    <PictureUpload imageUrl={service?.imgMainUrl} className="absolute w-[220px] h-[200px]" editing />
                     <EditIcon className="absolute hidden group-hover:block" />
                 </div>
 
@@ -87,7 +87,7 @@ function ServiceForm({ onSubmit, service, setService }: ServiceFormProps) {
                 <div className="flex justify-center">
                     <div className="group relative w-[200px] h-[160px] flex justify-center items-center hover:cursor-pointer"
                         onClick={() => inputBeforePicture.current?.click()}>
-                        <ServicePicture imageUrl={service?.imgBeforeUrl} className="absolute w-[200px] h-[160px]" editing />
+                        <PictureUpload imageUrl={service?.imgBeforeUrl} className="absolute w-[200px] h-[160px]" editing />
                         <EditIcon className="absolute hidden group-hover:block" />
                     </div>
 
@@ -99,7 +99,7 @@ function ServiceForm({ onSubmit, service, setService }: ServiceFormProps) {
                 <div className="flex justify-center">
                     <div className="group relative w-[200px] h-[160px] flex justify-center items-center hover:cursor-pointer"
                         onClick={() => inputAfterPicture.current?.click()}>
-                        <ServicePicture imageUrl={service?.imgAfterUrl} className="absolute w-[200px] h-[160px]" editing />
+                        <PictureUpload imageUrl={service?.imgAfterUrl} className="absolute w-[200px] h-[160px]" editing />
                         <EditIcon className="absolute hidden group-hover:block" />
                     </div>
 

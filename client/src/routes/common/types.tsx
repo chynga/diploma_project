@@ -24,7 +24,7 @@ export type Doctor = User & {
     imageUrl: string
 }
 
-export type Status = "pending" | "approved" | "success" | "cancelled"
+export type Status = "pending" | "success" | "cancelled"
 
 export type Appointment = {
     id: number
@@ -62,6 +62,15 @@ export type Review = {
     client: User
     body: string
     rating: number
+}
+
+export type AppNotification = {
+    id?: number
+    clientId: number
+    type: "message" | "appointment"
+    isViewed?: boolean
+    message: string
+    time?: number
 }
 
 export const dateFormat = 'DD/MM/YYYY';

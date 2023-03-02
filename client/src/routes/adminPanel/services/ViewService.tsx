@@ -6,7 +6,7 @@ import { selectAuth } from "../../../features/auth/authSlice";
 import NotFound from "../../common/NotFound";
 import { TrashBin } from "../../common/SvgImages";
 import { Service } from "../../common/types";
-import ServicePicture from "./ServicePicture";
+import PictureUpload from "../../common/PictureUpload";
 
 type ViewServiceProps = {
     services: Service[] | undefined
@@ -52,7 +52,7 @@ function ViewService() {
     return (
         <div className="flex flex-col items-center gap-4">
             <h2 className="font-medium text-primary-white dark:text-primary-dark">{service?.title}</h2>
-            <ServicePicture imageUrl={service?.imgMainUrl} className={"w-[220px] h-[200px]"} />
+            <PictureUpload imageUrl={service?.imgMainUrl} className={"w-[220px] h-[200px]"} />
             <h2 className="font-medium text-primary-white dark:text-primary-dark">Описание услуги</h2>
             <p className="text-sm text-primary-white dark:text-primary-dark">
                 {service?.description}
@@ -63,8 +63,8 @@ function ViewService() {
             <p className="text-sm font-medium text-primary-white dark:text-primary-dark">{service?.approxDurationMin?.toString()} МИН</p>
             <h2 className="font-medium text-primary-white dark:text-primary-dark">До и после</h2>
             <div className="flex justify-center gap-10">
-                <ServicePicture imageUrl={service?.imgBeforeUrl} className={"w-[200px] h-[160px]"} />
-                <ServicePicture imageUrl={service?.imgAfterUrl} className={"w-[200px] h-[160px]"} />
+                <PictureUpload imageUrl={service?.imgBeforeUrl} className={"w-[200px] h-[160px]"} />
+                <PictureUpload imageUrl={service?.imgAfterUrl} className={"w-[200px] h-[160px]"} />
             </div>
             <div onClick={deleteService} className="px-8 py-3 flex items-center gap-3 bg-[#FF4646] dark:bg-[#B67474] text-lg text-primary-dark font-semibold drop-shadow-lg rounded-full hover:cursor-pointer">
                 <TrashBin className="stroke-white" />

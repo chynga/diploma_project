@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAppSelector } from "../../../app/hooks";
 import { selectAuth } from "../../../features/auth/authSlice";
 import { ArrowBack } from "../../common/SvgImages";
-import { Appointment, dateFormat, Service, Status, timeFormat, User } from "../../common/types";
+import { AppNotification, Appointment, dateFormat, Service, Status, timeFormat, User } from "../../common/types";
 
 type AppointmentProps = {
     changeStatusTo?: Status
@@ -111,6 +111,17 @@ function AppointmentPage({ changeStatusTo = undefined }: AppointmentProps) {
             },
         };
         axios.patch("/api/appointments/" + appointment?.id, appointmentData, config)
+            .then(_ => {
+                if (changeStatusTo === "success") {
+                    const notification: AppNotification = {
+                        clientId: 3,
+                        "type": "appointment",
+                        "message": "Ваша запись перенесена в завершенные!"
+                    }
+
+                    axios.post("/api/notifications", notification, config);
+                }
+            })
             .catch(error => {
                 console.log(error);
             })

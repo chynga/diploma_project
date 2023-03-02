@@ -1,10 +1,10 @@
 import axios from "axios";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useWebSocket from "react-use-websocket";
 import { useAppSelector } from "../../../app/hooks";
 import { selectAuth } from "../../../features/auth/authSlice";
 import Chat from "../../common/Chat";
-import { Message, User } from "../../common/types";
+import { AppNotification, Message, User } from "../../common/types";
 
 type ConsultationProps = {
     selectedClient: User | undefined
@@ -23,6 +23,18 @@ function Consultation({ selectedClient }: ConsultationProps) {
         shouldReconnect: (closeEvent) => true,
         onClose: () => console.log('closed'),
         onMessage: (event) => {
+            const notification: AppNotification = {
+                clientId: 3,
+                "type": "message",
+                "message": "Вам пришло сообщение!"
+            }
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${user?.token}`,
+                },
+            };
+
+            axios.post("/api/notifications", notification, config);
             const message: Message = JSON.parse(event.data);
             messages?.unshift(message);
         }

@@ -4,7 +4,7 @@ type ProfilePictureParams = {
     editing?: boolean
 }
 
-function ServicePicture({ imageUrl, className, editing = false }: ProfilePictureParams) {
+function PictureUpload({ imageUrl, className, editing = false }: ProfilePictureParams) {
     return (
         <>
             {imageUrl ?
@@ -24,4 +24,4 @@ function ServicePicture({ imageUrl, className, editing = false }: ProfilePicture
     );
 }
 
-export default ServicePicture;
+export default PictureUpload;
