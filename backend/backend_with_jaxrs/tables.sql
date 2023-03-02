@@ -136,8 +136,8 @@ CREATE TABLE IF NOT EXISTS reviews (
 
 CREATE TABLE IF NOT EXISTS ordered_calls (
     id SERIAL PRIMARY KEY,
-    client_id INTEGER NOT NULL,
-    FOREIGN KEY (client_id) REFERENCES clients (id) ON DELETE CASCADE ON UPDATE CASCADE
+    full_name VARCHAR(100),
+    phone_number VARCHAR(20)
 );
 
 CREATE TABLE IF NOT EXISTS push_notification_subscriptions (

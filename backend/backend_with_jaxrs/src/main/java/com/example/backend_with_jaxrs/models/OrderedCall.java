@@ -2,8 +2,8 @@ package com.example.backend_with_jaxrs.models;
 
 public class OrderedCall {
     private Long id;
-    private Long clientId;
-    private User client;
+    private String fullName;
+    private String phoneNumber;
 
     public Long getId() {
         return id;
@@ -13,19 +13,19 @@ public class OrderedCall {
         this.id = id;
     }
 
-    public Long getClientId() {
-        return clientId;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setClientId(Long clientId) {
-        this.clientId = clientId;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
-    public User getClient() {
-        return client;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setClient(User client) {
-        this.client = client;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

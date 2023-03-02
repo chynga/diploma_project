@@ -31,4 +31,8 @@ public class NotificationService {
     public ArrayList<Notification> getClientNotifications(Long clientId) throws CustomException {
         return NotificationDAO.getInstance().getClientNotifications(clientId);
     }
+
+    public void readNotifications(Long clientId, String type) throws CustomException {
+        NotificationDAO.getInstance().markAsViewed(clientId, type);
+    }
 }

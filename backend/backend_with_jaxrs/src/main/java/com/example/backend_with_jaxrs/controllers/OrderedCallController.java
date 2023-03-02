@@ -28,13 +28,7 @@ public class OrderedCallController {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response orderCall(@Context UriInfo uriInfo,
-                              @HeaderParam(HttpHeaders.AUTHORIZATION) String authorizationHeader) throws CustomException {
-        if (!securityContext.isUserInRole(Role.CLIENT.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
-        String token = Jwt.getTokenFromHeader(authorizationHeader);
-        Long clientId = Jwt.getUserId(token);
-        OrderedCall orderedCall = new OrderedCall();
-        orderedCall.setClientId(clientId);
+    public Response orderCall(@Context UriInfo uriInfo, OrderedCall orderedCall) throws CustomException {
         OrderedCallService.getInstance().orderCall(orderedCall);
         UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
         return Response.created(uriBuilder.build()).build();

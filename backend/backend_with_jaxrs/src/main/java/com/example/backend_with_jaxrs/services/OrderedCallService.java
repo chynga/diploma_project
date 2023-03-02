@@ -22,14 +22,7 @@ public class OrderedCallService {
     }
 
     public ArrayList<OrderedCall> getOrderedCalls() throws CustomException {
-        ArrayList<OrderedCall> orderedCalls = OrderedCallDAO.getInstance().getOrderedCalls();
-        User client;
-        for (OrderedCall orderedCall : orderedCalls) {
-            client = UserDAO.getInstance().getUserById(orderedCall.getClientId());
-            orderedCall.setClient(client);
-        }
-
-        return orderedCalls;
+        return OrderedCallDAO.getInstance().getOrderedCalls();
     }
 
     public void orderCall(OrderedCall orderedCall) throws CustomException {

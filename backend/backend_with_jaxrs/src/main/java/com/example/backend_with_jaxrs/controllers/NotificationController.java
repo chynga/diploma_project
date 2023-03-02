@@ -28,6 +28,18 @@ public class NotificationController {
         return Response.ok(notifications).build();
     }
 
+    @PATCH
+    @Path("types/{type}")
+    public Response readNotifications(@HeaderParam(HttpHeaders.AUTHORIZATION) String authorizationHeader,
+                                      @PathParam("type") String type,
+                                      Notification notification) throws CustomException {
+        if (!securityContext.isUserInRole(Role.CLIENT.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+        String token = Jwt.getTokenFromHeader(authorizationHeader);
+        Long clientId = Jwt.getUserId(token);
+        NotificationService.getInstance().readNotifications(clientId, type);
+        return Response.ok().build();
+    }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response sendNotification(@Context UriInfo uriInfo,

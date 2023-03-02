@@ -42,6 +42,13 @@ public class NotificationDAO extends GeneralDAO {
         execute(preparedStatement);
     }
 
+    public void markAsViewed(Long clientId, String type) throws CustomException {
+        String sqlScript = "UPDATE notifications SET is_viewed = true WHERE client_id = (?) AND type = (?)";
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        setSqlScriptData(preparedStatement, clientId, type);
+        executeUpdate(preparedStatement);
+    }
+
     private void setSqlScriptData(PreparedStatement preparedStatement, Notification notification) throws CustomException {
         try {
             preparedStatement.setLong(1, notification.getClientId());
@@ -56,6 +63,15 @@ public class NotificationDAO extends GeneralDAO {
     private void setSqlScriptData(PreparedStatement preparedStatement, Long id) throws CustomException {
         try {
             preparedStatement.setLong(1, id);
+        } catch (SQLException e) {
+            throw new CustomException(e, ErrorCode.SQL_SET_SCRIPT_DATA);
+        }
+    }
+
+    private void setSqlScriptData(PreparedStatement preparedStatement, Long clientId, String type) throws CustomException {
+        try {
+            preparedStatement.setLong(1, clientId);
+            preparedStatement.setString(2, type);
         } catch (SQLException e) {
             throw new CustomException(e, ErrorCode.SQL_SET_SCRIPT_DATA);
         }

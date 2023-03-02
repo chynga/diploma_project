@@ -34,8 +34,8 @@ public class OrderedCallDAO extends GeneralDAO {
     }
 
     public void orderCall(OrderedCall orderedCall) throws CustomException {
-        String sql = "INSERT INTO ordered_calls (client_id) " +
-                "VALUES (?)";
+        String sql = "INSERT INTO ordered_calls (full_name, phone_number) " +
+                "VALUES (?, ?)";
         PreparedStatement preparedStatement = getPreparedStatement(sql);
         setSqlScriptData(preparedStatement, orderedCall);
         executeUpdate(preparedStatement);
@@ -43,7 +43,8 @@ public class OrderedCallDAO extends GeneralDAO {
 
     private void setSqlScriptData(PreparedStatement preparedStatement, OrderedCall orderedCall) throws CustomException {
         try {
-            preparedStatement.setLong(1, orderedCall.getClientId());
+            preparedStatement.setString(1, orderedCall.getFullName());
+            preparedStatement.setString(2, orderedCall.getPhoneNumber());
         } catch (SQLException e) {
             throw new CustomException(e, ErrorCode.SQL_SET_SCRIPT_DATA);
         }
@@ -67,7 +68,8 @@ public class OrderedCallDAO extends GeneralDAO {
     private void setReviewFields(ResultSet resultSet, OrderedCall order) throws CustomException {
         try {
             order.setId(resultSet.getLong("id"));
-            order.setClientId(resultSet.getLong("client_id"));
+            order.setFullName(resultSet.getString("full_name"));
+            order.setPhoneNumber(resultSet.getString("phone_number"));
         } catch (SQLException e) {
             throw new CustomException(e, ErrorCode.SQL_SET_ORDERED_CALL_FIELDS);
         }
