@@ -2,14 +2,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "../../../app/hooks";
 import { selectAuth } from "../../../features/auth/authSlice";
-import { TrashBin } from "../../common/SvgImages";
 import { TextBase } from "../../common/TextElements";
-import { User } from "../../common/types";
 
 type OrderedCall = {
     id: number
-    clientId: number
-    client: User
+    fullName: string
+    phoneNumber: string
 }
 
 function OrderedCallsPage() {
@@ -43,8 +41,8 @@ function OrderedCallsPage() {
                     {orderedCalls.map(orderedCall => {
                         return (
                             <tr key={orderedCall.id}>
-                                <td className="p-3"><TextBase>{orderedCall.client.fullName}</TextBase></td>
-                                <td className="p-3"><TextBase>{orderedCall.client.phone}</TextBase></td>
+                                <td className="p-3"><TextBase>{orderedCall.fullName}</TextBase></td>
+                                <td className="p-3"><TextBase>{orderedCall.phoneNumber}</TextBase></td>
                             </tr>
                         )
                     })}

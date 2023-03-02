@@ -1,7 +1,7 @@
 import axios from "axios";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../../app/hooks";
 import { selectAuth } from "../../../features/auth/authSlice";
 import { AppNotification, AppNotificationType, dateFormat, timeFormat } from "../types";
@@ -21,7 +21,6 @@ function NotificationList() {
 
         axios.get("/api/notifications", config).then((resp) => {
             const notifications: AppNotification[] = resp.data;
-            console.log(notifications)
             setNotifications(notifications);
         });
     }, [])

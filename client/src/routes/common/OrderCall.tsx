@@ -1,9 +1,11 @@
 import axios from "axios";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
 import { selectAuth } from "../../features/auth/authSlice";
-import { CloseButton, Phone } from "./SvgImages";
+import FormGroup from "./authModal/FormGroup";
+import { CloseButton, PhoneSvg } from "./SvgImages";
+import { nameRegex, phoneRegex, state } from "./util";
 
 type OrderCallProps = {
     showOrderCall?: boolean
@@ -24,21 +26,15 @@ export function OrderCallButton({ setShowOrderCall }: OrderCallProps) {
     return (
         <div className="p-5 bg-blue-white dark:bg-blue-dark shadow-[0px_0px_4px_6px_rgba(39,127,242,0.5)] dark:shadow-[0px_0px_5px_2px_#FFFFFF] rounded-full hover:cursor-pointer"
             onClick={onClick}>
-            <Phone />
+            <PhoneSvg />
         </div>
     );
 }
 
 export function OrderCallForm({ showOrderCall, setShowOrderCall }: OrderCallProps) {
-    const navigate = useNavigate();
+    const [fullName, setFullName] = useState(state);
+    const [phone, setPhone] = useState(state);
     const { user } = useAppSelector(selectAuth);
-
-    const onClick = (e: any) => {
-        if (e.target.className.includes("modal")) {
-            return;
-        }
-        setShowOrderCall(false);
-    }
 
     const onSubmit = (e: any) => {
         e.preventDefault();
@@ -48,7 +44,13 @@ export function OrderCallForm({ showOrderCall, setShowOrderCall }: OrderCallProp
                 Authorization: `Bearer ${user?.token}`,
             },
         };
-        axios.post("/api/ordered-calls", {}, config)
+
+        const credentials = {
+            fullName: fullName.value,
+            phoneNumber: phone.value
+        }
+
+        axios.post("/api/ordered-calls", credentials, config)
             .catch(error => {
                 console.log(error);
             })
@@ -62,8 +64,7 @@ export function OrderCallForm({ showOrderCall, setShowOrderCall }: OrderCallProp
     }
 
     return (
-        <div className="z-30 fixed left-0 top-0 right-0 bottom-0 bg-[rgb(0,0,0)] bg-[rgba(0,0,0,0.4)] flex justify-center items-center"
-            onClick={onClick}>
+        <div className="z-30 fixed left-0 top-0 right-0 bottom-0 bg-[rgb(0,0,0)] bg-[rgba(0,0,0,0.4)] flex justify-center items-center">
             <div className="modal p-5 bg-[#F2F2F2] rounded-xl">
                 <div className="flex justify-end">
                     <div onClick={() => setShowOrderCall(false)}>
@@ -71,9 +72,26 @@ export function OrderCallForm({ showOrderCall, setShowOrderCall }: OrderCallProp
                     </div>
                 </div>
                 <div className="flex px-7 flex-col items-center gap-5 text-center">
-                    Нажмите подтвердить <br /> и мы перезвоним на номер: {user.phone}
+                    <FormGroup
+                        labelText="ФИО"
+                        type="name"
+                        id="name"
+                        name="name"
+                        field={fullName}
+                        setField={setFullName}
+                        regex={nameRegex}
+                        validationMessage="Enter valid name" />
+                    <FormGroup
+                        labelText="Номер телефона"
+                        type="phone"
+                        id="phone"
+                        name="phone"
+                        field={phone}
+                        setField={setPhone}
+                        regex={phoneRegex}
+                        validationMessage="Enter valid phone number" />
                     <button onClick={onSubmit} className="px-3 py-1 bg-blue-white dark:bg-blue-dark text-primary-dark font-semibold rounded-full">
-                        Подтвердить
+                        Отправить
                     </button>
                 </div>
             </div>
