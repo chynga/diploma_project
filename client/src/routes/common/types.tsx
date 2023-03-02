@@ -64,11 +64,13 @@ export type Review = {
     rating: number
 }
 
+export type AppNotificationType = "message" | "appointment"
+
 export type AppNotification = {
     id?: number
     clientId: number
-    type: "message" | "appointment"
-    isViewed?: boolean
+    type: AppNotificationType
+    viewed?: boolean
     message: string
     time?: number
 }

@@ -3,12 +3,13 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { useAppSelector } from "../../app/hooks";
-import { logout, selectAuth } from "../../features/auth/authSlice";
-import AuthModal, { AuthPage } from "./authModal";
-import { ArrowDown, Bell, Burger, Logo, Person, ProfilePicture, ThemeToggler } from "./SvgImages";
-import { TextBase, TextLg } from "./TextElements";
-import { toggleTheme } from "./util";
+import { useAppSelector } from "../../../app/hooks";
+import { logout, selectAuth } from "../../../features/auth/authSlice";
+import AuthModal, { AuthPage } from "../authModal";
+import { ArrowDown, Bell, Burger, Logo, Person, ProfilePicture, ThemeToggler } from "../SvgImages";
+import { TextBase, TextLg } from "../TextElements";
+import { toggleTheme } from "../util";
+import NotificationList from "./NotificationList";
 
 type NavbarProps = {
     showNav: boolean,
@@ -57,9 +58,17 @@ function Header() {
                         <div className="hover:cursor-pointer" onClick={toggleTheme} id="theme-toggle">
                             <ThemeToggler className="w-[20px] md:w-auto" />
                         </div>
-                        <div className="hover:cursor-pointer">
-                            <Bell className="w-[20px] md:w-auto" />
-                        </div>
+                        {user && user.roles?.includes("CLIENT") ?
+                            <div className="group relative hover:cursor-pointer">
+                                <Bell className="w-[20px] md:w-auto" />
+
+                                <div className="hidden group-hover:block py-10 px-7 w-[276px] flex flex-col items-center justify-around gap-3 group-hover:flex absolute bg-background-white dark:bg-background-dark top-[100%] right-0 rounded-b-2xl drop-shadow-lg">
+                                    <NotificationList />
+                                </div>
+                            </div>
+                            :
+                            <></>
+                        }
                         <div className="group relative min-h-[40px] hover:cursor-pointer flex items-center gap-3">
                             <TextBase blue>
                                 {i18n.language === "ru" ?
@@ -90,7 +99,8 @@ function Header() {
                         </div>
                         <div className="h-[50px] group relative hidden lg:flex hover:cursor-pointer items-center gap-3">
                             {user ?
-                                <ProfilePicture imageUrl={user.profileImageUrl} className="w-[50px] h-[50px]" /> :
+                                <ProfilePicture imageUrl={user.profileImageUrl} className="w-[50px] h-[50px]" />
+                                :
                                 <Person fill={"blue"} />
                             }
                             <ArrowDown />

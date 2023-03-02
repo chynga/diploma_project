@@ -4,7 +4,7 @@ import {
     Routes,
     Route,
 } from "react-router-dom";
-import Header from './routes/common/Header';
+import Header from './routes/common/header';
 import NotFound from './routes/common/NotFound';
 import HomePage from './routes/home';
 import Footer from './routes/common/Footer';
