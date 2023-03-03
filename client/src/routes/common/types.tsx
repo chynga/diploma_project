@@ -22,6 +22,7 @@ export type Doctor = User & {
     available: boolean
     about: string
     imageUrl: string
+    institutions: string[]
     certificates: string[]
 }
 

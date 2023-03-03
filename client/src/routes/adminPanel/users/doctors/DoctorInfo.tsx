@@ -17,17 +17,18 @@ function DoctorInfo({ selectedDoctor }: DoctorsProps) {
     const [about, setAbout] = useState<string>();
     const [imageUrl, setImageUrl] = useState<string>();
     const [startedWorkingFrom, setStartedWorkingFrom] = useState<string>();
+    const [institutions, setInstitutions] = useState<string[]>([]);
     const [certificates, setCertificates] = useState<string[]>([]);
 
     const navigate = useNavigate();
     const { user } = useAppSelector(selectAuth);
 
     useEffect(() => {
-        console.log(selectedDoctor?.certificates)
         setAvailable(selectedDoctor?.available);
         setAbout(selectedDoctor?.about ? selectedDoctor?.about : undefined);
         setImageUrl(selectedDoctor?.imageUrl ? selectedDoctor?.imageUrl : undefined);
         setStartedWorkingFrom(selectedDoctor?.startedWorkingFrom ? dayjs(selectedDoctor.startedWorkingFrom).format(dateFormat) : dayjs().format(dateFormat));
+        setInstitutions(selectedDoctor?.institutions ? selectedDoctor?.institutions : []);
         setCertificates(selectedDoctor?.certificates ? selectedDoctor?.certificates : []);
     }, [selectedDoctor])
 
@@ -54,7 +55,6 @@ function DoctorInfo({ selectedDoctor }: DoctorsProps) {
         const imageRef = ref(storage, `certificates/${imageUpload.name + uuid()}`);
         uploadBytes(imageRef, imageUpload).then((snapshot) => {
             getDownloadURL(snapshot.ref).then((url) => {
-                console.log(url)
                 setCertificates((prev: any) => ([
                     ...prev,
                     url,
@@ -72,6 +72,7 @@ function DoctorInfo({ selectedDoctor }: DoctorsProps) {
             imageUrl,
             startedWorkingFrom: dayjs(startedWorkingFrom, dateFormat),
             certificates,
+            institutions,
         }
 
         const apiUrl = "/api/users/doctors/" + selectedDoctor?.id;
@@ -92,6 +93,23 @@ function DoctorInfo({ selectedDoctor }: DoctorsProps) {
 
     if (!selectedDoctor) {
         return <div></div>
+    }
+
+    const onInstitutionChange = (e: any, index: number) => {
+        const newInstitutions = [...institutions];
+        newInstitutions[index] = e.target.value;
+        setInstitutions(newInstitutions);
+    }
+
+    const onAddInstituion = () => {
+        setInstitutions([...institutions, ""]);
+    }
+
+    const onRemoveInstitution = (index: number) => {
+        const newInstitutions = [...institutions];
+        newInstitutions.splice(index, 1);
+        console.log(newInstitutions)
+        setInstitutions(newInstitutions);
     }
 
     const removeCertificate = (url: string) => {
@@ -130,8 +148,32 @@ function DoctorInfo({ selectedDoctor }: DoctorsProps) {
 
             <label htmlFor="date" className="text-sm text-blue-gray-200">Работает с:</label>
             <DatePicker id="date" className="w-full py-2" value={dayjs(startedWorkingFrom, dateFormat)} onChange={onDateChange} format={dateFormat} />
-
-            Сертификаты
+            <div>
+                Образование
+            </div>
+            {institutions ?
+                <div className="mt-3">
+                    {institutions.map((institution, index) => {
+                        return (
+                            <div key={index} className="w-[300px] flex gap-3">
+                                <input value={institution} onChange={(e: any) => onInstitutionChange(e, index)} id="duration" type="text" className="block w-full p-2 border-[1px] border-blue-gray-200 rounded-md" />
+                                <div onClick={() => onRemoveInstitution(index)}>
+                                    <CloseButton />
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>
+                :
+                <></>
+            }
+            <div className="mt-3 inline-block px-3 py-1 bg-blue-white dark:bg-blue-dark text-primary-dark font-semibold rounded-full hover:cursor-pointer"
+                onClick={onAddInstituion}>
+                Добавить
+            </div>
+            <div>
+                Сертификаты
+            </div>
             <div className="flex flex-col gap-5">
                 {certificates.map(url => {
                     return (

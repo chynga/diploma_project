@@ -60,12 +60,13 @@ function DoctorPage() {
                     Образование
                 </h2>
                 <div className="mt-12">
-                    <p className="text-center font-light text-primary-white dark:text-primary-dark">
-                        Республиканский Медицинский Колледж (специальность зубной техник);
-                    </p>
-                    <p className="mt-4 text-center font-light text-primary-white dark:text-primary-dark">
-                        Республиканский Медицинский Колледж (специальность зубной техник);
-                    </p>
+                    {doctor?.institutions.map(institution => {
+                        return (
+                            <p className="text-center font-light text-primary-white dark:text-primary-dark">
+                                {institution}
+                            </p>
+                        )
+                    })}
                 </div>
             </div>
             {doctor?.certificates.length != 0 ?
