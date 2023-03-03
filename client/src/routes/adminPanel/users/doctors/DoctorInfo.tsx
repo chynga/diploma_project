@@ -1,4 +1,6 @@
+import { DatePicker } from "antd";
 import axios from "axios";
+import dayjs from "dayjs";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -8,11 +10,13 @@ import { useAppSelector } from "../../../../app/hooks";
 import { selectAuth } from "../../../../features/auth/authSlice";
 import { storage } from "../../../../firebase";
 import { CloseButton } from "../../../common/SvgImages";
+import { dateFormat } from "../../../common/types";
 
 function DoctorInfo({ selectedDoctor }: DoctorsProps) {
     const [available, setAvailable] = useState<boolean>();
     const [about, setAbout] = useState<string>();
     const [imageUrl, setImageUrl] = useState<string>();
+    const [startedWorkingFrom, setStartedWorkingFrom] = useState<string>();
     const [certificates, setCertificates] = useState<string[]>([]);
 
     const navigate = useNavigate();
@@ -23,11 +27,16 @@ function DoctorInfo({ selectedDoctor }: DoctorsProps) {
         setAvailable(selectedDoctor?.available);
         setAbout(selectedDoctor?.about ? selectedDoctor?.about : undefined);
         setImageUrl(selectedDoctor?.imageUrl ? selectedDoctor?.imageUrl : undefined);
+        setStartedWorkingFrom(selectedDoctor?.startedWorkingFrom ? dayjs(selectedDoctor.startedWorkingFrom).format(dateFormat) : dayjs().format(dateFormat));
         setCertificates(selectedDoctor?.certificates ? selectedDoctor?.certificates : []);
     }, [selectedDoctor])
 
     const onChange = (e: any) => {
         setAbout(e.target.value);
+    }
+
+    const onDateChange = (date: any, dateString: any) => {
+        setStartedWorkingFrom(dateString);
     }
 
     const uploadDoctorImage = (imageUpload: File) => {
@@ -61,6 +70,7 @@ function DoctorInfo({ selectedDoctor }: DoctorsProps) {
             available,
             about,
             imageUrl,
+            startedWorkingFrom: dayjs(startedWorkingFrom, dateFormat),
             certificates,
         }
 
@@ -118,10 +128,14 @@ function DoctorInfo({ selectedDoctor }: DoctorsProps) {
             <textarea value={about} onChange={onChange} placeholder="О враче" cols={30} rows={7} className="mt-5 px-6 py-2 bg:background-white dark:bg-[#797979] text-primary-white dark:text-primary-dark border-[1px] border-[#353535] dark:border-none rounded-md w-full">
             </textarea>
 
+            <label htmlFor="date" className="text-sm text-blue-gray-200">Работает с:</label>
+            <DatePicker id="date" className="w-full py-2" value={dayjs(startedWorkingFrom, dateFormat)} onChange={onDateChange} format={dateFormat} />
+
+            Сертификаты
             <div className="flex flex-col gap-5">
                 {certificates.map(url => {
                     return (
-                        <div className="relative w-[300px]">
+                        <div key={url} className="relative w-[300px]">
                             <img src={url} alt="" className="w-[300px] h-[211px]" />
                             <div className="z-50 absolute right-0 top-0" onClick={() => removeCertificate(url)}>
                                 <CloseButton />
