@@ -68,6 +68,8 @@ public class ErrorCode {
     public static final ErrorCode SQL_SET_DOCTOR_FIELDS = new ErrorCode("SQL_SET_DOCTOR_FIELDS");
     public static final ErrorCode SQL_GET_DOCTOR = new ErrorCode("SQL_GET_DOCTOR");
 
+    public static final ErrorCode SQL_GET_CERTIFICATES = new ErrorCode("SQL_GET_CERTIFICATES");
+
     public ErrorCode() {
         this.message = "SQL error";
     }
