@@ -9,6 +9,7 @@ public class Doctor extends User {
     private String about;
     private String imageUrl;
     private ArrayList<String> certificates;
+    private ArrayList<String> institutions;
 
     public Timestamp getStartedWorkingFrom() {
         return startedWorkingFrom;
@@ -48,5 +49,13 @@ public class Doctor extends User {
 
     public void setCertificates(ArrayList<String> certificates) {
         this.certificates = certificates;
+    }
+
+    public ArrayList<String> getInstitutions() {
+        return institutions;
+    }
+
+    public void setInstitutions(ArrayList<String> institutions) {
+        this.institutions = institutions;
     }
 }

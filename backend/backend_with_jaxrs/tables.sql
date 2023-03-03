@@ -42,11 +42,9 @@ CREATE TABLE IF NOT EXISTS doctors (
     FOREIGN KEY (id) REFERENCES users (id) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS education (
+CREATE TABLE IF NOT EXISTS institutions (
     doctor_id INTEGER NOT NULL,
-    institution VARCHAR(150) NOT NULL DEFAULT '',
-    enrollment_date TIMESTAMP,
-    graduation_date TIMESTAMP,
+    name VARCHAR(150) NOT NULL DEFAULT '',
     FOREIGN KEY (doctor_id) REFERENCES doctors (id) ON DELETE CASCADE
 );
 
