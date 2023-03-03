@@ -68,28 +68,24 @@ function DoctorPage() {
                     </p>
                 </div>
             </div>
-            <div className="mt-20">
-                <h2 className="text-center text-xl sm:text-4xl text-primary-white dark:text-primary-dark font-bold">
-                    Сертификаты
-                </h2>
-                <div className="mt-12 flex flex-col items-center lg:flex-row flex-wrap justify-center gap-6">
-                    <div>
-                        <img src="/sertificate.png" alt="" className="max-h-[211px]" />
-                    </div>
-                    <div>
-                        <img src="/sertificate.png" alt="" className="max-h-[211px]" />
-                    </div>
-                    <div>
-                        <img src="/sertificate.png" alt="" className="max-h-[211px]" />
-                    </div>
-                    <div>
-                        <img src="/sertificate.png" alt="" className="max-h-[211px]" />
-                    </div>
-                    <div>
-                        <img src="/sertificate.png" alt="" className="max-h-[211px]" />
+            {doctor?.certificates.length != 0 ?
+                <div className="mt-20">
+                    <h2 className="text-center text-xl sm:text-4xl text-primary-white dark:text-primary-dark font-bold">
+                        Сертификаты
+                    </h2>
+                    <div className="mt-12 flex flex-col items-center lg:flex-row flex-wrap justify-center gap-6">
+                        {doctor?.certificates.map(url => {
+                            return (
+                                <div>
+                                    <img src={url} alt="" className="max-h-[211px]" />
+                                </div>
+                            )
+                        })}
                     </div>
                 </div>
-            </div>
+                :
+                <></>
+            }
         </div>
     );
 }

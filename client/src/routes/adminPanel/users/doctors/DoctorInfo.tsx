@@ -1,35 +1,55 @@
 import axios from "axios";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import { DoctorsProps } from ".";
 import { useAppSelector } from "../../../../app/hooks";
 import { selectAuth } from "../../../../features/auth/authSlice";
 import { storage } from "../../../../firebase";
+import { CloseButton } from "../../../common/SvgImages";
 
 function DoctorInfo({ selectedDoctor }: DoctorsProps) {
     const [available, setAvailable] = useState<boolean>();
     const [about, setAbout] = useState<string>();
-    const { user } = useAppSelector(selectAuth);
     const [imageUrl, setImageUrl] = useState<string>();
+    const [certificates, setCertificates] = useState<string[]>([]);
+
+    const navigate = useNavigate();
+    const { user } = useAppSelector(selectAuth);
 
     useEffect(() => {
-        console.log(selectedDoctor)
+        console.log(selectedDoctor?.certificates)
         setAvailable(selectedDoctor?.available);
         setAbout(selectedDoctor?.about ? selectedDoctor?.about : undefined);
         setImageUrl(selectedDoctor?.imageUrl ? selectedDoctor?.imageUrl : undefined);
+        setCertificates(selectedDoctor?.certificates ? selectedDoctor?.certificates : []);
     }, [selectedDoctor])
 
     const onChange = (e: any) => {
         setAbout(e.target.value);
     }
 
-    const uploadFile = (imageUpload: File) => {
+    const uploadDoctorImage = (imageUpload: File) => {
         if (imageUpload == null) return;
         const imageRef = ref(storage, `doctors/${imageUpload.name + uuid()}`);
         uploadBytes(imageRef, imageUpload).then((snapshot) => {
             getDownloadURL(snapshot.ref).then((url) => {
                 setImageUrl(url);
+            });
+        });
+    };
+
+    const uploadCertificate = (imageUpload: File) => {
+        if (imageUpload == null) return;
+        const imageRef = ref(storage, `certificates/${imageUpload.name + uuid()}`);
+        uploadBytes(imageRef, imageUpload).then((snapshot) => {
+            getDownloadURL(snapshot.ref).then((url) => {
+                console.log(url)
+                setCertificates((prev: any) => ([
+                    ...prev,
+                    url,
+                ]));
             });
         });
     };
@@ -41,6 +61,7 @@ function DoctorInfo({ selectedDoctor }: DoctorsProps) {
             available,
             about,
             imageUrl,
+            certificates,
         }
 
         const apiUrl = "/api/users/doctors/" + selectedDoctor?.id;
@@ -50,13 +71,22 @@ function DoctorInfo({ selectedDoctor }: DoctorsProps) {
             },
         };
 
-        axios.patch(apiUrl, doctorInfo, config).catch(error => {
-            console.log(error)
-        });
+        axios.patch(apiUrl, doctorInfo, config)
+            .then(_ => {
+                navigate(0)
+            })
+            .catch(error => {
+                console.log(error)
+            });
     }
 
     if (!selectedDoctor) {
         return <div></div>
+    }
+
+    const removeCertificate = (url: string) => {
+        const updatedCertificates = certificates.filter(certificate => certificate !== url);
+        setCertificates(updatedCertificates);
     }
 
     return (
@@ -76,7 +106,7 @@ function DoctorInfo({ selectedDoctor }: DoctorsProps) {
             <input
                 type="file"
                 onChange={(event: any) => {
-                    uploadFile(event.target.files[0]);
+                    uploadDoctorImage(event.target.files[0]);
                 }}
             />
 
@@ -87,6 +117,26 @@ function DoctorInfo({ selectedDoctor }: DoctorsProps) {
             </div>
             <textarea value={about} onChange={onChange} placeholder="О враче" cols={30} rows={7} className="mt-5 px-6 py-2 bg:background-white dark:bg-[#797979] text-primary-white dark:text-primary-dark border-[1px] border-[#353535] dark:border-none rounded-md w-full">
             </textarea>
+
+            <div className="flex flex-col gap-5">
+                {certificates.map(url => {
+                    return (
+                        <div className="relative w-[300px]">
+                            <img src={url} alt="" className="w-[300px] h-[211px]" />
+                            <div className="z-50 absolute right-0 top-0" onClick={() => removeCertificate(url)}>
+                                <CloseButton />
+                            </div>
+                        </div>
+                    )
+                })}
+            </div>
+
+            <input
+                type="file"
+                onChange={(event: any) => {
+                    uploadCertificate(event.target.files[0]);
+                }}
+            />
 
             <button className="mt-6 px-8 py-3 inline-block bg-blue-white dark:bg-blue-dark text-lg text-primary-dark font-semibold drop-shadow-lg rounded-full">
                 Сохранить

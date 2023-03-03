@@ -22,6 +22,7 @@ export type Doctor = User & {
     available: boolean
     about: string
     imageUrl: string
+    certificates: string[]
 }
 
 export type Status = "pending" | "success" | "cancelled"
