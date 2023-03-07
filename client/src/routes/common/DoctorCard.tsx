@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import DoctorProfile from "./DoctorProfile";
 import { Doctor } from "./types";
 
@@ -13,7 +12,9 @@ function DoctorCard({ doctor }: DoctorInfo) {
             <DoctorProfile imageUrl={doctor.imageUrl} />
             <h3 className="mt-3 font-bold text-lg text-blue-white dark:text-blue-dark">{doctor.fullName}</h3>
             <div>
-                <p className="text-primary-white dark:text-primary-dark text-center">Стоматолог-ортопед, стоматолог-хирург</p>
+                <p className="text-primary-white dark:text-primary-dark text-center">{doctor.specialties.map((specialty, index, specialties) => {
+                    return specialty + (index === specialties.length - 1 ? "" : ", ");
+                })}</p>
                 {
                     doctor.startedWorkingFrom ?
                         <p className="text-primary-white dark:text-primary-dark text-center">Общий стаж работы: {workExperience} лет</p>

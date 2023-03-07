@@ -24,6 +24,7 @@ export type Doctor = User & {
     imageUrl: string
     institutions: string[]
     certificates: string[]
+    specialties: string[]
 }
 
 export type Status = "pending" | "success" | "cancelled"

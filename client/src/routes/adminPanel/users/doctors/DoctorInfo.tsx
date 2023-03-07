@@ -19,6 +19,7 @@ function DoctorInfo({ selectedDoctor }: DoctorsProps) {
     const [startedWorkingFrom, setStartedWorkingFrom] = useState<string>();
     const [institutions, setInstitutions] = useState<string[]>([]);
     const [certificates, setCertificates] = useState<string[]>([]);
+    const [specialties, setSpecialties] = useState<string[]>([]);
 
     const navigate = useNavigate();
     const { user } = useAppSelector(selectAuth);
@@ -30,6 +31,7 @@ function DoctorInfo({ selectedDoctor }: DoctorsProps) {
         setStartedWorkingFrom(selectedDoctor?.startedWorkingFrom ? dayjs(selectedDoctor.startedWorkingFrom).format(dateFormat) : dayjs().format(dateFormat));
         setInstitutions(selectedDoctor?.institutions ? selectedDoctor?.institutions : []);
         setCertificates(selectedDoctor?.certificates ? selectedDoctor?.certificates : []);
+        setSpecialties(selectedDoctor?.specialties ? selectedDoctor?.specialties : []);
     }, [selectedDoctor])
 
     const onChange = (e: any) => {
@@ -73,6 +75,7 @@ function DoctorInfo({ selectedDoctor }: DoctorsProps) {
             startedWorkingFrom: dayjs(startedWorkingFrom, dateFormat),
             certificates,
             institutions,
+            specialties,
         }
 
         const apiUrl = "/api/users/doctors/" + selectedDoctor?.id;
@@ -110,6 +113,23 @@ function DoctorInfo({ selectedDoctor }: DoctorsProps) {
         newInstitutions.splice(index, 1);
         console.log(newInstitutions)
         setInstitutions(newInstitutions);
+    }
+
+    const onChangeSpecialty = (e: any, index: number) => {
+        const newSpecialties = [...specialties];
+        newSpecialties[index] = e.target.value;
+        setSpecialties(newSpecialties);
+    }
+
+    const onAddSpecialty = () => {
+        setSpecialties([...specialties, ""]);
+    }
+
+    const onRemoveSpecialty = (index: number) => {
+        const newSpecialties = [...specialties];
+        newSpecialties.splice(index, 1);
+        console.log(newSpecialties)
+        setSpecialties(newSpecialties);
     }
 
     const removeCertificate = (url: string) => {
@@ -156,7 +176,7 @@ function DoctorInfo({ selectedDoctor }: DoctorsProps) {
                     {institutions.map((institution, index) => {
                         return (
                             <div key={index} className="w-[300px] flex gap-3">
-                                <input value={institution} onChange={(e: any) => onInstitutionChange(e, index)} id="duration" type="text" className="block w-full p-2 border-[1px] border-blue-gray-200 rounded-md" />
+                                <input value={institution} onChange={(e: any) => onInstitutionChange(e, index)} id="institution" type="text" className="block w-full p-2 border-[1px] border-blue-gray-200 rounded-md" />
                                 <div onClick={() => onRemoveInstitution(index)}>
                                     <CloseButton />
                                 </div>
@@ -169,6 +189,29 @@ function DoctorInfo({ selectedDoctor }: DoctorsProps) {
             }
             <div className="mt-3 inline-block px-3 py-1 bg-blue-white dark:bg-blue-dark text-primary-dark font-semibold rounded-full hover:cursor-pointer"
                 onClick={onAddInstituion}>
+                Добавить
+            </div>
+            <div>
+                Специальности
+            </div>
+            {specialties ?
+                <div className="mt-3">
+                    {specialties.map((specialty, index) => {
+                        return (
+                            <div key={index} className="w-[300px] flex gap-3">
+                                <input value={specialty} onChange={(e: any) => onChangeSpecialty(e, index)} id="specialty" type="text" className="block w-full p-2 border-[1px] border-blue-gray-200 rounded-md" />
+                                <div onClick={() => onRemoveSpecialty(index)}>
+                                    <CloseButton />
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>
+                :
+                <></>
+            }
+            <div className="mt-3 inline-block px-3 py-1 bg-blue-white dark:bg-blue-dark text-primary-dark font-semibold rounded-full hover:cursor-pointer"
+                onClick={onAddSpecialty}>
                 Добавить
             </div>
             <div>
