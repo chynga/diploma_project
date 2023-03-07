@@ -1,5 +1,6 @@
 package com.example.backend_with_jaxrs.dao;
 
+import com.example.backend_with_jaxrs.models.Doctor;
 import com.example.backend_with_jaxrs.models.Service;
 import com.example.backend_with_jaxrs.utils.CustomException;
 import com.example.backend_with_jaxrs.utils.ErrorCode;
@@ -67,6 +68,34 @@ public class ServiceDAO extends GeneralDAO {
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
         setSqlScriptData(preparedStatement, id);
         executeUpdate(preparedStatement);
+    }
+
+    public ArrayList<Service> getDoctorServices(Long doctorId) throws CustomException {
+        String sqlScript = "SELECT * FROM doctor_services JOIN services ON service_id = services.id " +
+                "WHERE doctor_id = (?)";
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        setSqlScriptData(preparedStatement, doctorId);
+        ResultSet resultSet = executeQuery(preparedStatement);
+
+        return getServicesFromDb(resultSet);
+    }
+
+    public void removeServicesByDoctorId(Long doctorId) throws CustomException {
+        String sqlScript = "DELETE FROM doctor_services " +
+                "WHERE doctor_id = (?)";
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        setSqlScriptData(preparedStatement, doctorId);
+        executeUpdate(preparedStatement);
+    }
+
+    public void addServicesToDoctor(Doctor doctor) throws CustomException {
+        String sqlScript = "";
+        for (Service service : doctor.getServices()) {
+            sqlScript += "INSERT INTO doctor_services (doctor_id, service_id) " +
+                    "VALUES (" + doctor.getId() + ", '" + service.getId() + "');\n";
+        }
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        execute(preparedStatement);
     }
 
     private void setSqlScriptData(PreparedStatement preparedStatement, Service service) throws CustomException {

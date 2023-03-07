@@ -11,6 +11,7 @@ public class Doctor extends User {
     private ArrayList<String> certificates;
     private ArrayList<String> institutions;
     private ArrayList<String> specialties;
+    private ArrayList<Service> services;
 
     public Timestamp getStartedWorkingFrom() {
         return startedWorkingFrom;
@@ -66,5 +67,13 @@ public class Doctor extends User {
 
     public void setSpecialties(ArrayList<String> specialties) {
         this.specialties = specialties;
+    }
+
+    public ArrayList<Service> getServices() {
+        return services;
+    }
+
+    public void setServices(ArrayList<Service> services) {
+        this.services = services;
     }
 }

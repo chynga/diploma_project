@@ -3,6 +3,7 @@ package com.example.backend_with_jaxrs.services;
 import com.example.backend_with_jaxrs.dao.*;
 import com.example.backend_with_jaxrs.models.AppointmentSession;
 import com.example.backend_with_jaxrs.models.Doctor;
+import com.example.backend_with_jaxrs.models.Service;
 import com.example.backend_with_jaxrs.utils.CustomException;
 
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class DoctorService {
         setCertificatesForDoctors(doctors);
         setInstitutionsForDoctors(doctors);
         setSpecialtiesForDoctors(doctors);
+        setServicesForDoctors(doctors);
 
         return doctors;
     }
@@ -34,6 +36,7 @@ public class DoctorService {
         setCertificatesForDoctor(doctor);
         setInstitutionsForDoctor(doctor);
         setSpecialtiesForDoctor(doctor);
+        setServicesForDoctor(doctor);
 
         return doctor;
     }
@@ -43,6 +46,7 @@ public class DoctorService {
         setCertificatesForDoctors(doctors);
         setInstitutionsForDoctors(doctors);
         setSpecialtiesForDoctors(doctors);
+        setServicesForDoctors(doctors);
 
         return doctors;
     }
@@ -55,6 +59,8 @@ public class DoctorService {
         InstitutionDAO.getInstance().addInstitutionsToDoctor(doctor);
         SpecialtyDAO.getInstance().removeSpecialtiesByDoctorId(doctor.getId());
         SpecialtyDAO.getInstance().addSpecialtiesToDoctor(doctor);
+        ServiceDAO.getInstance().removeServicesByDoctorId(doctor.getId());
+        ServiceDAO.getInstance().addServicesToDoctor(doctor);
     }
 
     public ArrayList<AppointmentSession> getDoctorSchedule(Long doctorId) throws CustomException {
@@ -92,5 +98,16 @@ public class DoctorService {
     private void setSpecialtiesForDoctor(Doctor doctor) throws CustomException {
         ArrayList<String> specialties = SpecialtyDAO.getInstance().getDoctorSpecialties(doctor.getId());
         doctor.setSpecialties(specialties);
+    }
+
+    private void setServicesForDoctors(ArrayList<Doctor> doctors) throws CustomException {
+        for (Doctor doctor : doctors) {
+            setServicesForDoctor(doctor);
+        }
+    }
+
+    private void setServicesForDoctor(Doctor doctor) throws CustomException {
+        ArrayList<Service> doctorServices = ServiceDAO.getInstance().getDoctorServices(doctor.getId());
+        doctor.setServices(doctorServices);
     }
 }
