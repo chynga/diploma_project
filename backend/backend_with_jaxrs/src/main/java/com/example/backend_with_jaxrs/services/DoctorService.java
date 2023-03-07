@@ -1,9 +1,6 @@
 package com.example.backend_with_jaxrs.services;
 
-import com.example.backend_with_jaxrs.dao.AppointmentDAO;
-import com.example.backend_with_jaxrs.dao.CertificateDAO;
-import com.example.backend_with_jaxrs.dao.DoctorDAO;
-import com.example.backend_with_jaxrs.dao.InstitutionDAO;
+import com.example.backend_with_jaxrs.dao.*;
 import com.example.backend_with_jaxrs.models.AppointmentSession;
 import com.example.backend_with_jaxrs.models.Doctor;
 import com.example.backend_with_jaxrs.utils.CustomException;
@@ -27,6 +24,7 @@ public class DoctorService {
         ArrayList<Doctor> doctors = DoctorDAO.getInstance().getAvailableDoctors();
         setCertificatesForDoctors(doctors);
         setInstitutionsForDoctors(doctors);
+        setSpecialtiesForDoctors(doctors);
 
         return doctors;
     }
@@ -35,6 +33,7 @@ public class DoctorService {
         Doctor doctor = DoctorDAO.getInstance().getAvailableDoctor(id);
         setCertificatesForDoctor(doctor);
         setInstitutionsForDoctor(doctor);
+        setSpecialtiesForDoctor(doctor);
 
         return doctor;
     }
@@ -43,6 +42,7 @@ public class DoctorService {
         ArrayList<Doctor> doctors = DoctorDAO.getInstance().getDoctors();
         setCertificatesForDoctors(doctors);
         setInstitutionsForDoctors(doctors);
+        setSpecialtiesForDoctors(doctors);
 
         return doctors;
     }
@@ -53,6 +53,8 @@ public class DoctorService {
         CertificateDAO.getInstance().addCertificatesToDoctor(doctor);
         InstitutionDAO.getInstance().removeInstitutionsByDoctorId(doctor.getId());
         InstitutionDAO.getInstance().addInstitutionsToDoctor(doctor);
+        SpecialtyDAO.getInstance().removeSpecialtiesByDoctorId(doctor.getId());
+        SpecialtyDAO.getInstance().addSpecialtiesToDoctor(doctor);
     }
 
     public ArrayList<AppointmentSession> getDoctorSchedule(Long doctorId) throws CustomException {
@@ -79,5 +81,16 @@ public class DoctorService {
     private void setInstitutionsForDoctor(Doctor doctor) throws CustomException {
         ArrayList<String> institutions = InstitutionDAO.getInstance().getDoctorInstitutions(doctor.getId());
         doctor.setInstitutions(institutions);
+    }
+
+    private void setSpecialtiesForDoctors(ArrayList<Doctor> doctors) throws CustomException {
+        for (Doctor doctor : doctors) {
+            setSpecialtiesForDoctor(doctor);
+        }
+    }
+
+    private void setSpecialtiesForDoctor(Doctor doctor) throws CustomException {
+        ArrayList<String> specialties = SpecialtyDAO.getInstance().getDoctorSpecialties(doctor.getId());
+        doctor.setSpecialties(specialties);
     }
 }

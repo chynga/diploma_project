@@ -70,6 +70,7 @@ public class ErrorCode {
 
     public static final ErrorCode SQL_GET_CERTIFICATES = new ErrorCode("SQL_GET_CERTIFICATES");
     public static final ErrorCode SQL_GET_INSTITUTIONS = new ErrorCode("SQL_GET_INSTITUTIONS");
+    public static final ErrorCode SQL_GET_SPECIALTIES = new ErrorCode("SQL_GET_SPECIALTIES");
 
     public ErrorCode() {
         this.message = "SQL error";

@@ -55,15 +55,9 @@ CREATE TABLE IF NOT EXISTS certificates (
 );
 
 CREATE TABLE IF NOT EXISTS specialties (
-    id INTEGER NOT NULL UNIQUE,
-    title VARCHAR(50) NOT NULL UNIQUE
-);
-
-CREATE TABLE IF NOT EXISTS doctor_specialties (
     doctor_id INTEGER NOT NULL,
-    specialty_id INTEGER NOT NULL,
-    FOREIGN KEY (doctor_id) REFERENCES doctors (id) ON DELETE CASCADE,
-    FOREIGN KEY (specialty_id) REFERENCES specialties (id) ON DELETE CASCADE
+    name VARCHAR(100) NOT NULL,
+    FOREIGN KEY (doctor_id) REFERENCES doctors (id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS consultation (
