@@ -3,15 +3,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { DatePicker } from 'antd';
 import dayjs, { Dayjs } from "dayjs";
-import { User, Service, dateFormat, timeFormat, AppointmentSession } from "./types";
+import { Service, dateFormat, timeFormat, AppointmentSession, Doctor } from "./types";
 import { useAppSelector } from "../../app/hooks";
 import { selectAuth } from "../../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 
 function AppointmentForm() {
-    const [doctors, setDoctors] = useState<User[]>([]);
+    const [doctors, setDoctors] = useState<Doctor[]>([]);
     const [services, setServices] = useState<Service[]>([]);
-    const [doctorSchedule, setDoctorSchedule] = useState<AppointmentSession[]>([]);
 
     const [selectedDoctorId, setSelectedDoctorId] = useState<number>();
     const [selectedService, setSelectedService] = useState<Service>();
@@ -28,26 +27,25 @@ function AppointmentForm() {
 
     useEffect(() => {
         axios.get("api/doctors").then((resp) => {
-            const doctors: User[] = resp.data;
+            const doctors: Doctor[] = resp.data;
             setDoctors(doctors);
             if (doctors[0] && !selectedDoctorId) {
                 setSelectedDoctorId(doctors[0].id);
             }
         });
-        axios.get("api/services").then((resp) => {
-            const services: Service[] = resp.data;
-            setServices(services);
-            if (services[0] && !selectedService) {
-                setSelectedService(services[0]);
-            }
-        });
+        if (selectedDoctorId) {
+            axios.get(`api/doctors/${selectedDoctorId}`).then((resp) => {
+                const doctor: Doctor = resp.data;
+                setServices(doctor.services);
+                setSelectedService(doctor.services[0]);
+            });
+        }
         if (selectedDoctorId) {
             axios.get(`api/doctors/${selectedDoctorId}/schedule`).then((resp) => {
                 let sessions: AppointmentSession[] = resp.data;
                 sessions = sessions.filter(session => dayjs(session.time).format(dateFormat) === date);
                 sessions.unshift({ time: dayStart.valueOf(), durationMin: 0 });
                 sessions.push({ time: dayEnd.valueOf(), durationMin: 0 });
-                setDoctorSchedule(sessions);
 
                 let minutesBetweenSessions;
                 let sessionsCount;
@@ -57,11 +55,11 @@ function AppointmentForm() {
                     for (let i = 0; i < sessions.length - 1; i++) {
                         prevTime = sessions[i].time + sessions[i].durationMin * 60 * 1000;
                         minutesBetweenSessions = new Date(sessions[i + 1].time - prevTime).getTime() / (1000 * 60);
-                        sessionsCount = minutesBetweenSessions / selectedService.approxDurationMin | 0; // | 0 -> gets int value: 1.333 -> 1, 3.666 -> 3
+                        sessionsCount = minutesBetweenSessions / (selectedService.approxDurationMin ?? 0) | 0; // | 0 -> gets int value: 1.333 -> 1, 3.666 -> 3
 
                         for (let j = 0; j < sessionsCount; j++) {
                             availableTimes.push(dayjs(prevTime));
-                            prevTime += selectedService.approxDurationMin * 60 * 1000;
+                            prevTime += (selectedService.approxDurationMin ?? 0) * 60 * 1000;
                         }
                     }
 

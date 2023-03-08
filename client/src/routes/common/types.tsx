@@ -1,12 +1,12 @@
 export type Service = {
     id: number
-    title: string
-    description: string
-    approxDurationMin: number
-    approxCost: string
-    imgMainUrl: string
-    imgBeforeUrl: string
-    imgAfterUrl: string
+    title?: string
+    description?: string
+    approxDurationMin?: number
+    approxCost?: string
+    imgMainUrl?: string
+    imgBeforeUrl?: string
+    imgAfterUrl?: string
 }
 
 export type User = {
@@ -25,6 +25,7 @@ export type Doctor = User & {
     institutions: string[]
     certificates: string[]
     specialties: string[]
+    services: Service[]
 }
 
 export type Status = "pending" | "success" | "cancelled"

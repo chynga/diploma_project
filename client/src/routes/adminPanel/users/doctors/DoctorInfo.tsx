@@ -10,7 +10,11 @@ import { useAppSelector } from "../../../../app/hooks";
 import { selectAuth } from "../../../../features/auth/authSlice";
 import { storage } from "../../../../firebase";
 import { CloseButton } from "../../../common/SvgImages";
-import { dateFormat } from "../../../common/types";
+import { dateFormat, Service } from "../../../common/types";
+
+type SelectedService = Service & {
+    checked: boolean
+}
 
 function DoctorInfo({ selectedDoctor }: DoctorsProps) {
     const [available, setAvailable] = useState<boolean>();
@@ -20,6 +24,8 @@ function DoctorInfo({ selectedDoctor }: DoctorsProps) {
     const [institutions, setInstitutions] = useState<string[]>([]);
     const [certificates, setCertificates] = useState<string[]>([]);
     const [specialties, setSpecialties] = useState<string[]>([]);
+    const [services, setServices] = useState<SelectedService[]>([]);
+    // const [selectedServiceIDs, setSelectedServiceIDs] = useState<number[]>([]);
 
     const navigate = useNavigate();
     const { user } = useAppSelector(selectAuth);
@@ -32,6 +38,23 @@ function DoctorInfo({ selectedDoctor }: DoctorsProps) {
         setInstitutions(selectedDoctor?.institutions ? selectedDoctor?.institutions : []);
         setCertificates(selectedDoctor?.certificates ? selectedDoctor?.certificates : []);
         setSpecialties(selectedDoctor?.specialties ? selectedDoctor?.specialties : []);
+        // setSelectedServiceIDs(selectedDoctor && selectedDoctor.services ? selectedDoctor.services.map(service => service.id) : [])
+
+        const apiUrl = "/api/services";
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user?.token}`,
+            },
+        };
+
+        axios.get(apiUrl, config).then((resp) => {
+            let services: SelectedService[] = resp.data;
+            services.forEach(service => {
+                service.checked = selectedDoctor?.services.map(service => service.id).includes(service.id) ?? false;
+            })
+            // selectedDoctor?.services.map(service => service.id).some(id => services.map(service => service.id).includes(id))
+            setServices(services);
+        });
     }, [selectedDoctor])
 
     const onChange = (e: any) => {
@@ -64,39 +87,6 @@ function DoctorInfo({ selectedDoctor }: DoctorsProps) {
             });
         });
     };
-
-    const onSubmit = (e: any) => {
-        e.preventDefault();
-
-        const doctorInfo = {
-            available,
-            about,
-            imageUrl,
-            startedWorkingFrom: dayjs(startedWorkingFrom, dateFormat),
-            certificates,
-            institutions,
-            specialties,
-        }
-
-        const apiUrl = "/api/users/doctors/" + selectedDoctor?.id;
-        const config = {
-            headers: {
-                Authorization: `Bearer ${user?.token}`,
-            },
-        };
-
-        axios.patch(apiUrl, doctorInfo, config)
-            .then(_ => {
-                navigate(0)
-            })
-            .catch(error => {
-                console.log(error)
-            });
-    }
-
-    if (!selectedDoctor) {
-        return <div></div>
-    }
 
     const onInstitutionChange = (e: any, index: number) => {
         const newInstitutions = [...institutions];
@@ -137,6 +127,51 @@ function DoctorInfo({ selectedDoctor }: DoctorsProps) {
         setCertificates(updatedCertificates);
     }
 
+    const handleServicesChange = (index: number) => {
+        const updatedServices = [...services];
+        updatedServices[index].checked = !updatedServices[index].checked;
+        setServices(updatedServices);
+    };
+
+    const onSubmit = (e: any) => {
+        e.preventDefault();
+
+        const selectedServices = services.filter(service => service.checked).map(service => {
+            const { checked, ...rest } = service;
+            return rest;
+        })
+
+        const doctorInfo = {
+            available,
+            about,
+            imageUrl,
+            startedWorkingFrom: dayjs(startedWorkingFrom, dateFormat),
+            certificates,
+            institutions,
+            specialties,
+            services: selectedServices,
+        }
+
+        const apiUrl = "/api/users/doctors/" + selectedDoctor?.id;
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user?.token}`,
+            },
+        };
+
+        axios.patch(apiUrl, doctorInfo, config)
+            .then(_ => {
+                navigate(0)
+            })
+            .catch(error => {
+                console.log(error)
+            });
+    }
+
+    if (!selectedDoctor) {
+        return <div></div>
+    }
+
     return (
         <form onSubmit={onSubmit}>
             <h1 className="font-semibold">{selectedDoctor?.fullName}</h1>
@@ -168,6 +203,34 @@ function DoctorInfo({ selectedDoctor }: DoctorsProps) {
 
             <label htmlFor="date" className="text-sm text-blue-gray-200">Работает с:</label>
             <DatePicker id="date" className="w-full py-2" value={dayjs(startedWorkingFrom, dateFormat)} onChange={onDateChange} format={dateFormat} />
+
+            <div>
+                Услуги
+                {
+                    services.map((service, index) => {
+                        return (
+                            <div key={service.id} className="flex items-center">
+                                <input name="service" id={service.title}
+                                    checked={service.checked}
+                                    onChange={() => handleServicesChange(index)}
+                                    // checked={selectedServiceIDs.some(id => services.map(service => service.id).includes(id))}
+                                    // onChange={() => {
+                                    //     setSelectedServiceIDs((prev: any) => (
+                                    //         [
+                                    //             ...prev,
+                                    //             1
+                                    //         ]
+                                    //     ));
+                                    // }}
+                                    type="checkbox" className="w-4 h-4  border-blue-gray-200 rounded" />
+                                <label htmlFor={service.title} className="ml-1 text-sm text-blue-gray-200">{service.title}</label>
+                                {/* checked={isRoleReceptionChecked} onChange={() => setRoleReceptionChecked(!isRoleReceptionChecked)} */}
+                            </div>
+                        )
+                    })
+                }
+            </div>
+
             <div>
                 Образование
             </div>
