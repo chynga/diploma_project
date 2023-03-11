@@ -26,6 +26,7 @@ function AppointmentForm() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        console.log(1)
         axios.get("api/doctors").then((resp) => {
             const doctors: Doctor[] = resp.data;
             setDoctors(doctors);
@@ -37,7 +38,9 @@ function AppointmentForm() {
             axios.get(`api/doctors/${selectedDoctorId}`).then((resp) => {
                 const doctor: Doctor = resp.data;
                 setServices(doctor.services);
-                setSelectedService(doctor.services[0]);
+                if (!doctor.services.find(service => service.id === selectedService?.id)) {
+                    setSelectedService(doctor.services[0]);
+                }
             });
         }
         if (selectedDoctorId) {
