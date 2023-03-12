@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
+ 
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -29,48 +30,42 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: GroupedListView<Message, DateTime>(
-                padding: const EdgeInsets.all(8),
-                elements: messages,
-                groupBy: (message) => DateTime(
-                    message.date.year, message.date.month, message.date.day),
-                groupHeaderBuilder: (Message message) => const SizedBox(),
-                itemBuilder: (context, Message message) => Align(
-                      alignment: message.inSentByMe
-                          ? Alignment.center
-                          : Alignment.centerLeft,
-                      child: Card(
-                        elevation: 8,
-                        child: Padding(
-                          padding: const EdgeInsets.all(12),
-                          child: Text(message.text),
-                        ),
-                      ),
-                    )),
-          ),
-          Container(
-            color: Colors.grey,
-            child:  TextField(
-              decoration: const InputDecoration(
-                contentPadding: EdgeInsets.all(12),
-                hintText: 'Type your messagee',
-              ),
+      // body: Column(
+      //   children: [
+      //     Expanded(
+      //       child: GroupedListView<Message, DateTime>(
+      //           padding: const EdgeInsets.all(8),
+      //           elements: messages,
+      //           groupBy: (message) => DateTime(
+      //               message.date.year, message.date.month, message.date.day),
+      //           groupHeaderBuilder: (Message message) => const SizedBox(),
+      //           itemBuilder: (context, Message message) => Align(
+      //                 alignment: message.inSentByMe
+      //                     ? Alignment.center
+      //                     : Alignment.centerLeft,
+      //                 child: Card(
+      //                   elevation: 8,
+      //                   
+      //                 ),
+      //               )),
+      //     ),
+      //     Container(
+      //       color: Colors.grey,
+      //       child:  TextField(
+      //        
               
-              onSubmitted: (text) {
-                final message =
-                    Message(text: text, date: DateTime.now(), inSentByMe: true);
+      //         onSubmitted: (text) {
+      //           final message =
+      //               Message(text: text, date: DateTime.now(), inSentByMe: true);
 
-                setState(
-                  () => messages.add(message),
-                );
-              },
-            ),
-          )
-        ],
-      ),
+      //           setState(
+      //             () => messages.add(message),
+      //           );
+      //         },
+      //       ),
+      //     )
+      //   ],
+      // ),
     );
   }
 }

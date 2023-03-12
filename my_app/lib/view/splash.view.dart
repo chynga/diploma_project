@@ -25,6 +25,13 @@ class SplashView extends StatelessWidget {
       ),
     );
   }
+}class MyWidget extends StatelessWidget {
+  const MyWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
 }
 
 class Entering extends StatelessWidget {
