@@ -7,6 +7,7 @@ import { Service, dateFormat, timeFormat, AppointmentSession, Doctor } from "./t
 import { useAppSelector } from "../../app/hooks";
 import { selectAuth } from "../../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
+import { RangePickerProps } from "antd/es/date-picker";
 
 function AppointmentForm() {
     const [doctors, setDoctors] = useState<Doctor[]>([]);
@@ -24,6 +25,11 @@ function AppointmentForm() {
 
     const { user } = useAppSelector(selectAuth);
     const navigate = useNavigate();
+
+    const disabledDate: RangePickerProps['disabledDate'] = (current) => {
+        // Can not select days before today
+        return current && current < dayjs().add(-1, 'day').endOf('day');
+    };
 
     useEffect(() => {
         axios.get("/api/doctors").then((resp) => {
@@ -52,7 +58,7 @@ function AppointmentForm() {
                 let minutesBetweenSessions;
                 let sessionsCount;
                 let prevTime;
-                const availableTimes = [];
+                let availableTimes = [];
                 if (selectedService) {
                     for (let i = 0; i < sessions.length - 1; i++) {
                         prevTime = sessions[i].time + sessions[i].durationMin * 60 * 1000;
@@ -64,6 +70,8 @@ function AppointmentForm() {
                             prevTime += (selectedService.approxDurationMin ?? 0) * 60 * 1000;
                         }
                     }
+
+                    availableTimes = availableTimes.filter(time => time > dayjs())
 
                     setAvailableTimes(availableTimes);
                     setTime(availableTimes[0].format(timeFormat));
@@ -150,7 +158,7 @@ function AppointmentForm() {
                 </div>
             </div>
             <div className="xl:mt-5 xl:flex gap-5">
-                <DatePicker className="w-full py-2" value={dayjs(date, dateFormat)} onChange={onDateChange} format={dateFormat} />
+                <DatePicker className="w-full py-2" value={dayjs(date, dateFormat)} onChange={onDateChange} format={dateFormat} disabledDate={disabledDate} />
                 <select value={time} onChange={onTimeChange} name="time" id="time" className="p-2 border-[1px] border-blue-gray-200 rounded-md w-full">
                     <option value={0} disabled hidden>Please Choose...</option>
                     {availableTimes?.map(time => {
