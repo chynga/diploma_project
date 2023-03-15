@@ -1,10 +1,9 @@
 import axios from "axios";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import AppointmentForm from "../../common/AppointmentForm";
+import AppointmentModal from "../../common/AppointmentModal";
 import DoctorProfile from "../../common/DoctorProfile";
 import ServiceCard from "../../common/ServiceCard";
-import { CloseButton } from "../../common/SvgImages";
 import { Doctor, Service } from "../../common/types";
 
 function DoctorPage() {
@@ -15,13 +14,10 @@ function DoctorPage() {
     const { id } = useParams();
 
     useEffect(() => {
-        axios.get(`/api/services`).then((resp) => {
-            const services: Service[] = resp.data;
-            setServices(services);
-        });
         axios.get(`/api/doctors/${id}`).then((resp) => {
             const doctor: Doctor = resp.data;
             setDoctor(doctor);
+            setServices(doctor.services);
         });
     }, [])
 
@@ -100,25 +96,6 @@ function DoctorPage() {
                 <></>
             }
         </>
-    );
-}
-
-type AppointmentModalProps = {
-    setShowAppointmentForm: Dispatch<SetStateAction<boolean>>
-}
-
-function AppointmentModal({ setShowAppointmentForm }: AppointmentModalProps) {
-    return (
-        <div className="z-30 fixed left-0 top-0 right-0 bottom-0 bg-[rgb(0,0,0)] bg-[rgba(0,0,0,0.4)] flex justify-center items-center">
-            <div className="modal p-5 bg-backgroundSecondary-white dark:bg-background-dark rounded-xl">
-                <div className="flex justify-end">
-                    <div onClick={() => setShowAppointmentForm(false)}>
-                        <CloseButton />
-                    </div>
-                </div>
-                <AppointmentForm />
-            </div>
-        </div>
     );
 }
 

@@ -26,7 +26,7 @@ function AppointmentForm() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get("api/doctors").then((resp) => {
+        axios.get("/api/doctors").then((resp) => {
             const doctors: Doctor[] = resp.data;
             setDoctors(doctors);
             if (doctors[0] && !selectedDoctorId) {
@@ -34,7 +34,7 @@ function AppointmentForm() {
             }
         });
         if (selectedDoctorId) {
-            axios.get(`api/doctors/${selectedDoctorId}`).then((resp) => {
+            axios.get(`/api/doctors/${selectedDoctorId}`).then((resp) => {
                 const doctor: Doctor = resp.data;
                 setServices(doctor.services);
                 if (!doctor.services.find(service => service.id === selectedService?.id)) {
@@ -43,7 +43,7 @@ function AppointmentForm() {
             });
         }
         if (selectedDoctorId) {
-            axios.get(`api/doctors/${selectedDoctorId}/schedule`).then((resp) => {
+            axios.get(`/api/doctors/${selectedDoctorId}/schedule`).then((resp) => {
                 let sessions: AppointmentSession[] = resp.data;
                 sessions = sessions.filter(session => dayjs(session.time).format(dateFormat) === date);
                 sessions.unshift({ time: dayStart.valueOf(), durationMin: 0 });

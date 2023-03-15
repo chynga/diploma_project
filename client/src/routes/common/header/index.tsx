@@ -198,7 +198,7 @@ function Navbar({ showNav }: NavbarProps) {
                     <li>
                         <Link to="/services">
                             <TextLg>
-                                <span className={`${useLocation().pathname === "/services" ? "text-[rgba(39,127,242,0.7)] drop-shadow-[0_0_5px_rgba(39,127,242,0.7)] dark:text-primary-dark dark:drop-shadow-[0_0_5px_#FFFFFF]" : ""}`}>
+                                <span className={`${useLocation().pathname.includes("/services") ? "text-[rgba(39,127,242,0.7)] drop-shadow-[0_0_5px_rgba(39,127,242,0.7)] dark:text-primary-dark dark:drop-shadow-[0_0_5px_#FFFFFF]" : ""}`}>
                                     {t('service:title')}
                                 </span>
                             </TextLg>
@@ -207,7 +207,7 @@ function Navbar({ showNav }: NavbarProps) {
                     <li>
                         <Link to="/doctors">
                             <TextLg>
-                                <span className={`${useLocation().pathname === "/doctors" ? "text-[rgba(39,127,242,0.7)] drop-shadow-[0_0_5px_rgba(39,127,242,0.7)] dark:text-primary-dark dark:drop-shadow-[0_0_5px_#FFFFFF]" : ""}`}>
+                                <span className={`${useLocation().pathname.includes("/doctors") ? "text-[rgba(39,127,242,0.7)] drop-shadow-[0_0_5px_rgba(39,127,242,0.7)] dark:text-primary-dark dark:drop-shadow-[0_0_5px_#FFFFFF]" : ""}`}>
                                     {t('doctor:title')}
                                 </span>
                             </TextLg>
