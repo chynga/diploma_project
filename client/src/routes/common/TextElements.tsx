@@ -12,6 +12,14 @@ function Text4Xl({ children, className, blue = false }: TextProps) {
     );
 }
 
+function Text3Xl({ children, className, blue = false }: TextProps) {
+    return (
+        <span className={`text-3xl text-${blue ? 'blue' : 'primary'}-white dark:text-${blue ? 'blue' : 'primary'}-dark ${className}`}>
+            {children}
+        </span>
+    );
+}
+
 function Text2Xl({ children, className, blue = false }: TextProps) {
     return (
         <span className={`text-2xl text-${blue ? 'blue' : 'primary'}-white dark:text-${blue ? 'blue' : 'primary'}-dark ${className}`}>
@@ -46,6 +54,7 @@ function TextBase({ children, className, blue = false }: TextProps) {
 
 export {
     Text4Xl,
+    Text3Xl,
     Text2Xl,
     TextXl,
     TextLg,
