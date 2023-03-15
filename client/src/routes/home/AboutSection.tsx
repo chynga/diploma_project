@@ -1,3 +1,6 @@
+import { Link } from "react-router-dom";
+import { Text4Xl, TextBase, TextXl } from "../common/TextElements";
+
 type PromiseContent = {
     title: string,
     text: string,
@@ -6,9 +9,13 @@ type PromiseContent = {
 function AboutSection() {
     return (
         <div className="px-20">
-            <h2 className="mt-12 text-center text-xl sm:text-4xl text-primary-white dark:text-primary-dark font-bold">
-                О нас
-            </h2>
+            <div className="mt-12 text-center">
+                <Text4Xl>
+                    <h2 className="font-bold">
+                        О нас
+                    </h2>
+                </Text4Xl>
+            </div>
             <div className="mt-12 flex justify-center">
                 <div className="hidden lg:block w-[40vw] flex justify-center content-center">
                     <DoctorSvg />
@@ -23,8 +30,14 @@ function AboutSection() {
                     <Promise title="Стоимость фиксируется во время осмотра"
                         text="Наши доктора всегда информируют пациентов об окончательной стоимости до начала лечения" />
                     <div className="my-16 text-center lg:text-start">
-                        <a className="px-8 py-3 bg-blue-white dark:bg-blue-dark text-lg text-primary-dark font-semibold drop-shadow-lg rounded-full"
-                            href="#">Подробнее</a>
+                        <Link className="px-8 py-3 bg-blue-white dark:bg-blue-dark text-lg text-primary-dark font-semibold drop-shadow-lg rounded-full"
+                            to={"/about"}>
+                            <TextBase>
+                                <span className="font-bold text-primary-dark">
+                                    Подробнее
+                                </span>
+                            </TextBase>
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -35,8 +48,12 @@ function AboutSection() {
 function Promise({ title, text }: PromiseContent) {
     return (
         <div>
-            <h3 className="mt-3 font-bold text-center lg:text-start text-lg text-blue-white dark:text-blue-dark">{title}</h3>
-            <p className="text-center lg:text-start text-primary-white dark:text-primary-dark">{text}</p>
+            <TextXl blue>
+                <h3 className="mt-3 font-bold text-center lg:text-start">{title}</h3>
+            </TextXl>
+            <TextBase>
+                <p className="text-center lg:text-start">{text}</p>
+            </TextBase>
             <div className="flex justify-center lg:block">
                 <TeethSvg />
             </div>

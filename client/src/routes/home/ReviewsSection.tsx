@@ -1,19 +1,25 @@
 import LinkButton from "../common/LinkButton";
-import ReviewCard from "../common/ReviewCard";
 import { Star } from "../common/SvgImages";
+import { Text4Xl, TextBase, TextXl } from "../common/TextElements";
 
 function ReviewsSection() {
     return (
         <div className="py-12 px-20">
-            <h2 className="text-xl sm:text-4xl text-blue-white dark:text-blue-dark font-bold">
-                Отзывы
-            </h2>
+            <Text4Xl blue>
+                <h2 className="font-bold">
+                    Отзывы
+                </h2>
+            </Text4Xl>
 
             <div className="mt-16">
                 <div className="mt-5 relative" >
                     <div className="px-8 pb-5 max-w-[936px] min-h-[120px] border-[1px] border-blue-white dark:border-blue-dark rounded-2xl">
-                        <h3 className="mt-3 font-bold text-lg text-primary-white dark:text-primary-dark">Ольга</h3>
-                        <p className="font-light text-primary-white dark:text-primary-dark">Отличная клиника ! Всё чисто, аккуратно и очень дружлюбный отзывчивый персонал, начиная с девушки-администратора </p>
+                        <TextXl>
+                            <h3 className="mt-3 font-medium">Ольга</h3>
+                        </TextXl>
+                        <TextBase>
+                            <p className="font-light">Отличная клиника ! Всё чисто, аккуратно и очень дружлюбный отзывчивый персонал, начиная с девушки-администратора </p>
+                        </TextBase>
                         <div className="flex gap-3 mt-2">
                             <Star filled />
                             <Star filled />
@@ -25,8 +31,12 @@ function ReviewsSection() {
                 </div>
                 <div className="mt-5 relative">
                     <div className="px-8 pb-5 max-w-[936px] min-h-[120px] border-[1px] border-blue-white dark:border-blue-dark rounded-2xl">
-                        <h3 className="mt-3 font-bold text-lg text-primary-white dark:text-primary-dark">Ольга</h3>
-                        <p className="font-light text-primary-white dark:text-primary-dark">Отличная клиника ! Всё чисто, аккуратно и очень дружлюбный отзывчивый персонал, начиная с девушки-администратора </p>
+                        <TextXl>
+                            <h3 className="mt-3 font-medium">Ольга</h3>
+                        </TextXl>
+                        <TextBase>
+                            <p className="font-light">Отличная клиника ! Всё чисто, аккуратно и очень дружлюбный отзывчивый персонал, начиная с девушки-администратора </p>
+                        </TextBase>
                         <div className="flex gap-3 mt-2">
                             <Star filled />
                             <Star filled />

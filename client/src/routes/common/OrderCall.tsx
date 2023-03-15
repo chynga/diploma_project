@@ -1,8 +1,5 @@
 import axios from "axios";
 import { Dispatch, SetStateAction, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../app/hooks";
-import { selectAuth } from "../../features/auth/authSlice";
 import FormGroup from "./authModal/FormGroup";
 import { CloseButton, PhoneSvg } from "./SvgImages";
 import { nameRegex, phoneRegex, state } from "./util";
@@ -13,14 +10,8 @@ type OrderCallProps = {
 }
 
 export function OrderCallButton({ setShowOrderCall }: OrderCallProps) {
-    const { user } = useAppSelector(selectAuth);
-
     const onClick = () => {
         setShowOrderCall(true);
-    }
-
-    if (!user?.roles?.includes("CLIENT")) {
-        return <></>
     }
 
     return (
@@ -34,23 +25,16 @@ export function OrderCallButton({ setShowOrderCall }: OrderCallProps) {
 export function OrderCallForm({ showOrderCall, setShowOrderCall }: OrderCallProps) {
     const [fullName, setFullName] = useState(state);
     const [phone, setPhone] = useState(state);
-    const { user } = useAppSelector(selectAuth);
 
     const onSubmit = (e: any) => {
         e.preventDefault();
-
-        const config = {
-            headers: {
-                Authorization: `Bearer ${user?.token}`,
-            },
-        };
 
         const credentials = {
             fullName: fullName.value,
             phoneNumber: phone.value
         }
 
-        axios.post("/api/ordered-calls", credentials, config)
+        axios.post("/api/ordered-calls", credentials)
             .catch(error => {
                 console.log(error);
             })
@@ -59,7 +43,7 @@ export function OrderCallForm({ showOrderCall, setShowOrderCall }: OrderCallProp
             });
     }
 
-    if (!showOrderCall || !user?.roles?.includes("CLIENT")) {
+    if (!showOrderCall) {
         return <></>
     }
 

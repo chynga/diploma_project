@@ -1,4 +1,5 @@
 import AppointmentForm from "../common/AppointmentForm";
+import { Text2Xl, Text4Xl } from "../common/TextElements";
 import ServiceSection from "../home/ServicesSection";
 
 function ServicesPage() {
@@ -6,10 +7,16 @@ function ServicesPage() {
         <div>
             <ServiceSection />
             <section className="py-12 px-20">
-                <h3 className="text-center font-bold text-lg text-blue-white dark:text-blue-dark">Вас беспокоит боль в полости рта? Запишитесь!</h3>
-                <h2 className="mt-10 text-xl text-center sm:text-4xl text-blue-white dark:text-blue-dark font-bold">
-                    Записаться
-                </h2>
+                <Text2Xl blue>
+                    <p className="text-center font-bold">
+                        Вас беспокоит боль в полости рта? Запишитесь!
+                    </p>
+                </Text2Xl>
+                <Text4Xl blue>
+                    <h2 className="mt-10 text-center font-bold">
+                        Записаться
+                    </h2>
+                </Text4Xl>
                 <div className="flex justify-center">
                     <div className="max-w-[764px]">
                         <AppointmentForm />

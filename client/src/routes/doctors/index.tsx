@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import DoctorCard from "../common/DoctorCard";
 import LinkButton from "../common/LinkButton";
+import { Text4Xl } from "../common/TextElements";
 import { Doctor } from "../common/types";
 
 function DoctorsPage() {
@@ -18,9 +19,11 @@ function DoctorsPage() {
 
     return (
         <div className="p-20">
-            <h2 className="text-xl sm:text-4xl text-center text-primary-white dark:text-primary-dark font-bold">
-                Наши специалисты
-            </h2>
+            <Text4Xl>
+                <h2 className="text-center font-bold">
+                    Наши специалисты
+                </h2>
+            </Text4Xl>
 
             <div className="mt-10 flex flex-wrap justify-center items-center gap-x-20 gap-y-6">
                 {doctors.map(doctor => {

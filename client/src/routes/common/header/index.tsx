@@ -40,19 +40,35 @@ function Header() {
     };
 
     return (
-        <header className="mb-[64px] lg:mb-[136px]">
-            <div className="shadow-lg fixed z-20 top-0 bg-background-white dark:bg-background-dark w-full">
+        <header className="mt-[64px] lg:mt-[163px]">
+            <div className="shadow-lg fixed z-30 top-0 bg-background-white dark:bg-background-dark w-full">
                 <div className="lg:px-8 p-3 lg:pt-5 flex justify-between items-center">
                     <Link to={"/"}>
                         <Logo fill={"blue"} className={"w-[100px] md:w-auto"} />
                     </Link>
                     <div className="hidden lg:block">
-                        <TextBase className="font-light">Пн - Пт: 9:00 - 19:00</TextBase>
-                        <TextBase className="font-light">Сб - Вс: 9:00 - 15:00</TextBase>
+                        <TextBase>
+                            <div className="font-light">
+                                Пн - Пт: 9:00 - 19:00
+                            </div>
+                        </TextBase>
+                        <TextBase>
+                            <div className="font-light">
+                                Сб - Вс: 9:00 - 15:00
+                            </div>
+                        </TextBase>
                     </div>
                     <div className="hidden lg:block">
-                        <TextBase className="font-light">+7-707-81090-27</TextBase>
-                        <TextBase className="font-light">+7-707-81090-27</TextBase>
+                        <TextBase>
+                            <div className="font-light">
+                                +7-707-81090-27
+                            </div>
+                        </TextBase>
+                        <TextBase>
+                            <div className="font-light">
+                                +7-707-81090-27
+                            </div>
+                        </TextBase>
                     </div>
                     <div className="flex gap-3 lg:gap-5 items-center">
                         <div className="hover:cursor-pointer" onClick={toggleTheme} id="theme-toggle">
@@ -126,9 +142,10 @@ function Header() {
                                         </Link> :
                                         <></>
                                     }
-                                    <div className="text-base text-red-400"
-                                        onClick={onLogout}>
-                                        Выйти
+                                    <div onClick={onLogout}>
+                                        <TextBase>
+                                            <div className="text-red-400">Выйти</div>
+                                        </TextBase>
                                     </div>
                                 </div>
                                 :
@@ -162,49 +179,49 @@ function Navbar({ showNav }: NavbarProps) {
                 <ul className="flex flex-col lg:flex-row justify-center gap-3 lg:gap-16">
                     <li>
                         <Link to="/" className="block">
-                            <TextLg className="text-[#353535]">
+                            <TextLg>
                                 {t('home:title')}
                             </TextLg>
                         </Link>
                     </li>
                     <li>
                         <Link to="/about" className="block">
-                            <TextLg className="text-[#353535]">
+                            <TextLg>
                                 {t('about:title')}
                             </TextLg>
                         </Link>
                     </li>
                     <li>
                         <Link to="/services" className="block">
-                            <TextLg className="text-[#353535]">
+                            <TextLg>
                                 {t('service:title')}
                             </TextLg>
                         </Link>
                     </li>
                     <li>
                         <Link to="/doctors" className="block">
-                            <TextLg className="text-[#353535]">
+                            <TextLg>
                                 {t('doctor:title')}
                             </TextLg>
                         </Link>
                     </li>
                     <li>
                         <Link to="/reviews" className="block">
-                            <TextLg className="text-[#353535]">
+                            <TextLg>
                                 {t('review:title')}
                             </TextLg>
                         </Link>
                     </li>
                     <li>
                         <Link to="/advices" className="block">
-                            <TextLg className="text-[#353535]">
+                            <TextLg>
                                 {t('advice:title')}
                             </TextLg>
                         </Link>
                     </li>
                     <li>
                         <Link to="/vacancy" className="block">
-                            <TextLg className="text-[#353535]">
+                            <TextLg>
                                 {t('vacancy:title')}
                             </TextLg>
                         </Link>

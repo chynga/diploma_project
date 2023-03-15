@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
 import { selectAuth } from "../../features/auth/authSlice";
 import ReviewCard from "../common/ReviewCard";
+import { Text4Xl, TextBase } from "../common/TextElements";
 import { Review } from "../common/types";
 import Rating from "./Rating";
 
@@ -73,16 +74,20 @@ function ReviewForm() {
 
     return (
         <form className="pb-20" onSubmit={onSubmit}>
-            <h2 className="text-xl sm:text-4xl text-primary-white dark:text-[#797979] font-bold">
-                Оставьте отзыв
-            </h2>
+            <Text4Xl>
+                <h2 className="text-primary-white dark:text-[#797979] font-bold">
+                    Оставьте отзыв
+                </h2>
+            </Text4Xl>
             <textarea value={body} onChange={onChange} placeholder="Отзыв..." cols={30} rows={7} className="mt-5 px-6 py-2 bg:background-white dark:bg-[#797979] text-primary-white dark:text-primary-dark border-[1px] border-[#353535] dark:border-none rounded-md w-full">
 
             </textarea>
             <Rating rating={rating} setRating={setRating} />
-            <button className="mt-6 px-8 py-3 inline-block bg-blue-white dark:bg-blue-dark text-lg text-primary-dark font-semibold drop-shadow-lg rounded-full">
-                Отправить
-            </button>
+            <TextBase>
+                <button className="mt-6 px-8 py-3 inline-block bg-blue-white dark:bg-blue-dark text-primary-dark font-bold drop-shadow-lg rounded-full">
+                    Отправить
+                </button>
+            </TextBase>
         </form>
     );
 }

@@ -1,12 +1,15 @@
 import { Link } from "react-router-dom";
 import LinkButton from "../common/LinkButton";
+import { Text4Xl, TextBase, TextXl } from "../common/TextElements";
 
 function AdvicesSection() {
     return (
         <div className="py-16 px-20 xl:h-[730px]">
-            <h2 className="mt-12 text-center text-xl sm:text-4xl text-primary-white dark:text-primary-dark font-bold">
-                Советы
-            </h2>
+            <Text4Xl>
+                <h2 className="mt-12 text-center font-bold">
+                    Советы
+                </h2>
+            </Text4Xl>
             <div className="relative flex flex-col items-center gap-1">
                 <div className="xl:absolute left-0 top-24">
                     <AdviceCard title="Только одна щетка" text="Нельзя использовать одну зубную щетку для нескольких членов семьи." />
@@ -37,14 +40,18 @@ function AdviceCard({ title, text }: Advice) {
     return (
         <Link to={"/"}>
             <div className="mt-5 px-8 pb-5 max-w-[443px] min-h-[120px] border-[1px] border-blue-white dark:border-blue-dark rounded-2xl">
-                <h3 className="mt-3 font-bold text-lg text-primary-white dark:text-primary-dark">{title}</h3>
-                <p className="font-light text-primary-white dark:text-primary-dark">{text}</p>
+                <TextXl>
+                    <h3 className="mt-3 font-bold">{title}</h3>
+                </TextXl>
+                <TextBase>
+                    <p>{text}</p>
+                </TextBase>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M13 17L18 12L13 7" stroke="#7A95B9" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     <path d="M6 17L11 12L6 7" stroke="#7A95B9" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
             </div>
-        </Link>
+        </Link >
     );
 }
 

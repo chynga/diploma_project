@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import DoctorCard from "../common/DoctorCard";
 import LinkButton from "../common/LinkButton";
+import { Text4Xl } from "../common/TextElements";
 import { Doctor } from "../common/types";
 
 function DoctorsSection() {
@@ -18,9 +19,11 @@ function DoctorsSection() {
 
     return (
         <div className="py-20 px-20">
-            <h2 className="text-center text-xl sm:text-4xl text-blue-white dark:text-blue-dark font-bold">
-                Врачи
-            </h2>
+            <Text4Xl blue>
+                <h2 className="text-center font-bold">
+                    Врачи
+                </h2>
+            </Text4Xl>
             <div className="mt-5 flex flex-col items-center xl:flex-row justify-around">
                 {doctors.map(doctor => {
                     return (

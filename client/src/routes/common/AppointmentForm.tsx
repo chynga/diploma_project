@@ -26,7 +26,6 @@ function AppointmentForm() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log(1)
         axios.get("api/doctors").then((resp) => {
             const doctors: Doctor[] = resp.data;
             setDoctors(doctors);
@@ -102,7 +101,6 @@ function AppointmentForm() {
     const onSubmit = (e: any) => {
         e.preventDefault();
         let timeStr = date + ' ' + time + ":00";
-        console.log(timeStr)
         const format = dateFormat + " " + timeFormat;
         const appointmentTime = dayjs(timeStr, format);
         const appointment = {
@@ -117,7 +115,7 @@ function AppointmentForm() {
                 Authorization: `Bearer ${user?.token}`,
             },
         };
-        console.log(appointment)
+
         axios.post("/api/profile/appointments", appointment, config)
             .then(() => {
                 navigate(0);

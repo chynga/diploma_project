@@ -1,4 +1,5 @@
 import AppointmentForm from "../common/AppointmentForm";
+import { Text4Xl } from "../common/TextElements";
 
 function AppointmentSection() {
     return (
@@ -7,9 +8,11 @@ function AppointmentSection() {
                 <DoctorSvg />
             </div>
             <div className="max-w-[400px] xl:max-w-none w-full xl:w-[736px]">
-                <h2 className="text-xl text-center xl:text-start sm:text-4xl text-primary-white dark:text-primary-dark font-bold">
-                    Записаться
-                </h2>
+                <Text4Xl blue>
+                    <h2 className="text-center xl:text-start font-bold">
+                        Записаться
+                    </h2>
+                </Text4Xl>
                 <AppointmentForm />
             </div>
         </div>

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { TextBase } from "./TextElements";
 
 type LinkButton = {
     to: string,
@@ -8,9 +9,11 @@ type LinkButton = {
 function LinkButton({ to, text }: LinkButton) {
     return (
         <Link to={to}>
-            <div className="px-8 py-3 inline-block bg-blue-white dark:bg-blue-dark text-lg text-primary-dark font-semibold drop-shadow-lg rounded-full">
-                {text}
-            </div>
+            <TextBase>
+                <div className="px-8 py-3 font-bold inline-block bg-blue-white dark:bg-blue-dark text-primary-dark drop-shadow-lg rounded-full">
+                    {text}
+                </div>
+            </TextBase>
         </Link>
     );
 }
