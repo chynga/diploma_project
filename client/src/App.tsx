@@ -28,7 +28,7 @@ function App() {
         <div className="App bg-background-white dark:bg-background-dark">
             <Router>
                 <Header />
-                <div className="fixed right-20 bottom-20">
+                <div className="fixed z-50 right-20 bottom-20">
                     <OrderCallButton setShowOrderCall={setShowOrderCall} />
                 </div>
                 <OrderCallForm showOrderCall={showOrderCall} setShowOrderCall={setShowOrderCall} />

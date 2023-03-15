@@ -178,57 +178,71 @@ function Navbar({ showNav }: NavbarProps) {
             <div className={`${showNav ? "fixed" : "hidden"} lg:static lg:block shadow-lg lg:shadow-none px-5 pt-5 pb-20 lg:py-2.5 max-w-[400px] lg:max-w-none overflow-auto w-full right-0 bottom-0 h-[calc(100vh_-_61px)] lg:h-auto bg-background-white dark:bg-background-dark`}>
                 <ul className="flex flex-col lg:flex-row justify-center gap-3 lg:gap-16">
                     <li>
-                        <Link to="/" className="block">
+                        <Link to="/">
                             <TextLg>
-                                {t('home:title')}
+                                <span className={`${useLocation().pathname === "/" ? "text-[rgba(39,127,242,0.7)] drop-shadow-[0_0_5px_rgba(39,127,242,0.7)] dark:text-primary-dark dark:drop-shadow-[0_0_5px_#FFFFFF]" : ""}`}>
+                                    {t('home:title')}
+                                </span>
                             </TextLg>
                         </Link>
                     </li>
                     <li>
-                        <Link to="/about" className="block">
+                        <Link to="/about">
                             <TextLg>
-                                {t('about:title')}
+                                <span className={`${useLocation().pathname === "/about" ? "text-[rgba(39,127,242,0.7)] drop-shadow-[0_0_5px_rgba(39,127,242,0.7)] dark:text-primary-dark dark:drop-shadow-[0_0_5px_#FFFFFF]" : ""}`}>
+                                    {t('about:title')}
+                                </span>
                             </TextLg>
                         </Link>
                     </li>
                     <li>
-                        <Link to="/services" className="block">
+                        <Link to="/services">
                             <TextLg>
-                                {t('service:title')}
+                                <span className={`${useLocation().pathname === "/services" ? "text-[rgba(39,127,242,0.7)] drop-shadow-[0_0_5px_rgba(39,127,242,0.7)] dark:text-primary-dark dark:drop-shadow-[0_0_5px_#FFFFFF]" : ""}`}>
+                                    {t('service:title')}
+                                </span>
                             </TextLg>
                         </Link>
                     </li>
                     <li>
-                        <Link to="/doctors" className="block">
+                        <Link to="/doctors">
                             <TextLg>
-                                {t('doctor:title')}
+                                <span className={`${useLocation().pathname === "/doctors" ? "text-[rgba(39,127,242,0.7)] drop-shadow-[0_0_5px_rgba(39,127,242,0.7)] dark:text-primary-dark dark:drop-shadow-[0_0_5px_#FFFFFF]" : ""}`}>
+                                    {t('doctor:title')}
+                                </span>
                             </TextLg>
                         </Link>
                     </li>
                     <li>
-                        <Link to="/reviews" className="block">
+                        <Link to="/reviews">
                             <TextLg>
-                                {t('review:title')}
+                                <span className={`${useLocation().pathname === "/reviews" ? "text-[rgba(39,127,242,0.7)] drop-shadow-[0_0_5px_rgba(39,127,242,0.7)] dark:text-primary-dark dark:drop-shadow-[0_0_5px_#FFFFFF]" : ""}`}>
+                                    {t('review:title')}
+                                </span>
                             </TextLg>
                         </Link>
                     </li>
                     <li>
-                        <Link to="/advices" className="block">
+                        <Link to="/advices">
                             <TextLg>
-                                {t('advice:title')}
+                                <span className={`${useLocation().pathname === "/advices" ? "text-[rgba(39,127,242,0.7)] drop-shadow-[0_0_5px_rgba(39,127,242,0.7)] dark:text-primary-dark dark:drop-shadow-[0_0_5px_#FFFFFF]" : ""}`}>
+                                    {t('advice:title')}
+                                </span>
                             </TextLg>
                         </Link>
                     </li>
                     <li>
-                        <Link to="/vacancy" className="block">
+                        <Link to="/vacancy">
                             <TextLg>
-                                {t('vacancy:title')}
+                                <span className={`${useLocation().pathname === "/vacancy" ? "text-[rgba(39,127,242,0.7)] drop-shadow-[0_0_5px_rgba(39,127,242,0.7)] dark:text-primary-dark dark:drop-shadow-[0_0_5px_#FFFFFF]" : ""}`}>
+                                    {t('vacancy:title')}
+                                </span>
                             </TextLg>
                         </Link>
                     </li>
                 </ul>
             </div>
-        </div>
+        </div >
     );
 }
 
