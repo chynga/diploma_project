@@ -9,11 +9,15 @@ import { selectAuth } from "../../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import { RangePickerProps } from "antd/es/date-picker";
 
-function AppointmentForm() {
+type AppointmentFormProps = {
+    doctorId?: number
+}
+
+function AppointmentForm({ doctorId = 0 }: AppointmentFormProps) {
     const [doctors, setDoctors] = useState<Doctor[]>([]);
     const [services, setServices] = useState<Service[]>([]);
 
-    const [selectedDoctorId, setSelectedDoctorId] = useState<number>();
+    const [selectedDoctorId, setSelectedDoctorId] = useState<number>(doctorId ? doctorId : 0);
     const [selectedService, setSelectedService] = useState<Service>();
     const [date, setDate] = useState<string>(dayjs().format(dateFormat));
     const [time, setTime] = useState<string>();

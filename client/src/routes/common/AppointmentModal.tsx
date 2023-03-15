@@ -4,9 +4,10 @@ import { CloseButton } from "./SvgImages";
 
 type AppointmentModalProps = {
     setShowAppointmentForm: Dispatch<SetStateAction<boolean>>
+    doctorId?: number
 }
 
-function AppointmentModal({ setShowAppointmentForm }: AppointmentModalProps) {
+function AppointmentModal({ setShowAppointmentForm, doctorId = 0 }: AppointmentModalProps) {
     return (
         <div className="z-30 fixed left-0 top-0 right-0 bottom-0 bg-[rgb(0,0,0)] bg-[rgba(0,0,0,0.4)] flex justify-center items-center">
             <div className="modal p-5 bg-backgroundSecondary-white dark:bg-background-dark rounded-xl">
@@ -15,7 +16,7 @@ function AppointmentModal({ setShowAppointmentForm }: AppointmentModalProps) {
                         <CloseButton />
                     </div>
                 </div>
-                <AppointmentForm />
+                <AppointmentForm doctorId={doctorId} />
             </div>
         </div>
     );

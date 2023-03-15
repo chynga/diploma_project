@@ -91,7 +91,7 @@ function DoctorPage() {
                 }
             </div>
             {showAppointmentForm ?
-                <AppointmentModal setShowAppointmentForm={setShowAppointmentForm} />
+                <AppointmentModal setShowAppointmentForm={setShowAppointmentForm} doctorId={parseInt(id ? id : "")} />
                 :
                 <></>
             }
