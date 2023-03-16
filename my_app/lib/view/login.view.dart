@@ -81,16 +81,15 @@ class LogUp extends StatelessWidget {
             padding: const EdgeInsets.all(15.0),
             child: Column(
               children: [
+                 const SizedBox(height: 8),
+                const Registration(),
+                const SizedBox(height: 2),
                 const SizedBox(height: 40),
                 Image.asset(
                   'assets/images/logo.png',
                   height: 50,
                 ),
-                const SizedBox(height: 10),
-                Image.asset(
-                  'assets/images/woman.png',
-                  height: 70,
-                ),
+               
                 const SizedBox(height: 8),
                 const Registration(),
                 const SizedBox(height: 2),
