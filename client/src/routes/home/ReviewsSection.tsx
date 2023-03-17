@@ -1,13 +1,16 @@
+import { useTranslation } from "react-i18next";
 import LinkButton from "../common/LinkButton";
 import { Star } from "../common/SvgImages";
 import { Text4Xl, TextBase, TextXl } from "../common/TextElements";
 
 function ReviewsSection() {
+    const { t } = useTranslation(["kz", "ru"]);
+
     return (
         <div className="py-12 px-20">
             <Text4Xl blue>
                 <h2 className="font-bold">
-                    Отзывы
+                    {t('home:review:title')}
                 </h2>
             </Text4Xl>
 
@@ -53,7 +56,7 @@ function ReviewsSection() {
             </div>
 
             <div className="py-16">
-                <LinkButton to={"/reviews"} text={"Прочитать больше"} />
+                <LinkButton to={"/reviews"} text={t('home:review:more')} />
             </div>
         </div >
     );

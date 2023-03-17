@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { Text4Xl, TextBase, TextXl } from "../common/TextElements";
 
@@ -7,12 +8,14 @@ type PromiseContent = {
 }
 
 function AboutSection() {
+    const { t } = useTranslation(["kz", "ru"]);
+
     return (
         <div className="px-20">
             <div className="mt-12 text-center">
                 <Text4Xl>
                     <h2 className="font-bold">
-                        О нас
+                        {t('home:about:title')}
                     </h2>
                 </Text4Xl>
             </div>
@@ -21,20 +24,20 @@ function AboutSection() {
                     <DoctorSvg />
                 </div>
                 <div className="lg:w-[40vw]">
-                    <Promise title="Лечение зубы без боли в комфортной обстановке"
-                        text="Лечение проводится с применением качественных и эффективных анестетиков" />
-                    <Promise title="Даем гарантию на все виды услуг"
-                        text="Используем только качественные материалы, поэтому даем гарантию на 12 месяцев" />
-                    <Promise title="Стараемя вылечить зуб, а не удалять"
-                        text="Удаление зуба всегда является крайней мерой. Мы стараемся сохранить зубы" />
-                    <Promise title="Стоимость фиксируется во время осмотра"
-                        text="Наши доктора всегда информируют пациентов об окончательной стоимости до начала лечения" />
+                    <Promise title={t('home:about:reason:first:title')}
+                        text={t('home:about:reason:first:description')} />
+                    <Promise title={t('home:about:reason:second:title')}
+                        text={t('home:about:reason:second:description')} />
+                    <Promise title={t('home:about:reason:third:title')}
+                        text={t('home:about:reason:third:description')} />
+                    <Promise title={t('home:about:reason:fourth:title')}
+                        text={t('home:about:reason:fourth:description')} />
                     <div className="my-16 text-center lg:text-start">
                         <Link className="px-8 py-3 bg-blue-white dark:bg-blue-dark text-lg text-primary-dark font-semibold drop-shadow-lg rounded-full"
                             to={"/about"}>
                             <TextBase>
                                 <span className="font-bold text-primary-dark">
-                                    Подробнее
+                                    {t('common:more')}
                                 </span>
                             </TextBase>
                         </Link>

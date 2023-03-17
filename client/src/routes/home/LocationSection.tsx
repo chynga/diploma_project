@@ -1,13 +1,16 @@
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { Text2Xl, Text4Xl } from "../common/TextElements";
 
 function LocationSection() {
+    const { t } = useTranslation(["kz", "ru"]);
+
     return (
         <div className="py-20 px-20">
             <Text4Xl blue>
                 <h2 className="text-center font-bold">
-                    Где мы находимся?
+                    {t('home:location:title')}
                 </h2>
             </Text4Xl>
             <div className="flex justify-center lg:block">

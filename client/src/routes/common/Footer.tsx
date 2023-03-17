@@ -1,9 +1,11 @@
+import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
 import { Logo } from "./SvgImages";
 import { TextLg, TextXl } from "./TextElements";
 
 function Footer() {
     const location = useLocation();
+    const { t } = useTranslation(["kz", "ru"]);
 
     if (location.pathname.includes("/profile-panel") ||
         location.pathname.includes("/admin")) {
@@ -15,68 +17,61 @@ function Footer() {
             <Logo fill={"primary"} />
             <div className="hidden xl:block">
                 <TextXl>
-                    <h3 className="font-bold text-primary-dark">Меню</h3>
+                    <h3 className="font-bold text-primary-dark">{t('common:menu')}</h3>
                 </TextXl>
                 <Link to="/">
                     <TextLg className="text-primary-dark">
                         <div>
-                            Главная
+                            {t('home:title')}
                         </div>
                     </TextLg>
                 </Link>
                 <Link to="/">
                     <TextLg className="text-primary-dark">
                         <div>
-                            О нас
+                            {t('about:title')}
                         </div>
                     </TextLg>
                 </Link>
                 <Link to="/">
                     <TextLg className="text-primary-dark">
                         <div>
-                            Услуги
+                            {t('service:title')}
                         </div>
                     </TextLg>
                 </Link>
                 <Link to="/">
                     <TextLg className="text-primary-dark">
                         <div>
-                            Врачи
+                            {t('doctor:title')}
                         </div>
                     </TextLg>
                 </Link>
                 <Link to="/">
                     <TextLg className="text-primary-dark">
                         <div>
-                            Отзывы
+                            {t('review:title')}
                         </div>
                     </TextLg>
                 </Link>
                 <Link to="/">
                     <TextLg className="text-primary-dark">
                         <div>
-                            Советы
+                            {t('advice:title')}
                         </div>
                     </TextLg>
                 </Link>
                 <Link to="/">
                     <TextLg className="text-primary-dark">
                         <div>
-                            Вакансии
-                        </div>
-                    </TextLg>
-                </Link>
-                <Link to="/">
-                    <TextLg className="text-primary-dark">
-                        <div>
-                            Объявления
+                            {t('vacancy:title')}
                         </div>
                     </TextLg>
                 </Link>
             </div>
             <div className="hidden xl:block">
                 <TextXl>
-                    <h3 className="font-bold text-primary-dark">Услуги</h3>
+                    <h3 className="font-bold text-primary-dark">{t('service:title')}</h3>
                 </TextXl>
                 <Link to="/">
                     <TextLg className="text-primary-dark">
@@ -123,7 +118,7 @@ function Footer() {
             </div>
             <div>
                 <TextXl>
-                    <h3 className="font-bold text-primary-dark">Контакты</h3>
+                    <h3 className="font-bold text-primary-dark">{t('common:contact')}</h3>
                 </TextXl>
                 <TextLg>
                     <div className="text-primary-dark">

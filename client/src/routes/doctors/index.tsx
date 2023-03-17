@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import DoctorCard from "../common/DoctorCard";
 import LinkButton from "../common/LinkButton";
 import { Text4Xl } from "../common/TextElements";
@@ -7,6 +8,7 @@ import { Doctor } from "../common/types";
 
 function DoctorsPage() {
     const [doctors, setDoctors] = useState<Doctor[]>([]);
+    const { t } = useTranslation(["kz", "ru"]);
 
     useEffect(() => {
         const apiUrl = `/api/doctors`;
@@ -21,7 +23,7 @@ function DoctorsPage() {
         <div className="p-20">
             <Text4Xl>
                 <h2 className="text-center font-bold">
-                    Наши специалисты
+                    {t('doctor:ourDoctors')}
                 </h2>
             </Text4Xl>
 
@@ -31,7 +33,7 @@ function DoctorsPage() {
                         <div key={doctor.id}>
                             <DoctorCard doctor={doctor} />
                             <div className="mt-5 text-center">
-                                <LinkButton to={`/doctors/${doctor.id}`} text={"Подробнее"} />
+                                <LinkButton to={`/doctors/${doctor.id}`} text={t('common:more')} />
                             </div>
                         </div>
                     );

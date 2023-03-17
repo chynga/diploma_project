@@ -15,6 +15,8 @@ import adviceKz from './kz/advice.json';
 import adviceRu from './ru/advice.json';
 import vacancyKz from './kz/vacancy.json';
 import vacancyRu from './ru/vacancy.json';
+import commonKz from './kz/common.json';
+import commonRu from './ru/common.json';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
@@ -28,6 +30,7 @@ export const resources = {
     review: reviewKz,
     advice: adviceKz,
     vacancy: vacancyKz,
+    common: commonKz,
   },
   ru: {
     user: userRu,
@@ -38,6 +41,7 @@ export const resources = {
     review: reviewRu,
     advice: adviceRu,
     vacancy: vacancyRu,
+    common: commonRu,
   },
 } as const;
 
@@ -46,7 +50,7 @@ i18n
     .use(initReactI18next)
     .init({
   fallbackLng: 'kz',
-  ns: ['user', 'home', 'about', 'service', 'doctor', 'review', 'advice', 'vacancy'],
+  ns: ['user', 'home', 'about', 'service', 'doctor', 'review', 'advice', 'vacancy', 'common'],
   interpolation: {
     escapeValue: false,
   },

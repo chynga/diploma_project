@@ -1,7 +1,10 @@
+import { useTranslation } from "react-i18next";
 import AppointmentForm from "../common/AppointmentForm";
 import { Text4Xl } from "../common/TextElements";
 
 function AppointmentSection() {
+    const { t } = useTranslation(["kz", "ru"]);
+
     return (
         <div className="py-16 px-3 md:px-20 flex justify-center xl:justify-between gap-10">
             <div className="hidden xl:block">
@@ -10,7 +13,7 @@ function AppointmentSection() {
             <div className="max-w-[400px] xl:max-w-none w-full xl:w-[736px]">
                 <Text4Xl blue>
                     <h2 className="text-center xl:text-start font-bold">
-                        Записаться
+                        {t('home:appointment:title')}
                     </h2>
                 </Text4Xl>
                 <AppointmentForm />

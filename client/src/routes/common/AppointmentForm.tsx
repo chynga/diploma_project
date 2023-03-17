@@ -8,6 +8,7 @@ import { useAppSelector } from "../../app/hooks";
 import { selectAuth } from "../../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import { RangePickerProps } from "antd/es/date-picker";
+import { useTranslation } from "react-i18next";
 
 type AppointmentFormProps = {
     doctorId?: number
@@ -26,6 +27,7 @@ function AppointmentForm({ doctorId = 0 }: AppointmentFormProps) {
     const [availableTimes, setAvailableTimes] = useState<Dayjs[]>([]);
     const dayStart = dayjs(date, dateFormat).set('hour', 7).set('minute', 0).set('second', 0);
     const dayEnd = dayjs(date, dateFormat).set('hour', 18).set('minute', 0).set('second', 0);
+    const { t } = useTranslation(["kz", "ru"]);
 
     const { user } = useAppSelector(selectAuth);
     const navigate = useNavigate();
@@ -177,7 +179,7 @@ function AppointmentForm({ doctorId = 0 }: AppointmentFormProps) {
             </div>
             <div className="mt-5 flex justify-center">
                 <button className="px-8 py-3 bg-background-white dark:bg-background-dark text-lg text-blue-white dark:text-blue-dark font-semibold drop-shadow-lg rounded-full">
-                    Отправить
+                    {t('common:send')}
                 </button>
             </div>
         </form>

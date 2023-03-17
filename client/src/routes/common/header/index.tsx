@@ -231,7 +231,7 @@ function Navbar({ showNav }: NavbarProps) {
                             </TextLg>
                         </Link>
                     </li>
-                    <li>
+                    {/* <li>
                         <Link to="/vacancy">
                             <TextLg>
                                 <span className={`${useLocation().pathname === "/vacancy" ? "text-[rgba(39,127,242,0.7)] drop-shadow-[0_0_5px_rgba(39,127,242,0.7)] dark:text-primary-dark dark:drop-shadow-[0_0_5px_#FFFFFF]" : ""}`}>
@@ -239,7 +239,7 @@ function Navbar({ showNav }: NavbarProps) {
                                 </span>
                             </TextLg>
                         </Link>
-                    </li>
+                    </li> */}
                 </ul>
             </div>
         </div >

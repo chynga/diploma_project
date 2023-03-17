@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
 import { selectAuth } from "../../features/auth/authSlice";
@@ -44,6 +45,7 @@ function ReviewForm() {
     const [body, setBody] = useState("");
     const { user } = useAppSelector(selectAuth);
     const navigate = useNavigate();
+    const { t } = useTranslation(["kz", "ru"]);
 
     const onChange = (e: any) => {
         setBody(e.target.value);
@@ -76,16 +78,16 @@ function ReviewForm() {
         <form className="pb-20" onSubmit={onSubmit}>
             <Text4Xl>
                 <h2 className="text-primary-white dark:text-[#797979] font-bold">
-                    Оставьте отзыв
+                    {t('review:make')}
                 </h2>
             </Text4Xl>
-            <textarea value={body} onChange={onChange} placeholder="Отзыв..." cols={30} rows={7} className="mt-5 px-6 py-2 bg:background-white dark:bg-[#797979] text-primary-white dark:text-primary-dark border-[1px] border-[#353535] dark:border-none rounded-md w-full">
+            <textarea value={body} onChange={onChange} placeholder={t('review:placeholder') ?? "Отзыв..."} cols={30} rows={7} className="mt-5 px-6 py-2 bg:background-white dark:bg-[#797979] text-primary-white dark:text-primary-dark border-[1px] border-[#353535] dark:border-none rounded-md w-full">
 
             </textarea>
             <Rating rating={rating} setRating={setRating} />
             <TextBase>
                 <button className="mt-6 px-8 py-3 inline-block bg-blue-white dark:bg-blue-dark text-primary-dark font-bold drop-shadow-lg rounded-full">
-                    Отправить
+                    {t('common:send')}
                 </button>
             </TextBase>
         </form>

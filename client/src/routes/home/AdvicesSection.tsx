@@ -1,30 +1,33 @@
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import LinkButton from "../common/LinkButton";
 import { Text4Xl, TextBase, TextXl } from "../common/TextElements";
 
 function AdvicesSection() {
+    const { t } = useTranslation(["kz", "ru"]);
+
     return (
         <div className="py-16 px-20 xl:h-[730px]">
             <Text4Xl>
                 <h2 className="mt-12 text-center font-bold">
-                    Советы
+                    {t('home:advice:title')}
                 </h2>
             </Text4Xl>
             <div className="relative flex flex-col items-center gap-1">
                 <div className="xl:absolute left-0 top-24">
-                    <AdviceCard title="Только одна щетка" text="Нельзя использовать одну зубную щетку для нескольких членов семьи." />
+                    <AdviceCard title={t('home:advice:first:title')} text={t('home:advice:first:description')} />
                 </div>
                 <div className="xl:absolute top-72">
-                    <AdviceCard title="Сочетание температур пищи" text="Не сочетайте горячую пищу с холодной в один прием." />
+                    <AdviceCard title={t('home:advice:second:title')} text={t('home:advice:second:description')} />
                 </div>
                 <div className="xl:absolute right-0 top-24">
-                    <AdviceCard title="Твердые предметы" text="Не стоит портить зубы попытками открывания крышечек из-под пива, раскалывать орехи, откусывать леску и т.д. – это может привести только к травме зуба (трещины, сколы)" />
+                    <AdviceCard title={t('home:advice:third:title')} text={t('home:advice:third:description')} />
                 </div>
                 <div className="hidden xl:block absolute top-[63px]">
                     <DoctorSvg />
                 </div>
                 <div className="mt-8 xl:absolute top-[440px]">
-                    <LinkButton to={"/advices"} text={"Узнать больше"} />
+                    <LinkButton to={"/advices"} text={t('home:advice:more')} />
                 </div>
             </div>
         </div>
