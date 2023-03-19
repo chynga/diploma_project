@@ -6,7 +6,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../../app/hooks";
 import { logout, selectAuth } from "../../../features/auth/authSlice";
 import AuthModal, { AuthPage } from "../authModal";
-import { ArrowDown, Bell, Burger, Logo, Person, ProfilePicture, ThemeToggler } from "../SvgImages";
+import { ArrowDown, Bell, Burger, Glasses, Logo, Person, Phone2Svg, ProfilePicture, ThemeToggler } from "../SvgImages";
 import { TextBase, TextLg } from "../TextElements";
 import { toggleTheme } from "../util";
 import NotificationList from "./NotificationList";
@@ -58,17 +58,28 @@ function Header() {
                             </div>
                         </TextBase>
                     </div>
-                    <div className="hidden lg:block">
-                        <TextBase>
-                            <div className="font-light">
-                                +7-707-81090-27
-                            </div>
-                        </TextBase>
-                        <TextBase>
-                            <div className="font-light">
-                                +7-707-81090-27
-                            </div>
-                        </TextBase>
+                    <div className="flex items-center gap-3 hover:cursor-pointer">
+                        <Glasses />
+                        <TextLg>
+                            <p className="font-medium">
+                                Слабовидящим
+                            </p>
+                        </TextLg>
+                    </div>
+                    <div className="hidden lg:flex items-center gap-3">
+                        <Phone2Svg />
+                        <div>
+                            <TextBase>
+                                <div className="font-light">
+                                    +7 701 188 5055
+                                </div>
+                            </TextBase>
+                            <TextBase>
+                                <div className="font-light">
+                                    +7 707 188 5055
+                                </div>
+                            </TextBase>
+                        </div>
                     </div>
                     <div className="flex gap-3 lg:gap-5 items-center">
                         <div className="hover:cursor-pointer" onClick={toggleTheme} id="theme-toggle">
@@ -137,7 +148,7 @@ function Header() {
                                     </Link>
                                     {!user.roles?.includes("CLIENT") ?
                                         <Link className="hover:text-blue-white dark:hover:text-blue-dark"
-                                            to={"/admin"}>
+                                            to={"/admin/employees"}>
                                             <TextBase>Панель Администрирования</TextBase>
                                         </Link> :
                                         <></>

@@ -69,7 +69,11 @@ function DoctorPage() {
                 <div className="mt-20">
                     <Text3Xl>
                         <h2 className="text-center font-semibold">
-                            Образование
+                            {doctor?.institutions.length !== 0 ?
+                                <>Образование</>
+                                :
+                                <></>
+                            }
                         </h2>
                     </Text3Xl>
                     <div className="mt-12">

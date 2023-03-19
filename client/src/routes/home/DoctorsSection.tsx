@@ -26,8 +26,8 @@ function DoctorsSection() {
                     {t('home:doctor:title')}
                 </h2>
             </Text4Xl>
-            <div className="mt-5 flex flex-col items-center xl:flex-row justify-around">
-                {doctors.map(doctor => {
+            <div className="mt-5 flex flex-col items-center xl:flex-row xl:flex-wrap gap-x-10 justify-around">
+                {doctors.filter((doctor, index) => index < 3).map(doctor => {
                     return (
                         <DoctorCard key={doctor.id} doctor={doctor} />
                     );

@@ -39,11 +39,6 @@ function Sidebar({ className = "" }: SidebarProps) {
                                             Отзывы
                                         </TextLg>
                                     </Link>
-                                    <Link to={"about"} className="hover:cursor-pointer">
-                                        <TextLg className="font-light" blue={location.pathname.includes("/admin/about") ? true : false}>
-                                            О нас
-                                        </TextLg>
-                                    </Link>
                                     <Link to={"services"} className="hover:cursor-pointer">
                                         <TextLg className="font-light" blue={location.pathname.includes("/admin/services") ? true : false}>
                                             Услуги
@@ -93,7 +88,7 @@ function Sidebar({ className = "" }: SidebarProps) {
                             </Link>
                         </div>
                         <div className="w-full">
-                            <Link to={"appointments"} className="hover:cursor-pointer">
+                            <Link to={"appointments/requested"} className="hover:cursor-pointer">
                                 <TextLg className="font-medium" blue={location.pathname.includes("/admin/appointments") ? true : false}>
                                     Записи
                                 </TextLg>
@@ -106,13 +101,13 @@ function Sidebar({ className = "" }: SidebarProps) {
                                 </TextLg>
                             </Link>
                         </div>
-                        <div className="w-full">
+                        {/* <div className="w-full">
                             <Link to={"accounting"} className="hover:cursor-pointer">
                                 <TextLg className="font-medium" blue={location.pathname.includes("/admin/accounting") ? true : false}>
                                     Бухгалтерия (Отчет)
                                 </TextLg>
                             </Link>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

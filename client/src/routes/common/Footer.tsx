@@ -1,11 +1,24 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
 import { Logo } from "./SvgImages";
 import { TextLg, TextXl } from "./TextElements";
+import { Service } from "./types";
 
 function Footer() {
+    const [services, setServices] = useState<Service[]>([]);
     const location = useLocation();
     const { t } = useTranslation(["kz", "ru"]);
+
+    useEffect(() => {
+        const apiUrl = `/api/services`;
+
+        axios.get(apiUrl).then((resp) => {
+            const services: Service[] = resp.data;
+            setServices(services);
+        });
+    }, [])
 
     if (location.pathname.includes("/profile-panel") ||
         location.pathname.includes("/admin")) {
@@ -26,45 +39,38 @@ function Footer() {
                         </div>
                     </TextLg>
                 </Link>
-                <Link to="/">
+                <Link to="/about">
                     <TextLg className="text-primary-dark">
                         <div>
                             {t('about:title')}
                         </div>
                     </TextLg>
                 </Link>
-                <Link to="/">
+                <Link to="/services">
                     <TextLg className="text-primary-dark">
                         <div>
                             {t('service:title')}
                         </div>
                     </TextLg>
                 </Link>
-                <Link to="/">
+                <Link to="/doctors">
                     <TextLg className="text-primary-dark">
                         <div>
                             {t('doctor:title')}
                         </div>
                     </TextLg>
                 </Link>
-                <Link to="/">
+                <Link to="/reviews">
                     <TextLg className="text-primary-dark">
                         <div>
                             {t('review:title')}
                         </div>
                     </TextLg>
                 </Link>
-                <Link to="/">
+                <Link to="/advices">
                     <TextLg className="text-primary-dark">
                         <div>
                             {t('advice:title')}
-                        </div>
-                    </TextLg>
-                </Link>
-                <Link to="/">
-                    <TextLg className="text-primary-dark">
-                        <div>
-                            {t('vacancy:title')}
                         </div>
                     </TextLg>
                 </Link>
@@ -73,48 +79,17 @@ function Footer() {
                 <TextXl>
                     <h3 className="font-bold text-primary-dark">{t('service:title')}</h3>
                 </TextXl>
-                <Link to="/">
-                    <TextLg className="text-primary-dark">
-                        <div>
-                            Терапевтическая стоматология
-                        </div>
-                    </TextLg>
-                </Link>
-                <Link to="/">
-                    <TextLg className="text-primary-dark">
-                        <div>
-                            Пародонтология
-                        </div>
-                    </TextLg>
-                </Link>
-                <Link to="/">
-                    <TextLg className="text-primary-dark">
-                        <div>
-                            Професиональная Гигиена
-                        </div>
-                    </TextLg>
-                </Link>
-                <Link to="/">
-                    <TextLg className="text-primary-dark">
-                        <div>
-                            Протезирования зубов
-                        </div>
-                    </TextLg>
-                </Link>
-                <Link to="/">
-                    <TextLg className="text-primary-dark">
-                        <div>
-                            Имплантация Зубов
-                        </div>
-                    </TextLg>
-                </Link>
-                <Link to="/">
-                    <TextLg className="text-primary-dark">
-                        <div>
-                            Хирургическая стоматология
-                        </div>
-                    </TextLg>
-                </Link>
+                {services.map(service => {
+                    return (
+                        <Link key={service.id} to={`/services/${service.id}`}>
+                            <TextLg className="text-primary-dark">
+                                <div>
+                                    {service.title}
+                                </div>
+                            </TextLg>
+                        </Link>
+                    )
+                })}
             </div>
             <div>
                 <TextXl>
@@ -123,7 +98,7 @@ function Footer() {
                 <TextLg>
                     <div className="text-primary-dark">
                         г.Алматы <br />
-                        пр.Аль-Фараби 41/3
+                        Сатпаева 133/3 (напротив ТЦ ADK)
                     </div>
                 </TextLg>
                 <div className="flex items-center gap-2">
@@ -140,7 +115,8 @@ function Footer() {
                 <div className="flex items-center gap-2">
                     <TextLg>
                         <div className="text-primary-dark">
-                            +7(747) 095 96 85
+                            +7 701 188 5055 <br />
+                            +7 707 188 5055
                         </div>
                     </TextLg>
                     <svg className="fill-white" width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
