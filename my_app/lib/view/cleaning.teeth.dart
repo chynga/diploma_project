@@ -14,6 +14,10 @@ class _CleanTeethPageState extends State<CleanTeethPage> {
       backgroundColor: Colors.white,
        body: Center(
         child: ElevatedButton(onPressed: null, child: Text('Start clean teeth')),
+        child: ElevatedButton(onPressed: null, child: Text('Start clean teeth')),
+        child: ElevatedButton(onPressed: null, child: Text('Start clean teeth')),
+        child: ElevatedButton(onPressed: null, child: Text('Start clean teeth')),
+        
         
       ),
     );

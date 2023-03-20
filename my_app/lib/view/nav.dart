@@ -69,6 +69,23 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           iconSize: 28,
         ),
       ],),
+      shadowColor: const Color.fromARGB(96, 33, 149, 243),
+      elevation: 10,
+      actions: [
+        IconButton(
+          onPressed: () {},
+          icon: const Icon(FontAwesomeIcons.bell),
+          color: Colors.blue,
+          iconSize: 28,
+        ),
+         const SizedBox(width: 12,),
+        IconButton(
+          onPressed: () {},
+          icon: const Icon(FontAwesomeIcons.user),
+          color: Colors.blue,
+          iconSize: 28,
+        ),
+      ],),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
