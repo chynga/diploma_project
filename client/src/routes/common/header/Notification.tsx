@@ -4,13 +4,12 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../../app/hooks";
 import { selectAuth } from "../../../features/auth/authSlice";
+import { Bell } from "../SvgImages";
 import { AppNotification, AppNotificationType, dateFormat, timeFormat } from "../types";
 
-function NotificationList() {
+function Notification() {
     const [notifications, setNotifications] = useState<AppNotification[]>();
-
     const { user } = useAppSelector(selectAuth);
-    const navigate = useNavigate();
 
     useEffect(() => {
         const config = {
@@ -24,6 +23,29 @@ function NotificationList() {
             setNotifications(notifications);
         });
     }, [])
+
+    return (
+        <div className="group relative hover:cursor-pointer">
+            <Bell className="w-[20px] md:w-auto" />
+            {notifications?.filter(notification => !notification.viewed).length !== 0 ?
+                <div className="absolute top-0 right-0 w-[10px] h-[10px] bg-red-500 rounded-full"></div>
+                :
+                <></>
+            }
+            <div className="hidden group-hover:block py-10 px-7 w-[276px] flex flex-col items-center justify-around gap-3 group-hover:flex absolute bg-background-white dark:bg-background-dark top-[100%] right-0 rounded-b-2xl drop-shadow-lg">
+                <NotificationList notifications={notifications} />
+            </div>
+        </div>
+    );
+}
+
+type NotificationListParams = {
+    notifications: AppNotification[] | undefined
+}
+
+function NotificationList({ notifications }: NotificationListParams) {
+    const { user } = useAppSelector(selectAuth);
+    const navigate = useNavigate();
 
     const onClick = (type: AppNotificationType) => {
         const to = type === "appointment" ? "profile-panel/appointments" : "profile-panel/consultation";
@@ -53,4 +75,4 @@ function NotificationList() {
     );
 }
 
-export default NotificationList;
+export default Notification;

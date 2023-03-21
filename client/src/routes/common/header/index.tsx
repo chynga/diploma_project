@@ -7,9 +7,9 @@ import { useAppSelector } from "../../../app/hooks";
 import { logout, selectAuth } from "../../../features/auth/authSlice";
 import AuthModal, { AuthPage } from "../authModal";
 import { ArrowDown, Bell, Burger, Close, Glasses, Logo, Person, Phone2Svg, ProfilePicture, ThemeToggler } from "../SvgImages";
-import { TextBase, TextLg } from "../TextElements";
+import { TextBase, TextLg, TextXl } from "../TextElements";
 import { toggleTheme } from "../util";
-import NotificationList from "./NotificationList";
+import Notification from "./Notification";
 
 type NavbarProps = {
     showNav: boolean,
@@ -47,30 +47,30 @@ function Header() {
                         <Logo fill={"blue"} className={"w-[100px] md:w-[220px]"} />
                     </Link>
                     <div className="hidden lg:block">
-                        <TextBase>
-                            <div className="font-light">
-                                Пн - Пт: 9:00 - 21:00
+                        <TextXl>
+                            <div className="font-medium">
+                                Пн - Пт: 9:00 - 23:00
                             </div>
-                        </TextBase>
-                        <TextBase>
-                            <div className="font-light">
+                        </TextXl>
+                        <TextXl>
+                            <div className="font-medium">
                                 Сб - Вс: 9:00 - 19:00
                             </div>
-                        </TextBase>
+                        </TextXl>
                     </div>
                     <div className="hidden xl:flex items-center gap-3">
                         <Phone2Svg />
                         <div>
-                            <TextBase>
-                                <div className="font-light">
+                            <TextXl>
+                                <div className="font-medium">
                                     +7 701 188 5055
                                 </div>
-                            </TextBase>
-                            <TextBase>
-                                <div className="font-light">
+                            </TextXl>
+                            <TextXl>
+                                <div className="font-medium">
                                     +7 707 188 5055
                                 </div>
-                            </TextBase>
+                            </TextXl>
                         </div>
                     </div>
                     <div className="flex gap-3 lg:gap-5 items-center">
@@ -86,13 +86,7 @@ function Header() {
                             <ThemeToggler className="w-[20px] md:w-auto" />
                         </div>
                         {user && user.roles?.includes("CLIENT") ?
-                            <div className="group relative hover:cursor-pointer">
-                                <Bell className="w-[20px] md:w-auto" />
-
-                                <div className="hidden group-hover:block py-10 px-7 w-[276px] flex flex-col items-center justify-around gap-3 group-hover:flex absolute bg-background-white dark:bg-background-dark top-[100%] right-0 rounded-b-2xl drop-shadow-lg">
-                                    <NotificationList />
-                                </div>
-                            </div>
+                            <Notification />
                             :
                             <></>
                         }
@@ -191,68 +185,68 @@ function Navbar({ showNav }: NavbarProps) {
     return (
         <div className="lg:py-2.5">
             <div className={`${showNav ? "fixed" : "hidden"} lg:static lg:block shadow-lg lg:shadow-none px-5 pt-5 pb-20 lg:py-2.5 max-w-[400px] lg:max-w-none overflow-auto w-full right-0 bottom-0 h-[calc(100vh_-_61px)] lg:h-auto bg-background-white dark:bg-background-dark`}>
-                <ul className="flex flex-col lg:flex-row justify-center gap-3 lg:gap-16">
+                <ul className="flex flex-col lg:flex-row justify-center gap-3 lg:gap-16 font-medium">
                     <li>
                         <Link to="/">
-                            <TextLg>
+                            <TextXl>
                                 <span className={`${useLocation().pathname === "/" ? "text-[rgba(39,127,242,0.7)] drop-shadow-[0_0_5px_rgba(39,127,242,0.7)] dark:text-primary-dark dark:drop-shadow-[0_0_5px_#FFFFFF]" : ""}`}>
                                     {t('home:title')}
                                 </span>
-                            </TextLg>
+                            </TextXl>
                         </Link>
                     </li>
                     <li>
                         <Link to="/about">
-                            <TextLg>
+                            <TextXl>
                                 <span className={`${useLocation().pathname === "/about" ? "text-[rgba(39,127,242,0.7)] drop-shadow-[0_0_5px_rgba(39,127,242,0.7)] dark:text-primary-dark dark:drop-shadow-[0_0_5px_#FFFFFF]" : ""}`}>
                                     {t('about:title')}
                                 </span>
-                            </TextLg>
+                            </TextXl>
                         </Link>
                     </li>
                     <li>
                         <Link to="/services">
-                            <TextLg>
+                            <TextXl>
                                 <span className={`${useLocation().pathname.includes("/services") ? "text-[rgba(39,127,242,0.7)] drop-shadow-[0_0_5px_rgba(39,127,242,0.7)] dark:text-primary-dark dark:drop-shadow-[0_0_5px_#FFFFFF]" : ""}`}>
                                     {t('service:title')}
                                 </span>
-                            </TextLg>
+                            </TextXl>
                         </Link>
                     </li>
                     <li>
                         <Link to="/doctors">
-                            <TextLg>
+                            <TextXl>
                                 <span className={`${useLocation().pathname.includes("/doctors") ? "text-[rgba(39,127,242,0.7)] drop-shadow-[0_0_5px_rgba(39,127,242,0.7)] dark:text-primary-dark dark:drop-shadow-[0_0_5px_#FFFFFF]" : ""}`}>
                                     {t('doctor:title')}
                                 </span>
-                            </TextLg>
+                            </TextXl>
                         </Link>
                     </li>
                     <li>
                         <Link to="/reviews">
-                            <TextLg>
+                            <TextXl>
                                 <span className={`${useLocation().pathname === "/reviews" ? "text-[rgba(39,127,242,0.7)] drop-shadow-[0_0_5px_rgba(39,127,242,0.7)] dark:text-primary-dark dark:drop-shadow-[0_0_5px_#FFFFFF]" : ""}`}>
                                     {t('review:title')}
                                 </span>
-                            </TextLg>
+                            </TextXl>
                         </Link>
                     </li>
                     <li>
                         <Link to="/advices">
-                            <TextLg>
+                            <TextXl>
                                 <span className={`${useLocation().pathname === "/advices" ? "text-[rgba(39,127,242,0.7)] drop-shadow-[0_0_5px_rgba(39,127,242,0.7)] dark:text-primary-dark dark:drop-shadow-[0_0_5px_#FFFFFF]" : ""}`}>
                                     {t('advice:title')}
                                 </span>
-                            </TextLg>
+                            </TextXl>
                         </Link>
                     </li>
                     {/* <li>
                         <Link to="/vacancy">
-                            <TextLg>
+                            <TextXl>
                                 <span className={`${useLocation().pathname === "/vacancy" ? "text-[rgba(39,127,242,0.7)] drop-shadow-[0_0_5px_rgba(39,127,242,0.7)] dark:text-primary-dark dark:drop-shadow-[0_0_5px_#FFFFFF]" : ""}`}>
                                     {t('vacancy:title')}
                                 </span>
-                            </TextLg>
+                            </TextXl>
                         </Link>
                     </li> */}
                 </ul>
