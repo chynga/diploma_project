@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
-import { Logo } from "./SvgImages";
+import { Instagram, Logo } from "./SvgImages";
 import { TextLg, TextXl } from "./TextElements";
 import { Service } from "./types";
 
@@ -27,7 +27,7 @@ function Footer() {
 
     return (
         <footer className="bg-blue-white dark:bg-blue-dark py-16 px-40 flex flex-col md:flex-row items-center md:items-start justify-between">
-            <Logo fill={"primary"} />
+            <Logo fill={"white"} />
             <div className="hidden xl:block">
                 <TextXl>
                     <h3 className="font-bold text-primary-dark">{t('common:menu')}</h3>
@@ -124,6 +124,16 @@ function Footer() {
                         <path d="M15.0977 10.643C14.9112 10.643 14.7323 10.569 14.6005 10.4371C14.4686 10.3052 14.3945 10.1264 14.3945 9.93992C14.3932 8.70642 13.9026 7.52382 13.0304 6.65156C12.1582 5.7793 10.9757 5.2886 9.74219 5.28711C9.55571 5.28711 9.37686 5.21303 9.245 5.08117C9.11314 4.94931 9.03906 4.77046 9.03906 4.58398C9.03906 4.3975 9.11314 4.21866 9.245 4.0868C9.37686 3.95494 9.55571 3.88086 9.74219 3.88086C13.083 3.88086 15.8008 6.59961 15.8008 9.93992C15.8008 10.1264 15.7267 10.3052 15.5948 10.4371C15.463 10.569 15.2841 10.643 15.0977 10.643Z" />
                         <path d="M18.0695 10.6423C17.883 10.6423 17.7042 10.5682 17.5723 10.4363C17.4405 10.3045 17.3664 10.1256 17.3664 9.93914C17.3664 5.73492 13.9445 2.31445 9.74219 2.31445C9.55571 2.31445 9.37686 2.24037 9.245 2.10851C9.11314 1.97665 9.03906 1.79781 9.03906 1.61133C9.03906 1.42485 9.11314 1.24601 9.245 1.11414C9.37686 0.982282 9.55571 0.908203 9.74219 0.908203C14.7217 0.908203 18.7727 4.95961 18.7727 9.93914C18.7727 10.1256 18.6986 10.3045 18.5667 10.4363C18.4349 10.5682 18.256 10.6423 18.0695 10.6423Z" />
                     </svg>
+                </div>
+                <div className="inline-block">
+                    <a href="/" className="flex items-center gap-2">
+                        <TextLg>
+                            <div className="text-primary-dark">
+                                Instagram
+                            </div>
+                        </TextLg>
+                        <Instagram />
+                    </a>
                 </div>
             </div>
         </footer>

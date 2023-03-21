@@ -6,7 +6,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../../app/hooks";
 import { logout, selectAuth } from "../../../features/auth/authSlice";
 import AuthModal, { AuthPage } from "../authModal";
-import { ArrowDown, Bell, Burger, Glasses, Logo, Person, Phone2Svg, ProfilePicture, ThemeToggler } from "../SvgImages";
+import { ArrowDown, Bell, Burger, Close, Glasses, Logo, Person, Phone2Svg, ProfilePicture, ThemeToggler } from "../SvgImages";
 import { TextBase, TextLg } from "../TextElements";
 import { toggleTheme } from "../util";
 import NotificationList from "./NotificationList";
@@ -44,29 +44,21 @@ function Header() {
             <div className="shadow-lg fixed z-30 top-0 bg-background-white dark:bg-background-dark w-full">
                 <div className="lg:px-8 p-3 lg:pt-5 flex justify-between items-center">
                     <Link to={"/"}>
-                        <Logo fill={"blue"} className={"w-[100px] md:w-auto"} />
+                        <Logo fill={"blue"} className={"w-[100px] md:w-[220px]"} />
                     </Link>
                     <div className="hidden lg:block">
                         <TextBase>
                             <div className="font-light">
-                                Пн - Пт: 9:00 - 19:00
+                                Пн - Пт: 9:00 - 21:00
                             </div>
                         </TextBase>
                         <TextBase>
                             <div className="font-light">
-                                Сб - Вс: 9:00 - 15:00
+                                Сб - Вс: 9:00 - 19:00
                             </div>
                         </TextBase>
                     </div>
-                    <div className="flex items-center gap-3 hover:cursor-pointer">
-                        <Glasses />
-                        <TextLg>
-                            <p className="font-medium">
-                                Слабовидящим
-                            </p>
-                        </TextLg>
-                    </div>
-                    <div className="hidden lg:flex items-center gap-3">
+                    <div className="hidden xl:flex items-center gap-3">
                         <Phone2Svg />
                         <div>
                             <TextBase>
@@ -82,6 +74,14 @@ function Header() {
                         </div>
                     </div>
                     <div className="flex gap-3 lg:gap-5 items-center">
+                        <div className="flex items-center gap-3 hover:cursor-pointer">
+                            <Glasses />
+                            <TextLg>
+                                <p className="hidden md:block font-medium">
+                                    Слабовидящим
+                                </p>
+                            </TextLg>
+                        </div>
                         <div className="hover:cursor-pointer" onClick={toggleTheme} id="theme-toggle">
                             <ThemeToggler className="w-[20px] md:w-auto" />
                         </div>
@@ -172,7 +172,11 @@ function Header() {
                             }
                         </div>
                         <div className="lg:hidden hover:cursor-pointer" onClick={() => { setShowNav(!showNav) }}>
-                            <Burger className="w-[20px] md:w-[40px] h-[20px] md:h-[40px]" fill={"blue"} />
+                            {showNav ?
+                                <Close />
+                                :
+                                <Burger className="w-[20px] md:w-[40px] h-[20px] md:h-[40px]" fill={"blue"} />
+                            }
                         </div>
                     </div>
                 </div>

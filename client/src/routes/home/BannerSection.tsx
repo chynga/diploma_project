@@ -16,12 +16,12 @@ function BannerSection() {
                 <div className="z-20 flex flex-col max-w-2xl justify-center items-center">
                     <Text4Xl>
                         <h1 className="text-center font-bold">{t('home:banner:title:firstPart')}
-                            <Text4Xl blue> {t('home:banner:title:bluePart')} </Text4Xl>{i18n.language === "ru" ? <br /> : <></>}
+                            <span className="text-blue-white"> {t('home:banner:title:bluePart')} </span>{i18n.language === "ru" ? <br /> : <></>}
                             {t('home:banner:title:lastPart:first')} {i18n.language === "ru" ? <br /> : <></>}
                             {t('home:banner:title:lastPart:second')}
                         </h1>
                     </Text4Xl>
-                    <TextLg className="mt-5 text-center">{t('home:banner:discount:firstPart')} <TextLg blue>{t('home:banner:discount:bluePart')}</TextLg> {t('home:banner:discount:lastPart')}</TextLg>
+                    <TextLg className="mt-5 text-center">{t('home:banner:discount:firstPart')} <span className="text-blue-white">{t('home:banner:discount:bluePart')}</span> {t('home:banner:discount:lastPart')}</TextLg>
                     <div className="mt-8 px-8 py-3 bg-blue-white dark:bg-blue-dark drop-shadow-lg rounded-full hover:cursor-pointer"
                         onClick={() => setShowAppointmentForm(true)}>
                         <TextBase>
@@ -30,6 +30,8 @@ function BannerSection() {
                             </span>
                         </TextBase>
                     </div>
+                    <TextBase className="mt-8 text-center"><span className="text-blue-white">{t('home:banner:downloadApp')}</span></TextBase>
+                    <img src="googlePlayButton.png" alt="" className="mt-3 w-[145px]" />
                 </div>
             </div>
             {showAppointmentForm ?

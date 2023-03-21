@@ -6,7 +6,7 @@ type TextProps = {
 
 function Text4Xl({ children, className, blue = false }: TextProps) {
     return (
-        <span className={`text-4xl text-${blue ? 'blue' : 'primary'}-white dark:text-${blue ? 'blue' : 'primary'}-dark ${className}`}>
+        <span className={`text-2xl lg:text-4xl text-${blue ? 'blue' : 'primary'}-white dark:text-${blue ? 'blue' : 'primary'}-dark ${className}`}>
             {children}
         </span>
     );
