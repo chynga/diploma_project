@@ -114,7 +114,7 @@ function AppointmentPage({ changeStatusTo = undefined }: AppointmentProps) {
             .then(_ => {
                 if (changeStatusTo === "success") {
                     const notification: AppNotification = {
-                        clientId: 3,
+                        clientId: client?.id ?? 0,
                         "type": "appointment",
                         "message": "Ваша запись перенесена в завершенные!"
                     }

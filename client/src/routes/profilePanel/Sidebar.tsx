@@ -13,7 +13,7 @@ function Sidebar({ className = "" }: SidebarProps) {
     const { user } = useAppSelector(selectAuth);
 
     return (
-        <div className={`py-6 px-12 h-screen bg-background-white dark:bg-background-dark shadow-[4px_0_20px_rgba(39,127,242,0.5)] ${className}`}>
+        <div className={`py-6 px-12 h-screen overflow-auto bg-background-white dark:bg-background-dark shadow-[4px_0_20px_rgba(39,127,242,0.5)] ${className}`}>
             <div className="flex flex-col justify-between h-full">
                 <div className="flex flex-col items-center gap-6">
                     <Link to={"/"} className={"text-blue-white dark:text-blue-dark text-xl font-medium underline underline-offset-8"}>

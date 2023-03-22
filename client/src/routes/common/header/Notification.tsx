@@ -29,7 +29,7 @@ function Notification() {
         <div className="group relative hover:cursor-pointer">
             <Bell className="w-[20px] md:w-auto" />
             {notifications?.filter(notification => !notification.viewed).length !== 0 ?
-                <div className="absolute top-0 right-0 w-[10px] h-[10px] bg-red-500 rounded-full"></div>
+                <div className="absolute -top-1 right-1 w-[14px] h-[14px] bg-red-500 rounded-full"></div>
                 :
                 <></>
             }

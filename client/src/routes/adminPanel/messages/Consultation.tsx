@@ -23,7 +23,7 @@ function Consultation({ selectedClient }: ConsultationProps) {
         onClose: () => console.log('closed'),
         onMessage: (event) => {
             const notification: AppNotification = {
-                clientId: 3,
+                clientId: selectedClient?.id ?? 0,
                 "type": "message",
                 "message": "Вам пришло сообщение!"
             }
