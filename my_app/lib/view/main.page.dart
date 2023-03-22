@@ -12,11 +12,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return 
     const Scaffold(
-      backgroundColor: Colors.white,
-       body: Center(
-        child: Text('Home'),
-       
-      ),
+     
     );
   }
 }
