@@ -5,7 +5,7 @@ import { EmailCodeCredentials, UserCredentials } from './authTypes'
 
 const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")!) : null;
 
-export type Role = 'ADMIN' | 'MANAGER' | 'DOCTOR' | 'CONSULTANT' | 'CLIENT' | 'RECEPTION';
+export type Role = 'ADMIN' | 'DOCTOR' | 'CONSULTANT' | 'CLIENT';
 
 export type User = {
     id?: number

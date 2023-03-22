@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"
 import { useAppSelector } from "../../../../app/hooks";
 import { Role, selectAuth, User } from "../../../../features/auth/authSlice";
-import { TrashBin } from "../../../common/SvgImages"
 import { TextBase } from "../../../common/TextElements"
 
 function Employees() {
@@ -31,12 +30,8 @@ function Employees() {
             switch (role) {
                 case "ADMIN":
                     return "admin" + separator;
-                case "MANAGER":
-                    return "manager" + separator;
                 case "DOCTOR":
                     return "doctor" + separator;
-                case "RECEPTION":
-                    return "reception" + separator;
                 case "CONSULTANT":
                     return "consultant" + separator;
             }

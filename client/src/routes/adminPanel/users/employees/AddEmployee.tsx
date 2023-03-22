@@ -30,14 +30,8 @@ function AddEmployee() {
         if (isRoleAdminChecked) {
             roles.push("ADMIN");
         }
-        if (isRoleManagerChecked) {
-            roles.push("MANAGER");
-        }
         if (isRoleDoctorChecked) {
             roles.push("DOCTOR");
-        }
-        if (isRoleReceptionChecked) {
-            roles.push("RECEPTION");
         }
         if (isRoleConsultantChecked) {
             roles.push("CONSULTANT");

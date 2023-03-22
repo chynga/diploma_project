@@ -52,6 +52,14 @@ function TextBase({ children, className, blue = false }: TextProps) {
     );
 }
 
+function TextSm({ children, className, blue = false }: TextProps) {
+    return (
+        <span className={`text-sm font-normal text-${blue ? 'blue' : 'primary'}-white dark:text-${blue ? 'blue' : 'primary'}-dark ${className}`}>
+            {children}
+        </span>
+    );
+}
+
 export {
     Text4Xl,
     Text3Xl,
@@ -59,4 +67,5 @@ export {
     TextXl,
     TextLg,
     TextBase,
+    TextSm,
 }

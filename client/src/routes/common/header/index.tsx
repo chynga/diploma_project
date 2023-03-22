@@ -40,7 +40,7 @@ function Header() {
     };
 
     return (
-        <header className="mt-[64px] lg:mt-[163px]">
+        <header className="mt-[64px] lg:mt-[162px]">
             <div className="shadow-lg fixed z-30 top-0 bg-background-white dark:bg-background-dark w-full">
                 <div className="lg:px-8 p-3 lg:pt-5 flex justify-between items-center">
                     <Link to={"/"}>

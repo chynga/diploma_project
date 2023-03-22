@@ -10,9 +10,7 @@ function UpdateEmployee() {
     const [phone, setPhone] = useState("");
     const [email, setEmail] = useState("");
     const [isRoleAdminChecked, setRoleAdminChecked] = useState(false);
-    const [isRoleManagerChecked, setRoleManagerChecked] = useState(false);
     const [isRoleDoctorChecked, setRoleDoctorChecked] = useState(false);
-    const [isRoleReceptionChecked, setRoleReceptionChecked] = useState(false);
     const [isRoleConsultantChecked, setRoleConsultantChecked] = useState(false);
 
     const navigate = useNavigate();
@@ -34,14 +32,8 @@ function UpdateEmployee() {
             if (employee.roles?.includes("ADMIN")) {
                 setRoleAdminChecked(true);
             }
-            if (employee.roles?.includes("MANAGER")) {
-                setRoleManagerChecked(true);
-            }
             if (employee.roles?.includes("DOCTOR")) {
                 setRoleDoctorChecked(true);
-            }
-            if (employee.roles?.includes("RECEPTION")) {
-                setRoleReceptionChecked(true);
             }
             if (employee.roles?.includes("CONSULTANT")) {
                 setRoleConsultantChecked(true);
@@ -60,14 +52,8 @@ function UpdateEmployee() {
         if (isRoleAdminChecked) {
             roles.push("ADMIN");
         }
-        if (isRoleManagerChecked) {
-            roles.push("MANAGER");
-        }
         if (isRoleDoctorChecked) {
             roles.push("DOCTOR");
-        }
-        if (isRoleReceptionChecked) {
-            roles.push("RECEPTION");
         }
         if (isRoleConsultantChecked) {
             roles.push("CONSULTANT");
@@ -121,22 +107,14 @@ function UpdateEmployee() {
                     </div>
                     <div>
                         <div className="text-sm text-blue-gray-200">Роли</div>
-                        <div className="mt-1 flex flex-wrap gap-3">
+                        <div className="mt-1 flex flex-col gap-3">
                             <div className="flex items-center">
                                 <input name="role" id="admin" type="checkbox" checked={isRoleAdminChecked} onChange={() => setRoleAdminChecked(!isRoleAdminChecked)} className="w-4 h-4  border-blue-gray-200 rounded" />
                                 <label htmlFor="admin" className="ml-1 text-sm text-blue-gray-200">Админ</label>
                             </div>
                             <div className="flex items-center">
-                                <input name="role" id="manager" type="checkbox" checked={isRoleManagerChecked} onChange={() => setRoleManagerChecked(!isRoleManagerChecked)} className="w-4 h-4  border-blue-gray-200 rounded" />
-                                <label htmlFor="manager" className="ml-1 text-sm text-blue-gray-200">Менеджер</label>
-                            </div>
-                            <div className="flex items-center">
                                 <input name="role" id="doctor" type="checkbox" checked={isRoleDoctorChecked} onChange={() => setRoleDoctorChecked(!isRoleDoctorChecked)} className="w-4 h-4  border-blue-gray-200 rounded" />
                                 <label htmlFor="doctor" className="ml-1 text-sm text-blue-gray-200">Врач</label>
-                            </div>
-                            <div className="flex items-center">
-                                <input name="role" id="reception" type="checkbox" checked={isRoleReceptionChecked} onChange={() => setRoleReceptionChecked(!isRoleReceptionChecked)} className="w-4 h-4  border-blue-gray-200 rounded" />
-                                <label htmlFor="reception" className="ml-1 text-sm text-blue-gray-200">Регистратор</label>
                             </div>
                             <div className="flex items-center">
                                 <input name="role" id="consultant" type="checkbox" checked={isRoleConsultantChecked} onChange={() => setRoleConsultantChecked(!isRoleConsultantChecked)} className="w-4 h-4  border-blue-gray-200 rounded" />

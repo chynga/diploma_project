@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../../app/hooks";
 import { selectAuth } from "../../../features/auth/authSlice";
 import { Bell } from "../SvgImages";
+import { TextBase, TextSm } from "../TextElements";
 import { AppNotification, AppNotificationType, dateFormat, timeFormat } from "../types";
 
 function Notification() {
@@ -64,10 +65,12 @@ function NotificationList({ notifications }: NotificationListParams) {
             {
                 notifications?.slice(0, 5).map(notification => {
                     return (
-                        <div key={notification.id} className={`text-sm ${notification.viewed ? "font-extralight" : "font-bold"}`} onClick={() => onClick(notification.type)}>
-                            {dayjs(notification.time).format(dateFormat + " " + timeFormat)} <br />
-                            <p>{notification.message}</p>
-                        </div>
+                        <TextSm key={notification.id}>
+                            <div className={`${notification.viewed ? "font-extralight" : "font-bold"}`} onClick={() => onClick(notification.type)}>
+                                {dayjs(notification.time).format(dateFormat + " " + timeFormat)} <br />
+                                <p>{notification.message}</p>
+                            </div>
+                        </TextSm>
                     )
                 })
             }
