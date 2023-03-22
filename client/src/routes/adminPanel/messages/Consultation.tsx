@@ -11,7 +11,6 @@ type ConsultationProps = {
 }
 
 function Consultation({ selectedClient }: ConsultationProps) {
-
     const [body, setBody] = useState("");
     const { user } = useAppSelector(selectAuth);
     const socketUrl = `ws://localhost:8080/chat?client_id=${selectedClient?.id}&token=${user?.token}`;

@@ -17,6 +17,11 @@ export type User = {
     profileImageUrl: string
 }
 
+export type Client = User & {
+    allergy: string
+    prescribedMedications: string
+}
+
 export type Doctor = User & {
     startedWorkingFrom: number
     available: boolean

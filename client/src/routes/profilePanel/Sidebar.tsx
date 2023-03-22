@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
 import { selectAuth } from "../../features/auth/authSlice";
-import { Envelop, Logo, People, Person, ProfilePicture } from "../common/SvgImages";
+import { Envelop, Logo, People, Person, ProfilePicture, Record } from "../common/SvgImages";
 import { TextLg } from "../common/TextElements";
 
 type SidebarProps = {
@@ -28,6 +28,12 @@ function Sidebar({ className = "" }: SidebarProps) {
                         <People fill={location.pathname.includes("/profile-panel/appointments") ? "blue" : "primary"} />
                         <TextLg blue={location.pathname.includes("/profile-panel/appointments") ? true : false}>
                             <p>Мои Записи</p>
+                        </TextLg>
+                    </Link>
+                    <Link to={"health-info"} className="w-full flex gap-5 items-center hover:cursor-pointer">
+                        <Record fill={location.pathname.includes("/profile-panel/health-info") ? "blue" : "primary"} />
+                        <TextLg blue={location.pathname.includes("/profile-panel/health-info") ? true : false}>
+                            <p>Личная карточка</p>
                         </TextLg>
                     </Link>
                     <Link to={"consultation"} className="w-full flex gap-5 items-center hover:cursor-pointer">

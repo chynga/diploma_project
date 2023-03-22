@@ -6,6 +6,7 @@ import ConsultationPage from "./consultationPage";
 import ProfilePage from "./profilePage";
 import { Route, Routes } from "react-router-dom";
 import NotFound from "../common/NotFound";
+import HealthInfoPage from "./healthInfoPage";
 
 function ProfilePanel() {
     return (
@@ -21,6 +22,7 @@ function ProfilePanel() {
                 <div className="mt-5">
                     <Routes>
                         <Route path="/appointments/*" element={<AppointmentsPage />} />
+                        <Route path="/health-info/*" element={<HealthInfoPage />} />
                         <Route path="/consultation/*" element={<ConsultationPage />} />
                         <Route path="/profile/*" element={<ProfilePage />} />
                         <Route path="*" element={<NotFound />} />

@@ -124,6 +124,17 @@ function People({ fill }: SvgParams) {
     );
 }
 
+function Record({ fill }: SvgParams) {
+    const className = `${fill === "primary" ? "stroke-[#353535] dark:stroke-white" : "stroke-blue-white dark:stroke-blue-dark"}`
+
+    return (
+        <svg width="36" height="36" className={className} viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M24 6H27C27.7956 6 28.5587 6.31607 29.1213 6.87868C29.6839 7.44129 30 8.20435 30 9V30C30 30.7956 29.6839 31.5587 29.1213 32.1213C28.5587 32.6839 27.7956 33 27 33H9C8.20435 33 7.44129 32.6839 6.87868 32.1213C6.31607 31.5587 6 30.7956 6 30V9C6 8.20435 6.31607 7.44129 6.87868 6.87868C7.44129 6.31607 8.20435 6 9 6H12" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M22.5 3H13.5C12.6716 3 12 3.67157 12 4.5V7.5C12 8.32843 12.6716 9 13.5 9H22.5C23.3284 9 24 8.32843 24 7.5V4.5C24 3.67157 23.3284 3 22.5 3Z" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+    );
+}
+
 function Envelop({ fill }: SvgParams) {
     const className = `${fill === "primary" ? "stroke-[#353535] dark:stroke-white" : "stroke-blue-white dark:stroke-blue-dark"}`
 
@@ -273,4 +284,5 @@ export {
     EditIcon,
     Glasses,
     Instagram,
+    Record,
 }

@@ -1,21 +1,19 @@
 import axios from "axios";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { useAppSelector } from "../../../app/hooks";
-import { selectAuth } from "../../../features/auth/authSlice";
-import { ProfilePicture } from "../../common/SvgImages";
-import { TextLg } from "../../common/TextElements";
-import { User } from "../../common/types";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../../../app/hooks";
+import { selectAuth } from "../../../../features/auth/authSlice";
+import { ProfilePicture } from "../../../common/SvgImages";
+import { TextLg } from "../../../common/TextElements";
+import { User } from "../../../common/types";
 
-type ClientsProps = {
-    setSelectedClient: Dispatch<SetStateAction<User | undefined>>
-}
-
-function Clients({ setSelectedClient }: ClientsProps) {
+function ClientList() {
     const [clients, setClients] = useState<User[]>([]);
     const { user } = useAppSelector(selectAuth);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        const apiUrl = "/api/consultation/clients";
+        const apiUrl = "/api/users/clients";
         const config = {
             headers: {
                 Authorization: `Bearer ${user?.token}`,
@@ -33,7 +31,7 @@ function Clients({ setSelectedClient }: ClientsProps) {
             {clients?.map(client => {
                 return (
                     <div key={client.id} className="p-1 flex items-center gap-1 border-b border-[#B9B9B9] hover:cursor-pointer"
-                        onClick={() => setSelectedClient(client)}>
+                        onClick={() => navigate(`${client.id}`)}>
                         <ProfilePicture imageUrl={client.profileImageUrl} className="w-[50px] h-[50px]" />
                         <TextLg className="font-medium">{client.fullName}</TextLg>
                     </div>
@@ -43,4 +41,4 @@ function Clients({ setSelectedClient }: ClientsProps) {
     );
 }
 
-export default Clients;
+export default ClientList;
