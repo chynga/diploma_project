@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { ModalProps } from ".";
+import { FormProps } from ".";
 import { login } from "../../../features/auth/authSlice";
 import { emailRegex, passwordRegex, state } from "../util";
 import Button from "./Button";
 import FormGroup from "./FormGroup";
 
-function LoginForm({ setAuthPage }: ModalProps) {
+function LoginForm({ setAuthPage }: FormProps) {
     const [email, setEmail] = useState(state);
     const [password, setPassword] = useState(state);
     const dispatch = useDispatch<any>();

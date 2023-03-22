@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { ModalProps } from ".";
+import { FormProps } from ".";
 import { register } from "../../../features/auth/authSlice";
 import { emailRegex, nameRegex, passwordRegex, phoneRegex, state } from "../util";
 import Button from "./Button";
 import FormGroup from "./FormGroup";
 
-function RegisterForm({ setAuthPage }: ModalProps) {
+function RegisterForm({ setAuthPage }: FormProps) {
     const [fullName, setFullName] = useState(state);
     const [phone, setPhone] = useState(state);
     const [email, setEmail] = useState(state);

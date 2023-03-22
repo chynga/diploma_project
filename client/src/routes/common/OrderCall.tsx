@@ -59,14 +59,14 @@ export function OrderCallForm({ showOrderCall, setShowOrderCall }: OrderCallProp
     }
 
     return (
-        <div className="z-30 fixed left-0 top-0 right-0 bottom-0 bg-[rgb(0,0,0)] bg-[rgba(0,0,0,0.4)] flex justify-center items-center">
-            <div className="modal p-5 bg-[#F2F2F2] rounded-xl">
+        <div className="z-30 fixed left-0 top-0 right-0 bottom-0 bg-[rgba(0,0,0,0.4)] flex justify-center items-center">
+            <div className="modal p-5 bg-[#F2F2F2] dark:bg-background-dark rounded-xl">
                 <div className="flex justify-end">
                     <div onClick={() => setShowOrderCall(false)}>
                         <CloseButton />
                     </div>
                 </div>
-                <div className="flex px-7 flex-col items-center gap-5 text-center">
+                <div className="flex px-7 flex-col items-center gap-5 text-start">
                     <FormGroup
                         labelText="ФИО"
                         type="name"
@@ -85,8 +85,8 @@ export function OrderCallForm({ showOrderCall, setShowOrderCall }: OrderCallProp
                         setField={setPhone}
                         regex={phoneRegex}
                         validationMessage="Enter valid phone number" />
-                    <button onClick={onSubmit} className="px-3 py-1 bg-blue-white dark:bg-blue-dark text-primary-dark font-semibold rounded-full">
-                        Отправить
+                    <button onClick={onSubmit} className="px-8 py-3 bg-blue-white dark:bg-blue-dark text-primary-dark font-semibold rounded-full">
+                        Заказать звонок
                     </button>
                 </div>
             </div>

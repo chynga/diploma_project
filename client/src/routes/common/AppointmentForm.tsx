@@ -143,7 +143,7 @@ function AppointmentForm({ doctorId = 0 }: AppointmentFormProps) {
         <form onSubmit={onSubmit} className="mt-10 p-12 bg-[#277ff280] rounded-3xl w-full">
             <div className="xl:flex gap-5">
                 <div className="xl:mt-0 w-full">
-                    <select value={selectedDoctorId} onChange={onDoctorSelect} name="doctor" id="doctor" className="p-2 border-[1px] border-blue-gray-200 rounded-md w-full">
+                    <select value={selectedDoctorId} onChange={onDoctorSelect} name="doctor" id="doctor" className="p-2 border-[1px] bg-background-white dark:bg-background-dark text-primary-white dark:text-primary-dark border-blue-gray-200 rounded-md w-full">
                         <option value={0} disabled hidden>Please Choose...</option>
                         {doctors?.map(doctor => {
                             return (
@@ -153,7 +153,7 @@ function AppointmentForm({ doctorId = 0 }: AppointmentFormProps) {
                     </select>
                 </div>
                 <div className="mt-5 xl:mt-0 w-full">
-                    <select value={selectedService?.id} onChange={onServiceSelect} name="service" id="service" className="p-2 border-[1px] border-blue-gray-200 rounded-md w-full">
+                    <select value={selectedService?.id} onChange={onServiceSelect} name="service" id="service" className="p-2 border-[1px] bg-background-white dark:bg-background-dark text-primary-white dark:text-primary-dark border-blue-gray-200 rounded-md w-full">
                         <option value={0} disabled hidden>Please Choose...</option>
                         {services?.map(service => {
                             return (
@@ -164,8 +164,8 @@ function AppointmentForm({ doctorId = 0 }: AppointmentFormProps) {
                 </div>
             </div>
             <div className="mt-5 xl:flex gap-5">
-                <DatePicker className="w-full py-2" value={dayjs(date, dateFormat)} onChange={onDateChange} format={dateFormat} disabledDate={disabledDate} />
-                <select value={time} onChange={onTimeChange} name="time" id="time" className="mt-5 xl:mt-0 p-2 border-[1px] border-blue-gray-200 rounded-md w-full">
+                <DatePicker className="w-full py-2 bg-background-white dark:bg-background-dark text-primary-white dark:text-primary-dark" value={dayjs(date, dateFormat)} onChange={onDateChange} format={dateFormat} disabledDate={disabledDate} />
+                <select value={time} onChange={onTimeChange} name="time" id="time" className="mt-5 xl:mt-0 p-2 border-[1px] bg-background-white dark:bg-background-dark text-primary-white dark:text-primary-dark border-blue-gray-200 rounded-md w-full">
                     <option value={0} disabled hidden>Please Choose...</option>
                     {availableTimes?.map(time => {
                         return (

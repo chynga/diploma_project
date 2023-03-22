@@ -41,9 +41,9 @@ function FormGroup({ labelText, regex, validationMessage, field, setField, ...re
 
     return (
         <div>
-            <label htmlFor="">{labelText}</label>
+            <label className="text-primary-white dark:text-primary-dark" htmlFor="">{labelText}</label>
             <input {...rest}
-                className="block mt-2 p-3 w-[315px] rounded-[10px] bg-[rgba(39,127,242,0.2)]"
+                className="block mt-2 p-3 text-primary-white dark:text-primary-dark w-[315px] rounded-[10px] bg-[rgba(39,127,242,0.2)]"
                 onChange={(event: any) => onChange(event, setField)} />
             {field.startedTyping ?
                 <p className="text-red-500 text-sm">{errorMessage}</p> :

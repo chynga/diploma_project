@@ -43,10 +43,6 @@ const updateUserInfo = async (userData: User, token: string) => {
     return localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")!) : null;
 };
 
-const recoverPassword = async (recoveryData: EmailCodeCredentials) => {
-    await axios.post("/api/password/recover", recoveryData);
-};
-
 // Logout user
 const logout = () => {
     localStorage.removeItem("user");
@@ -56,7 +52,6 @@ const authAPI = {
     register,
     logout,
     updateUserInfo,
-    recoverPassword,
     login,
 };
 

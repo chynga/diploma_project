@@ -1,5 +1,6 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { CloseButton } from "../SvgImages";
+import { TextSm } from "../TextElements";
 import LoginForm from "./LoginForm";
 import PasswordRecoveryForm from "./PasswordRecoveryForm";
 import RegisterForm from "./RegisterForm";
@@ -10,25 +11,31 @@ export type ModalProps = {
     setAuthPage: Dispatch<SetStateAction<AuthPage>>
 }
 
-function AuthModal({ authPage, setAuthPage }: ModalProps) {
-    return (
-        <div className="z-30 fixed left-0 top-0 right-0 bottom-0 bg-[rgb(0,0,0)] bg-[rgba(0,0,0,0.4)] flex justify-center items-center">
+export type FormProps = ModalProps & {
+    setErrorMsg: Dispatch<SetStateAction<string>>
+}
 
-            <div className="py-9 px-11 w-[1000px] h-[670px] bg-[#F2F2F2] rounded-xl">
+function AuthModal({ authPage, setAuthPage }: ModalProps) {
+    const [errorMsg, setErrorMsg] = useState("");
+
+    return (
+        <div className="z-30 fixed left-0 top-0 right-0 bottom-0 bg-[rgb(0,0,0)] bg-[rgba(0,0,0,0.4)] flex justify-center items-center overflow-auto">
+            <div className="py-9 px-11 w-[1000px] h-[670px] bg-[#F2F2F2] dark:bg-background-dark rounded-xl">
                 <div className="flex justify-end">
                     <div onClick={() => setAuthPage(null)}>
                         <CloseButton />
                     </div>
                 </div>
-                <div className="mt-10 pb-6 h-96 overflow-auto flex flex-col items-center gap-6">
+                <div className="mt-10 pb-6 flex flex-col items-center gap-6">
+                    <TextSm className="text-red-600 dark:text-red-400">{errorMsg}</TextSm>
                     {(() => {
                         switch (authPage) {
                             case "login":
-                                return <LoginForm setAuthPage={setAuthPage} />
+                                return <LoginForm setAuthPage={setAuthPage} setErrorMsg={setErrorMsg} />
                             case "register":
-                                return <RegisterForm setAuthPage={setAuthPage} />
+                                return <RegisterForm setAuthPage={setAuthPage} setErrorMsg={setErrorMsg} />
                             case "forgotPassword":
-                                return <PasswordRecoveryForm setAuthPage={setAuthPage} />
+                                return <PasswordRecoveryForm setAuthPage={setAuthPage} setErrorMsg={setErrorMsg} />
                         }
                     })()}
                 </div>

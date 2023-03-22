@@ -24,14 +24,12 @@ export type AuthError = {
 
 export type AuthState = {
     user: User | undefined
-    recoveryCodeSent: boolean
     isLoading: boolean
     error: AuthError | undefined
 }
 
 const initialState: AuthState = {
     user: user,
-    recoveryCodeSent: false,
     isLoading: false,
     error: undefined,
 };
@@ -92,23 +90,6 @@ export const updateUserInfo = createAsyncThunk("auth/updateUserInfo", async (use
     }
 });
 
-export const recoverPassword = createAsyncThunk("auth/password/recover", async (credentials: EmailCodeCredentials, { rejectWithValue }) => {
-    try {
-        return await authAPI.recoverPassword(credentials);        
-    } catch (err) {
-        const error: any = err
-        const { status } = error.response
-        const message =
-            (error.response &&
-                error.response.data &&
-                error.response.data.message) ||
-            error.message ||
-            error.toString();
-
-        return rejectWithValue({ status, message });
-    }
-});
-
 export const logout = createAsyncThunk("auth/logout", async () => {
     await authAPI.logout()
 });
@@ -120,7 +101,6 @@ export const authSlice = createSlice({
         reset: state => {
             state.isLoading = false
             state.error = undefined
-            state.recoveryCodeSent = false
         },
     },
     extraReducers: (builder) => {
@@ -158,18 +138,6 @@ export const authSlice = createSlice({
                 state.error = undefined;
             })
             .addCase(updateUserInfo.rejected, (state, action) => {
-                state.isLoading = false;
-                state.error = action.payload as AuthError;
-            })
-            .addCase(recoverPassword.pending, state => {
-                state.isLoading = true;
-            })
-            .addCase(recoverPassword.fulfilled, state => {
-                state.isLoading = false;
-                state.error = undefined;
-                state.recoveryCodeSent = true;
-            })
-            .addCase(recoverPassword.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload as AuthError;
             })
