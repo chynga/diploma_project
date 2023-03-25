@@ -41,6 +41,12 @@ class _$AppRouter extends RootStackRouter {
         child: const ConfirmationCodePage(),
       );
     },
+    MainRoute.name: (routeData) {
+      return MaterialPageX<void>(
+        routeData: routeData,
+        child: const MainPage(),
+      );
+    },
     TempRoute.name: (routeData) {
       final args = routeData.argsAs<TempRouteArgs>();
       return MaterialPageX<void>(
@@ -60,10 +66,15 @@ class _$AppRouter extends RootStackRouter {
           path: '/',
           children: [
             RouteConfig(
+              MainRoute.name,
+              path: 'main-page',
+              parent: LauncherRoute.name,
+            ),
+            RouteConfig(
               TempRoute.name,
               path: 'temp-page',
               parent: LauncherRoute.name,
-            )
+            ),
           ],
         ),
         RouteConfig(
@@ -128,6 +139,18 @@ class ConfirmationCodeRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'ConfirmationCodeRoute';
+}
+
+/// generated route for
+/// [MainPage]
+class MainRoute extends PageRouteInfo<void> {
+  const MainRoute()
+      : super(
+          MainRoute.name,
+          path: 'main-page',
+        );
+
+  static const String name = 'MainRoute';
 }
 
 /// generated route for

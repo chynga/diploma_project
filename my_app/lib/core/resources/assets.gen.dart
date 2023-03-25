@@ -18,12 +18,80 @@ class $AssetsIconsGen {
   SvgGenImage get chevronLeft =>
       const SvgGenImage('assets/icons/chevron-left.svg');
 
+  /// File path: assets/icons/ic_chat.svg
+  SvgGenImage get icChat => const SvgGenImage('assets/icons/ic_chat.svg');
+
+  /// File path: assets/icons/ic_chat_filled.svg
+  SvgGenImage get icChatFilled =>
+      const SvgGenImage('assets/icons/ic_chat_filled.svg');
+
+  /// File path: assets/icons/ic_main.svg
+  SvgGenImage get icMain => const SvgGenImage('assets/icons/ic_main.svg');
+
+  /// File path: assets/icons/ic_main_filled.svg
+  SvgGenImage get icMainFilled =>
+      const SvgGenImage('assets/icons/ic_main_filled.svg');
+
+  /// File path: assets/icons/ic_notification.svg
+  SvgGenImage get icNotification =>
+      const SvgGenImage('assets/icons/ic_notification.svg');
+
   /// File path: assets/icons/ic_onboarding.svg
   SvgGenImage get icOnboarding =>
       const SvgGenImage('assets/icons/ic_onboarding.svg');
 
+  /// File path: assets/icons/ic_profile.svg
+  SvgGenImage get icProfile => const SvgGenImage('assets/icons/ic_profile.svg');
+
+  /// File path: assets/icons/ic_profile_filled.svg
+  SvgGenImage get icProfileFilled =>
+      const SvgGenImage('assets/icons/ic_profile_filled.svg');
+
+  /// File path: assets/icons/ic_record.svg
+  SvgGenImage get icRecord => const SvgGenImage('assets/icons/ic_record.svg');
+
+  /// File path: assets/icons/ic_record_filled.svg
+  SvgGenImage get icRecordFilled =>
+      const SvgGenImage('assets/icons/ic_record_filled.svg');
+
+  /// File path: assets/icons/ic_services.svg
+  SvgGenImage get icServices =>
+      const SvgGenImage('assets/icons/ic_services.svg');
+
+  /// File path: assets/icons/ic_tooth.svg
+  SvgGenImage get icTooth => const SvgGenImage('assets/icons/ic_tooth.svg');
+
+  /// File path: assets/icons/ic_tooth_filled.svg
+  SvgGenImage get icToothFilled =>
+      const SvgGenImage('assets/icons/ic_tooth_filled.svg');
+
+  /// File path: assets/icons/teeth_dental_icon.svg
+  SvgGenImage get teethDentalIcon =>
+      const SvgGenImage('assets/icons/teeth_dental_icon.svg');
+
+  /// File path: assets/icons/teeth_dental_icon_big.svg
+  SvgGenImage get teethDentalIconBig =>
+      const SvgGenImage('assets/icons/teeth_dental_icon_big.svg');
+
   /// List of all assets
-  List<SvgGenImage> get values => [chevronLeft, icOnboarding];
+  List<SvgGenImage> get values => [
+        chevronLeft,
+        icChat,
+        icChatFilled,
+        icMain,
+        icMainFilled,
+        icNotification,
+        icOnboarding,
+        icProfile,
+        icProfileFilled,
+        icRecord,
+        icRecordFilled,
+        icServices,
+        icTooth,
+        icToothFilled,
+        teethDentalIcon,
+        teethDentalIconBig
+      ];
 }
 
 class $AssetsImagesGen {
@@ -33,8 +101,12 @@ class $AssetsImagesGen {
   AssetGenImage get dentalPlaza =>
       const AssetGenImage('assets/images/dentalPlaza.png');
 
+  /// File path: assets/images/mainPicture.png
+  AssetGenImage get mainPicture =>
+      const AssetGenImage('assets/images/mainPicture.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [dentalPlaza];
+  List<AssetGenImage> get values => [dentalPlaza, mainPicture];
 }
 
 class Assets {

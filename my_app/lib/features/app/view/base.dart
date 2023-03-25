@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:dental_plaza/core/extension/src/build_context.dart';
 import 'package:dental_plaza/core/resources/assets.gen.dart';
 import 'package:dental_plaza/core/resources/resources.dart';
 import 'package:dental_plaza/features/app/bloc/app_bloc.dart';
@@ -35,8 +36,8 @@ class _BaseState extends State<Base> with TickerProviderStateMixin {
       builder: (context, appState) {
         return AutoTabsScaffold(
           extendBody: true,
-          routes:   [
-            TempRoute(color: Colors.pink),
+          routes: [
+            const MainRoute(),
             TempRoute(color: Colors.blue),
             TempRoute(color: Colors.red),
             TempRoute(color: Colors.yellow),
@@ -44,86 +45,71 @@ class _BaseState extends State<Base> with TickerProviderStateMixin {
           ],
           backgroundColor: AppColors.kWhite,
           builder: (context, child, animation) {
-            return SafeArea(bottom: false, child: child);
+            return SafeArea(child: child);
           },
           bottomNavigationBuilder: (_, tabsRouter) {
             return Builder(
               builder: (newContext) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16).copyWith(bottom: 32),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(23),
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color(0xff5C469D).withOpacity(0.12),
-                          blurRadius: 32,
-                          offset: const Offset(0, -5),
+                return Container(
+                  decoration: BoxDecoration(
+                      color: AppColors.kWhite,
+                      border: Border(
+                          top: BorderSide(
+                        color: AppColors.kBlack.withOpacity(0.1),
+                      ))),
+                  child: Material(
+                    color: AppColors.kWhite,
+                    child: TabBar(
+                      onTap: (value) {
+                        if (tabsRouter.activeIndex == value) {
+                          tabsRouter.popTop();
+                        } else {
+                          tabsRouter.setActiveIndex(value);
+                        }
+                      },
+                      indicatorColor: Colors.transparent,
+                      // indicator: TopIndicator(),
+                      splashBorderRadius: BorderRadius.circular(23),
+                      padding: const EdgeInsets.symmetric(horizontal: 19),
+                      controller: tabController,
+                      labelPadding: EdgeInsets.zero,
+                      tabs: [
+                        CustomTabWidget(
+                          icon: Assets.icons.icMain.path,
+                          activeIcon: Assets.icons.icMainFilled.path,
+                          title: context.localized.main,
+                          currentIndex: tabsRouter.activeIndex,
+                          tabIndex: 0,
                         ),
-                        BoxShadow(
-                          color: const Color(0xff5C469D).withOpacity(0.09),
-                          blurRadius: 32,
-                          offset: const Offset(0, 5),
-                        )
+                        CustomTabWidget(
+                          icon: Assets.icons.icChat.path,
+                          activeIcon: Assets.icons.icChatFilled.path,
+                          title: context.localized.chat,
+                          currentIndex: tabsRouter.activeIndex,
+                          tabIndex: 1,
+                        ),
+                        CustomTabWidget(
+                          icon: Assets.icons.icTooth.path,
+                          activeIcon: Assets.icons.icToothFilled.path,
+                          title: context.localized.cleaning,
+                          currentIndex: tabsRouter.activeIndex,
+                          tabIndex: 2,
+                        ),
+                        CustomTabWidget(
+                          icon: Assets.icons.icRecord.path,
+                          activeIcon: Assets.icons.icRecordFilled.path,
+                          title: context.localized.record,
+                          currentIndex: tabsRouter.activeIndex,
+                          tabIndex: 3,
+                        ),
+                        CustomTabWidget(
+                          icon: Assets.icons.icProfile.path,
+                          activeIcon: Assets.icons.icProfileFilled.path,
+                          title: context.localized.profile,
+                          currentIndex: tabsRouter.activeIndex,
+                          tabIndex: 4,
+                        ),
                       ],
-                    ),
-                    child: Material(
-                      borderRadius: BorderRadius.circular(23),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(23),
-                        child: TabBar(
-                          onTap: (value) {
-                            if (tabsRouter.activeIndex == value) {
-                              tabsRouter.popTop();
-                            } else {
-                              tabsRouter.setActiveIndex(value);
-                            }
-                          },
-                          indicator: TopIndicator(),
-                          splashBorderRadius: BorderRadius.circular(23),
-                          padding: const EdgeInsets.symmetric(horizontal: 19),
-                          controller: tabController,
-                          labelPadding: EdgeInsets.zero,
-                          tabs:  [
-                            // CustomTabWidget(
-                            //   icon: Assets.icons.icMain.path,
-                            //   activeIcon: Assets.icons.icMainSelected.path,
-                            //   title: 'Главная',
-                            //   currentIndex: tabsRouter.activeIndex,
-                            //   tabIndex: 0,
-                            // ),
-                            // CustomTabWidget(
-                            //   icon: Assets.icons.icOqysai.path,
-                            //   activeIcon: Assets.icons.icOqysaiSelected.path,
-                            //   title: 'Мои заказы',
-                            //   currentIndex: tabsRouter.activeIndex,
-                            //   tabIndex: 1,
-                            // ),
-                            // CustomTabWidget(
-                            //   icon: Assets.icons.icChat.path,
-                            //   activeIcon: Assets.icons.icChatSelected.path,
-                            //   title: '',
-                            //   currentIndex: tabsRouter.activeIndex,
-                            //   tabIndex: 2,
-                            // ),
-                            // CustomTabWidget(
-                            //   icon: Assets.icons.icProfile.path,
-                            //   activeIcon: Assets.icons.icUserSelected.path,
-                            //   title: 'Склад',
-                            //   currentIndex: tabsRouter.activeIndex,
-                            //   tabIndex: 3,
-                            // ),
-                            // CustomTabWidget(
-                            //   icon: Assets.icons.icUbtBattle.path,
-                            //   activeIcon: Assets.icons.icUbtBattleSelected.path,
-                            //   title: 'Профиль',
-                            //   currentIndex: tabsRouter.activeIndex,
-                            //   tabIndex: 4,
-                            // ),
-                           ],
-                        ),
-                      ),
                     ),
                   ),
                 );
@@ -154,21 +140,25 @@ class CustomTabWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 70,
+      height: 72,
       child: Tab(
         iconMargin: EdgeInsets.zero,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SvgPicture.asset(tabIndex == currentIndex ? activeIcon : icon),
-            if (tabIndex == currentIndex)
-              GradientText(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 15),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SvgPicture.asset(tabIndex == currentIndex ? activeIcon : icon),
+              Text(
                 title,
                 maxLines: 1,
-                gradient: AppGradients.primaryGradient5,
-                style: AppTextStyles.m10w500.copyWith(),
+                style: AppTextStyles.m12w400.copyWith(
+                    color: tabIndex == currentIndex
+                        ? AppColors.kBlue
+                        : AppColors.kBlack.withOpacity(0.3)),
               ),
-          ],
+            ],
+          ),
         ),
       ),
     );
