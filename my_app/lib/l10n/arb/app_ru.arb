@@ -1,0 +1,22 @@
+{
+  "comeBack": "Вернуться назад",
+  "confirmPassword": "Подтвердите пароль",
+  "enterYourEmailSoWeCanSend": "Напишите свою почту чтобы мы отправили вам код для подтверждение",
+  "entrance": "Вход",
+  "fio": "ФИО",
+  "forgotPassword": "Забыли пароль?",
+  "login": "Войти",
+  "newPassword": "Новый пароль",
+  "onboardingText": "Добро пожаловать в мобильное приложение вашей клиники Dental Plaza Чтобы нам было с вами легче поддерживать связь просим вас нажать начать ",
+  "password": "Пароль",
+  "passwordsDontMatches": "Пароли не совпадают",
+  "registration": "Регистрация",
+  "registrer": "Зарегестрироваться",
+  "resendCode": "Отправить код повторно",
+  "send": "Отправить",
+  "sendCodeAgain": "Отправить код повторно ",
+  "start": "Начать",
+  "weHaveSentVerificationCode": "Мы выслали код для подтверждения",
+  "yourEmail": "Ваш e-mail",
+  "yourPassword": "Ваш пароль"
+}

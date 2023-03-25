@@ -1,0 +1,22 @@
+{
+  "comeBack": "Артқа қайту",
+  "confirmPassword": "Құпиясөзді растаңыз",
+  "enterYourEmailSoWeCanSend": "Сізге растау кодын жіберуіміз үшін электрондық поштаңызды енгізіңіз",
+  "entrance": "Кіру",
+  "fio": "Аты - жөні, тегі",
+  "forgotPassword": "Құпиясөзді ұмыттыңызба?",
+  "login": "Кіру",
+  "newPassword": "Жаңа құпиясөз",
+  "onboardingText": "Dental Plaza клиникасының мобильді қосымшасына қош келдіңіз Бізбен байланыста болуды жеңілдету үшін бастау түймесін басыңыз",
+  "password": "Құпиясөз",
+  "passwordsDontMatches": "Құпиясөздер сәйкес келмейді",
+  "registration": "Тіркелу",
+  "registrer": "Тіркелу",
+  "resendCode": "Кодты қайта жіберу",
+  "send": "Жіберу",
+  "sendCodeAgain": "Кодты қайта жіберу",
+  "start": "Бастау",
+  "weHaveSentVerificationCode": "Біз растау кодын жібердік.",
+  "yourEmail": "Сіздің электрондық поштаңыз",
+  "yourPassword": "Сіздің құпиясөзіңіз"
+}

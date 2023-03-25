@@ -1,27 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:my_app/view/splash.view.dart';
+import 'package:dental_plaza/features/app/logic/main_runner.dart';
+import 'package:dental_plaza/features/app/model/async_app_dependencies.dart';
+import 'package:dental_plaza/features/app/view/dental_plaza_app.dart';
 
-void main() {
-  runApp( const GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SplashView(), 
-    )
+Future<void> main() => MainRunner.run<AsyncAppDependencies>(
+      asyncDependencies: AsyncAppDependencies.obtain,
+      appBuilder: (dependencies) => DentalPlazaApp(
+        sharedPreferences: dependencies.sharedPreferences,
+        packageInfo: dependencies.packageInfo,
+      ),
     );
-}
-
-// class App extends StatelessWidget {
-//   const App({super.key});
-
-  
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return const GetMaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       home: SplashView(),
-//       initialRoute: AppPage.getnavbar(),
-//       getPages: AppPage.routes,
-//     );
-//   }
-// }
