@@ -7,7 +7,7 @@ import { useAppSelector } from "../../../app/hooks";
 import { logout, selectAuth } from "../../../features/auth/authSlice";
 import AuthModal, { AuthPage } from "../authModal";
 import Hint, { HintContext, HintContextType } from "../Hint";
-import { ArrowDown, Bell, Burger, Close, Glasses, Logo, Person, Phone2Svg, ProfilePicture, ThemeToggler } from "../SvgImages";
+import { ArrowDown, Bell, Burger, Close, Glasses, Instagram, Logo, Person, Phone2Svg, ProfilePicture, ThemeToggler } from "../SvgImages";
 import { TextBase, TextLg, TextXl } from "../TextElements";
 import { toggleTheme } from "../util";
 import Notification from "./Notification";
@@ -91,6 +91,9 @@ function Header() {
                                 <></>
                             }
                         </div>
+                        <a href="https://instagram.com/dentalplaza.kz?igshid=YmMyMTA2M2Y=">
+                            <Instagram fill="blue" />
+                        </a>
                         <div className="relative">
                             <div className="hover:cursor-pointer" onClick={toggleTheme} id="theme-toggle">
                                 <ThemeToggler className="w-[20px] md:w-auto" />

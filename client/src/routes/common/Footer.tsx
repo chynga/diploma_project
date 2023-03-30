@@ -132,7 +132,7 @@ function Footer() {
                                 Instagram
                             </div>
                         </TextLg>
-                        <Instagram />
+                        <Instagram className="w-[25px] h-[25px]" />
                     </a>
                 </div>
             </div>
