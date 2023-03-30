@@ -1,9 +1,8 @@
 import axios from "axios";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useContext, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { useAppSelector } from "../../app/hooks";
-import { selectAuth } from "../../features/auth/authSlice";
 import FormGroup from "./authModal/FormGroup";
+import Hint, { HintContext, HintContextType } from "./Hint";
 import { CloseButton, PhoneSvg } from "./SvgImages";
 import { nameRegex, phoneRegex, state } from "./util";
 
@@ -14,7 +13,7 @@ type OrderCallProps = {
 
 export function OrderCallButton({ setShowOrderCall }: OrderCallProps) {
     const location = useLocation();
-    const { user } = useAppSelector(selectAuth);
+    const { step } = useContext(HintContext) as HintContextType;
 
     const onClick = () => {
         setShowOrderCall(true);
@@ -26,9 +25,16 @@ export function OrderCallButton({ setShowOrderCall }: OrderCallProps) {
     }
 
     return (
-        <div className="p-5 bg-blue-white dark:bg-blue-dark shadow-[0px_0px_4px_6px_rgba(39,127,242,0.5)] dark:shadow-[0px_0px_5px_2px_#FFFFFF] rounded-full hover:cursor-pointer"
-            onClick={onClick}>
-            <PhoneSvg />
+        <div className="relative">
+            <div className="p-5 bg-blue-white dark:bg-blue-dark shadow-[0px_0px_4px_6px_rgba(39,127,242,0.5)] dark:shadow-[0px_0px_5px_2px_#FFFFFF] rounded-full hover:cursor-pointer"
+                onClick={onClick}>
+                <PhoneSvg />
+            </div>
+            {step === 6 ?
+                <Hint hintPos={"top"} pointerPos={"end"} right={"-right-7"} />
+                :
+                <></>
+            }
         </div>
     );
 }

@@ -19,14 +19,14 @@ function AuthModal({ authPage, setAuthPage }: ModalProps) {
     const [errorMsg, setErrorMsg] = useState("");
 
     return (
-        <div className="z-30 fixed left-0 top-0 right-0 bottom-0 bg-[rgb(0,0,0)] bg-[rgba(0,0,0,0.4)] flex justify-center items-center overflow-auto">
-            <div className="py-9 px-11 w-[1000px] h-[670px] bg-[#F2F2F2] dark:bg-background-dark rounded-xl">
+        <div className="z-30 fixed left-0 top-0 right-0 bottom-0 bg-[rgb(0,0,0)] bg-[rgba(0,0,0,0.4)] flex justify-center items-center">
+            <div className="py-9 px-11 w-[800px] h-[560px] bg-[#F2F2F2] dark:bg-background-dark rounded-xl overflow-auto">
                 <div className="flex justify-end">
                     <div onClick={() => setAuthPage(null)}>
                         <CloseButton />
                     </div>
                 </div>
-                <div className="mt-10 pb-6 flex flex-col items-center gap-6">
+                <div className="pb-6 flex flex-col items-center gap-6">
                     <TextSm className="text-red-600 dark:text-red-400">{errorMsg}</TextSm>
                     {(() => {
                         switch (authPage) {

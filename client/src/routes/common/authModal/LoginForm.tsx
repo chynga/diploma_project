@@ -1,12 +1,14 @@
+import axios from "axios";
+import jwt_decode from "jwt-decode";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { FormProps } from ".";
-import { login } from "../../../features/auth/authSlice";
+import { setUser, User } from "../../../features/auth/authSlice";
 import { emailRegex, passwordRegex, state } from "../util";
 import Button from "./Button";
 import FormGroup from "./FormGroup";
 
-function LoginForm({ setAuthPage }: FormProps) {
+function LoginForm({ setAuthPage, setErrorMsg }: FormProps) {
     const [email, setEmail] = useState(state);
     const [password, setPassword] = useState(state);
     const dispatch = useDispatch<any>();
@@ -19,8 +21,18 @@ function LoginForm({ setAuthPage }: FormProps) {
             password: password.value,
         };
 
-        dispatch(login(userData));
-        setAuthPage(null);
+        axios.post("/api/authentication/login", userData)
+            .then((resp) => {
+                const token = resp.data.accessToken;
+                var user: User = jwt_decode(token);
+                localStorage.setItem("user", JSON.stringify({ ...user, token }));
+                console.log(user)
+                setErrorMsg("");
+                dispatch(setUser(user));
+                setAuthPage(null);
+            }).catch((error) => {
+                setErrorMsg("Почта или пароль не правильный!");
+            });
     };
 
     return (
@@ -43,9 +55,9 @@ function LoginForm({ setAuthPage }: FormProps) {
                 setField={setPassword}
                 regex={passwordRegex}
                 validationMessage="1 UPPERCASE letter, 1 lowercase letter, 1 number" />
-            <Button />
+            <Button text="Войти" />
             <div onClick={() => setAuthPage("forgotPassword")}
-                className="mt-3 hover:cursor-pointer text-2xl text-blue-white">
+                className="mt-3 hover:cursor-pointer text-xl text-blue-white">
                 Забыли пароль?
             </div>
         </form>

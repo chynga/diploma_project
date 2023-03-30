@@ -1,12 +1,14 @@
+import axios from "axios";
+import jwt_decode from "jwt-decode";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { FormProps } from ".";
-import { register } from "../../../features/auth/authSlice";
+import { register, setUser, User } from "../../../features/auth/authSlice";
 import { emailRegex, nameRegex, passwordRegex, phoneRegex, state } from "../util";
 import Button from "./Button";
 import FormGroup from "./FormGroup";
 
-function RegisterForm({ setAuthPage }: FormProps) {
+function RegisterForm({ setAuthPage, setErrorMsg }: FormProps) {
     const [fullName, setFullName] = useState(state);
     const [phone, setPhone] = useState(state);
     const [email, setEmail] = useState(state);
@@ -23,8 +25,18 @@ function RegisterForm({ setAuthPage }: FormProps) {
             password: password.value,
         };
 
-        dispatch(register(userData));
-        setAuthPage(null);
+        axios.post("/api/authentication/register", userData)
+            .then((resp) => {
+                const token = resp.data.accessToken;
+                var user: User = jwt_decode(token);
+                localStorage.setItem("user", JSON.stringify({ ...user, token }));
+                console.log(user)
+                setErrorMsg("");
+                dispatch(setUser(user));
+                setAuthPage(null);
+            }).catch((error) => {
+                setErrorMsg(error.response.data.message);
+            });
     };
 
     return (

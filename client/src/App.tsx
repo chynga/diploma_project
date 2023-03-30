@@ -20,35 +20,50 @@ import ProfilePanel from './routes/profilePanel';
 import AdminPanel from './routes/adminPanel';
 import { OrderCallButton, OrderCallForm } from './routes/common/OrderCall';
 import { useState } from 'react';
+import { HintContext } from './routes/common/Hint';
 
 function App() {
     const [showOrderCall, setShowOrderCall] = useState(false);
+    const [step, setStep] = useState<number>(0);
+
+    const next = () => {
+        if (step === 7) {
+            close();
+        }
+        setStep(step + 1);
+    }
+
+    const close = () => {
+        setStep(0);
+    }
 
     return (
-        <div className="App bg-background-white dark:bg-background-dark">
-            <Router>
-                <Header />
-                <div className="fixed z-50 right-20 bottom-20">
-                    <OrderCallButton setShowOrderCall={setShowOrderCall} />
-                </div>
-                <OrderCallForm showOrderCall={showOrderCall} setShowOrderCall={setShowOrderCall} />
-                <Routes>
-                    <Route path="/" element={<HomePage />} />
-                    <Route path="/services" element={<ServicesPage />} />
-                    <Route path="/services/:id" element={<ServicePage />} />
-                    <Route path="/reviews" element={<ReviewsPage />} />
-                    <Route path="/vacancy" element={<VacancyPage />} />
-                    <Route path="/doctors" element={<DoctorsPage />} />
-                    <Route path="/doctors/:id" element={<DoctorPage />} />
-                    <Route path="/advices" element={<AdvicesPage />} />
-                    <Route path="/about" element={<AboutPage />} />
-                    <Route path="/profile-panel/*" element={<ProfilePanel />} />
-                    <Route path="/admin/*" element={<AdminPanel />} />
-                    <Route path="*" element={<NotFound />} />
-                </Routes>
-                <Footer />
-            </Router>
-        </div>
+        <HintContext.Provider value={{ step, next, close }}>
+            <div className="App bg-background-white dark:bg-background-dark">
+                <Router>
+                    <Header />
+                    <div className="fixed z-50 right-20 bottom-20">
+                        <OrderCallButton setShowOrderCall={setShowOrderCall} />
+                    </div>
+                    <OrderCallForm showOrderCall={showOrderCall} setShowOrderCall={setShowOrderCall} />
+                    <Routes>
+                        <Route path="/" element={<HomePage />} />
+                        <Route path="/services" element={<ServicesPage />} />
+                        <Route path="/services/:id" element={<ServicePage />} />
+                        <Route path="/reviews" element={<ReviewsPage />} />
+                        <Route path="/vacancy" element={<VacancyPage />} />
+                        <Route path="/doctors" element={<DoctorsPage />} />
+                        <Route path="/doctors/:id" element={<DoctorPage />} />
+                        <Route path="/advices" element={<AdvicesPage />} />
+                        <Route path="/about" element={<AboutPage />} />
+                        <Route path="/profile-panel/*" element={<ProfilePanel />} />
+                        <Route path="/admin/*" element={<AdminPanel />} />
+                        <Route path="*" element={<NotFound />} />
+                    </Routes>
+                    <Footer />
+                </Router>
+            </div>
+        </HintContext.Provider>
     );
 }
 

@@ -1,11 +1,7 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { redirect, useNavigate } from "react-router-dom";
 import { FormProps } from ".";
-import { useAppSelector } from "../../../app/hooks";
-import { login, reset, selectAuth } from "../../../features/auth/authSlice";
-import { TextSm } from "../TextElements";
 import { codeRegex, emailRegex, passwordRegex, state } from "../util";
 import Button from "./Button";
 import FormGroup from "./FormGroup";
@@ -68,11 +64,7 @@ function PasswordRecoveryForm({ setAuthPage, setErrorMsg }: FormProps) {
             axios.post("/api/password/recover", credentials)
                 .then(() => {
                     setErrorMsg("");
-                    dispatch(login({
-                        email: email.value,
-                        password: password.value
-                    }));
-                    setAuthPage(null);
+                    setAuthPage("login");
                 }).catch((error) => {
                     setErrorMsg("Возникла ошибка!");
                 }).finally(() => {
