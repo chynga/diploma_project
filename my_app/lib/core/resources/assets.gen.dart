@@ -14,9 +14,27 @@ import 'package:flutter/services.dart';
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// File path: assets/icons/arrow-down.svg
+  SvgGenImage get arrowDown => const SvgGenImage('assets/icons/arrow-down.svg');
+
+  /// File path: assets/icons/arrow-up.svg
+  SvgGenImage get arrowUp => const SvgGenImage('assets/icons/arrow-up.svg');
+
   /// File path: assets/icons/chevron-left.svg
   SvgGenImage get chevronLeft =>
       const SvgGenImage('assets/icons/chevron-left.svg');
+
+  /// File path: assets/icons/corner-left-down.svg
+  SvgGenImage get cornerLeftDown =>
+      const SvgGenImage('assets/icons/corner-left-down.svg');
+
+  /// File path: assets/icons/corner-left-up.svg
+  SvgGenImage get cornerLeftUp =>
+      const SvgGenImage('assets/icons/corner-left-up.svg');
+
+  /// File path: assets/icons/corner-right-down.svg
+  SvgGenImage get cornerRightDown =>
+      const SvgGenImage('assets/icons/corner-right-down.svg');
 
   /// File path: assets/icons/ic_chat.svg
   SvgGenImage get icChat => const SvgGenImage('assets/icons/ic_chat.svg');
@@ -75,7 +93,12 @@ class $AssetsIconsGen {
 
   /// List of all assets
   List<SvgGenImage> get values => [
+        arrowDown,
+        arrowUp,
         chevronLeft,
+        cornerLeftDown,
+        cornerLeftUp,
+        cornerRightDown,
         icChat,
         icChatFilled,
         icMain,

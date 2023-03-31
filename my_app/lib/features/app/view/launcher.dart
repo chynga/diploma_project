@@ -8,6 +8,7 @@ import 'package:dental_plaza/features/auth/view/auth_page.dart';
 import 'package:dental_plaza/features/auth/view/onboarding_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 // ignore: unused_element
 const _tag = 'Launcher';
@@ -57,7 +58,11 @@ class _LauncherState extends State<Launcher> {
           //   return const _Scaffold(child: CustomErrorLoadingWidget());
           // },
           orElse: () {
-            return const Base();
+            return ShowCaseWidget(
+              blurValue: 1,
+              builder: Builder(builder: (context) => const Base()),
+              autoPlayDelay: const Duration(seconds: 3),
+            );
           },
         );
       },

@@ -65,6 +65,7 @@ dependencies:
   select_annotation: ^0.2.0
   shared_preferences: ^2.0.18
   shimmer: ^2.0.0
+  showcaseview: ^2.0.2
   sqlite3_flutter_libs: ^0.5.13
   stack_trace: ^1.11.0
   staggered_grid_view_flutter: ^0.0.4

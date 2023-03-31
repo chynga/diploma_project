@@ -27,3 +27,14 @@ Widget refreshClassicFooter(BuildContext context) {
     idleIcon: null,
   );
 }
+
+
+  final GlobalKey one = GlobalKey();
+  final GlobalKey two = GlobalKey();
+  final GlobalKey three = GlobalKey();
+  final GlobalKey four = GlobalKey();
+  final GlobalKey five = GlobalKey();
+  final GlobalKey six = GlobalKey();
+  final GlobalKey seven = GlobalKey();
+  final GlobalKey eight = GlobalKey();
+  final GlobalKey nine = GlobalKey();
