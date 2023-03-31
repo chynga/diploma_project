@@ -22,8 +22,8 @@ class CustomSquareButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: size ?? 40,
-      width: size ?? 40,
+      height: size ?? 30,
+      width: size ?? 30,
       decoration: BoxDecoration(
         color: backgroundColor ?? Colors.white,
         borderRadius: BorderRadius.circular(12),

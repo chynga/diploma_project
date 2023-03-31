@@ -29,17 +29,8 @@ class _BaseState extends State<Base> with TickerProviderStateMixin {
   void initState() {
     tabController = TabController(length: 5, vsync: this);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      ShowCaseWidget.of(context).startShowCase([
-        one,
-        two,
-        three,
-        four,
-        five,
-        six,
-        seven,
-        eight,
-        nine
-      ]);
+      ShowCaseWidget.of(context).startShowCase(
+          [one, two, three, four, five, six, seven, eight, nine]);
     });
     super.initState();
   }
@@ -52,8 +43,8 @@ class _BaseState extends State<Base> with TickerProviderStateMixin {
           extendBody: true,
           routes: [
             const MainRoute(),
-            TempRoute(color: Colors.blue),
-            TempRoute(color: Colors.red),
+            const ChatRoute(),
+            const ToothCleanRoute(),
             TempRoute(color: Colors.yellow),
             TempRoute(color: Colors.black),
           ],
@@ -76,29 +67,29 @@ class _BaseState extends State<Base> with TickerProviderStateMixin {
                   child: Material(
                     color: AppColors.kWhite,
                     child: ShowcaseForNavBar(
-                       key1: one,
-                            tooltip: Padding(
-                              padding: EdgeInsets.only(
-                                left: MediaQuery.of(context).size.width * 0.1,
+                      key1: one,
+                      tooltip: Padding(
+                        padding: EdgeInsets.only(
+                          left: MediaQuery.of(context).size.width * 0.1,
+                        ),
+                        child: Transform.translate(
+                          offset: const Offset(0, 60),
+                          child: Row(
+                            children: [
+                              SvgPicture.asset(
+                                Assets.icons.cornerLeftDown.path,
                               ),
-                              child: Transform.translate(
-                                offset: const Offset(0, 60),
-                                child: Row(
-                                  children: [
-                                    SvgPicture.asset(
-                                      Assets.icons.cornerLeftDown.path,
-                                    ),
-                                    const SizedBox(
-                                      width: 4,
-                                    ),
-                                    const Text(
-                                      'Меню бар ',
-                                      style: AppTextStyles.m16w700White,
-                                    ),
-                                  ],
-                                ),
+                              const SizedBox(
+                                width: 4,
                               ),
-                            ),
+                              const Text(
+                                'Меню бар ',
+                                style: AppTextStyles.m16w700White,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                       child: TabBar(
                         onTap: (value) {
                           if (tabsRouter.activeIndex == value) {
@@ -225,8 +216,7 @@ class _BaseState extends State<Base> with TickerProviderStateMixin {
                             key1: five,
                             tooltip: Padding(
                               padding: EdgeInsets.only(
-                                right:
-                                    MediaQuery.of(context).size.width * 0.11,
+                                right: MediaQuery.of(context).size.width * 0.11,
                               ),
                               child: Transform.translate(
                                 offset: const Offset(0, 60),

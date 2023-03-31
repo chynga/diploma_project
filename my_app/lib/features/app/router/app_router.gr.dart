@@ -47,6 +47,18 @@ class _$AppRouter extends RootStackRouter {
         child: const MainPage(),
       );
     },
+    ChatRoute.name: (routeData) {
+      return MaterialPageX<void>(
+        routeData: routeData,
+        child: const ChatPage(),
+      );
+    },
+    ToothCleanRoute.name: (routeData) {
+      return MaterialPageX<void>(
+        routeData: routeData,
+        child: const ToothCleanPage(),
+      );
+    },
     TempRoute.name: (routeData) {
       final args = routeData.argsAs<TempRouteArgs>();
       return MaterialPageX<void>(
@@ -68,6 +80,16 @@ class _$AppRouter extends RootStackRouter {
             RouteConfig(
               MainRoute.name,
               path: 'main-page',
+              parent: LauncherRoute.name,
+            ),
+            RouteConfig(
+              ChatRoute.name,
+              path: 'chat-page',
+              parent: LauncherRoute.name,
+            ),
+            RouteConfig(
+              ToothCleanRoute.name,
+              path: 'tooth-clean-page',
               parent: LauncherRoute.name,
             ),
             RouteConfig(
@@ -151,6 +173,30 @@ class MainRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'MainRoute';
+}
+
+/// generated route for
+/// [ChatPage]
+class ChatRoute extends PageRouteInfo<void> {
+  const ChatRoute()
+      : super(
+          ChatRoute.name,
+          path: 'chat-page',
+        );
+
+  static const String name = 'ChatRoute';
+}
+
+/// generated route for
+/// [ToothCleanPage]
+class ToothCleanRoute extends PageRouteInfo<void> {
+  const ToothCleanRoute()
+      : super(
+          ToothCleanRoute.name,
+          path: 'tooth-clean-page',
+        );
+
+  static const String name = 'ToothCleanRoute';
 }
 
 /// generated route for
