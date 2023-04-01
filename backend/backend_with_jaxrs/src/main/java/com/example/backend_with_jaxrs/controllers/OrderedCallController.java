@@ -21,7 +21,7 @@ public class OrderedCallController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getOrders(@HeaderParam(HttpHeaders.AUTHORIZATION) String authorizationHeader) throws CustomException {
-        if (!securityContext.isUserInRole(Role.MANAGER.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+        if (!securityContext.isUserInRole(Role.ADMIN.name) && !securityContext.isUserInRole(Role.CONSULTANT.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
         ArrayList<OrderedCall> orders = OrderedCallService.getInstance().getOrderedCalls();
         return Response.ok(orders).build();
     }

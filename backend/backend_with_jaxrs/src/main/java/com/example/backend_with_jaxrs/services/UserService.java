@@ -7,6 +7,7 @@ import com.example.backend_with_jaxrs.models.User;
 import com.example.backend_with_jaxrs.utils.CustomException;
 import com.example.backend_with_jaxrs.utils.Email;
 import com.example.backend_with_jaxrs.utils.ErrorCode;
+import com.example.backend_with_jaxrs.utils.enums.Role;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.sql.Timestamp;
@@ -45,6 +46,10 @@ public class UserService {
         return user;
     }
 
+    public User getProfileInfo(Long userId) throws CustomException {
+        return UserDAO.getInstance().getProfileInfo(userId);
+    }
+
     public void updateUserInfo(User user) throws CustomException {
         UserDAO.getInstance().updateUserInfo(user);
     }
@@ -62,6 +67,11 @@ public class UserService {
         user.setPassword(encodedPassword);
         UserDAO.getInstance().updatePassword(user);
         UserDAO.getInstance().removeRecoveryCode(user.getId());
+    }
+
+    public void checkCode(PasswordRecovery passwordRecoveryCredentials) throws CustomException {
+        String code = UserDAO.getInstance().getRecoveryCode(passwordRecoveryCredentials.getEmail());
+        if (!code.equals(passwordRecoveryCredentials.getCode())) throw new CustomException(new ErrorCode("Не совподает!"));
     }
 
     private void sendRecoveryCode(String email, Long userId) throws CustomException {
@@ -111,5 +121,19 @@ public class UserService {
         ArrayList<User> clients = UserDAO.getInstance().getClients();
 
         return clients;
+    }
+
+    public User createSuperUser(User user) throws CustomException {
+        Long userId = UserDAO.getInstance().register(user);
+        ArrayList<String> roles = new ArrayList<>();
+        roles.add(Role.ADMIN.name);
+        roles.add(Role.CONSULTANT.name);
+        roles.add(Role.DOCTOR.name);
+        RoleService.getInstance().addRolesToUser(new RoleAssignment(userId, roles));
+
+        User userUser = UserDAO.getInstance().getEmployee(userId);
+        userUser.setRoles(roles);
+
+        return userUser;
     }
 }

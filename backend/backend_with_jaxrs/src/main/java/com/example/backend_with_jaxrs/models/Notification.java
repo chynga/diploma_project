@@ -9,6 +9,8 @@ public class Notification {
     private Boolean isViewed;
     private String message;
     private Timestamp time;
+    private Timestamp showTime;
+    private Long appointmentId;
 
     public Long getId() {
         return id;
@@ -56,5 +58,21 @@ public class Notification {
 
     public void setTime(Timestamp time) {
         this.time = time;
+    }
+
+    public Timestamp getShowTime() {
+        return showTime;
+    }
+
+    public void setShowTime(Timestamp showTime) {
+        this.showTime = showTime;
+    }
+
+    public Long getAppointmentId() {
+        return appointmentId;
+    }
+
+    public void setAppointmentId(Long appointmentId) {
+        this.appointmentId = appointmentId;
     }
 }

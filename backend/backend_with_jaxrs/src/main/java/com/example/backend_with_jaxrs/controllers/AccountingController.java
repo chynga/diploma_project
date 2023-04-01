@@ -17,7 +17,7 @@ public class AccountingController {
     @Path("{month}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllAppointments(@PathParam("month") Integer month) throws CustomException {
-        if (!securityContext.isUserInRole(Role.MANAGER.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+        if (!securityContext.isUserInRole(Role.ADMIN.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
         MonthlyReport monthlyReport = AccountingService.getInstance().getMonthlyReport(month);
 
         return Response.ok().entity(monthlyReport).build();

@@ -6,7 +6,8 @@ public class Client extends User {
     private String verificationCode;
     private Date verificationCodeSentTime;
     private boolean emailVerified;
-    private String patientDescription;
+    private String allergy;
+    private String prescribedMedications;
 
     public String getVerificationCode() {
         return verificationCode;
@@ -32,11 +33,19 @@ public class Client extends User {
         this.emailVerified = emailVerified;
     }
 
-    public String getPatientDescription() {
-        return patientDescription;
+    public String getAllergy() {
+        return allergy;
     }
 
-    public void setPatientDescription(String patientDescription) {
-        this.patientDescription = patientDescription;
+    public void setAllergy(String allergy) {
+        this.allergy = allergy;
+    }
+
+    public String getPrescribedMedications() {
+        return prescribedMedications;
+    }
+
+    public void setPrescribedMedications(String prescribedMedications) {
+        this.prescribedMedications = prescribedMedications;
     }
 }

@@ -15,6 +15,7 @@ public abstract class GeneralDAO {
         try {
             connection = DriverManager.getConnection(dbConnectionUrl, dbUser, dbPassword);
         } catch (SQLException e) {
+            System.out.println(e);
             throw new CustomException(ErrorCode.SQL_CONNECTION);
         }
     }

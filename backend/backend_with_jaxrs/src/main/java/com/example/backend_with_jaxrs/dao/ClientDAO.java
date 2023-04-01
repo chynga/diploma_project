@@ -39,6 +39,13 @@ public class ClientDAO extends GeneralDAO {
         return getClientFromDb(resultSet);
     }
 
+    public void updateClientHealthInfo(Client client) throws CustomException {
+        String sqlScript = "UPDATE clients SET allergy = (?), prescribed_medications = (?) WHERE id = (?)";
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        setScriptFields(preparedStatement, client);
+        executeUpdate(preparedStatement);
+    }
+
     public void setVerificationCode(Long id, String verificationCode, Timestamp timestamp) throws CustomException {
         String sqlScript = "UPDATE clients SET verification_code = (?), verification_code_sent_time = (?) WHERE id = (?)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
@@ -89,6 +96,16 @@ public class ClientDAO extends GeneralDAO {
         }
     }
 
+    private void setScriptFields(PreparedStatement preparedStatement, Client client) throws CustomException {
+        try {
+            preparedStatement.setString(1, client.getAllergy());
+            preparedStatement.setString(2, client.getPrescribedMedications());
+            preparedStatement.setLong(3, client.getId());
+        } catch (SQLException e) {
+            throw new CustomException(ErrorCode.SQL_SET_SCRIPT_DATA);
+        }
+    }
+
     private void setScriptFields(PreparedStatement preparedStatement, PushNotificationCredentials credentials) throws CustomException {
         try {
             preparedStatement.setLong(1, credentials.getClientId());
@@ -132,7 +149,8 @@ public class ClientDAO extends GeneralDAO {
             client.setVerificationCode(resultSet.getString("verification_code"));
             client.setVerificationCodeSentTime(resultSet.getDate("verification_code_sent_time"));
             client.setEmailVerified(resultSet.getBoolean("email_verified"));
-            client.setPatientDescription(resultSet.getString("patient_description"));
+            client.setAllergy(resultSet.getString("allergy"));
+            client.setPrescribedMedications(resultSet.getString("prescribed_medications"));
         } catch (SQLException e) {
             throw new CustomException(e, ErrorCode.SQL_SET_CLIENT_FIELDS);
         }

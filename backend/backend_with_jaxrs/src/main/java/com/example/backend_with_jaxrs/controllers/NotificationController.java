@@ -25,6 +25,7 @@ public class NotificationController {
         String token = Jwt.getTokenFromHeader(authorizationHeader);
         Long clientId = Jwt.getUserId(token);
         ArrayList<Notification> notifications = NotificationService.getInstance().getClientNotifications(clientId);
+
         return Response.ok(notifications).build();
     }
 
@@ -45,8 +46,14 @@ public class NotificationController {
     public Response sendNotification(@Context UriInfo uriInfo,
                                      @HeaderParam(HttpHeaders.AUTHORIZATION) String authorizationHeader,
                                      Notification notification) throws CustomException {
-        if (!securityContext.isUserInRole(Role.MANAGER.name) && !securityContext.isUserInRole(Role.CONSULTANT.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
-        NotificationService.getInstance().sendNotification(notification);
+        if (securityContext.isUserInRole(Role.CLIENT.name)) {
+            String token = Jwt.getTokenFromHeader(authorizationHeader);
+            Long clientId = Jwt.getUserId(token);
+            notification.setClientId(clientId);
+            NotificationService.getInstance().sendNotificationAsClient(notification);
+        } else {
+            NotificationService.getInstance().sendNotification(notification);
+        }
         UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
         return Response.created(uriBuilder.build()).build();
     }

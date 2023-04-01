@@ -15,6 +15,18 @@ import java.util.ArrayList;
 
 @Path("/authentication")
 public class AuthenticationController {
+
+    @POST
+    @Path("/create-superuser")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createSuperUser(User user, @Context UriInfo uriInfo) throws CustomException {
+        User superUser = UserService.getInstance().createSuperUser(user);
+        UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
+        JwtToken token = new JwtToken(Jwt.getToken(superUser));
+
+        return Response.created(uriBuilder.build()).entity(token).build();
+    }
+
     @POST
     @Path("/register")
     @Consumes(MediaType.APPLICATION_JSON)

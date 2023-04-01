@@ -6,6 +6,14 @@ public class AppointmentSession {
     private Timestamp time;
     private Integer durationMin;
 
+    public AppointmentSession() {
+    }
+
+    public AppointmentSession(Timestamp time, Integer durationMin) {
+        this.time = time;
+        this.durationMin = durationMin;
+    }
+
     public Timestamp getTime() {
         return time;
     }
@@ -20,5 +28,13 @@ public class AppointmentSession {
 
     public void setDurationMin(Integer durationMin) {
         this.durationMin = durationMin;
+    }
+
+    @Override
+    public String toString() {
+        return "AppointmentSession{" +
+                "time=" + time +
+                ", durationMin=" + durationMin +
+                '}';
     }
 }

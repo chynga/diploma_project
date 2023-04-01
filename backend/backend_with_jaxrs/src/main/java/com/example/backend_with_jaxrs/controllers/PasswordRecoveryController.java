@@ -17,6 +17,16 @@ public class PasswordRecoveryController {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response recoverPassword(PasswordRecovery passwordRecoveryCredentials) throws CustomException {
         UserService.getInstance().recoverPassword(passwordRecoveryCredentials);
+
+        return Response.ok().build();
+    }
+
+    @POST
+    @Path("check-recovery-code")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response checkCode(PasswordRecovery passwordRecoveryCredentials) throws CustomException {
+        UserService.getInstance().checkCode(passwordRecoveryCredentials);
+
         return Response.ok().build();
     }
 }

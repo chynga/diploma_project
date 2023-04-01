@@ -59,15 +59,18 @@ public class BearerTokenFilter implements ContainerRequestFilter {
         ArrayList<Pair> unProtectedUris = new ArrayList<>();
         unProtectedUris.add(new Pair("authentication/register", "POST"));
         unProtectedUris.add(new Pair("authentication/login", "POST"));
+        unProtectedUris.add(new Pair("authentication/create-superuser", "POST"));
         unProtectedUris.add(new Pair("reviews", "GET"));
         unProtectedUris.add(new Pair("reviews", "POST"));
         unProtectedUris.add(new Pair("doctors", "GET"));
         unProtectedUris.add(new Pair("doctors/[0-9]+", "GET"));
         unProtectedUris.add(new Pair("doctors/[0-9]+/schedule", "GET"));
+        unProtectedUris.add(new Pair("doctors/[0-9]+/free-slots", "GET"));
         unProtectedUris.add(new Pair("services", "GET"));
         unProtectedUris.add(new Pair("services/[0-9]+", "GET"));
         unProtectedUris.add(new Pair("email/verify", "POST"));
         unProtectedUris.add(new Pair("password/recover", "POST"));
+        unProtectedUris.add(new Pair("password/check-recovery-code", "POST"));
         unProtectedUris.add(new Pair("ordered-calls", "POST"));
         unProtectedUris.add(new Pair("test", "^*$"));
 

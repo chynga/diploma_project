@@ -1,9 +1,6 @@
 package com.example.backend_with_jaxrs.controllers;
 
-import com.example.backend_with_jaxrs.models.Appointment;
-import com.example.backend_with_jaxrs.models.PushNotificationCredentials;
-import com.example.backend_with_jaxrs.models.TeethBrushSession;
-import com.example.backend_with_jaxrs.models.User;
+import com.example.backend_with_jaxrs.models.*;
 import com.example.backend_with_jaxrs.models.message.Message;
 import com.example.backend_with_jaxrs.services.*;
 import com.example.backend_with_jaxrs.utils.CustomException;
@@ -21,6 +18,26 @@ import java.util.ArrayList;
 public class ProfileController {
     @Context
     SecurityContext securityContext;
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getProfileInfo(@HeaderParam(HttpHeaders.AUTHORIZATION) String authorizationHeader) throws CustomException {
+        Long userId = getUserId(authorizationHeader);
+        User user = UserService.getInstance().getProfileInfo(userId);
+
+        return Response.ok().entity(user).build();
+    }
+
+    @GET
+    @Path("/healthInfo")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getHealthInfo(@HeaderParam(HttpHeaders.AUTHORIZATION) String authorizationHeader) throws CustomException {
+        if (!securityContext.isUserInRole(Role.CLIENT.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+        Long userId = getUserId(authorizationHeader);
+        Client client = ClientService.getInstance().getClient(userId);
+
+        return Response.ok().entity(client).build();
+    }
 
     @PATCH
     public Response updateProfileInfo(@HeaderParam(HttpHeaders.AUTHORIZATION) String authorizationHeader,
@@ -78,10 +95,10 @@ public class ProfileController {
         if (!securityContext.isUserInRole(Role.CLIENT.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
         Long clientId = getUserId(authorizationHeader);
         appointment.setClientId(clientId);
-        AppointmentService.getInstance().requestAppointment(appointment);
+        Appointment createdAppointment = AppointmentService.getInstance().requestAppointment(appointment);
         UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
 
-        return Response.created(uriBuilder.build()).build();
+        return Response.created(uriBuilder.build()).entity(createdAppointment).build();
     }
 
     @GET

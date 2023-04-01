@@ -42,7 +42,7 @@ public class ReviewController {
     @Path("{id}")
     public Response deleteReview(@PathParam("id") Long id,
                                  @HeaderParam(HttpHeaders.AUTHORIZATION) String authorizationHeader) throws CustomException {
-        if (!securityContext.isUserInRole(Role.MANAGER.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+        if (!securityContext.isUserInRole(Role.ADMIN.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
         ReviewService.getInstance().deleteReview(id);
 
         return Response.ok().build();

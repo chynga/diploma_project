@@ -29,7 +29,8 @@ CREATE TABLE IF NOT EXISTS clients (
     verification_code CHAR(6),
     verification_code_sent_time TIMESTAMP,
     email_verified BOOL DEFAULT false,
-    patient_description VARCHAR NOT NULL DEFAULT '',
+    allergy VARCHAR NOT NULL DEFAULT '',
+    prescribed_medications VARCHAR NOT NULL DEFAULT '',
     FOREIGN KEY (id) REFERENCES users (id) ON DELETE CASCADE
 );
 
@@ -149,6 +150,7 @@ CREATE TABLE IF NOT EXISTS notifications (
     is_viewed BOOL DEFAULT false,
     message VARCHAR NOT NULL,
     time TIMESTAMP NOT NULL,
+    show_time TIMESTAMP,
     FOREIGN KEY (client_id) REFERENCES clients (id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (type) REFERENCES notification_types (title) ON DELETE CASCADE ON UPDATE CASCADE
 );

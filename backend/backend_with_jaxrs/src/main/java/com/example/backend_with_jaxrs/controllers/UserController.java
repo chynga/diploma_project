@@ -1,5 +1,6 @@
 package com.example.backend_with_jaxrs.controllers;
 
+import com.example.backend_with_jaxrs.models.Client;
 import com.example.backend_with_jaxrs.models.Doctor;
 import com.example.backend_with_jaxrs.models.PushNotificationMessage;
 import com.example.backend_with_jaxrs.models.User;
@@ -28,6 +29,27 @@ public class UserController {
         ArrayList<User> clients = UserService.getInstance().getClients();
 
         return Response.ok().entity(clients).build();
+    }
+
+    @GET
+    @Path("/clients/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getClient(@PathParam("id") Long id) throws CustomException {
+        if (!securityContext.isUserInRole(Role.ADMIN.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+        Client client = ClientService.getInstance().getClient(id);
+
+        return Response.ok().entity(client).build();
+    }
+
+    @PATCH
+    @Path("/clients/{id}/healthInfo")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateClientHealthInfo(@PathParam("id") Long id, Client client) throws CustomException {
+        if (!securityContext.isUserInRole(Role.ADMIN.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+        client.setId(id);
+        ClientService.getInstance().updateClientHealthInfo(client);
+
+        return Response.ok().build();
     }
 
     @POST
@@ -88,7 +110,7 @@ public class UserController {
     @Path("/doctors")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getDoctors() throws CustomException {
-        if (!securityContext.isUserInRole(Role.MANAGER.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+        if (!securityContext.isUserInRole(Role.ADMIN.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
         ArrayList<Doctor> doctors = DoctorService.getInstance().getDoctors();
         return Response.ok().entity(doctors).build();
     }
@@ -96,7 +118,7 @@ public class UserController {
     @PATCH
     @Path("/doctors/{id}")
     public Response updateDoctorInfo(@PathParam("id") Long id, Doctor doctor) throws CustomException {
-        if (!securityContext.isUserInRole(Role.MANAGER.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+        if (!securityContext.isUserInRole(Role.ADMIN.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
         doctor.setId(id);
         DoctorService.getInstance().updateDoctorInfo(doctor);
 

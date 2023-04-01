@@ -2,7 +2,9 @@ package com.example.backend_with_jaxrs.services;
 
 import com.example.backend_with_jaxrs.dao.ClientDAO;
 import com.example.backend_with_jaxrs.dao.RoleDAO;
+import com.example.backend_with_jaxrs.dao.UserDAO;
 import com.example.backend_with_jaxrs.models.PushNotificationCredentials;
+import com.example.backend_with_jaxrs.utils.ErrorCode;
 import com.example.backend_with_jaxrs.utils.enums.Role;
 import com.example.backend_with_jaxrs.models.User;
 import com.example.backend_with_jaxrs.models.Client;
@@ -47,5 +49,13 @@ public class ClientService {
         PushNotificationCredentials credentials = ClientDAO.getInstance().getNotificationToken(clientId);
 
         return credentials.getRegistrationToken();
+    }
+
+    public Client getClient(Long id) throws CustomException {
+        return ClientDAO.getInstance().getClientById(id);
+    }
+
+    public void updateClientHealthInfo(Client client) throws CustomException {
+        ClientDAO.getInstance().updateClientHealthInfo(client);
     }
 }

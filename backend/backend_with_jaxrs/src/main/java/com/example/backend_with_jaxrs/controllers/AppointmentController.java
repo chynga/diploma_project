@@ -17,7 +17,7 @@ public class AppointmentController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllAppointments() throws CustomException {
-        if (!securityContext.isUserInRole(Role.MANAGER.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+        if (!securityContext.isUserInRole(Role.ADMIN.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
         ArrayList<Appointment> appointments = AppointmentService.getInstance().getAllAppointments();
 
         return Response.ok().entity(appointments).build();
@@ -27,7 +27,7 @@ public class AppointmentController {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAppointment(@PathParam("id") Long id) throws CustomException {
-        if (!securityContext.isUserInRole(Role.MANAGER.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+        if (!securityContext.isUserInRole(Role.ADMIN.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
         Appointment appointment = AppointmentService.getInstance().getAppointment(id);
 
         return Response.ok().entity(appointment).build();
@@ -37,7 +37,7 @@ public class AppointmentController {
     @Path("statuses/{status}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getStatusAppointments(@PathParam("status") String status) throws CustomException {
-        if (!securityContext.isUserInRole(Role.MANAGER.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+        if (!securityContext.isUserInRole(Role.ADMIN.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
         ArrayList<Appointment> appointments = AppointmentService.getInstance().getStatusAppointments(status);
 
         return Response.ok().entity(appointments).build();
@@ -46,8 +46,7 @@ public class AppointmentController {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response makeAppointment(Appointment appointment, @Context UriInfo uriInfo) throws CustomException {
-        if (!securityContext.isUserInRole(Role.MANAGER.name) &&
-            !securityContext.isUserInRole(Role.RECEPTION.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+        if (!securityContext.isUserInRole(Role.ADMIN.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
         AppointmentService.getInstance().makeAppointment(appointment);
         UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
 
@@ -59,7 +58,7 @@ public class AppointmentController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateAppointment(@PathParam("id") Long id, Appointment appointment) throws CustomException {
-        if (!securityContext.isUserInRole(Role.MANAGER.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+        if (!securityContext.isUserInRole(Role.ADMIN.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
         appointment.setId(id);
         Appointment updatedAppointment = AppointmentService.getInstance().updateAppointment(appointment);
 
@@ -69,7 +68,7 @@ public class AppointmentController {
     @DELETE
     @Path("{id}")
     public Response deleteAppointment(@PathParam("id") Long id) throws CustomException {
-        if (!securityContext.isUserInRole(Role.MANAGER.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+        if (!securityContext.isUserInRole(Role.ADMIN.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
         AppointmentService.getInstance().deleteAppointment(id);
 
         return Response.ok().build();

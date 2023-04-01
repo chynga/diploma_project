@@ -68,11 +68,29 @@ public class UserDAO extends GeneralDAO {
         return getUserFromDb(resultSet).getRecoveryCode();
     }
 
+    public String getRecoveryCode(String email) throws CustomException {
+        String sqlScript = "SELECT * FROM users WHERE email = (?)";
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        setEmailForSqlScript(preparedStatement, email);
+        ResultSet resultSet = executeQuery(preparedStatement);
+
+        return getUserFromDb(resultSet).getRecoveryCode();
+    }
+
     public void removeRecoveryCode(Long id) throws CustomException {
         String sqlScript = "UPDATE users SET recovery_code = NULL, recovery_code_sent_time = NULL WHERE id = (?)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
         setIdForSqlScript(preparedStatement, id);
         execute(preparedStatement);
+    }
+
+    public User getProfileInfo(Long userId) throws CustomException {
+        String sqlScript = "SELECT * FROM users WHERE id = (?)";
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        setIdForSqlScript(preparedStatement, userId);
+        ResultSet resultSet = executeQuery(preparedStatement);
+
+        return getUserFromDb(resultSet);
     }
 
     public void updatePassword(User user) throws CustomException {

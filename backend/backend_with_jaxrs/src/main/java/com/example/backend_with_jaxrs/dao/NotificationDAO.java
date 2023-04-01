@@ -42,6 +42,15 @@ public class NotificationDAO extends GeneralDAO {
         execute(preparedStatement);
     }
 
+    public void saveNotificationWithShowTime(Notification notification) throws CustomException {
+        String sqlScript = "INSERT INTO notifications (client_id, type, is_viewed, message, time, show_time) " +
+                "VALUES (?, ?, false, ?, ?, ?)";
+
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        setSqlScriptData(preparedStatement, notification);
+        execute(preparedStatement);
+    }
+
     public void markAsViewed(Long clientId, String type) throws CustomException {
         String sqlScript = "UPDATE notifications SET is_viewed = true WHERE client_id = (?) AND type = (?)";
         PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
@@ -55,6 +64,9 @@ public class NotificationDAO extends GeneralDAO {
             preparedStatement.setString(2, notification.getType());
             preparedStatement.setString(3, notification.getMessage());
             preparedStatement.setTimestamp(4, notification.getTime());
+            if (notification.getShowTime() != null) {
+                preparedStatement.setTimestamp(5, notification.getShowTime());
+            }
         } catch (SQLException e) {
             throw new CustomException(e, ErrorCode.SQL_SET_SCRIPT_DATA);
         }
@@ -100,6 +112,7 @@ public class NotificationDAO extends GeneralDAO {
             notification.setViewed(resultSet.getBoolean("is_viewed"));
             notification.setMessage(resultSet.getString("message"));
             notification.setTime(resultSet.getTimestamp("time"));
+            notification.setShowTime(resultSet.getTimestamp("show_time"));
         } catch (SQLException e) {
             throw new CustomException(e, ErrorCode.SQL_SET_NOTIFICATION_FIELDS);
         }

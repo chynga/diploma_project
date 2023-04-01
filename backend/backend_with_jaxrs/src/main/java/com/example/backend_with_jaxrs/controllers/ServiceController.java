@@ -32,7 +32,7 @@ public class ServiceController {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public Response addService(Service service, @Context UriInfo uriInfo) throws CustomException {
-        if (!securityContext.isUserInRole(Role.MANAGER.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+        if (!securityContext.isUserInRole(Role.ADMIN.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
         DentalServiceService.getInstance().addService(service);
         UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
         return Response.created(uriBuilder.build()).build();
@@ -40,8 +40,8 @@ public class ServiceController {
 
     @PATCH
     @Path("/{id}")
-    public Response addService(@PathParam("id") Long id, Service service) throws CustomException {
-        if (!securityContext.isUserInRole(Role.MANAGER.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+    public Response updateService(@PathParam("id") Long id, Service service) throws CustomException {
+        if (!securityContext.isUserInRole(Role.ADMIN.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
         service.setId(id);
         DentalServiceService.getInstance().updateService(service);
         return Response.ok().build();
@@ -50,7 +50,7 @@ public class ServiceController {
     @DELETE
     @Path("/{id}")
     public Response deleteService(@PathParam("id") Long id) throws CustomException {
-        if (!securityContext.isUserInRole(Role.MANAGER.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+        if (!securityContext.isUserInRole(Role.ADMIN.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
         DentalServiceService.getInstance().deleteService(id);
         return Response.ok().build();
     }
