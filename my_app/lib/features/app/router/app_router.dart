@@ -7,6 +7,7 @@ import 'package:dental_plaza/features/auth/view/forgot_password_page.dart';
 import 'package:dental_plaza/features/auth/view/new_password_page.dart';
 import 'package:dental_plaza/features/chat/view/chat_page.dart';
 import 'package:dental_plaza/features/main/view/main_page.dart';
+import 'package:dental_plaza/features/profile/view/profile_page.dart';
 import 'package:dental_plaza/features/record/view/my_records_page.dart';
 import 'package:dental_plaza/features/record/view/record_page.dart';
 import 'package:dental_plaza/features/tooth_clean/view/tooth_clean_page.dart';
@@ -25,6 +26,7 @@ part 'app_router.gr.dart';
         AutoRoute<void>(page: MainPage),
         AutoRoute<void>(page: ChatPage),
         AutoRoute<void>(page: ToothCleanPage),
+        AutoRoute<void>(page: ProfilePage),
         AutoRoute<void>(
           page: EmptyRouterPage,
           name: 'BaseRecordPage', children: [

@@ -59,6 +59,12 @@ class _$AppRouter extends RootStackRouter {
         child: const ToothCleanPage(),
       );
     },
+    ProfileRoute.name: (routeData) {
+      return MaterialPageX<void>(
+        routeData: routeData,
+        child: const ProfilePage(),
+      );
+    },
     BaseRecordPage.name: (routeData) {
       return MaterialPageX<void>(
         routeData: routeData,
@@ -108,6 +114,11 @@ class _$AppRouter extends RootStackRouter {
             RouteConfig(
               ToothCleanRoute.name,
               path: 'tooth-clean-page',
+              parent: LauncherRoute.name,
+            ),
+            RouteConfig(
+              ProfileRoute.name,
+              path: 'profile-page',
               parent: LauncherRoute.name,
             ),
             RouteConfig(
@@ -232,6 +243,18 @@ class ToothCleanRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'ToothCleanRoute';
+}
+
+/// generated route for
+/// [ProfilePage]
+class ProfileRoute extends PageRouteInfo<void> {
+  const ProfileRoute()
+      : super(
+          ProfileRoute.name,
+          path: 'profile-page',
+        );
+
+  static const String name = 'ProfileRoute';
 }
 
 /// generated route for
