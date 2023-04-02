@@ -3,6 +3,8 @@ import 'package:dental_plaza/core/resources/assets.gen.dart';
 import 'package:dental_plaza/core/resources/resources.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_buttons/custom_square_button.dart';
 import 'package:dental_plaza/features/app/widgets/skip_and_next_button_widget.dart';
+import 'package:dental_plaza/features/main/widgets/doctor_card_widget.dart';
+import 'package:dental_plaza/features/main/widgets/service_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:showcaseview/showcaseview.dart';
@@ -397,41 +399,9 @@ class _MainPageState extends State<MainPage> {
                           scrollDirection: Axis.horizontal,
                           itemCount: 15,
                           itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(right: 16),
-                              child: Container(
-                                height: 115,
-                                width: 103,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(25),
-                                  color: AppColors.kWhite,
-                                ),
-                                child: Material(
-                                  borderRadius: BorderRadius.circular(25),
-                                  color: Colors.transparent,
-                                  child: InkWell(
-                                    borderRadius: BorderRadius.circular(25),
-                                    onTap: () {},
-                                    child: Column(
-                                      children: [
-                                        const SizedBox(
-                                          height: 24,
-                                        ),
-                                        SvgPicture.asset(
-                                          Assets.icons.icServices.path,
-                                        ),
-                                        const SizedBox(
-                                          height: 12,
-                                        ),
-                                        const Text(
-                                          'Терапия',
-                                          style: AppTextStyles.m11w400,
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
+                            return const Padding(
+                              padding: EdgeInsets.only(right: 16),
+                              child: ServiceCardWidget(),
                             );
                           },
                         ),
@@ -457,43 +427,9 @@ class _MainPageState extends State<MainPage> {
                         scrollDirection: Axis.horizontal,
                         itemCount: 15,
                         itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(right: 16),
-                            child: Container(
-                              height: 188,
-                              width: 124,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                color: AppColors.kWhite,
-                              ),
-                              child: Material(
-                                borderRadius: BorderRadius.circular(25),
-                                color: Colors.transparent,
-                                child: InkWell(
-                                  borderRadius: BorderRadius.circular(25),
-                                  onTap: () {},
-                                  child: Column(
-                                    children: [
-                                      const SizedBox(
-                                        height: 12,
-                                      ),
-                                      Image.asset(
-                                        Assets.images.mainPicture.path,
-                                        height: 124,
-                                      ),
-                                      const SizedBox(
-                                        height: 12,
-                                      ),
-                                      const Text(
-                                        'Гулмарал Шынкызбековна',
-                                        style: AppTextStyles.m11w400,
-                                        textAlign: TextAlign.center,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
+                          return const Padding(
+                            padding: EdgeInsets.only(right: 16),
+                            child: DoctorCardWidget(),
                           );
                         },
                       ),

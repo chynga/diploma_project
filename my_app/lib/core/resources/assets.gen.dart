@@ -17,6 +17,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/arrow-down.svg
   SvgGenImage get arrowDown => const SvgGenImage('assets/icons/arrow-down.svg');
 
+  /// File path: assets/icons/arrow-left.svg
+  SvgGenImage get arrowLeft => const SvgGenImage('assets/icons/arrow-left.svg');
+
   /// File path: assets/icons/arrow-up.svg
   SvgGenImage get arrowUp => const SvgGenImage('assets/icons/arrow-up.svg');
 
@@ -35,6 +38,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/corner-right-down.svg
   SvgGenImage get cornerRightDown =>
       const SvgGenImage('assets/icons/corner-right-down.svg');
+
+  /// File path: assets/icons/ic_calendar.svg
+  SvgGenImage get icCalendar =>
+      const SvgGenImage('assets/icons/ic_calendar.svg');
 
   /// File path: assets/icons/ic_chat.svg
   SvgGenImage get icChat => const SvgGenImage('assets/icons/ic_chat.svg');
@@ -94,11 +101,13 @@ class $AssetsIconsGen {
   /// List of all assets
   List<SvgGenImage> get values => [
         arrowDown,
+        arrowLeft,
         arrowUp,
         chevronLeft,
         cornerLeftDown,
         cornerLeftUp,
         cornerRightDown,
+        icCalendar,
         icChat,
         icChatFilled,
         icMain,

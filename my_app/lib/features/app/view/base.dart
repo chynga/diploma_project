@@ -45,7 +45,7 @@ class _BaseState extends State<Base> with TickerProviderStateMixin {
             const MainRoute(),
             const ChatRoute(),
             const ToothCleanRoute(),
-            TempRoute(color: Colors.yellow),
+            const BaseRecordPage(),
             TempRoute(color: Colors.black),
           ],
           backgroundColor: AppColors.kWhite,

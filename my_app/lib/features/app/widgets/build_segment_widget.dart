@@ -17,15 +17,15 @@ class BuildSegmentWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      height: 40,
+      height: 35,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(50),
         // border: isBordered && !isSelected ? Border.all() : null,
       ),
       child: Text(
         text,
-        style: AppTextStyles.m14w500.copyWith(
-          color: isSelected ? AppColors.kWhite : AppColors.kBlueBlack,
+        style: AppTextStyles.m16w400.copyWith(
+          color: isSelected ? AppColors.kWhite : AppColors.kBlue,
           height: 1,
         ),
       ),

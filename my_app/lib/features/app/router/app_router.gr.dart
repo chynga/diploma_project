@@ -59,6 +59,12 @@ class _$AppRouter extends RootStackRouter {
         child: const ToothCleanPage(),
       );
     },
+    BaseRecordPage.name: (routeData) {
+      return MaterialPageX<void>(
+        routeData: routeData,
+        child: const EmptyRouterPage(),
+      );
+    },
     TempRoute.name: (routeData) {
       final args = routeData.argsAs<TempRouteArgs>();
       return MaterialPageX<void>(
@@ -67,6 +73,18 @@ class _$AppRouter extends RootStackRouter {
           key: args.key,
           color: args.color,
         ),
+      );
+    },
+    RecordRoute.name: (routeData) {
+      return MaterialPageX<void>(
+        routeData: routeData,
+        child: const RecordPage(),
+      );
+    },
+    MyRecordsRoute.name: (routeData) {
+      return MaterialPageX<void>(
+        routeData: routeData,
+        child: const MyRecordsPage(),
       );
     },
   };
@@ -91,6 +109,23 @@ class _$AppRouter extends RootStackRouter {
               ToothCleanRoute.name,
               path: 'tooth-clean-page',
               parent: LauncherRoute.name,
+            ),
+            RouteConfig(
+              BaseRecordPage.name,
+              path: 'empty-router-page',
+              parent: LauncherRoute.name,
+              children: [
+                RouteConfig(
+                  RecordRoute.name,
+                  path: '',
+                  parent: BaseRecordPage.name,
+                ),
+                RouteConfig(
+                  MyRecordsRoute.name,
+                  path: 'my-records-page',
+                  parent: BaseRecordPage.name,
+                ),
+              ],
             ),
             RouteConfig(
               TempRoute.name,
@@ -200,6 +235,19 @@ class ToothCleanRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [EmptyRouterPage]
+class BaseRecordPage extends PageRouteInfo<void> {
+  const BaseRecordPage({List<PageRouteInfo>? children})
+      : super(
+          BaseRecordPage.name,
+          path: 'empty-router-page',
+          initialChildren: children,
+        );
+
+  static const String name = 'BaseRecordPage';
+}
+
+/// generated route for
 /// [TempPage]
 class TempRoute extends PageRouteInfo<TempRouteArgs> {
   TempRoute({
@@ -231,4 +279,28 @@ class TempRouteArgs {
   String toString() {
     return 'TempRouteArgs{key: $key, color: $color}';
   }
+}
+
+/// generated route for
+/// [RecordPage]
+class RecordRoute extends PageRouteInfo<void> {
+  const RecordRoute()
+      : super(
+          RecordRoute.name,
+          path: '',
+        );
+
+  static const String name = 'RecordRoute';
+}
+
+/// generated route for
+/// [MyRecordsPage]
+class MyRecordsRoute extends PageRouteInfo<void> {
+  const MyRecordsRoute()
+      : super(
+          MyRecordsRoute.name,
+          path: 'my-records-page',
+        );
+
+  static const String name = 'MyRecordsRoute';
 }

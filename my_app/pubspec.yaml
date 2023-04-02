@@ -15,6 +15,7 @@ dependencies:
   cached_network_image: ^3.2.3
   carousel_slider: ^4.2.1
   clippy_flutter: ^1.1.1
+  chewie: ^1.4.0
   collection: ^1.17.0
   convex_bottom_bar: ^3.1.0+1
   country_picker: ^2.0.19
@@ -76,7 +77,7 @@ dependencies:
   table_calendar: ^3.0.8
   timelines: ^0.1.0
   url_launcher: ^6.1.10
-  video_player: ^2.5.1
+  video_player: ^2.6.0
 
 
 dev_dependencies:

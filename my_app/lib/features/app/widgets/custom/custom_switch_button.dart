@@ -2,6 +2,7 @@
 
 import 'dart:math' as math;
 
+import 'package:dental_plaza/core/resources/resources.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/physics.dart';
@@ -10,7 +11,7 @@ import 'package:flutter/rendering.dart';
 const EdgeInsetsGeometry _kHorizontalItemPadding =
     EdgeInsets.symmetric(vertical: 2, horizontal: 3);
 
-const Radius _kThumbRadius = Radius.circular(12);
+const Radius _kThumbRadius = Radius.circular(50);
 const EdgeInsets _kThumbInsets = EdgeInsets.symmetric(horizontal: 1);
 const double _kMinSegmentedControlHeight = 28.0;
 
@@ -230,6 +231,7 @@ class CustomSwitchButton<T> extends StatefulWidget {
     this.backgroundColor = CupertinoColors.tertiarySystemFill,
     this.overallPadding,
     this.customSwitchButtonBorderRadius,
+    this.border,
   })  : assert(children != null),
         assert(children.length >= 2),
         assert(padding != null),
@@ -254,6 +256,8 @@ class CustomSwitchButton<T> extends StatefulWidget {
   final EdgeInsetsGeometry padding;
 
   final double? customSwitchButtonBorderRadius;
+
+  final Border? border;
 
   @override
   State<CustomSwitchButton<T>> createState() => _SegmentedControlState<T>();
@@ -519,6 +523,7 @@ class _SegmentedControlState<T> extends State<CustomSwitchButton<T>>
         padding: widget.overallPadding ??
             widget.padding.resolve(Directionality.of(context)),
         decoration: BoxDecoration(
+          border: widget.border,
           borderRadius: BorderRadius.all(
             widget.customSwitchButtonBorderRadius != null
                 ? Radius.circular(widget.customSwitchButtonBorderRadius!)

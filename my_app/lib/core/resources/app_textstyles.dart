@@ -311,6 +311,11 @@ mixin AppTextStyles {
     color: AppColors.kBlueBlack,
     fontWeight: FontWeight.w600,
   );
+  static const m20w700 = TextStyle(
+    fontSize: 20,
+    color: AppColors.kBlueBlack,
+    fontWeight: FontWeight.w700,
+  );
 
   static const m20w600White = TextStyle(
     fontSize: 20,
