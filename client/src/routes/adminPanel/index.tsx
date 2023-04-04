@@ -14,6 +14,7 @@ import MessagesPage from "./messages";
 import ReviewsPage from "./reviews";
 import OrderedCallsPage from "./orderedCalls";
 import DoctorsPage from "./users/doctors";
+import DoctorAppointmentsPage from "./doctorAppointments";
 
 function AdminPanel() {
     const { user } = useAppSelector(selectAuth);
@@ -31,7 +32,7 @@ function AdminPanel() {
                 <Sidebar className="fixed w-[370px]" />
             </div>
 
-            <div className="w-full ml-[370px] p-6">
+            <div className="w-full h-screen overflow-auto ml-[370px] p-6">
                 <button onClick={toggleTheme} id="theme-toggle" type="button" className="block ml-auto">
                     <ThemeToggler />
                 </button>
@@ -39,6 +40,7 @@ function AdminPanel() {
                     <Routes>
                         <Route path="/services/*" element={<ServicesPage />} />
                         <Route path="/appointments/*" element={<AppointmentsPage />} />
+                        <Route path="/doctor-appointments/*" element={<DoctorAppointmentsPage />} />
                         <Route path="/employees/*" element={<EmployeesPage />} />
                         <Route path="/doctors/*" element={<DoctorsPage />} />
                         <Route path="/clients/*" element={<ClientsPage />} />

@@ -25,7 +25,7 @@ function DoctorPage() {
     return (
         <>
             <div className="p-20">
-                <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-20 items-start">
+                <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-20">
                     <div>
                         <DoctorProfile imageUrl={doctor?.imageUrl} />
                     </div>
@@ -80,7 +80,7 @@ function DoctorPage() {
                         {doctor?.institutions.map(institution => {
                             return (
                                 <TextBase key={institution}>
-                                    <p className="text-left">
+                                    <p className="text-center">
                                         {institution}
                                     </p>
                                 </TextBase>

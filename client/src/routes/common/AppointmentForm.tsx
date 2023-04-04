@@ -131,7 +131,12 @@ function AppointmentForm({ doctorId = 0 }: AppointmentFormProps) {
         };
 
         axios.post("/api/profile/appointments", appointment, config)
-            .then(() => {
+            .then((resp) => {
+                axios.post("/api/notifications", { appointmentId: resp.data.id }, config)
+                    .catch(error => {
+                        console.log(error)
+                    })
+
                 navigate(0);
             })
             .catch(error => {

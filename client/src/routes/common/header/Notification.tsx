@@ -49,7 +49,7 @@ function NotificationList({ notifications }: NotificationListParams) {
     const navigate = useNavigate();
 
     const onClick = (type: AppNotificationType) => {
-        const to = type === "appointment" ? "profile-panel/appointments" : "profile-panel/consultation";
+        const to = type === "appointment" ? "profile-panel/appointments/future" : "profile-panel/consultation";
         const config = {
             headers: {
                 Authorization: `Bearer ${user?.token}`,
@@ -63,16 +63,17 @@ function NotificationList({ notifications }: NotificationListParams) {
     return (
         <div className="flex flex-col gap-7">
             {
-                notifications?.slice(0, 5).map(notification => {
-                    return (
-                        <TextSm key={notification.id}>
-                            <div className={`${notification.viewed ? "font-extralight" : "font-bold"}`} onClick={() => onClick(notification.type)}>
-                                {dayjs(notification.time).format(dateFormat + " " + timeFormat)} <br />
-                                <p>{notification.message}</p>
-                            </div>
-                        </TextSm>
-                    )
-                })
+                notifications?.filter(notification => notification.showTime ? notification.showTime < dayjs().unix() * 1000 : true)
+                    .slice(0, 5).map(notification => {
+                        return (
+                            <TextSm key={notification.id}>
+                                <div className={`${notification.viewed ? "font-extralight" : "font-bold"}`} onClick={() => onClick(notification.type)}>
+                                    {dayjs(notification.time).format(dateFormat + " " + timeFormat)} <br />
+                                    <p>{notification.message}</p>
+                                </div>
+                            </TextSm>
+                        )
+                    })
             }
         </div>
     );

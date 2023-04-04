@@ -8,16 +8,16 @@ type CardProps = {
 
 export function ServiceCard({ service }: CardProps) {
     return (
-        <div className="px-9 py-4 flex flex-col items-center justify-between gap-3 shadow-lg rounded-3xl bg-background-white dark:bg-background-dark">
+        <div className="bg-background-white dark:bg-background-dark w-[180px] h-[188px] rounded-3xl flex flex-col justify-around items-center py-3 opacity-90 hover:opacity-100 hover:shadow-[#00000040] shadow-lg hover:cursor-pointer">
             <ServiceSvg />
-            <p className="text-primary-white dark:text-primary-dark">{service?.title}</p>
+            <p className="text-center text-primary-white dark:text-primary-dark">{service?.title}</p>
         </div>
     );
 }
 
 export function AddServiceCard() {
     return (
-        <div className="px-9 pb-4 pt-8 flex flex-col items-center justify-between gap-3 shadow-lg rounded-3xl bg-background-white dark:bg-background-dark">
+        <div className="bg-background-white dark:bg-background-dark w-[180px] h-[188px] rounded-3xl flex flex-col justify-around items-center py-3 opacity-90 hover:opacity-100 hover:shadow-[#00000040] shadow-lg hover:cursor-pointer">
             <PlusCircle />
             <p className="text-primary-white dark:text-primary-dark">Добавить</p>
         </div>

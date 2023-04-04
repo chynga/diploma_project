@@ -82,6 +82,7 @@ export type AppNotification = {
     viewed?: boolean
     message: string
     time?: number
+    showTime?: number
 }
 
 export const dateFormat = 'DD/MM/YYYY';

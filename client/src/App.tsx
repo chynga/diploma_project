@@ -21,6 +21,7 @@ import AdminPanel from './routes/adminPanel';
 import { OrderCallButton, OrderCallForm } from './routes/common/OrderCall';
 import { useState } from 'react';
 import { HintContext } from './routes/common/Hint';
+import ScrollToTop from './routes/common/ScrollToTop';
 
 function App() {
     const [showOrderCall, setShowOrderCall] = useState(false);
@@ -41,6 +42,7 @@ function App() {
         <HintContext.Provider value={{ step, next, close }}>
             <div className="App bg-background-white dark:bg-background-dark">
                 <Router>
+                    <ScrollToTop />
                     <Header />
                     <div className="fixed z-50 right-20 bottom-20">
                         <OrderCallButton setShowOrderCall={setShowOrderCall} />

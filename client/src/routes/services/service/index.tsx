@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import AppointmentModal from "../../common/AppointmentModal";
-import { Text2Xl, TextBase, TextXl } from "../../common/TextElements";
+import { Text2Xl, TextBase, TextLg, TextXl } from "../../common/TextElements";
 import { Service } from "../../common/types";
 import WhyUsSection from "./WhyUsSection";
 
@@ -20,22 +20,22 @@ function ServicePage() {
     return (
         <>
             <div className="py-12 px-20">
-                <div className="flex justify-around items-center gap-6">
-                    <img src="/service-image.png" alt="" className="w-[300px]" />
+                <div className="flex justify-around items-start gap-6">
+                    <img src={service?.imgMainUrl} alt="" className="w-[400px]" />
                     <div>
-                        <TextXl>
+                        <Text2Xl>
                             <h1 className="font-bold">
                                 {service?.title}
                             </h1>
-                        </TextXl>
-                        <TextBase>
+                        </Text2Xl>
+                        <TextLg>
                             <p className="mt-6 font-light text-center lg:text-start">
                                 {service?.description}
                             </p>
-                        </TextBase>
+                        </TextLg>
                         <TextBase>
                             <p className="mt-6 font-medium text-center lg:text-start">
-                                Цена: {service?.approxCost} тг
+                                Цена: {service?.approxCost}
                             </p>
                         </TextBase>
                         <TextBase>
@@ -54,8 +54,8 @@ function ServicePage() {
                         </h2>
                     </Text2Xl>
                     <div className="mt-5 flex justify-center items-center gap-6">
-                        <img src="/service-before.png" alt="" className="w-[217px]" />
-                        <img src="/service-after.png" alt="" className="w-[217px]" />
+                        <img src={service?.imgBeforeUrl} alt="" className="w-[300px]" />
+                        <img src={service?.imgAfterUrl} alt="" className="w-[300px]" />
                     </div>
                 </div>
                 <WhyUsSection />

@@ -76,7 +76,7 @@ function Header() {
                         </div>
                     </div>
                     <div className="flex gap-3 lg:gap-5 items-center">
-                        <div className="relative">
+                        {/* <div className="relative">
                             <div className="flex items-center gap-3 hover:cursor-pointer">
                                 <Glasses />
                                 <TextLg>
@@ -90,7 +90,7 @@ function Header() {
                                 :
                                 <></>
                             }
-                        </div>
+                        </div> */}
                         <a href="https://instagram.com/dentalplaza.kz?igshid=YmMyMTA2M2Y=">
                             <Instagram fill="blue" />
                         </a>
@@ -164,12 +164,12 @@ function Header() {
                                         <div>
                                             <TextBase>{user.phone}</TextBase>
                                         </div>
-                                        <Link to={"profile-panel/appointments/future"}>
+                                        <Link to={user.roles?.includes("CLIENT") ? "/profile-panel/appointments/future" : "/profile-panel/profile"}>
                                             <TextBase>Личный кабинет</TextBase>
                                         </Link>
                                         {!user.roles?.includes("CLIENT") ?
                                             <Link className="hover:text-blue-white dark:hover:text-blue-dark"
-                                                to={"/admin/employees"}>
+                                                to={user.roles?.includes("ADMIN") ? "/admin/employees" : user.roles?.includes("CONSULTANT") ? "/admin/appointments/requested" : "/admin/doctor-appointments/requested"}>
                                                 <TextBase>Панель Администрирования</TextBase>
                                             </Link> :
                                             <></>

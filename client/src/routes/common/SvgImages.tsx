@@ -170,19 +170,19 @@ function TrashBin({ className = "stroke-[#353535]" }: SvgParams) {
 
 function ArrowBack() {
     return (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M19 12H5" stroke="#353535" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M12 19L5 12L12 5" stroke="#353535" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <svg width="24" height="24" className="stroke-[#353535] hover:stroke-blue-white dark:hover:stroke-blue-dark" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 12H5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M12 19L5 12L12 5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
     );
 }
 
 function PlusCircle() {
     return (
-        <svg width="59" height="58" viewBox="0 0 59 58" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M29.5006 53.1667C42.8475 53.1667 53.6673 42.3469 53.6673 29C53.6673 15.6532 42.8475 4.83337 29.5006 4.83337C16.1538 4.83337 5.33398 15.6532 5.33398 29C5.33398 42.3469 16.1538 53.1667 29.5006 53.1667Z" stroke="#353535" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M29.5 19.3334V38.6667" stroke="#353535" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M19.834 29H39.1673" stroke="#353535" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <svg width="59" height="58" className="stroke-[#353535] dark:stroke-white" viewBox="0 0 59 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M29.5006 53.1667C42.8475 53.1667 53.6673 42.3469 53.6673 29C53.6673 15.6532 42.8475 4.83337 29.5006 4.83337C16.1538 4.83337 5.33398 15.6532 5.33398 29C5.33398 42.3469 16.1538 53.1667 29.5006 53.1667Z" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M29.5 19.3334V38.6667" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M19.834 29H39.1673" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
     );
 }
