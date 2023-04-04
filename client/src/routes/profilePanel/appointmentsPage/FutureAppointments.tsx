@@ -9,10 +9,9 @@ function FutureAppointments({ appointments }: AppointmentsPageProps) {
             <table className="table-auto w-full">
                 <thead>
                     <tr className="bg-blue-white dark:bg-blue-dark">
-                        <th className="p-3"><TextBase>Врач</TextBase></th>
-                        <th className="p-3"><TextBase>Услуга</TextBase></th>
-                        <th className="p-3"><TextBase>Время</TextBase></th>
-                        <th className="p-3"><TextBase>Статус</TextBase></th>
+                        <th className="p-3"><TextBase><span className="text-primary-dark">Врач</span></TextBase></th>
+                        <th className="p-3"><TextBase><span className="text-primary-dark">Услуга</span></TextBase></th>
+                        <th className="p-3"><TextBase><span className="text-primary-dark">Время</span></TextBase></th>
                     </tr>
                 </thead>
                 <tbody className="text-center border-[1px]">
@@ -23,7 +22,6 @@ function FutureAppointments({ appointments }: AppointmentsPageProps) {
                                 <td className="p-3"><TextBase>{appointment.doctor?.fullName}</TextBase></td>
                                 <td className="p-3"><TextBase>{appointment.service?.title}</TextBase></td>
                                 <td className="p-3"><TextBase>{dayjs(time).format(dateFormat + " " + timeFormat)}</TextBase></td>
-                                <td className="p-3"><TextBase>{appointment.status}</TextBase></td>
                             </tr>
                         )
                     })}

@@ -23,14 +23,14 @@ function DoctorsSection() {
     }, [])
 
     return (
-        <div className="py-20 px-20">
+        <div className="py-20 px-5 md:p-20">
             <Text4Xl blue>
                 <h2 className="text-center font-bold">
                     {t('home:doctor:title')}
                 </h2>
             </Text4Xl>
-            <div className="mt-5 flex flex-col items-start xl:flex-row xl:flex-wrap gap-x-10 justify-around">
-                {doctors.filter((doctor, index) => index < 3).map(doctor => {
+            <div className="mt-5 flex items-start gap-x-10 overflow-x-auto">
+                {doctors.map(doctor => {
                     return (
                         <div className="hover:cursor-pointer" key={doctor.id} onClick={() => navigate(`/doctors/${doctor.id}`)}>
                             <DoctorCard doctor={doctor} />

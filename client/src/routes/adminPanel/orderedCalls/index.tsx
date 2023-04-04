@@ -33,8 +33,8 @@ function OrderedCallsPage() {
             <table className="table-auto w-full">
                 <thead>
                     <tr className="bg-blue-white dark:bg-blue-dark">
-                        <th className="p-3"><TextBase>ФИО</TextBase></th>
-                        <th className="p-3"><TextBase>Номер телефона</TextBase></th>
+                        <th className="p-3"><TextBase><span className="text-primary-dark">ФИО</span></TextBase></th>
+                        <th className="p-3"><TextBase><span className="text-primary-dark">Номер телефона</span></TextBase></th>
                     </tr>
                 </thead>
                 <tbody className="text-center border-[1px]">

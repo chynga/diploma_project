@@ -24,24 +24,30 @@ function Sidebar({ className = "" }: SidebarProps) {
                     <h2 className="text-2xl text-primary-white dark:text-primary-dark font-bold">
                         {user?.fullName}
                     </h2>
-                    <Link to={"appointments/future"} className="w-full flex gap-5 items-center hover:cursor-pointer">
-                        <People fill={location.pathname.includes("/profile-panel/appointments") ? "blue" : "primary"} />
-                        <TextLg blue={location.pathname.includes("/profile-panel/appointments") ? true : false}>
-                            <p>Мои Записи</p>
-                        </TextLg>
-                    </Link>
-                    <Link to={"health-info"} className="w-full flex gap-5 items-center hover:cursor-pointer">
-                        <Record fill={location.pathname.includes("/profile-panel/health-info") ? "blue" : "primary"} />
-                        <TextLg blue={location.pathname.includes("/profile-panel/health-info") ? true : false}>
-                            <p>Личная карточка</p>
-                        </TextLg>
-                    </Link>
-                    <Link to={"consultation"} className="w-full flex gap-5 items-center hover:cursor-pointer">
-                        <Envelop fill={location.pathname.includes("/profile-panel/consultation") ? "blue" : "primary"} />
-                        <TextLg blue={location.pathname.includes("/profile-panel/consultation") ? true : false}>
-                            <p>Сообщения</p>
-                        </TextLg>
-                    </Link>
+                    {user?.roles?.includes("CLIENT") ?
+                        <>
+                            <Link to={"appointments/future"} className="w-full flex gap-5 items-center hover:cursor-pointer">
+                                <People fill={location.pathname.includes("/profile-panel/appointments") ? "blue" : "primary"} />
+                                <TextLg blue={location.pathname.includes("/profile-panel/appointments") ? true : false}>
+                                    <p>Мои Записи</p>
+                                </TextLg>
+                            </Link>
+                            <Link to={"health-info"} className="w-full flex gap-5 items-center hover:cursor-pointer">
+                                <Record fill={location.pathname.includes("/profile-panel/health-info") ? "blue" : "primary"} />
+                                <TextLg blue={location.pathname.includes("/profile-panel/health-info") ? true : false}>
+                                    <p>Личная карточка</p>
+                                </TextLg>
+                            </Link>
+                            <Link to={"consultation"} className="w-full flex gap-5 items-center hover:cursor-pointer">
+                                <Envelop fill={location.pathname.includes("/profile-panel/consultation") ? "blue" : "primary"} />
+                                <TextLg blue={location.pathname.includes("/profile-panel/consultation") ? true : false}>
+                                    <p>Сообщения</p>
+                                </TextLg>
+                            </Link>
+                        </>
+                        :
+                        <></>
+                    }
                 </div>
                 <div>
                     <Link to={"profile"} className="w-full flex gap-5 items-center hover:cursor-pointer">
