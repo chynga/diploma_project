@@ -1,6 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:dental_plaza/core/extension/src/build_context.dart';
 import 'package:dental_plaza/core/resources/resources.dart';
 import 'package:dental_plaza/features/app/bloc/app_bloc.dart';
+import 'package:dental_plaza/features/app/router/app_router.dart';
 import 'package:dental_plaza/features/app/widgets/build_segment_widget.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_app_bar.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_buttons/custom_button.dart';
@@ -245,7 +247,9 @@ class InformationWidget extends StatelessWidget {
             context.localized.changeTheData,
             style: AppTextStyles.m16w400.copyWith(color: AppColors.kWhite),
           ),
-          onClick: () {},
+          onClick: () {
+            context.router.push(const EditProfileRoute());
+          },
           style: mainButtonStyle(radius: 20),
           height: 35,
         ),

@@ -2,7 +2,6 @@
 
 import 'dart:math' as math;
 
-import 'package:dental_plaza/core/resources/resources.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/physics.dart';

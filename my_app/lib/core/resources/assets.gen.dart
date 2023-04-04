@@ -90,6 +90,9 @@ class $AssetsIconsGen {
   SvgGenImage get icToothFilled =>
       const SvgGenImage('assets/icons/ic_tooth_filled.svg');
 
+  /// File path: assets/icons/play.svg
+  SvgGenImage get play => const SvgGenImage('assets/icons/play.svg');
+
   /// File path: assets/icons/teeth_dental_icon.svg
   SvgGenImage get teethDentalIcon =>
       const SvgGenImage('assets/icons/teeth_dental_icon.svg');
@@ -121,6 +124,7 @@ class $AssetsIconsGen {
         icServices,
         icTooth,
         icToothFilled,
+        play,
         teethDentalIcon,
         teethDentalIconBig
       ];

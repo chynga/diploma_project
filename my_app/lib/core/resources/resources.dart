@@ -1,5 +1,3 @@
-import 'dart:io' show Platform;
-
 import 'package:dental_plaza/core/resources/fonts.gen.dart';
 import 'package:flutter/material.dart';
 

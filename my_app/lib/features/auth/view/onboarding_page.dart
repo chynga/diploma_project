@@ -20,51 +20,52 @@ class _OnboardingPageState extends State<OnboardingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 82)
-                .copyWith(top: MediaQuery.of(context).size.height * 0.28),
-            child: Image.asset(Assets.images.dentalPlaza.path),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 45),
-            child: Column(
-              children: [
-                Text(
-                  context.localized.onboardingText,
-                  style: AppTextStyles.m15w400,
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(
-                  height: 32,
-                ),
-                const SetLanguageWidget(),
-                const SizedBox(
-                  height: 32,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 100),
-                  child: CustomButton(
-                    body: Text(
-                      context.localized.start,
-                      style: AppTextStyles.m14w700
-                          .copyWith(color: AppColors.kWhite),
-                    ),
-                    onClick: () {
-                      BlocProvider.of<AppBLoC>(context)
-                          .add(const AppEvent.onboardingSave());
-                    },
-                    style: mainButtonStyle(radius: 25),
-                  ),
-                ),
-              ],
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 82)
+                  .copyWith(top: MediaQuery.of(context).size.height * 0.28),
+              child: Image.asset(Assets.images.dentalPlaza.path),
             ),
-          ),
-          SvgPicture.asset(Assets.icons.icOnboarding.path),
-        ],
-      )),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 45),
+              child: Column(
+                children: [
+                  Text(
+                    context.localized.onboardingText,
+                    style: AppTextStyles.m15w400,
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(
+                    height: 32,
+                  ),
+                  const SetLanguageWidget(),
+                  const SizedBox(
+                    height: 32,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 100),
+                    child: CustomButton(
+                      body: Text(
+                        context.localized.start,
+                        style: AppTextStyles.m14w700
+                            .copyWith(color: AppColors.kWhite),
+                      ),
+                      onClick: () {
+                        BlocProvider.of<AppBLoC>(context)
+                            .add(const AppEvent.onboardingSave());
+                      },
+                      style: mainButtonStyle(radius: 25),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SvgPicture.asset(Assets.icons.icOnboarding.path),
+          ],
+        ),
+      ),
     );
   }
 }

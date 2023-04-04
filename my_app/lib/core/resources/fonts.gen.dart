@@ -10,6 +10,9 @@
 class FontFamily {
   FontFamily._();
 
+  /// Font family: LCD
+  static const String lcd = 'LCD';
+
   /// Font family: Mukta
   static const String mukta = 'Mukta';
 

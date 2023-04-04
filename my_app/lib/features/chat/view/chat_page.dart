@@ -1,7 +1,5 @@
-import 'package:dental_plaza/core/resources/assets.gen.dart';
 import 'package:dental_plaza/core/resources/resources.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_app_bar.dart';
-import 'package:dental_plaza/features/app/widgets/custom/custom_buttons/custom_square_button.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_text_field.dart';
 import 'package:flutter/material.dart';
 
@@ -44,11 +42,12 @@ class _ChatPageState extends State<ChatPage> {
             ),
           ),
           Expanded(
-              child: ListView(
-            children: [
-              ///FIXME MESSAGE LIST
-            ],
-          )),
+            child: ListView(
+              children: const [
+                ///FIXME MESSAGE LIST
+              ],
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
             child: SizedBox(

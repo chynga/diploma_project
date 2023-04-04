@@ -1,14 +1,11 @@
-import 'package:dental_plaza/core/extension/src/build_context.dart';
 import 'package:dental_plaza/core/resources/assets.gen.dart';
 import 'package:dental_plaza/core/resources/resources.dart';
-import 'package:dental_plaza/features/app/bloc/app_bloc.dart';
-import 'package:dental_plaza/features/app/widgets/custom/custom_buttons/custom_button.dart';
 import 'package:dental_plaza/features/auth/bloc/auth_bloc.dart';
 import 'package:dental_plaza/features/auth/widgets/login_block_widget.dart';
 import 'package:dental_plaza/features/auth/widgets/registration_block_widget.dart';
+import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:expandable_page_view/expandable_page_view.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});

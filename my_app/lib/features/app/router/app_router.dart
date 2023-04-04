@@ -7,6 +7,7 @@ import 'package:dental_plaza/features/auth/view/forgot_password_page.dart';
 import 'package:dental_plaza/features/auth/view/new_password_page.dart';
 import 'package:dental_plaza/features/chat/view/chat_page.dart';
 import 'package:dental_plaza/features/main/view/main_page.dart';
+import 'package:dental_plaza/features/profile/view/edit_profie_page.dart';
 import 'package:dental_plaza/features/profile/view/profile_page.dart';
 import 'package:dental_plaza/features/record/view/my_records_page.dart';
 import 'package:dental_plaza/features/record/view/record_page.dart';
@@ -29,13 +30,15 @@ part 'app_router.gr.dart';
         AutoRoute<void>(page: ProfilePage),
         AutoRoute<void>(
           page: EmptyRouterPage,
-          name: 'BaseRecordPage', children: [
-          AutoRoute<void>(
-            page: RecordPage,
-            initial: true,
-          ),
-          AutoRoute<void>(page: MyRecordsPage),
-        ]),
+          name: 'BaseRecordPage',
+          children: [
+            AutoRoute<void>(
+              page: RecordPage,
+              initial: true,
+            ),
+            AutoRoute<void>(page: MyRecordsPage),
+          ],
+        ),
         AutoRoute<void>(page: TempPage),
       ],
     ),
@@ -46,6 +49,11 @@ part 'app_router.gr.dart';
     AutoRoute<void>(page: ForgotPasswordPage),
     AutoRoute<void>(page: NewPasswordPage),
     AutoRoute<void>(page: ConfirmationCodePage),
+
+    ///
+    ///Profile Pages
+    ///
+    AutoRoute<void>(page: EditProfilePage),
   ],
 )
 class AppRouter extends _$AppRouter {}

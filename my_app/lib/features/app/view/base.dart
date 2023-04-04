@@ -30,7 +30,8 @@ class _BaseState extends State<Base> with TickerProviderStateMixin {
     tabController = TabController(length: 5, vsync: this);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       ShowCaseWidget.of(context).startShowCase(
-          [one, two, three, four, five, six, seven, eight, nine]);
+        [one, two, three, four, five, six, seven, eight, nine],
+      );
     });
     super.initState();
   }
