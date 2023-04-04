@@ -35,11 +35,11 @@ function BannerSection() {
                     <div className="mt-8 relative">
                         <div className="px-8 py-3 bg-blue-white dark:bg-blue-dark drop-shadow-lg rounded-full hover:cursor-pointer"
                             onClick={() => setShowAppointmentForm(true)}>
-                            <TextBase>
+                            <TextLg>
                                 <span className="font-bold text-primary-dark">
                                     {t('common:makeAppointment')}
                                 </span>
-                            </TextBase>
+                            </TextLg>
                         </div>
                         {step === 7 ?
                             <Hint hintPos={"top"} pointerPos={"end"} />
@@ -47,7 +47,7 @@ function BannerSection() {
                             <></>
                         }
                     </div>
-                    <TextBase className="mt-8 text-center">{t('home:banner:downloadApp')}</TextBase>
+                    <TextLg className="mt-8 text-center">{t('home:banner:downloadApp')}</TextLg>
                     <img src="googlePlayButton.png" alt="" className="mt-3 w-[145px]" />
                 </div>
             </div>
