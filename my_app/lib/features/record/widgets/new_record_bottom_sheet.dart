@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:dental_plaza/core/extension/extensions.dart';
 import 'package:dental_plaza/core/resources/resources.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_buttons/custom_button.dart';
+import 'package:dental_plaza/features/main/model/mock_doctor.dart';
 import 'package:dental_plaza/features/main/widgets/service_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -16,6 +17,8 @@ class NewRecordBottomSheet extends StatefulWidget {
 
 class _NewRecordBottomSheetState extends State<NewRecordBottomSheet> {
   DateTime _selectedDay = DateTime.now();
+  String selectedHour = '';
+  int selectedService = 0;
   List<String> hours = [
     '09:00',
     '09:30',
@@ -52,24 +55,24 @@ class _NewRecordBottomSheetState extends State<NewRecordBottomSheet> {
         return Column(
           children: [
             Padding(
-                  padding: const EdgeInsets.all(18.0),
-                  child: Container(
-                    height: 5,
-                    width: 60,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: AppColors.kGrey2,
-                    ),
-                  ),
+              padding: const EdgeInsets.all(18.0),
+              child: Container(
+                height: 5,
+                width: 60,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: AppColors.kGrey2,
                 ),
+              ),
+            ),
             Expanded(
               child: ListView(
                 controller: scrollController,
                 children: [
                   Column(
                     children: [
-                      const Text(
-                        'Врач',
+                      Text(
+                        context.localized.doctor,
                         style: AppTextStyles.m16w500,
                       ),
                       const SizedBox(
@@ -82,8 +85,8 @@ class _NewRecordBottomSheetState extends State<NewRecordBottomSheet> {
                       const SizedBox(
                         height: 47,
                       ),
-                      const Text(
-                        'Услуги',
+                      Text(
+                        context.localized.services,
                         style: AppTextStyles.m16w500,
                       ),
                       SizedBox(
@@ -91,7 +94,7 @@ class _NewRecordBottomSheetState extends State<NewRecordBottomSheet> {
                         child: ListView.builder(
                           padding: const EdgeInsets.symmetric(horizontal: 28),
                           scrollDirection: Axis.horizontal,
-                          itemCount: 15,
+                          itemCount: services.length,
                           itemBuilder: (context, index) {
                             return Padding(
                               padding: const EdgeInsets.only(
@@ -100,6 +103,17 @@ class _NewRecordBottomSheetState extends State<NewRecordBottomSheet> {
                                 bottom: 24,
                               ),
                               child: ServiceCardWidget(
+                                onTap: () {
+                                  selectedService = index;
+                                  setState(() {});
+                                },
+                                bgColor: selectedService == index
+                                    ? AppColors.kBlue
+                                    : null,
+                                textColor: selectedService == index
+                                    ? AppColors.kWhite
+                                    : null,
+                                service: services[index],
                                 boxShadow: [
                                   BoxShadow(
                                     blurRadius: 5,
@@ -135,7 +149,9 @@ class _NewRecordBottomSheetState extends State<NewRecordBottomSheet> {
                             formatButtonVisible: false,
                             titleTextStyle: AppTextStyles.m16w500,
                             titleTextFormatter: (date, locale) =>
-                                DateFormat.yMMMM(locale).format(date).capitalize(),
+                                DateFormat.yMMMM(locale)
+                                    .format(date)
+                                    .capitalize(),
                           ),
                           daysOfWeekHeight: 27,
                           daysOfWeekStyle: DaysOfWeekStyle(
@@ -153,8 +169,9 @@ class _NewRecordBottomSheetState extends State<NewRecordBottomSheet> {
                             weekendTextStyle: AppTextStyles.m16w500,
                             outsideDaysVisible: false,
                             defaultTextStyle: AppTextStyles.m16w500,
-                            disabledTextStyle: AppTextStyles.m16w500
-                                .copyWith(color: AppColors.kBlack.withOpacity(0.47)),
+                            disabledTextStyle: AppTextStyles.m16w500.copyWith(
+                              color: AppColors.kBlack.withOpacity(0.47),
+                            ),
                             todayDecoration: const BoxDecoration(
                               color: AppColors.kBlue,
                               shape: BoxShape.circle,
@@ -165,8 +182,10 @@ class _NewRecordBottomSheetState extends State<NewRecordBottomSheet> {
                         ),
                       ),
                       Padding(
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 21, vertical: 33),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 21,
+                          vertical: 33,
+                        ),
                         child: Wrap(
                           alignment: WrapAlignment.center,
                           spacing: 12,
@@ -176,17 +195,41 @@ class _NewRecordBottomSheetState extends State<NewRecordBottomSheet> {
                                 (e) => Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(50),
-                                    color: AppColors.kBlue,
+                                    color: selectedHour == e
+                                        ? AppColors.kBlue
+                                        : AppColors.kWhite,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        blurRadius: 5,
+                                        color:
+                                            AppColors.kBlack.withOpacity(0.25),
+                                      )
+                                    ],
                                   ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 8,
-                                      horizontal: 12,
-                                    ),
-                                    child: Text(
-                                      e,
-                                      style: AppTextStyles.m14w500.copyWith(
-                                          color: AppColors.kWhite, height: 1),
+                                  child: Material(
+                                    color: Colors.transparent,
+                                    borderRadius: BorderRadius.circular(50),
+                                    child: InkWell(
+                                      onTap: () {
+                                        selectedHour = e;
+                                        setState(() {});
+                                      },
+                                      borderRadius: BorderRadius.circular(50),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 8,
+                                          horizontal: 12,
+                                        ),
+                                        child: Text(
+                                          e,
+                                          style: AppTextStyles.m14w500.copyWith(
+                                            color: selectedHour == e
+                                                ? AppColors.kWhite
+                                                : AppColors.kBlack,
+                                            height: 1,
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -195,17 +238,18 @@ class _NewRecordBottomSheetState extends State<NewRecordBottomSheet> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 23).copyWith(bottom: 25),
+                        padding: const EdgeInsets.symmetric(horizontal: 23)
+                            .copyWith(bottom: 25),
                         child: CustomButton(
                           body: Text(
                             context.localized.makeRecord,
-                            style:
-                                AppTextStyles.m16w400.copyWith(color: AppColors.kWhite),
+                            style: AppTextStyles.m16w400
+                                .copyWith(color: AppColors.kWhite),
                           ),
                           onClick: () {
                             context.router.pop();
                           },
-                          style:mainButtonStyle(radius: 20),
+                          style: mainButtonStyle(radius: 20),
                           height: 35,
                         ),
                       )

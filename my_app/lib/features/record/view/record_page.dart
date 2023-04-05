@@ -1,9 +1,11 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:dental_plaza/core/extension/src/build_context.dart';
 import 'package:dental_plaza/core/resources/assets.gen.dart';
 import 'package:dental_plaza/core/resources/resources.dart';
 import 'package:dental_plaza/features/app/router/app_router.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_app_bar.dart';
 import 'package:dental_plaza/features/app/widgets/gradient_bg.dart';
+import 'package:dental_plaza/features/main/model/mock_doctor.dart';
 import 'package:dental_plaza/features/record/widgets/doctor_name_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -62,7 +64,7 @@ class _RecordPageState extends State<RecordPage> {
                           padding: const EdgeInsets.symmetric(vertical: 25),
                           child: Center(
                             child: Text(
-                              'Мои записи',
+                              context.localized.myRecords,
                               style: AppTextStyles.m18w500
                                   .copyWith(color: AppColors.kBlue),
                             ),
@@ -79,14 +81,14 @@ class _RecordPageState extends State<RecordPage> {
               sliver: SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
-                    return const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 4),
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
                       child: DoctorNameWidget(
-                        name: 'Гулмарал Шынкызбековна',
+                        name: doctors[index].name ?? "",
                       ),
                     );
                   },
-                  childCount: 10,
+                  childCount: doctors.length,
                 ),
               ),
             )

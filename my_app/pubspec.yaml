@@ -170,9 +170,5 @@ flutter:
         - asset: assets/fonts/LCD/LCDM2L__.TTF
         - asset: assets/fonts/LCD/LCDM2N__.TTF
         - asset: assets/fonts/LCD/LCDM2U__.TTF
-        - asset: assets/fonts/LCD/LCDMB__.TTF
-        - asset: assets/fonts/LCD/LCDML__.TTF
-        - asset: assets/fonts/LCD/LCDMN__.TTF
-        - asset: assets/fonts/LCD/LCDMU__.TTF
         
        

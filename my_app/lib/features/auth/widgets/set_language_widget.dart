@@ -5,7 +5,8 @@ import 'package:dental_plaza/settings/widget/scope/settings_scope.dart';
 import 'package:flutter/material.dart';
 
 class SetLanguageWidget extends StatefulWidget {
-  const SetLanguageWidget({super.key});
+  final MainAxisAlignment? mainAxisAlignment;
+  const SetLanguageWidget({super.key, this.mainAxisAlignment});
 
   @override
   State<SetLanguageWidget> createState() => _SetLanguageWidgetState();
@@ -22,7 +23,7 @@ class _SetLanguageWidgetState extends State<SetLanguageWidget> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: widget.mainAxisAlignment ?? MainAxisAlignment.center,
       children: [
         InkWell(
           borderRadius: BorderRadius.circular(4),

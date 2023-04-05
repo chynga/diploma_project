@@ -7,12 +7,14 @@ mixin AppColors {
   static const Color kLineColor = Color(0xFFE8EAEE);
   static const Color kGrey = Color(0xFF909090);
   static const Color kGrey2 = Color(0xFF393939);
+  static const Color kGrey8 = Color(0xFFEBEBE9);
+
   static const Color kRed = Color(0xffE53737);
 
   static const Color kBlue2 = Color(0xFF4150DE);
   static const Color kBlue3 = Color(0xFF4D61F4);
   static const Color kPuple = Color(0xFF7F65D9);
-  static const Color kBlueBlack = Color(0xff0E1031);
+  static const Color kBlueBlack = Color(0xff353535);
   static const Color kPurple2 = Color(0xff8063D4);
   static const Color kPurple3 = Color(0xff7271F2);
   static const Color kGrey3 = Color(0xffF1F1F1);

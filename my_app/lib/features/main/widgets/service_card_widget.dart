@@ -4,15 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ServiceCardWidget extends StatelessWidget {
+  final String service;
   final Border? border;
   final Color? bgColor;
   final Color? textColor;
   final List<BoxShadow>? boxShadow;
+  final Function()? onTap;
   const ServiceCardWidget({
     super.key,
     this.border,
     this.bgColor,
-    this.textColor, this.boxShadow,
+    this.textColor, this.boxShadow, required this.service, this.onTap,
   });
 
   @override
@@ -31,7 +33,7 @@ class ServiceCardWidget extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(25),
-          onTap: () {},
+          onTap: onTap,
           child: Column(
             children: [
               const SizedBox(
@@ -47,8 +49,9 @@ class ServiceCardWidget extends StatelessWidget {
                 height: 12,
               ),
               Text(
-                'Терапия',
+                service,
                 style: AppTextStyles.m11w400.copyWith(color: textColor),
+                textAlign:TextAlign.center
               )
             ],
           ),

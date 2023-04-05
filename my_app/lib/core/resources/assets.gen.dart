@@ -137,12 +137,46 @@ class $AssetsImagesGen {
   AssetGenImage get dentalPlaza =>
       const AssetGenImage('assets/images/dentalPlaza.png');
 
-  /// File path: assets/images/mainPicture.png
-  AssetGenImage get mainPicture =>
-      const AssetGenImage('assets/images/mainPicture.png');
+  /// File path: assets/images/doctor0.png
+  AssetGenImage get doctor0 => const AssetGenImage('assets/images/doctor0.png');
+
+  /// File path: assets/images/doctor1.png
+  AssetGenImage get doctor1 => const AssetGenImage('assets/images/doctor1.png');
+
+  /// File path: assets/images/doctor2.png
+  AssetGenImage get doctor2 => const AssetGenImage('assets/images/doctor2.png');
+
+  /// File path: assets/images/doctor3.png
+  AssetGenImage get doctor3 => const AssetGenImage('assets/images/doctor3.png');
+
+  /// File path: assets/images/doctor4.png
+  AssetGenImage get doctor4 => const AssetGenImage('assets/images/doctor4.png');
+
+  /// File path: assets/images/doctor5.png
+  AssetGenImage get doctor5 => const AssetGenImage('assets/images/doctor5.png');
+
+  /// File path: assets/images/doctor6.png
+  AssetGenImage get doctor6 => const AssetGenImage('assets/images/doctor6.png');
+
+  /// File path: assets/images/doctor7.png
+  AssetGenImage get doctor7 => const AssetGenImage('assets/images/doctor7.png');
+
+  /// File path: assets/images/doctor8.png
+  AssetGenImage get doctor8 => const AssetGenImage('assets/images/doctor8.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [dentalPlaza, mainPicture];
+  List<AssetGenImage> get values => [
+        dentalPlaza,
+        doctor0,
+        doctor1,
+        doctor2,
+        doctor3,
+        doctor4,
+        doctor5,
+        doctor6,
+        doctor7,
+        doctor8
+      ];
 }
 
 class Assets {

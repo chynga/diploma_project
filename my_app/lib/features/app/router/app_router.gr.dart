@@ -41,6 +41,12 @@ class _$AppRouter extends RootStackRouter {
         child: const ConfirmationCodePage(),
       );
     },
+    MyRecordsMainPage.name: (routeData) {
+      return MaterialPageX<void>(
+        routeData: routeData,
+        child: const MyRecordsPage(),
+      );
+    },
     EditProfileRoute.name: (routeData) {
       return MaterialPageX<void>(
         routeData: routeData,
@@ -164,6 +170,10 @@ class _$AppRouter extends RootStackRouter {
           path: '/confirmation-code-page',
         ),
         RouteConfig(
+          MyRecordsMainPage.name,
+          path: '/my-records-page',
+        ),
+        RouteConfig(
           EditProfileRoute.name,
           path: '/edit-profile-page',
         ),
@@ -217,6 +227,18 @@ class ConfirmationCodeRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'ConfirmationCodeRoute';
+}
+
+/// generated route for
+/// [MyRecordsPage]
+class MyRecordsMainPage extends PageRouteInfo<void> {
+  const MyRecordsMainPage()
+      : super(
+          MyRecordsMainPage.name,
+          path: '/my-records-page',
+        );
+
+  static const String name = 'MyRecordsMainPage';
 }
 
 /// generated route for

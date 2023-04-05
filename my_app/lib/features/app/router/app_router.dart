@@ -49,6 +49,10 @@ part 'app_router.gr.dart';
     AutoRoute<void>(page: ForgotPasswordPage),
     AutoRoute<void>(page: NewPasswordPage),
     AutoRoute<void>(page: ConfirmationCodePage),
+    AutoRoute<void>(
+      name: 'MyRecordsMainPage',
+      page: MyRecordsPage,
+    ),
 
     ///
     ///Profile Pages

@@ -1,10 +1,12 @@
 import 'package:dental_plaza/core/resources/assets.gen.dart';
 import 'package:dental_plaza/core/resources/resources.dart';
+import 'package:dental_plaza/features/main/model/mock_doctor.dart';
 import 'package:flutter/material.dart';
 
 class DoctorCardWidget extends StatelessWidget {
+  final MockDoctor doctor;
   const DoctorCardWidget({
-    super.key,
+    super.key, required this.doctor,
   });
 
   @override
@@ -28,14 +30,14 @@ class DoctorCardWidget extends StatelessWidget {
                 height: 12,
               ),
               Image.asset(
-                Assets.images.mainPicture.path,
+                doctor.image??"",
                 height: 124,
               ),
               const SizedBox(
                 height: 12,
               ),
-              const Text(
-                'Гулмарал Шынкызбековна',
+               Text(
+                '${doctor.name}',
                 style: AppTextStyles.m11w400,
                 textAlign: TextAlign.center,
               )

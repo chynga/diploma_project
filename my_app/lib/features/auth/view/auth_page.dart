@@ -1,8 +1,10 @@
+import 'package:dental_plaza/core/extension/extensions.dart';
 import 'package:dental_plaza/core/resources/assets.gen.dart';
 import 'package:dental_plaza/core/resources/resources.dart';
 import 'package:dental_plaza/features/auth/bloc/auth_bloc.dart';
 import 'package:dental_plaza/features/auth/widgets/login_block_widget.dart';
 import 'package:dental_plaza/features/auth/widgets/registration_block_widget.dart';
+import 'package:dental_plaza/features/auth/widgets/set_language_widget.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,7 +49,16 @@ class __AuthPageState extends State<_AuthPage> {
         child: ListView(
           children: [
             const SizedBox(
-              height: 150,
+              height: 16,
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: SetLanguageWidget(
+                mainAxisAlignment: MainAxisAlignment.end,
+              ),
+            ),
+            const SizedBox(
+              height: 120,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 97),
@@ -71,7 +82,7 @@ class __AuthPageState extends State<_AuthPage> {
                       );
                     },
                     child: Text(
-                      'Регистрация',
+                      context.localized.registration,
                       style: AppTextStyles.m14w400.copyWith(
                         decoration: TextDecoration.underline,
                         decorationThickness: 2,
@@ -100,7 +111,7 @@ class __AuthPageState extends State<_AuthPage> {
                       );
                     },
                     child: Text(
-                      'Вход',
+                      context.localized.login,
                       style: AppTextStyles.m14w400.copyWith(
                         decoration: TextDecoration.underline,
                         decorationThickness: 2,

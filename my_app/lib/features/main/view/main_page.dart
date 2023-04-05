@@ -1,8 +1,12 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:dental_plaza/core/common/constants.dart';
+import 'package:dental_plaza/core/extension/src/build_context.dart';
 import 'package:dental_plaza/core/resources/assets.gen.dart';
 import 'package:dental_plaza/core/resources/resources.dart';
+import 'package:dental_plaza/features/app/router/app_router.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_buttons/custom_square_button.dart';
 import 'package:dental_plaza/features/app/widgets/skip_and_next_button_widget.dart';
+import 'package:dental_plaza/features/main/model/mock_doctor.dart';
 import 'package:dental_plaza/features/main/widgets/doctor_card_widget.dart';
 import 'package:dental_plaza/features/main/widgets/service_card_widget.dart';
 import 'package:flutter/material.dart';
@@ -86,8 +90,9 @@ class _MainPageState extends State<MainPage> {
                                               Assets.icons.arrowUp.path,
                                             ),
                                           ),
-                                          const Text(
-                                            'Следите за уведомлениями !',
+                                          Text(
+                                            context.localized
+                                                .stayTunedForNotifications,
                                             style: AppTextStyles.m16w700White,
                                             textAlign: TextAlign.end,
                                           )
@@ -143,8 +148,8 @@ class _MainPageState extends State<MainPage> {
                                   const SizedBox(
                                     width: 8,
                                   ),
-                                  const Text(
-                                    'Не забывайте когда \nпредстоит запись !',
+                                  Text(
+                                    context.localized.dontForgetWhenRecord,
                                     style: AppTextStyles.m16w700White,
                                     textAlign: TextAlign.end,
                                   )
@@ -195,7 +200,7 @@ class _MainPageState extends State<MainPage> {
                                     height: 12,
                                   ),
                                   Text(
-                                    'Врач: Нысанбаева Айым',
+                                    '${context.localized.doctor}: Нысанбаева Айым',
                                     style: AppTextStyles.m16w500
                                         .copyWith(color: AppColors.kWhite),
                                   ),
@@ -203,7 +208,7 @@ class _MainPageState extends State<MainPage> {
                                     height: 12,
                                   ),
                                   Text(
-                                    'Ваша запись подтверждена',
+                                    context.localized.yourEntryHasBeenVerified,
                                     style: AppTextStyles.m16w500
                                         .copyWith(color: AppColors.kWhite),
                                   ),
@@ -267,8 +272,8 @@ class _MainPageState extends State<MainPage> {
                                   const SizedBox(
                                     width: 8,
                                   ),
-                                  const Text(
-                                    'Следите за своими записями ',
+                                  Text(
+                                    context.localized.keepTrackOfYourRecords,
                                     style: AppTextStyles.m16w700White,
                                     textAlign: TextAlign.end,
                                   )
@@ -293,15 +298,15 @@ class _MainPageState extends State<MainPage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Мои записи ',
+                                      context.localized.myRecords,
                                       style: AppTextStyles.m16w700White
                                           .copyWith(color: AppColors.kBlack),
                                     ),
                                     const SizedBox(
                                       height: 8,
                                     ),
-                                    const Text(
-                                      'Ближайшее 19 октября',
+                                    Text(
+                                      '${context.localized.nearest} 19 октября',
                                       style: AppTextStyles.m13w400,
                                     )
                                   ],
@@ -319,7 +324,10 @@ class _MainPageState extends State<MainPage> {
                                   color: Colors.transparent,
                                   child: InkWell(
                                     borderRadius: BorderRadius.circular(50),
-                                    onTap: () {},
+                                    onTap: () {
+                                      context.router
+                                          .push(const MyRecordsMainPage());
+                                    },
                                     child: const Icon(
                                       Icons.arrow_forward_rounded,
                                       color: AppColors.kWhite,
@@ -335,10 +343,10 @@ class _MainPageState extends State<MainPage> {
                     const SizedBox(
                       height: 16,
                     ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 4),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
                       child: Text(
-                        'Услуги',
+                        context.localized.services,
                         style: AppTextStyles.m16w700,
                       ),
                     ),
@@ -380,8 +388,8 @@ class _MainPageState extends State<MainPage> {
                                     const SizedBox(
                                       width: 8,
                                     ),
-                                    const Text(
-                                      'Смотрите какие услуги доступны ',
+                                     Text(
+                                      context.localized.seeWhatServicesAreAvailable,
                                       style: AppTextStyles.m16w700White,
                                       textAlign: TextAlign.end,
                                     )
@@ -397,11 +405,13 @@ class _MainPageState extends State<MainPage> {
                         child: ListView.builder(
                           padding: const EdgeInsets.symmetric(horizontal: 3),
                           scrollDirection: Axis.horizontal,
-                          itemCount: 15,
+                          itemCount: services.length,
                           itemBuilder: (context, index) {
-                            return const Padding(
-                              padding: EdgeInsets.only(right: 16),
-                              child: ServiceCardWidget(),
+                            return Padding(
+                              padding: const EdgeInsets.only(right: 16),
+                              child: ServiceCardWidget(
+                                service: services[index],
+                              ),
                             );
                           },
                         ),
@@ -410,10 +420,10 @@ class _MainPageState extends State<MainPage> {
                     const SizedBox(
                       height: 16,
                     ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 4),
+                     Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
                       child: Text(
-                        'Врачи',
+                        context.localized.doctors,
                         style: AppTextStyles.m16w700,
                       ),
                     ),
@@ -425,11 +435,13 @@ class _MainPageState extends State<MainPage> {
                       child: ListView.builder(
                         padding: const EdgeInsets.symmetric(horizontal: 3),
                         scrollDirection: Axis.horizontal,
-                        itemCount: 15,
+                        itemCount: doctors.length,
                         itemBuilder: (context, index) {
-                          return const Padding(
-                            padding: EdgeInsets.only(right: 16),
-                            child: DoctorCardWidget(),
+                          return Padding(
+                            padding: const EdgeInsets.only(right: 16),
+                            child: DoctorCardWidget(
+                              doctor: doctors[index],
+                            ),
                           );
                         },
                       ),

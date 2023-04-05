@@ -129,8 +129,8 @@ class _BaseState extends State<Base> with TickerProviderStateMixin {
                                     const SizedBox(
                                       width: 4,
                                     ),
-                                    const Text(
-                                      'Получайте ответы \nна ваши вопросы',
+                                     Text(
+                                      context.localized.getAnswersToYourQuestions,
                                       style: AppTextStyles.m16w700White,
                                     ),
                                   ],
@@ -162,8 +162,8 @@ class _BaseState extends State<Base> with TickerProviderStateMixin {
                                     const SizedBox(
                                       width: 4,
                                     ),
-                                    const Text(
-                                      'Чистите зубы с нами',
+                                     Text(
+                                      context.localized.brushYourTeethWithUs,
                                       style: AppTextStyles.m16w700White,
                                     ),
                                   ],
@@ -191,8 +191,8 @@ class _BaseState extends State<Base> with TickerProviderStateMixin {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-                                    const Text(
-                                      'Записывайтесь на прием ',
+                                     Text(
+                                       context.localized.signUpForAnAppointment,
                                       style: AppTextStyles.m16w700White,
                                     ),
                                     const SizedBox(
@@ -225,8 +225,8 @@ class _BaseState extends State<Base> with TickerProviderStateMixin {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-                                    const Text(
-                                      'Личный кабинет',
+                                     Text(
+                                      context.localized.personalArea,
                                       style: AppTextStyles.m16w700White,
                                     ),
                                     const SizedBox(
