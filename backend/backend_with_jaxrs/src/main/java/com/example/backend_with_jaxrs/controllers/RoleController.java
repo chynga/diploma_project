@@ -19,7 +19,6 @@ public class RoleController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response assignRole(RoleAssignment roleAssignment) throws CustomException {
-        // TODO: log out when roles are assigned
         if (!securityContext.isUserInRole(Role.ADMIN.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
         RoleService.getInstance().addRolesToUser(roleAssignment);
 

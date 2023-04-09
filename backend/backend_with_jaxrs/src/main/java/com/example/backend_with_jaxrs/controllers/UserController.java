@@ -35,7 +35,7 @@ public class UserController {
     @Path("/clients/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getClient(@PathParam("id") Long id) throws CustomException {
-        if (!securityContext.isUserInRole(Role.ADMIN.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+        if (!securityContext.isUserInRole(Role.ADMIN.name) && !securityContext.isUserInRole(Role.DOCTOR.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
         Client client = ClientService.getInstance().getClient(id);
 
         return Response.ok().entity(client).build();
@@ -45,7 +45,7 @@ public class UserController {
     @Path("/clients/{id}/healthInfo")
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateClientHealthInfo(@PathParam("id") Long id, Client client) throws CustomException {
-        if (!securityContext.isUserInRole(Role.ADMIN.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+        if (!securityContext.isUserInRole(Role.ADMIN.name) && !securityContext.isUserInRole(Role.DOCTOR.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
         client.setId(id);
         ClientService.getInstance().updateClientHealthInfo(client);
 

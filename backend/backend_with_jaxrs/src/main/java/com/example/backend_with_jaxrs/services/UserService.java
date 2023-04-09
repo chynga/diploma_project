@@ -78,8 +78,8 @@ public class UserService {
         Random rnd = new Random();
         int number = rnd.nextInt(999999);
         String code = String.format("%06d", number);
-        String subject = "Password Recovery";
-        String text = "Enter the following code to recover password:\n"
+        String subject = "Востановления пароля";
+        String text = "Введите следующий код для востановления пароля для платформы Dental Plaza:\n"
                 + "<h2>" + code + "</h2>";
         Email.sendCode(email, subject, text);
 

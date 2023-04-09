@@ -111,9 +111,27 @@ public class AppointmentDAO extends GeneralDAO {
         return getAppointmentsSessionsFromDb(resultSet);
     }
 
+    public ArrayList<Appointment> getDoctorAppointments(Long id, String status) throws CustomException {
+        String sqlScript = "SELECT * FROM appointments WHERE doctor_id = (?) AND status = (?)";
+        PreparedStatement preparedStatement = getPreparedStatement(sqlScript);
+        setSqlScriptData(preparedStatement, id, status);
+        ResultSet resultSet = executeQuery(preparedStatement);
+
+        return getAppointmentsFromDb(resultSet);
+    }
+
     private void setSqlScriptData(PreparedStatement preparedStatement, String status) throws CustomException {
         try {
             preparedStatement.setString(1, status);
+        } catch (SQLException e) {
+            throw new CustomException(e, ErrorCode.SQL_SET_SCRIPT_DATA);
+        }
+    }
+
+    private void setSqlScriptData(PreparedStatement preparedStatement, Long id, String status) throws CustomException {
+        try {
+            preparedStatement.setLong(1, id);
+            preparedStatement.setString(2, status);
         } catch (SQLException e) {
             throw new CustomException(e, ErrorCode.SQL_SET_SCRIPT_DATA);
         }

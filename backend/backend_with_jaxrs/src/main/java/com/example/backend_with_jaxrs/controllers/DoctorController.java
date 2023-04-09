@@ -1,10 +1,15 @@
 package com.example.backend_with_jaxrs.controllers;
 
+import com.example.backend_with_jaxrs.dao.AppointmentDAO;
+import com.example.backend_with_jaxrs.models.Appointment;
 import com.example.backend_with_jaxrs.models.AppointmentSession;
 import com.example.backend_with_jaxrs.models.Doctor;
 import com.example.backend_with_jaxrs.models.FreeDaySchedule;
+import com.example.backend_with_jaxrs.services.AppointmentService;
 import com.example.backend_with_jaxrs.services.DoctorService;
 import com.example.backend_with_jaxrs.utils.CustomException;
+import com.example.backend_with_jaxrs.utils.ErrorCode;
+import com.example.backend_with_jaxrs.utils.enums.Role;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
@@ -13,6 +18,9 @@ import java.util.ArrayList;
 
 @Path("/doctors")
 public class DoctorController {
+    @Context
+    SecurityContext securityContext;
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response showAvailableDoctors() throws CustomException {
@@ -29,6 +37,16 @@ public class DoctorController {
     }
 
     @GET
+    @Path("{id}/appointments/{status}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getDoctorAppointments(@PathParam("id") Long id,
+                                          @PathParam("status") String status) throws CustomException {
+        if (!securityContext.isUserInRole(Role.DOCTOR.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+        ArrayList<Appointment> appointments = AppointmentService.getInstance().getDoctorAppointments(id, status);
+        return Response.ok().entity(appointments).build();
+    }
+
+    @GET
     @Path("{id}/schedule")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getDoctorSchedule(@PathParam("id") Long id) throws CustomException {
@@ -36,7 +54,7 @@ public class DoctorController {
         return Response.ok().entity(sessions).build();
     }
 
-    @GET
+    @POST
     @Path("{id}/free-slots")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getDoctorSlots(@PathParam("id") Long id, FreeDaySchedule freeDaySchedule) throws CustomException {

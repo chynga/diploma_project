@@ -70,6 +70,13 @@ public class AppointmentService {
         return AppointmentDAO.getInstance().deleteAppointment(id);
     }
 
+    public ArrayList<Appointment> getDoctorAppointments(Long id, String status) throws CustomException {
+        ArrayList<Appointment> appointments = AppointmentDAO.getInstance().getDoctorAppointments(id, status);
+        setFieldsForAppointments(appointments);
+
+        return appointments;
+    }
+
     private void setFieldsForAppointments(ArrayList<Appointment> appointments) {
         for (Appointment appointment : appointments) {
             setAppointmentFields(appointment);
