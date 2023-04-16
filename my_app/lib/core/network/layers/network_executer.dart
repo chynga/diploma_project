@@ -45,10 +45,12 @@ class NetworkExecuter {
 
     if (await _connectivity.status) {
       try {
-        final response = await _creator.request(route: route, options: options, dio: _dio);
+        final response =
+            await _creator.request(route: route, options: options, dio: _dio);
 
         if (responseType != null) {
-          final data = _decoder.decode<K, T>(response: response, responseType: responseType as BaseModel);
+          final data = _decoder.decode<K, T>(
+              response: response, responseType: responseType as BaseModel);
 
           return Result<K>.success(data);
         } else {
@@ -101,14 +103,16 @@ class NetworkExecuter {
 
     if (await _connectivity.status) {
       try {
-        final response = await _creator.request(route: route, options: options, dio: _dio);
+        final response =
+            await _creator.request(route: route, options: options, dio: _dio);
 
-        final Map<String, dynamic> responseMap = response.data as Map<String, dynamic>;
+        final Map<String, dynamic> responseMap =
+            response.data as Map<String, dynamic>;
 
-        if (responseMap is List) {
-          return Result<K>.success(responseMap as K);
+        if (responseMap['data'] is List) {
+          return Result<K>.success(responseMap['data'] as K);
         } else {
-          return Result<K>.success(responseMap as K);
+          return Result<K>.success(responseMap['data'] as K);
         }
 
         /// Dio error

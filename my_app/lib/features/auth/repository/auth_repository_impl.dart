@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:dental_plaza/core/network/basic_response.dart';
 import 'package:dental_plaza/core/network/layers/network_executer.dart';
@@ -37,6 +38,7 @@ class AuthRepositoryImpl extends IAuthRepository {
 
     result.whenOrNull(
       success: (user) {
+        log(user.toString());
         _authDao.user.setValue(jsonEncode(user.toJson()));
       },
     );
@@ -53,7 +55,6 @@ class AuthRepositoryImpl extends IAuthRepository {
   @override
   Future<void> setOnboarding({required bool onboarding}) async =>
       _authDao.onboarding.setValue(onboarding);
-
 
   @override
   Future<void> setShowcase({required bool showcase}) async =>

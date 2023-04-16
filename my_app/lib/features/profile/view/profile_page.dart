@@ -6,7 +6,9 @@ import 'package:dental_plaza/features/app/router/app_router.dart';
 import 'package:dental_plaza/features/app/widgets/build_segment_widget.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_app_bar.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_buttons/custom_button.dart';
+import 'package:dental_plaza/features/app/widgets/custom/custom_snackbars.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_switch_button.dart';
+import 'package:dental_plaza/features/profile/bloc/profile_cubit.dart';
 import 'package:dental_plaza/features/profile/widgets/set_language_profile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,6 +21,12 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<ProfileCubit>(context).getProfie();
+  }
+
   int segmentValue = 0;
   @override
   Widget build(BuildContext context) {
@@ -194,66 +202,91 @@ class InformationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(
-          height: 26,
-        ),
-        Text(
-          context.localized.fio,
-          style: AppTextStyles.m16w400,
-        ),
-        const SizedBox(
-          height: 12,
-        ),
-        const Text(
-          'Зейнеп Айдар',
-          style: AppTextStyles.m16w600,
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        const Text(
-          'E-mail',
-          style: AppTextStyles.m16w400,
-        ),
-        const SizedBox(
-          height: 12,
-        ),
-        const Text(
-          'camomilell@mail.ru',
-          style: AppTextStyles.m16w600,
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        const Text(
-          'Номер телефона',
-          style: AppTextStyles.m16w400,
-        ),
-        const SizedBox(
-          height: 12,
-        ),
-        const Text(
-          '+7 707 810 90 27',
-          style: AppTextStyles.m16w600,
-        ),
-        const SizedBox(
-          height: 33,
-        ),
-        CustomButton(
-          body: Text(
-            context.localized.changeTheData,
-            style: AppTextStyles.m16w400.copyWith(color: AppColors.kWhite),
-          ),
-          onClick: () {
-            context.router.push(const EditProfileRoute());
+    return BlocConsumer<ProfileCubit, ProfileState>(
+      listener: (context, state) {
+        state.maybeWhen(
+          errorState: (message) {
+            buildErrorCustomSnackBar(context, message);
           },
-          style: mainButtonStyle(radius: 20),
-          height: 35,
-        ),
-      ],
+          orElse: () {},
+        );
+      },
+      builder: (context, state) {
+        return state.maybeWhen(
+          loadedState: (user) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 26,
+                ),
+                Text(
+                  context.localized.fio,
+                  style: AppTextStyles.m16w400,
+                ),
+                const SizedBox(
+                  height: 12,
+                ),
+                Text(
+                  '${user.fullName}',
+                  style: AppTextStyles.m16w600,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const Text(
+                  'E-mail',
+                  style: AppTextStyles.m16w400,
+                ),
+                const SizedBox(
+                  height: 12,
+                ),
+                Text(
+                  '${user.email}',
+                  style: AppTextStyles.m16w600,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const Text(
+                  'Номер телефона',
+                  style: AppTextStyles.m16w400,
+                ),
+                const SizedBox(
+                  height: 12,
+                ),
+                Text(
+                  '${user.phone}',
+                  style: AppTextStyles.m16w600,
+                ),
+                const SizedBox(
+                  height: 33,
+                ),
+                CustomButton(
+                  body: Text(
+                    context.localized.changeTheData,
+                    style:
+                        AppTextStyles.m16w400.copyWith(color: AppColors.kWhite),
+                  ),
+                  onClick: () {
+                    context.router.push(const EditProfileRoute());
+                  },
+                  style: mainButtonStyle(radius: 20),
+                  height: 35,
+                ),
+              ],
+            );
+          },
+          orElse: () {
+            return const Center(
+              child: Padding(
+                padding: EdgeInsets.all(25),
+                child: CircularProgressIndicator(),
+              ),
+            );
+          },
+        );
+      },
     );
   }
 }
