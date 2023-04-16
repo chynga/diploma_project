@@ -5,6 +5,8 @@ abstract class IAuthDao {
   PreferencesEntry<String> get user;
 
   PreferencesEntry<bool> get onboarding;
+  
+  PreferencesEntry<bool> get showcase;
 }
 
 class AuthDao extends TypedPreferencesDao implements IAuthDao {
@@ -17,4 +19,7 @@ class AuthDao extends TypedPreferencesDao implements IAuthDao {
 
   @override
   PreferencesEntry<bool> get onboarding => boolEntry('onboarding');
+
+  @override
+  PreferencesEntry<bool> get showcase => boolEntry('showcase');
 }

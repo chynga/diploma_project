@@ -29,7 +29,7 @@ class AuthRemoteDSImpl implements IAuthRemoteDS {
   }) async {
     try {
       final Result<Map?> result = await client.produce(
-        route: AuthApi.login(phone: phone, password: password),
+        route: AuthApi.login(email: phone, password: password),
       );
 
       return result.when(

@@ -25,6 +25,7 @@ mixin _$AppEvent {
     required TResult Function() startListenDio,
     required TResult Function() sendDeviceToken,
     required TResult Function() onboardingSave,
+    required TResult Function() showcaseSave,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -36,6 +37,7 @@ mixin _$AppEvent {
     TResult? Function()? startListenDio,
     TResult? Function()? sendDeviceToken,
     TResult? Function()? onboardingSave,
+    TResult? Function()? showcaseSave,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -47,6 +49,7 @@ mixin _$AppEvent {
     TResult Function()? startListenDio,
     TResult Function()? sendDeviceToken,
     TResult Function()? onboardingSave,
+    TResult Function()? showcaseSave,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -59,6 +62,7 @@ mixin _$AppEvent {
     required TResult Function(_StartListenDio value) startListenDio,
     required TResult Function(_SendDeviceToken value) sendDeviceToken,
     required TResult Function(_OnboardingSave value) onboardingSave,
+    required TResult Function(_ShowcaseSave value) showcaseSave,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -70,6 +74,7 @@ mixin _$AppEvent {
     TResult? Function(_StartListenDio value)? startListenDio,
     TResult? Function(_SendDeviceToken value)? sendDeviceToken,
     TResult? Function(_OnboardingSave value)? onboardingSave,
+    TResult? Function(_ShowcaseSave value)? showcaseSave,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -81,6 +86,7 @@ mixin _$AppEvent {
     TResult Function(_StartListenDio value)? startListenDio,
     TResult Function(_SendDeviceToken value)? sendDeviceToken,
     TResult Function(_OnboardingSave value)? onboardingSave,
+    TResult Function(_ShowcaseSave value)? showcaseSave,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -148,6 +154,7 @@ class _$_CheckAuth implements _CheckAuth {
     required TResult Function() startListenDio,
     required TResult Function() sendDeviceToken,
     required TResult Function() onboardingSave,
+    required TResult Function() showcaseSave,
   }) {
     return checkAuth();
   }
@@ -162,6 +169,7 @@ class _$_CheckAuth implements _CheckAuth {
     TResult? Function()? startListenDio,
     TResult? Function()? sendDeviceToken,
     TResult? Function()? onboardingSave,
+    TResult? Function()? showcaseSave,
   }) {
     return checkAuth?.call();
   }
@@ -176,6 +184,7 @@ class _$_CheckAuth implements _CheckAuth {
     TResult Function()? startListenDio,
     TResult Function()? sendDeviceToken,
     TResult Function()? onboardingSave,
+    TResult Function()? showcaseSave,
     required TResult orElse(),
   }) {
     if (checkAuth != null) {
@@ -194,6 +203,7 @@ class _$_CheckAuth implements _CheckAuth {
     required TResult Function(_StartListenDio value) startListenDio,
     required TResult Function(_SendDeviceToken value) sendDeviceToken,
     required TResult Function(_OnboardingSave value) onboardingSave,
+    required TResult Function(_ShowcaseSave value) showcaseSave,
   }) {
     return checkAuth(this);
   }
@@ -208,6 +218,7 @@ class _$_CheckAuth implements _CheckAuth {
     TResult? Function(_StartListenDio value)? startListenDio,
     TResult? Function(_SendDeviceToken value)? sendDeviceToken,
     TResult? Function(_OnboardingSave value)? onboardingSave,
+    TResult? Function(_ShowcaseSave value)? showcaseSave,
   }) {
     return checkAuth?.call(this);
   }
@@ -222,6 +233,7 @@ class _$_CheckAuth implements _CheckAuth {
     TResult Function(_StartListenDio value)? startListenDio,
     TResult Function(_SendDeviceToken value)? sendDeviceToken,
     TResult Function(_OnboardingSave value)? onboardingSave,
+    TResult Function(_ShowcaseSave value)? showcaseSave,
     required TResult orElse(),
   }) {
     if (checkAuth != null) {
@@ -280,6 +292,7 @@ class _$_Logining implements _Logining {
     required TResult Function() startListenDio,
     required TResult Function() sendDeviceToken,
     required TResult Function() onboardingSave,
+    required TResult Function() showcaseSave,
   }) {
     return logining();
   }
@@ -294,6 +307,7 @@ class _$_Logining implements _Logining {
     TResult? Function()? startListenDio,
     TResult? Function()? sendDeviceToken,
     TResult? Function()? onboardingSave,
+    TResult? Function()? showcaseSave,
   }) {
     return logining?.call();
   }
@@ -308,6 +322,7 @@ class _$_Logining implements _Logining {
     TResult Function()? startListenDio,
     TResult Function()? sendDeviceToken,
     TResult Function()? onboardingSave,
+    TResult Function()? showcaseSave,
     required TResult orElse(),
   }) {
     if (logining != null) {
@@ -326,6 +341,7 @@ class _$_Logining implements _Logining {
     required TResult Function(_StartListenDio value) startListenDio,
     required TResult Function(_SendDeviceToken value) sendDeviceToken,
     required TResult Function(_OnboardingSave value) onboardingSave,
+    required TResult Function(_ShowcaseSave value) showcaseSave,
   }) {
     return logining(this);
   }
@@ -340,6 +356,7 @@ class _$_Logining implements _Logining {
     TResult? Function(_StartListenDio value)? startListenDio,
     TResult? Function(_SendDeviceToken value)? sendDeviceToken,
     TResult? Function(_OnboardingSave value)? onboardingSave,
+    TResult? Function(_ShowcaseSave value)? showcaseSave,
   }) {
     return logining?.call(this);
   }
@@ -354,6 +371,7 @@ class _$_Logining implements _Logining {
     TResult Function(_StartListenDio value)? startListenDio,
     TResult Function(_SendDeviceToken value)? sendDeviceToken,
     TResult Function(_OnboardingSave value)? onboardingSave,
+    TResult Function(_ShowcaseSave value)? showcaseSave,
     required TResult orElse(),
   }) {
     if (logining != null) {
@@ -411,6 +429,7 @@ class _$_Exiting implements _Exiting {
     required TResult Function() startListenDio,
     required TResult Function() sendDeviceToken,
     required TResult Function() onboardingSave,
+    required TResult Function() showcaseSave,
   }) {
     return exiting();
   }
@@ -425,6 +444,7 @@ class _$_Exiting implements _Exiting {
     TResult? Function()? startListenDio,
     TResult? Function()? sendDeviceToken,
     TResult? Function()? onboardingSave,
+    TResult? Function()? showcaseSave,
   }) {
     return exiting?.call();
   }
@@ -439,6 +459,7 @@ class _$_Exiting implements _Exiting {
     TResult Function()? startListenDio,
     TResult Function()? sendDeviceToken,
     TResult Function()? onboardingSave,
+    TResult Function()? showcaseSave,
     required TResult orElse(),
   }) {
     if (exiting != null) {
@@ -457,6 +478,7 @@ class _$_Exiting implements _Exiting {
     required TResult Function(_StartListenDio value) startListenDio,
     required TResult Function(_SendDeviceToken value) sendDeviceToken,
     required TResult Function(_OnboardingSave value) onboardingSave,
+    required TResult Function(_ShowcaseSave value) showcaseSave,
   }) {
     return exiting(this);
   }
@@ -471,6 +493,7 @@ class _$_Exiting implements _Exiting {
     TResult? Function(_StartListenDio value)? startListenDio,
     TResult? Function(_SendDeviceToken value)? sendDeviceToken,
     TResult? Function(_OnboardingSave value)? onboardingSave,
+    TResult? Function(_ShowcaseSave value)? showcaseSave,
   }) {
     return exiting?.call(this);
   }
@@ -485,6 +508,7 @@ class _$_Exiting implements _Exiting {
     TResult Function(_StartListenDio value)? startListenDio,
     TResult Function(_SendDeviceToken value)? sendDeviceToken,
     TResult Function(_OnboardingSave value)? onboardingSave,
+    TResult Function(_ShowcaseSave value)? showcaseSave,
     required TResult orElse(),
   }) {
     if (exiting != null) {
@@ -543,6 +567,7 @@ class _$_RefreshLocal implements _RefreshLocal {
     required TResult Function() startListenDio,
     required TResult Function() sendDeviceToken,
     required TResult Function() onboardingSave,
+    required TResult Function() showcaseSave,
   }) {
     return refreshLocal();
   }
@@ -557,6 +582,7 @@ class _$_RefreshLocal implements _RefreshLocal {
     TResult? Function()? startListenDio,
     TResult? Function()? sendDeviceToken,
     TResult? Function()? onboardingSave,
+    TResult? Function()? showcaseSave,
   }) {
     return refreshLocal?.call();
   }
@@ -571,6 +597,7 @@ class _$_RefreshLocal implements _RefreshLocal {
     TResult Function()? startListenDio,
     TResult Function()? sendDeviceToken,
     TResult Function()? onboardingSave,
+    TResult Function()? showcaseSave,
     required TResult orElse(),
   }) {
     if (refreshLocal != null) {
@@ -589,6 +616,7 @@ class _$_RefreshLocal implements _RefreshLocal {
     required TResult Function(_StartListenDio value) startListenDio,
     required TResult Function(_SendDeviceToken value) sendDeviceToken,
     required TResult Function(_OnboardingSave value) onboardingSave,
+    required TResult Function(_ShowcaseSave value) showcaseSave,
   }) {
     return refreshLocal(this);
   }
@@ -603,6 +631,7 @@ class _$_RefreshLocal implements _RefreshLocal {
     TResult? Function(_StartListenDio value)? startListenDio,
     TResult? Function(_SendDeviceToken value)? sendDeviceToken,
     TResult? Function(_OnboardingSave value)? onboardingSave,
+    TResult? Function(_ShowcaseSave value)? showcaseSave,
   }) {
     return refreshLocal?.call(this);
   }
@@ -617,6 +646,7 @@ class _$_RefreshLocal implements _RefreshLocal {
     TResult Function(_StartListenDio value)? startListenDio,
     TResult Function(_SendDeviceToken value)? sendDeviceToken,
     TResult Function(_OnboardingSave value)? onboardingSave,
+    TResult Function(_ShowcaseSave value)? showcaseSave,
     required TResult orElse(),
   }) {
     if (refreshLocal != null) {
@@ -675,6 +705,7 @@ class _$_StartListenDio implements _StartListenDio {
     required TResult Function() startListenDio,
     required TResult Function() sendDeviceToken,
     required TResult Function() onboardingSave,
+    required TResult Function() showcaseSave,
   }) {
     return startListenDio();
   }
@@ -689,6 +720,7 @@ class _$_StartListenDio implements _StartListenDio {
     TResult? Function()? startListenDio,
     TResult? Function()? sendDeviceToken,
     TResult? Function()? onboardingSave,
+    TResult? Function()? showcaseSave,
   }) {
     return startListenDio?.call();
   }
@@ -703,6 +735,7 @@ class _$_StartListenDio implements _StartListenDio {
     TResult Function()? startListenDio,
     TResult Function()? sendDeviceToken,
     TResult Function()? onboardingSave,
+    TResult Function()? showcaseSave,
     required TResult orElse(),
   }) {
     if (startListenDio != null) {
@@ -721,6 +754,7 @@ class _$_StartListenDio implements _StartListenDio {
     required TResult Function(_StartListenDio value) startListenDio,
     required TResult Function(_SendDeviceToken value) sendDeviceToken,
     required TResult Function(_OnboardingSave value) onboardingSave,
+    required TResult Function(_ShowcaseSave value) showcaseSave,
   }) {
     return startListenDio(this);
   }
@@ -735,6 +769,7 @@ class _$_StartListenDio implements _StartListenDio {
     TResult? Function(_StartListenDio value)? startListenDio,
     TResult? Function(_SendDeviceToken value)? sendDeviceToken,
     TResult? Function(_OnboardingSave value)? onboardingSave,
+    TResult? Function(_ShowcaseSave value)? showcaseSave,
   }) {
     return startListenDio?.call(this);
   }
@@ -749,6 +784,7 @@ class _$_StartListenDio implements _StartListenDio {
     TResult Function(_StartListenDio value)? startListenDio,
     TResult Function(_SendDeviceToken value)? sendDeviceToken,
     TResult Function(_OnboardingSave value)? onboardingSave,
+    TResult Function(_ShowcaseSave value)? showcaseSave,
     required TResult orElse(),
   }) {
     if (startListenDio != null) {
@@ -807,6 +843,7 @@ class _$_SendDeviceToken implements _SendDeviceToken {
     required TResult Function() startListenDio,
     required TResult Function() sendDeviceToken,
     required TResult Function() onboardingSave,
+    required TResult Function() showcaseSave,
   }) {
     return sendDeviceToken();
   }
@@ -821,6 +858,7 @@ class _$_SendDeviceToken implements _SendDeviceToken {
     TResult? Function()? startListenDio,
     TResult? Function()? sendDeviceToken,
     TResult? Function()? onboardingSave,
+    TResult? Function()? showcaseSave,
   }) {
     return sendDeviceToken?.call();
   }
@@ -835,6 +873,7 @@ class _$_SendDeviceToken implements _SendDeviceToken {
     TResult Function()? startListenDio,
     TResult Function()? sendDeviceToken,
     TResult Function()? onboardingSave,
+    TResult Function()? showcaseSave,
     required TResult orElse(),
   }) {
     if (sendDeviceToken != null) {
@@ -853,6 +892,7 @@ class _$_SendDeviceToken implements _SendDeviceToken {
     required TResult Function(_StartListenDio value) startListenDio,
     required TResult Function(_SendDeviceToken value) sendDeviceToken,
     required TResult Function(_OnboardingSave value) onboardingSave,
+    required TResult Function(_ShowcaseSave value) showcaseSave,
   }) {
     return sendDeviceToken(this);
   }
@@ -867,6 +907,7 @@ class _$_SendDeviceToken implements _SendDeviceToken {
     TResult? Function(_StartListenDio value)? startListenDio,
     TResult? Function(_SendDeviceToken value)? sendDeviceToken,
     TResult? Function(_OnboardingSave value)? onboardingSave,
+    TResult? Function(_ShowcaseSave value)? showcaseSave,
   }) {
     return sendDeviceToken?.call(this);
   }
@@ -881,6 +922,7 @@ class _$_SendDeviceToken implements _SendDeviceToken {
     TResult Function(_StartListenDio value)? startListenDio,
     TResult Function(_SendDeviceToken value)? sendDeviceToken,
     TResult Function(_OnboardingSave value)? onboardingSave,
+    TResult Function(_ShowcaseSave value)? showcaseSave,
     required TResult orElse(),
   }) {
     if (sendDeviceToken != null) {
@@ -939,6 +981,7 @@ class _$_OnboardingSave implements _OnboardingSave {
     required TResult Function() startListenDio,
     required TResult Function() sendDeviceToken,
     required TResult Function() onboardingSave,
+    required TResult Function() showcaseSave,
   }) {
     return onboardingSave();
   }
@@ -953,6 +996,7 @@ class _$_OnboardingSave implements _OnboardingSave {
     TResult? Function()? startListenDio,
     TResult? Function()? sendDeviceToken,
     TResult? Function()? onboardingSave,
+    TResult? Function()? showcaseSave,
   }) {
     return onboardingSave?.call();
   }
@@ -967,6 +1011,7 @@ class _$_OnboardingSave implements _OnboardingSave {
     TResult Function()? startListenDio,
     TResult Function()? sendDeviceToken,
     TResult Function()? onboardingSave,
+    TResult Function()? showcaseSave,
     required TResult orElse(),
   }) {
     if (onboardingSave != null) {
@@ -985,6 +1030,7 @@ class _$_OnboardingSave implements _OnboardingSave {
     required TResult Function(_StartListenDio value) startListenDio,
     required TResult Function(_SendDeviceToken value) sendDeviceToken,
     required TResult Function(_OnboardingSave value) onboardingSave,
+    required TResult Function(_ShowcaseSave value) showcaseSave,
   }) {
     return onboardingSave(this);
   }
@@ -999,6 +1045,7 @@ class _$_OnboardingSave implements _OnboardingSave {
     TResult? Function(_StartListenDio value)? startListenDio,
     TResult? Function(_SendDeviceToken value)? sendDeviceToken,
     TResult? Function(_OnboardingSave value)? onboardingSave,
+    TResult? Function(_ShowcaseSave value)? showcaseSave,
   }) {
     return onboardingSave?.call(this);
   }
@@ -1013,6 +1060,7 @@ class _$_OnboardingSave implements _OnboardingSave {
     TResult Function(_StartListenDio value)? startListenDio,
     TResult Function(_SendDeviceToken value)? sendDeviceToken,
     TResult Function(_OnboardingSave value)? onboardingSave,
+    TResult Function(_ShowcaseSave value)? showcaseSave,
     required TResult orElse(),
   }) {
     if (onboardingSave != null) {
@@ -1027,13 +1075,151 @@ abstract class _OnboardingSave implements AppEvent {
 }
 
 /// @nodoc
+abstract class _$$_ShowcaseSaveCopyWith<$Res> {
+  factory _$$_ShowcaseSaveCopyWith(
+          _$_ShowcaseSave value, $Res Function(_$_ShowcaseSave) then) =
+      __$$_ShowcaseSaveCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_ShowcaseSaveCopyWithImpl<$Res>
+    extends _$AppEventCopyWithImpl<$Res, _$_ShowcaseSave>
+    implements _$$_ShowcaseSaveCopyWith<$Res> {
+  __$$_ShowcaseSaveCopyWithImpl(
+      _$_ShowcaseSave _value, $Res Function(_$_ShowcaseSave) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_ShowcaseSave implements _ShowcaseSave {
+  const _$_ShowcaseSave();
+
+  @override
+  String toString() {
+    return 'AppEvent.showcaseSave()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_ShowcaseSave);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() checkAuth,
+    required TResult Function() logining,
+    required TResult Function() exiting,
+    required TResult Function() refreshLocal,
+    required TResult Function() startListenDio,
+    required TResult Function() sendDeviceToken,
+    required TResult Function() onboardingSave,
+    required TResult Function() showcaseSave,
+  }) {
+    return showcaseSave();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? checkAuth,
+    TResult? Function()? logining,
+    TResult? Function()? exiting,
+    TResult? Function()? refreshLocal,
+    TResult? Function()? startListenDio,
+    TResult? Function()? sendDeviceToken,
+    TResult? Function()? onboardingSave,
+    TResult? Function()? showcaseSave,
+  }) {
+    return showcaseSave?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? checkAuth,
+    TResult Function()? logining,
+    TResult Function()? exiting,
+    TResult Function()? refreshLocal,
+    TResult Function()? startListenDio,
+    TResult Function()? sendDeviceToken,
+    TResult Function()? onboardingSave,
+    TResult Function()? showcaseSave,
+    required TResult orElse(),
+  }) {
+    if (showcaseSave != null) {
+      return showcaseSave();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_CheckAuth value) checkAuth,
+    required TResult Function(_Logining value) logining,
+    required TResult Function(_Exiting value) exiting,
+    required TResult Function(_RefreshLocal value) refreshLocal,
+    required TResult Function(_StartListenDio value) startListenDio,
+    required TResult Function(_SendDeviceToken value) sendDeviceToken,
+    required TResult Function(_OnboardingSave value) onboardingSave,
+    required TResult Function(_ShowcaseSave value) showcaseSave,
+  }) {
+    return showcaseSave(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_CheckAuth value)? checkAuth,
+    TResult? Function(_Logining value)? logining,
+    TResult? Function(_Exiting value)? exiting,
+    TResult? Function(_RefreshLocal value)? refreshLocal,
+    TResult? Function(_StartListenDio value)? startListenDio,
+    TResult? Function(_SendDeviceToken value)? sendDeviceToken,
+    TResult? Function(_OnboardingSave value)? onboardingSave,
+    TResult? Function(_ShowcaseSave value)? showcaseSave,
+  }) {
+    return showcaseSave?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_CheckAuth value)? checkAuth,
+    TResult Function(_Logining value)? logining,
+    TResult Function(_Exiting value)? exiting,
+    TResult Function(_RefreshLocal value)? refreshLocal,
+    TResult Function(_StartListenDio value)? startListenDio,
+    TResult Function(_SendDeviceToken value)? sendDeviceToken,
+    TResult Function(_OnboardingSave value)? onboardingSave,
+    TResult Function(_ShowcaseSave value)? showcaseSave,
+    required TResult orElse(),
+  }) {
+    if (showcaseSave != null) {
+      return showcaseSave(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ShowcaseSave implements AppEvent {
+  const factory _ShowcaseSave() = _$_ShowcaseSave;
+}
+
+/// @nodoc
 mixin _$AppState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loadingState,
     required TResult Function() notAuthorizedState,
     required TResult Function() onboardingState,
-    required TResult Function() inAppState,
+    required TResult Function(bool? showcase) inAppState,
     required TResult Function(String message) errorState,
   }) =>
       throw _privateConstructorUsedError;
@@ -1042,7 +1228,7 @@ mixin _$AppState {
     TResult? Function()? loadingState,
     TResult? Function()? notAuthorizedState,
     TResult? Function()? onboardingState,
-    TResult? Function()? inAppState,
+    TResult? Function(bool? showcase)? inAppState,
     TResult? Function(String message)? errorState,
   }) =>
       throw _privateConstructorUsedError;
@@ -1051,7 +1237,7 @@ mixin _$AppState {
     TResult Function()? loadingState,
     TResult Function()? notAuthorizedState,
     TResult Function()? onboardingState,
-    TResult Function()? inAppState,
+    TResult Function(bool? showcase)? inAppState,
     TResult Function(String message)? errorState,
     required TResult orElse(),
   }) =>
@@ -1144,7 +1330,7 @@ class _$_LoadingState implements _LoadingState {
     required TResult Function() loadingState,
     required TResult Function() notAuthorizedState,
     required TResult Function() onboardingState,
-    required TResult Function() inAppState,
+    required TResult Function(bool? showcase) inAppState,
     required TResult Function(String message) errorState,
   }) {
     return loadingState();
@@ -1156,7 +1342,7 @@ class _$_LoadingState implements _LoadingState {
     TResult? Function()? loadingState,
     TResult? Function()? notAuthorizedState,
     TResult? Function()? onboardingState,
-    TResult? Function()? inAppState,
+    TResult? Function(bool? showcase)? inAppState,
     TResult? Function(String message)? errorState,
   }) {
     return loadingState?.call();
@@ -1168,7 +1354,7 @@ class _$_LoadingState implements _LoadingState {
     TResult Function()? loadingState,
     TResult Function()? notAuthorizedState,
     TResult Function()? onboardingState,
-    TResult Function()? inAppState,
+    TResult Function(bool? showcase)? inAppState,
     TResult Function(String message)? errorState,
     required TResult orElse(),
   }) {
@@ -1264,7 +1450,7 @@ class _$_NotAuthorizedState implements _NotAuthorizedState {
     required TResult Function() loadingState,
     required TResult Function() notAuthorizedState,
     required TResult Function() onboardingState,
-    required TResult Function() inAppState,
+    required TResult Function(bool? showcase) inAppState,
     required TResult Function(String message) errorState,
   }) {
     return notAuthorizedState();
@@ -1276,7 +1462,7 @@ class _$_NotAuthorizedState implements _NotAuthorizedState {
     TResult? Function()? loadingState,
     TResult? Function()? notAuthorizedState,
     TResult? Function()? onboardingState,
-    TResult? Function()? inAppState,
+    TResult? Function(bool? showcase)? inAppState,
     TResult? Function(String message)? errorState,
   }) {
     return notAuthorizedState?.call();
@@ -1288,7 +1474,7 @@ class _$_NotAuthorizedState implements _NotAuthorizedState {
     TResult Function()? loadingState,
     TResult Function()? notAuthorizedState,
     TResult Function()? onboardingState,
-    TResult Function()? inAppState,
+    TResult Function(bool? showcase)? inAppState,
     TResult Function(String message)? errorState,
     required TResult orElse(),
   }) {
@@ -1384,7 +1570,7 @@ class _$_OnboardingState implements _OnboardingState {
     required TResult Function() loadingState,
     required TResult Function() notAuthorizedState,
     required TResult Function() onboardingState,
-    required TResult Function() inAppState,
+    required TResult Function(bool? showcase) inAppState,
     required TResult Function(String message) errorState,
   }) {
     return onboardingState();
@@ -1396,7 +1582,7 @@ class _$_OnboardingState implements _OnboardingState {
     TResult? Function()? loadingState,
     TResult? Function()? notAuthorizedState,
     TResult? Function()? onboardingState,
-    TResult? Function()? inAppState,
+    TResult? Function(bool? showcase)? inAppState,
     TResult? Function(String message)? errorState,
   }) {
     return onboardingState?.call();
@@ -1408,7 +1594,7 @@ class _$_OnboardingState implements _OnboardingState {
     TResult Function()? loadingState,
     TResult Function()? notAuthorizedState,
     TResult Function()? onboardingState,
-    TResult Function()? inAppState,
+    TResult Function(bool? showcase)? inAppState,
     TResult Function(String message)? errorState,
     required TResult orElse(),
   }) {
@@ -1468,6 +1654,8 @@ abstract class _$$_InAppStateCopyWith<$Res> {
   factory _$$_InAppStateCopyWith(
           _$_InAppState value, $Res Function(_$_InAppState) then) =
       __$$_InAppStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool? showcase});
 }
 
 /// @nodoc
@@ -1477,26 +1665,51 @@ class __$$_InAppStateCopyWithImpl<$Res>
   __$$_InAppStateCopyWithImpl(
       _$_InAppState _value, $Res Function(_$_InAppState) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? showcase = freezed,
+  }) {
+    return _then(_$_InAppState(
+      showcase: freezed == showcase
+          ? _value.showcase
+          : showcase // ignore: cast_nullable_to_non_nullable
+              as bool?,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_InAppState implements _InAppState {
-  const _$_InAppState();
+  const _$_InAppState({this.showcase});
+
+  @override
+  final bool? showcase;
 
   @override
   String toString() {
-    return 'AppState.inAppState()';
+    return 'AppState.inAppState(showcase: $showcase)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_InAppState);
+        (other.runtimeType == runtimeType &&
+            other is _$_InAppState &&
+            (identical(other.showcase, showcase) ||
+                other.showcase == showcase));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, showcase);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_InAppStateCopyWith<_$_InAppState> get copyWith =>
+      __$$_InAppStateCopyWithImpl<_$_InAppState>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1504,10 +1717,10 @@ class _$_InAppState implements _InAppState {
     required TResult Function() loadingState,
     required TResult Function() notAuthorizedState,
     required TResult Function() onboardingState,
-    required TResult Function() inAppState,
+    required TResult Function(bool? showcase) inAppState,
     required TResult Function(String message) errorState,
   }) {
-    return inAppState();
+    return inAppState(showcase);
   }
 
   @override
@@ -1516,10 +1729,10 @@ class _$_InAppState implements _InAppState {
     TResult? Function()? loadingState,
     TResult? Function()? notAuthorizedState,
     TResult? Function()? onboardingState,
-    TResult? Function()? inAppState,
+    TResult? Function(bool? showcase)? inAppState,
     TResult? Function(String message)? errorState,
   }) {
-    return inAppState?.call();
+    return inAppState?.call(showcase);
   }
 
   @override
@@ -1528,12 +1741,12 @@ class _$_InAppState implements _InAppState {
     TResult Function()? loadingState,
     TResult Function()? notAuthorizedState,
     TResult Function()? onboardingState,
-    TResult Function()? inAppState,
+    TResult Function(bool? showcase)? inAppState,
     TResult Function(String message)? errorState,
     required TResult orElse(),
   }) {
     if (inAppState != null) {
-      return inAppState();
+      return inAppState(showcase);
     }
     return orElse();
   }
@@ -1580,7 +1793,12 @@ class _$_InAppState implements _InAppState {
 }
 
 abstract class _InAppState implements AppState {
-  const factory _InAppState() = _$_InAppState;
+  const factory _InAppState({final bool? showcase}) = _$_InAppState;
+
+  bool? get showcase;
+  @JsonKey(ignore: true)
+  _$$_InAppStateCopyWith<_$_InAppState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1650,7 +1868,7 @@ class _$_ErrorState implements _ErrorState {
     required TResult Function() loadingState,
     required TResult Function() notAuthorizedState,
     required TResult Function() onboardingState,
-    required TResult Function() inAppState,
+    required TResult Function(bool? showcase) inAppState,
     required TResult Function(String message) errorState,
   }) {
     return errorState(message);
@@ -1662,7 +1880,7 @@ class _$_ErrorState implements _ErrorState {
     TResult? Function()? loadingState,
     TResult? Function()? notAuthorizedState,
     TResult? Function()? onboardingState,
-    TResult? Function()? inAppState,
+    TResult? Function(bool? showcase)? inAppState,
     TResult? Function(String message)? errorState,
   }) {
     return errorState?.call(message);
@@ -1674,7 +1892,7 @@ class _$_ErrorState implements _ErrorState {
     TResult Function()? loadingState,
     TResult Function()? notAuthorizedState,
     TResult Function()? onboardingState,
-    TResult Function()? inAppState,
+    TResult Function(bool? showcase)? inAppState,
     TResult Function(String message)? errorState,
     required TResult orElse(),
   }) {

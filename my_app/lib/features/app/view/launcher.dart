@@ -1,6 +1,7 @@
 // ignore: unused_import
 import 'dart:developer';
 
+import 'package:dental_plaza/core/common/constants.dart';
 import 'package:dental_plaza/core/resources/resources.dart';
 import 'package:dental_plaza/features/app/bloc/app_bloc.dart';
 import 'package:dental_plaza/features/app/view/base.dart';
@@ -29,43 +30,63 @@ class _LauncherState extends State<Launcher> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AppBLoC, AppState>(
-      listener: (context, state) {
-        state.whenOrNull(
-          inAppState: () {
-            // BlocProvider.of<ProfileCubit>(context).getProfile();
-            BlocProvider.of<AppBLoC>(context)
-                .add(const AppEvent.sendDeviceToken());
-          },
-          errorState: (message) {
-            // buildErrorCustomSnackBar(context, 'AppBloc => $message');
-          },
-        );
-      },
-      builder: (context, state) {
-        return state.maybeWhen(
-          notAuthorizedState: () {
-            // return const Base();
-            return const AuthPage();
-          },
-          onboardingState: () {
-            return const OnboardingPage();
-          },
-          loadingState: () {
-            return const _Scaffold(child: SizedBox());
-          },
-          // errorState: (String message) {
-          //   return const _Scaffold(child: CustomErrorLoadingWidget());
-          // },
-          orElse: () {
-            return ShowCaseWidget(
-              blurValue: 1,
-              builder: Builder(builder: (context) => const Base()),
-              autoPlayDelay: const Duration(seconds: 3),
+    return ShowCaseWidget(
+      blurValue: 1,
+      builder: Builder(
+        builder: (context) => BlocConsumer<AppBLoC, AppState>(
+          listener: (context, state) {
+            state.whenOrNull(
+              inAppState: (showcase) {
+                // BlocProvider.of<ProfileCubit>(context).getProfile();
+                BlocProvider.of<AppBLoC>(context)
+                    .add(const AppEvent.sendDeviceToken());
+                if (showcase == false) {
+                  WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+                    ShowCaseWidget.of(context).startShowCase(
+                      [
+                        one,
+                        two,
+                        three,
+                        four,
+                        five,
+                        six,
+                        seven,
+                        eight,
+                        nine,
+                        ten
+                      ],
+                    );
+                  });
+                }
+              },
+              errorState: (message) {
+                // buildErrorCustomSnackBar(context, 'AppBloc => $message');
+              },
             );
           },
-        );
-      },
+          builder: (context, state) {
+            return state.maybeWhen(
+              notAuthorizedState: () {
+                // return const Base();
+                return const AuthPage();
+              },
+              onboardingState: () {
+                return const OnboardingPage();
+              },
+              loadingState: () {
+                return const _Scaffold(child: SizedBox());
+              },
+              // errorState: (String message) {
+              //   return const _Scaffold(child: CustomErrorLoadingWidget());
+              // },
+              orElse: () {
+                return const Base();
+              },
+            );
+          },
+        ),
+      ),
+      autoPlayDelay: const Duration(seconds: 3),
     ); // OnBoardingPage();
   }
 }

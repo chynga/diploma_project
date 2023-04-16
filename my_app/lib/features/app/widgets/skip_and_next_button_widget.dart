@@ -1,12 +1,15 @@
 import 'package:dental_plaza/core/extension/extensions.dart';
 import 'package:dental_plaza/core/resources/resources.dart';
+import 'package:dental_plaza/features/app/bloc/app_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:showcaseview/showcaseview.dart';
 
 class SkipAndNextButtonWidget extends StatelessWidget {
- final BuildContext myContext;
+  final BuildContext myContext;
   const SkipAndNextButtonWidget({
-    super.key, required this.myContext,
+    super.key,
+    required this.myContext,
   });
 
   @override
@@ -16,11 +19,13 @@ class SkipAndNextButtonWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          TextButton(
+        TextButton(
             onPressed: () {
-              WidgetsBinding.instance.addPostFrameCallback((_)async{ 
-              ShowCaseWidget.of(myContext).dismiss();
+              WidgetsBinding.instance.addPostFrameCallback((_) async {
+                ShowCaseWidget.of(myContext).dismiss();
               });
+              BlocProvider.of<AppBLoC>(context)
+                  .add(const AppEvent.showcaseSave());
             },
             child: Text(
               context.localized.skip,

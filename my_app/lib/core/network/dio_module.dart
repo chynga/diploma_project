@@ -65,8 +65,8 @@ class _AuthDioInterceptor extends Interceptor {
     if (userStr != null) {
       final UserDTO user =
           UserDTO.fromJson(jsonDecode(userStr) as Map<String, dynamic>);
-      if (user.token!=null&&user.token!.accessToken != null) {
-        options.headers['Authorization'] = 'Bearer ${user.token!.accessToken}';
+      if (user.accessToken != null) {
+        options.headers['Authorization'] = 'Bearer ${user.accessToken}';
       }
     }
 

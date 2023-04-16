@@ -9,4 +9,4 @@
 //   development,
 // }
 
-const String kBaseUrl = 'http://86.107.45.170';
+const String kBaseUrl = 'https://guarded-dusk-40061.herokuapp.com';

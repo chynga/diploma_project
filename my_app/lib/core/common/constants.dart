@@ -38,3 +38,4 @@ Widget refreshClassicFooter(BuildContext context) {
   final GlobalKey seven = GlobalKey();
   final GlobalKey eight = GlobalKey();
   final GlobalKey nine = GlobalKey();
+  final GlobalKey ten = GlobalKey();

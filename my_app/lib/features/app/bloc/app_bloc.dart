@@ -17,34 +17,19 @@ class AppBLoC extends Bloc<AppEvent, AppState> {
   AppBLoC(
     this._authRepository,
   ) : super(const AppState.loadingState()) {
-    // _notAuthLogic.statusSubject.listen(
-    //   (value) async {
-    //     log('_startListenDio message from stream :: $value');
-
-    //     if (value == 401) {
-    //       await _authRepository
-    //           .logOut(
-    //         onlyLocally: true,
-    //       )
-    //           .whenComplete(() {
-    //         add(const AppEvent.startListenDio());
-    //         log('is worked');
-    //         // }
-    //       });
-    //       // }
-    //     }
-    //   },
-    // );
-
     on<AppEvent>(
       (AppEvent event, Emitter<AppState> emit) async => event.map(
         exiting: (_Exiting event) async => _exit(event, emit),
         checkAuth: (_CheckAuth event) async => _checkAuth(event, emit),
         logining: (_Logining event) async => _login(event, emit),
         refreshLocal: (_RefreshLocal event) async => _refreshLocal(event, emit),
-        startListenDio: (_StartListenDio event) async => _startListenDio(event, emit),
-        sendDeviceToken: (_SendDeviceToken event) async => _sendDeviceToken(event, emit),
-        onboardingSave: (_OnboardingSave event) async => _onboardingSave(event, emit),
+        startListenDio: (_StartListenDio event) async =>
+            _startListenDio(event, emit),
+        sendDeviceToken: (_SendDeviceToken event) async =>
+            _sendDeviceToken(event, emit),
+        onboardingSave: (_OnboardingSave event) async =>
+            _onboardingSave(event, emit),
+        showcaseSave: (_ShowcaseSave event)async => _showcaseSave(event,emit),
       ),
     );
   }
@@ -54,9 +39,10 @@ class AppBLoC extends Bloc<AppEvent, AppState> {
     Emitter<AppState> emit,
   ) async {
     final bool onboarding = _authRepository.getOnboarding();
+    final bool showcase = _authRepository.getShowcase();
     if (onboarding) {
       if (_authRepository.isAuthenticated) {
-        emit(const AppState.inAppState());
+        emit(AppState.inAppState(showcase: showcase));
       } else {
         emit(const AppState.notAuthorizedState());
       }
@@ -73,13 +59,22 @@ class AppBLoC extends Bloc<AppEvent, AppState> {
     emit(const AppState.notAuthorizedState());
   }
 
+  
+  Future<void> _showcaseSave(
+    _ShowcaseSave event,
+    Emitter<AppState> emit,
+  ) async {
+    _authRepository.setShowcase(showcase: true);
+  }
+
   Future<void> _login(
     _Logining event,
     Emitter<AppState> emit,
   ) async {
     log('AppBloc _login', name: _tag);
 
-    emit(const AppState.inAppState());
+    final bool showcase = _authRepository.getShowcase();
+    emit(AppState.inAppState(showcase: showcase));
   }
 
   Future<void> _exit(
@@ -95,10 +90,10 @@ class AppBLoC extends Bloc<AppEvent, AppState> {
     Emitter<AppState> emit,
   ) async {
     await state.maybeWhen(
-      inAppState: () async {
+      inAppState: (showcase) async {
         emit(const AppState.loadingState());
         await Future.delayed(const Duration(milliseconds: 100));
-        emit(const AppState.inAppState());
+        emit(AppState.inAppState(showcase: showcase));
       },
       orElse: () async {
         emit(const AppState.loadingState());
@@ -113,29 +108,6 @@ class AppBLoC extends Bloc<AppEvent, AppState> {
     Emitter<AppState> emit,
   ) async {
     emit(const AppState.notAuthorizedState());
-    // int latestStatus = 0;
-
-    // _notAuthLogic.statusSubject.listen(
-    //   (value) async {
-    //     log('_startListenDio message from stream :: $value');
-
-    //     if (value == 401) {
-    //       // if (latestStatus != 401) {
-    //       await _authRepository
-    //           .logOut(
-    //         onlyLocally: true,
-    //       )
-    //           .whenComplete(() {
-    //         // if (!emit.isDone) {
-    //         emit(const AppState.notAuthorizedState());
-    //         log('is worked');
-    //         // }
-    //       });
-    //       // }
-    //     }
-    //     latestStatus = value;
-    //   },
-    // );
   }
 
   Future<void> _sendDeviceToken(
@@ -187,6 +159,8 @@ class AppEvent with _$AppEvent {
   const factory AppEvent.sendDeviceToken() = _SendDeviceToken;
 
   const factory AppEvent.onboardingSave() = _OnboardingSave;
+
+  const factory AppEvent.showcaseSave() = _ShowcaseSave;
 }
 
 ///
@@ -202,7 +176,9 @@ class AppState with _$AppState {
 
   const factory AppState.onboardingState() = _OnboardingState;
 
-  const factory AppState.inAppState() = _InAppState;
+  const factory AppState.inAppState({
+    bool? showcase,
+  }) = _InAppState;
 
   const factory AppState.errorState({
     required String message,
