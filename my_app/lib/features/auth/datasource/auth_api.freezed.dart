@@ -20,6 +20,9 @@ mixin _$AuthApi {
   TResult when<TResult extends Object?>({
     required TResult Function(String email, String password) login,
     required TResult Function() profile,
+    required TResult Function() healthInfo,
+    required TResult Function(String? fullName, String? email, String? phone)
+        editProfile,
     required TResult Function(
             String email, String password, String phone, String name)
         registration,
@@ -29,6 +32,9 @@ mixin _$AuthApi {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String email, String password)? login,
     TResult? Function()? profile,
+    TResult? Function()? healthInfo,
+    TResult? Function(String? fullName, String? email, String? phone)?
+        editProfile,
     TResult? Function(String email, String password, String phone, String name)?
         registration,
   }) =>
@@ -37,6 +43,9 @@ mixin _$AuthApi {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String email, String password)? login,
     TResult Function()? profile,
+    TResult Function()? healthInfo,
+    TResult Function(String? fullName, String? email, String? phone)?
+        editProfile,
     TResult Function(String email, String password, String phone, String name)?
         registration,
     required TResult orElse(),
@@ -46,6 +55,8 @@ mixin _$AuthApi {
   TResult map<TResult extends Object?>({
     required TResult Function(_Login value) login,
     required TResult Function(_Profile value) profile,
+    required TResult Function(_HealthInfo value) healthInfo,
+    required TResult Function(_EditProfile value) editProfile,
     required TResult Function(_Registration value) registration,
   }) =>
       throw _privateConstructorUsedError;
@@ -53,6 +64,8 @@ mixin _$AuthApi {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Login value)? login,
     TResult? Function(_Profile value)? profile,
+    TResult? Function(_HealthInfo value)? healthInfo,
+    TResult? Function(_EditProfile value)? editProfile,
     TResult? Function(_Registration value)? registration,
   }) =>
       throw _privateConstructorUsedError;
@@ -60,6 +73,8 @@ mixin _$AuthApi {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Login value)? login,
     TResult Function(_Profile value)? profile,
+    TResult Function(_HealthInfo value)? healthInfo,
+    TResult Function(_EditProfile value)? editProfile,
     TResult Function(_Registration value)? registration,
     required TResult orElse(),
   }) =>
@@ -155,6 +170,9 @@ class _$_Login extends _Login {
   TResult when<TResult extends Object?>({
     required TResult Function(String email, String password) login,
     required TResult Function() profile,
+    required TResult Function() healthInfo,
+    required TResult Function(String? fullName, String? email, String? phone)
+        editProfile,
     required TResult Function(
             String email, String password, String phone, String name)
         registration,
@@ -167,6 +185,9 @@ class _$_Login extends _Login {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String email, String password)? login,
     TResult? Function()? profile,
+    TResult? Function()? healthInfo,
+    TResult? Function(String? fullName, String? email, String? phone)?
+        editProfile,
     TResult? Function(String email, String password, String phone, String name)?
         registration,
   }) {
@@ -178,6 +199,9 @@ class _$_Login extends _Login {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String email, String password)? login,
     TResult Function()? profile,
+    TResult Function()? healthInfo,
+    TResult Function(String? fullName, String? email, String? phone)?
+        editProfile,
     TResult Function(String email, String password, String phone, String name)?
         registration,
     required TResult orElse(),
@@ -193,6 +217,8 @@ class _$_Login extends _Login {
   TResult map<TResult extends Object?>({
     required TResult Function(_Login value) login,
     required TResult Function(_Profile value) profile,
+    required TResult Function(_HealthInfo value) healthInfo,
+    required TResult Function(_EditProfile value) editProfile,
     required TResult Function(_Registration value) registration,
   }) {
     return login(this);
@@ -203,6 +229,8 @@ class _$_Login extends _Login {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Login value)? login,
     TResult? Function(_Profile value)? profile,
+    TResult? Function(_HealthInfo value)? healthInfo,
+    TResult? Function(_EditProfile value)? editProfile,
     TResult? Function(_Registration value)? registration,
   }) {
     return login?.call(this);
@@ -213,6 +241,8 @@ class _$_Login extends _Login {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Login value)? login,
     TResult Function(_Profile value)? profile,
+    TResult Function(_HealthInfo value)? healthInfo,
+    TResult Function(_EditProfile value)? editProfile,
     TResult Function(_Registration value)? registration,
     required TResult orElse(),
   }) {
@@ -274,6 +304,9 @@ class _$_Profile extends _Profile {
   TResult when<TResult extends Object?>({
     required TResult Function(String email, String password) login,
     required TResult Function() profile,
+    required TResult Function() healthInfo,
+    required TResult Function(String? fullName, String? email, String? phone)
+        editProfile,
     required TResult Function(
             String email, String password, String phone, String name)
         registration,
@@ -286,6 +319,9 @@ class _$_Profile extends _Profile {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String email, String password)? login,
     TResult? Function()? profile,
+    TResult? Function()? healthInfo,
+    TResult? Function(String? fullName, String? email, String? phone)?
+        editProfile,
     TResult? Function(String email, String password, String phone, String name)?
         registration,
   }) {
@@ -297,6 +333,9 @@ class _$_Profile extends _Profile {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String email, String password)? login,
     TResult Function()? profile,
+    TResult Function()? healthInfo,
+    TResult Function(String? fullName, String? email, String? phone)?
+        editProfile,
     TResult Function(String email, String password, String phone, String name)?
         registration,
     required TResult orElse(),
@@ -312,6 +351,8 @@ class _$_Profile extends _Profile {
   TResult map<TResult extends Object?>({
     required TResult Function(_Login value) login,
     required TResult Function(_Profile value) profile,
+    required TResult Function(_HealthInfo value) healthInfo,
+    required TResult Function(_EditProfile value) editProfile,
     required TResult Function(_Registration value) registration,
   }) {
     return profile(this);
@@ -322,6 +363,8 @@ class _$_Profile extends _Profile {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Login value)? login,
     TResult? Function(_Profile value)? profile,
+    TResult? Function(_HealthInfo value)? healthInfo,
+    TResult? Function(_EditProfile value)? editProfile,
     TResult? Function(_Registration value)? registration,
   }) {
     return profile?.call(this);
@@ -332,6 +375,8 @@ class _$_Profile extends _Profile {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Login value)? login,
     TResult Function(_Profile value)? profile,
+    TResult Function(_HealthInfo value)? healthInfo,
+    TResult Function(_EditProfile value)? editProfile,
     TResult Function(_Registration value)? registration,
     required TResult orElse(),
   }) {
@@ -345,6 +390,315 @@ class _$_Profile extends _Profile {
 abstract class _Profile extends AuthApi {
   const factory _Profile() = _$_Profile;
   const _Profile._() : super._();
+}
+
+/// @nodoc
+abstract class _$$_HealthInfoCopyWith<$Res> {
+  factory _$$_HealthInfoCopyWith(
+          _$_HealthInfo value, $Res Function(_$_HealthInfo) then) =
+      __$$_HealthInfoCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_HealthInfoCopyWithImpl<$Res>
+    extends _$AuthApiCopyWithImpl<$Res, _$_HealthInfo>
+    implements _$$_HealthInfoCopyWith<$Res> {
+  __$$_HealthInfoCopyWithImpl(
+      _$_HealthInfo _value, $Res Function(_$_HealthInfo) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_HealthInfo extends _HealthInfo {
+  const _$_HealthInfo() : super._();
+
+  @override
+  String toString() {
+    return 'AuthApi.healthInfo()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_HealthInfo);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String email, String password) login,
+    required TResult Function() profile,
+    required TResult Function() healthInfo,
+    required TResult Function(String? fullName, String? email, String? phone)
+        editProfile,
+    required TResult Function(
+            String email, String password, String phone, String name)
+        registration,
+  }) {
+    return healthInfo();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String email, String password)? login,
+    TResult? Function()? profile,
+    TResult? Function()? healthInfo,
+    TResult? Function(String? fullName, String? email, String? phone)?
+        editProfile,
+    TResult? Function(String email, String password, String phone, String name)?
+        registration,
+  }) {
+    return healthInfo?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String email, String password)? login,
+    TResult Function()? profile,
+    TResult Function()? healthInfo,
+    TResult Function(String? fullName, String? email, String? phone)?
+        editProfile,
+    TResult Function(String email, String password, String phone, String name)?
+        registration,
+    required TResult orElse(),
+  }) {
+    if (healthInfo != null) {
+      return healthInfo();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Login value) login,
+    required TResult Function(_Profile value) profile,
+    required TResult Function(_HealthInfo value) healthInfo,
+    required TResult Function(_EditProfile value) editProfile,
+    required TResult Function(_Registration value) registration,
+  }) {
+    return healthInfo(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Login value)? login,
+    TResult? Function(_Profile value)? profile,
+    TResult? Function(_HealthInfo value)? healthInfo,
+    TResult? Function(_EditProfile value)? editProfile,
+    TResult? Function(_Registration value)? registration,
+  }) {
+    return healthInfo?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Login value)? login,
+    TResult Function(_Profile value)? profile,
+    TResult Function(_HealthInfo value)? healthInfo,
+    TResult Function(_EditProfile value)? editProfile,
+    TResult Function(_Registration value)? registration,
+    required TResult orElse(),
+  }) {
+    if (healthInfo != null) {
+      return healthInfo(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _HealthInfo extends AuthApi {
+  const factory _HealthInfo() = _$_HealthInfo;
+  const _HealthInfo._() : super._();
+}
+
+/// @nodoc
+abstract class _$$_EditProfileCopyWith<$Res> {
+  factory _$$_EditProfileCopyWith(
+          _$_EditProfile value, $Res Function(_$_EditProfile) then) =
+      __$$_EditProfileCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String? fullName, String? email, String? phone});
+}
+
+/// @nodoc
+class __$$_EditProfileCopyWithImpl<$Res>
+    extends _$AuthApiCopyWithImpl<$Res, _$_EditProfile>
+    implements _$$_EditProfileCopyWith<$Res> {
+  __$$_EditProfileCopyWithImpl(
+      _$_EditProfile _value, $Res Function(_$_EditProfile) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? fullName = freezed,
+    Object? email = freezed,
+    Object? phone = freezed,
+  }) {
+    return _then(_$_EditProfile(
+      fullName: freezed == fullName
+          ? _value.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+      phone: freezed == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_EditProfile extends _EditProfile {
+  const _$_EditProfile({this.fullName, this.email, this.phone}) : super._();
+
+  @override
+  final String? fullName;
+  @override
+  final String? email;
+  @override
+  final String? phone;
+
+  @override
+  String toString() {
+    return 'AuthApi.editProfile(fullName: $fullName, email: $email, phone: $phone)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_EditProfile &&
+            (identical(other.fullName, fullName) ||
+                other.fullName == fullName) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.phone, phone) || other.phone == phone));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, fullName, email, phone);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_EditProfileCopyWith<_$_EditProfile> get copyWith =>
+      __$$_EditProfileCopyWithImpl<_$_EditProfile>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String email, String password) login,
+    required TResult Function() profile,
+    required TResult Function() healthInfo,
+    required TResult Function(String? fullName, String? email, String? phone)
+        editProfile,
+    required TResult Function(
+            String email, String password, String phone, String name)
+        registration,
+  }) {
+    return editProfile(fullName, email, phone);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String email, String password)? login,
+    TResult? Function()? profile,
+    TResult? Function()? healthInfo,
+    TResult? Function(String? fullName, String? email, String? phone)?
+        editProfile,
+    TResult? Function(String email, String password, String phone, String name)?
+        registration,
+  }) {
+    return editProfile?.call(fullName, email, phone);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String email, String password)? login,
+    TResult Function()? profile,
+    TResult Function()? healthInfo,
+    TResult Function(String? fullName, String? email, String? phone)?
+        editProfile,
+    TResult Function(String email, String password, String phone, String name)?
+        registration,
+    required TResult orElse(),
+  }) {
+    if (editProfile != null) {
+      return editProfile(fullName, email, phone);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Login value) login,
+    required TResult Function(_Profile value) profile,
+    required TResult Function(_HealthInfo value) healthInfo,
+    required TResult Function(_EditProfile value) editProfile,
+    required TResult Function(_Registration value) registration,
+  }) {
+    return editProfile(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Login value)? login,
+    TResult? Function(_Profile value)? profile,
+    TResult? Function(_HealthInfo value)? healthInfo,
+    TResult? Function(_EditProfile value)? editProfile,
+    TResult? Function(_Registration value)? registration,
+  }) {
+    return editProfile?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Login value)? login,
+    TResult Function(_Profile value)? profile,
+    TResult Function(_HealthInfo value)? healthInfo,
+    TResult Function(_EditProfile value)? editProfile,
+    TResult Function(_Registration value)? registration,
+    required TResult orElse(),
+  }) {
+    if (editProfile != null) {
+      return editProfile(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _EditProfile extends AuthApi {
+  const factory _EditProfile(
+      {final String? fullName,
+      final String? email,
+      final String? phone}) = _$_EditProfile;
+  const _EditProfile._() : super._();
+
+  String? get fullName;
+  String? get email;
+  String? get phone;
+  @JsonKey(ignore: true)
+  _$$_EditProfileCopyWith<_$_EditProfile> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -443,6 +797,9 @@ class _$_Registration extends _Registration {
   TResult when<TResult extends Object?>({
     required TResult Function(String email, String password) login,
     required TResult Function() profile,
+    required TResult Function() healthInfo,
+    required TResult Function(String? fullName, String? email, String? phone)
+        editProfile,
     required TResult Function(
             String email, String password, String phone, String name)
         registration,
@@ -455,6 +812,9 @@ class _$_Registration extends _Registration {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String email, String password)? login,
     TResult? Function()? profile,
+    TResult? Function()? healthInfo,
+    TResult? Function(String? fullName, String? email, String? phone)?
+        editProfile,
     TResult? Function(String email, String password, String phone, String name)?
         registration,
   }) {
@@ -466,6 +826,9 @@ class _$_Registration extends _Registration {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String email, String password)? login,
     TResult Function()? profile,
+    TResult Function()? healthInfo,
+    TResult Function(String? fullName, String? email, String? phone)?
+        editProfile,
     TResult Function(String email, String password, String phone, String name)?
         registration,
     required TResult orElse(),
@@ -481,6 +844,8 @@ class _$_Registration extends _Registration {
   TResult map<TResult extends Object?>({
     required TResult Function(_Login value) login,
     required TResult Function(_Profile value) profile,
+    required TResult Function(_HealthInfo value) healthInfo,
+    required TResult Function(_EditProfile value) editProfile,
     required TResult Function(_Registration value) registration,
   }) {
     return registration(this);
@@ -491,6 +856,8 @@ class _$_Registration extends _Registration {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Login value)? login,
     TResult? Function(_Profile value)? profile,
+    TResult? Function(_HealthInfo value)? healthInfo,
+    TResult? Function(_EditProfile value)? editProfile,
     TResult? Function(_Registration value)? registration,
   }) {
     return registration?.call(this);
@@ -501,6 +868,8 @@ class _$_Registration extends _Registration {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Login value)? login,
     TResult Function(_Profile value)? profile,
+    TResult Function(_HealthInfo value)? healthInfo,
+    TResult Function(_EditProfile value)? editProfile,
     TResult Function(_Registration value)? registration,
     required TResult orElse(),
   }) {

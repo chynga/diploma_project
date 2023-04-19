@@ -4,6 +4,8 @@ import 'package:dental_plaza/features/auth/database/auth_dao.dart';
 import 'package:dental_plaza/features/auth/datasource/auth_remote_ds.dart';
 import 'package:dental_plaza/features/auth/repository/auth_repository.dart';
 import 'package:dental_plaza/features/auth/repository/auth_repository_impl.dart';
+import 'package:dental_plaza/features/main/datasource/main_remote_ds.dart';
+import 'package:dental_plaza/features/main/repository/main_repository_ds.dart';
 import 'package:dental_plaza/settings/database/settings_dao.dart';
 import 'package:dental_plaza/settings/repository/settings_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,14 +14,14 @@ abstract class IRepositoryStorage {
   ISettingsRepository get settings;
 
   IAuthRepository get authRepository;
-  // IEstateRepository get mainRepository;
+  IMainRepository get mainRepository;
   // ICompanyRepository get companyRepository;
   // IAdRepository get adRepository;
   // IOtherListRepository get otherListRepository;
 
   // Data sources
   IAuthRemoteDS get authRemoteDS;
-  // EstateRemoteDs get estateRemoteDS;
+  IMainRemoteDS get mainRemoteDS;
   // CompanyRemoteDS get companyRemoteDs;
   // IAdRemoteDS get adRemoteDS;
   // IOtherListRemoteDS get otherListRemoteDS;
@@ -56,10 +58,15 @@ class RepositoryStorage implements IRepositoryStorage {
       );
 
   @override
-  // TODO: implement authRemoteDS
   IAuthRemoteDS get authRemoteDS => AuthRemoteDSImpl(
         client: _networkExecuter,
       );
+
+  @override
+  IMainRemoteDS get mainRemoteDS => MainRemoteDSImpl(client: _networkExecuter);
+
+  @override
+  IMainRepository get mainRepository => MainRepositoryImpl(mainRemoteDS);
 
   // @override
   // IEstateRepository get mainRepository => EstateRepositoryImpl(

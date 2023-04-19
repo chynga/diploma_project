@@ -269,7 +269,7 @@ class InformationWidget extends StatelessWidget {
                         AppTextStyles.m16w400.copyWith(color: AppColors.kWhite),
                   ),
                   onClick: () {
-                    context.router.push(const EditProfileRoute());
+                    context.router.push(EditProfileRoute(user: user));
                   },
                   style: mainButtonStyle(radius: 20),
                   height: 35,

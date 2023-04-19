@@ -82,20 +82,19 @@ class AuthRepositoryImpl extends IAuthRepository {
         responseType: BasicResponse(),
       );
 
-  // @override
-  // Future<Result<BasicResponse>> editProfile({
-  //   required UserPayload userPayload,
-  //   XFile? avatar,
-  // }) async {
-  //   final FormData formData = FormData.fromMap(userPayload.toJson());
-
-  //   if (avatar != null) {
-  //     formData.files.add(MapEntry('avatar', await MultipartFile.fromFile(avatar.path)));
-  //   }
-
-  //   return _client.execute(
-  //     route: AuthApi.editProfile(formData: formData),
-  //     responseType: BasicResponse(),
-  //   );
-  // }
+  @override
+  Future<Result<BasicResponse>> editProfile({
+    String? fullName,
+    String? email,
+    String? phone,
+  }) async {
+    return _client.execute(
+      route: AuthApi.editProfile(
+        fullName: fullName,
+        email: email,
+        phone: phone,
+      ),
+      responseType: BasicResponse(),
+    );
+  }
 }

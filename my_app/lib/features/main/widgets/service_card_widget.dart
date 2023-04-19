@@ -1,10 +1,11 @@
 import 'package:dental_plaza/core/resources/assets.gen.dart';
 import 'package:dental_plaza/core/resources/resources.dart';
+import 'package:dental_plaza/features/main/model/service_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ServiceCardWidget extends StatelessWidget {
-  final String service;
+  final ServiceDTO service;
   final Border? border;
   final Color? bgColor;
   final Color? textColor;
@@ -14,7 +15,10 @@ class ServiceCardWidget extends StatelessWidget {
     super.key,
     this.border,
     this.bgColor,
-    this.textColor, this.boxShadow, required this.service, this.onTap,
+    this.textColor,
+    this.boxShadow,
+    required this.service,
+    this.onTap,
   });
 
   @override
@@ -49,9 +53,9 @@ class ServiceCardWidget extends StatelessWidget {
                 height: 12,
               ),
               Text(
-                service,
+                service.title ?? '',
                 style: AppTextStyles.m11w400.copyWith(color: textColor),
-                textAlign:TextAlign.center
+                textAlign: TextAlign.center,
               )
             ],
           ),

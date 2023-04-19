@@ -16,6 +16,13 @@ class AuthApi extends BaseClientGenerator with _$AuthApi {
 
   const factory AuthApi.profile() = _Profile;
 
+  const factory AuthApi.healthInfo() = _HealthInfo;
+
+  const factory AuthApi.editProfile({
+    String? fullName,
+    String? email,
+    String? phone,
+  }) = _EditProfile;
 
   const factory AuthApi.registration({
     required String email,
@@ -24,7 +31,7 @@ class AuthApi extends BaseClientGenerator with _$AuthApi {
     required String name,
   }) = _Registration;
 
-  /// body 
+  /// body
   /// По умолчанию null
   @override
   dynamic get body => whenOrNull(
@@ -32,11 +39,16 @@ class AuthApi extends BaseClientGenerator with _$AuthApi {
           'email': email,
           'password': password,
         },
-        registration: (email, password, phone ,name) =>  <String, dynamic>{
+        registration: (email, password, phone, name) => <String, dynamic>{
           'email': email,
           'password': password,
           'phone': phone,
-          'fullName':name,
+          'fullName': name,
+        },
+        editProfile: (fullName, email, phone) => <String, dynamic>{
+          if (fullName != null) 'fullName': fullName,
+          if (email != null) 'email': email,
+          if (phone != null) 'phone': phone,
         },
       );
 
@@ -46,7 +58,9 @@ class AuthApi extends BaseClientGenerator with _$AuthApi {
         orElse: () => 'GET',
         login: (_, __) => 'POST',
         profile: () => 'GET',
-        registration: (email, password, phone,name) => 'POST',
+        registration: (email, password, phone, name) => 'POST',
+        editProfile: (fullName, email, phone) => 'PATCH',
+        healthInfo:() => 'GET',
       );
 
   /// Пути всех запросов (после [kBaseUrl])
@@ -54,11 +68,13 @@ class AuthApi extends BaseClientGenerator with _$AuthApi {
   String get path => when(
         login: (_, __) => '/api/authentication/login',
         profile: () => '/api/profile',
-        registration:(email, password, phone,name) => '/api/authentication/register',
+        registration: (email, password, phone, name) =>
+            '/api/authentication/register',
+        editProfile: (fullName, email, phone) => '/api/profile',
+        healthInfo: () => '/api/profile/healthInfo',
       );
 
   /// Параметры запросов
   @override
-  Map<String, dynamic>? get queryParameters => whenOrNull(
-      );
+  Map<String, dynamic>? get queryParameters => whenOrNull();
 }

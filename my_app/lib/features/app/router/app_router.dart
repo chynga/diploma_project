@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:auto_route/empty_router_widgets.dart';
 import 'package:dental_plaza/features/app/view/launcher.dart';
 import 'package:dental_plaza/features/app/view/temp_page.dart';
+import 'package:dental_plaza/features/auth/model/user_dto.dart';
 import 'package:dental_plaza/features/auth/view/confirmation_code_page.dart';
 import 'package:dental_plaza/features/auth/view/forgot_password_page.dart';
 import 'package:dental_plaza/features/auth/view/new_password_page.dart';

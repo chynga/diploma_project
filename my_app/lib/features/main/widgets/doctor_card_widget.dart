@@ -1,12 +1,13 @@
-import 'package:dental_plaza/core/resources/assets.gen.dart';
+import 'package:dental_plaza/core/common/constants.dart';
 import 'package:dental_plaza/core/resources/resources.dart';
-import 'package:dental_plaza/features/main/model/mock_doctor.dart';
+import 'package:dental_plaza/features/main/model/doctor_dto.dart';
 import 'package:flutter/material.dart';
 
 class DoctorCardWidget extends StatelessWidget {
-  final MockDoctor doctor;
+  final DoctorDTO doctor;
   const DoctorCardWidget({
-    super.key, required this.doctor,
+    super.key,
+    required this.doctor,
   });
 
   @override
@@ -29,15 +30,44 @@ class DoctorCardWidget extends StatelessWidget {
               const SizedBox(
                 height: 12,
               ),
-              Image.asset(
-                doctor.image??"",
-                height: 124,
+              Stack(
+                children: [
+                  Positioned(
+                    bottom: 0,
+                    child: Container(
+                      height: 108,
+                      width: 108,
+                      decoration: BoxDecoration(
+                        color: AppColors.kBlue,
+                        borderRadius: BorderRadius.circular(100),
+                        boxShadow: [
+                          BoxShadow(
+                            offset: const Offset(0, 4),
+                            color: Colors.black.withOpacity(0.25),
+                            blurRadius: 4,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(100),
+                      bottomRight: Radius.circular(100),
+                    ),
+                    child: Image.network(
+                      doctor.imageUrl ?? NOT_FOUND_IMAGE,
+                      height: 124,
+                      width: 108,
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(
                 height: 12,
               ),
-               Text(
-                '${doctor.name}',
+              Text(
+                '${doctor.fullName}',
                 style: AppTextStyles.m11w400,
                 textAlign: TextAlign.center,
               )

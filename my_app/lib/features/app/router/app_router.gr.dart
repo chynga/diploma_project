@@ -48,15 +48,20 @@ class _$AppRouter extends RootStackRouter {
       );
     },
     EditProfileRoute.name: (routeData) {
+      final args = routeData.argsAs<EditProfileRouteArgs>();
       return MaterialPageX<void>(
         routeData: routeData,
-        child: const EditProfilePage(),
+        child: WrappedRoute(
+            child: EditProfilePage(
+          key: args.key,
+          user: args.user,
+        )),
       );
     },
     MainRoute.name: (routeData) {
       return MaterialPageX<void>(
         routeData: routeData,
-        child: const MainPage(),
+        child: WrappedRoute(child: const MainPage()),
       );
     },
     ChatRoute.name: (routeData) {
@@ -243,14 +248,36 @@ class MyRecordsMainPage extends PageRouteInfo<void> {
 
 /// generated route for
 /// [EditProfilePage]
-class EditProfileRoute extends PageRouteInfo<void> {
-  const EditProfileRoute()
-      : super(
+class EditProfileRoute extends PageRouteInfo<EditProfileRouteArgs> {
+  EditProfileRoute({
+    Key? key,
+    required UserDTO user,
+  }) : super(
           EditProfileRoute.name,
           path: '/edit-profile-page',
+          args: EditProfileRouteArgs(
+            key: key,
+            user: user,
+          ),
         );
 
   static const String name = 'EditProfileRoute';
+}
+
+class EditProfileRouteArgs {
+  const EditProfileRouteArgs({
+    this.key,
+    required this.user,
+  });
+
+  final Key? key;
+
+  final UserDTO user;
+
+  @override
+  String toString() {
+    return 'EditProfileRouteArgs{key: $key, user: $user}';
+  }
 }
 
 /// generated route for

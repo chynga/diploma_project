@@ -1,26 +1,47 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:dental_plaza/core/common/constants.dart';
 import 'package:dental_plaza/core/extension/src/build_context.dart';
 import 'package:dental_plaza/core/resources/assets.gen.dart';
 import 'package:dental_plaza/core/resources/resources.dart';
-import 'package:dental_plaza/features/app/router/app_router.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_buttons/custom_square_button.dart';
-import 'package:dental_plaza/features/app/widgets/skip_and_next_button_widget.dart';
+import 'package:dental_plaza/features/app/widgets/custom/custom_snackbars.dart';
+import 'package:dental_plaza/features/app/widgets/shimmer_box.dart';
+import 'package:dental_plaza/features/main/bloc/doctors_cubit.dart';
+import 'package:dental_plaza/features/main/bloc/services_cubit.dart';
 import 'package:dental_plaza/features/main/model/mock_doctor.dart';
 import 'package:dental_plaza/features/main/widgets/doctor_card_widget.dart';
+import 'package:dental_plaza/features/main/widgets/main_last_record_widget.dart';
+import 'package:dental_plaza/features/main/widgets/nearest_my_record_widget.dart';
 import 'package:dental_plaza/features/main/widgets/service_card_widget.dart';
+import 'package:dental_plaza/features/main/widgets/show_case_eight.dart';
+import 'package:dental_plaza/features/main/widgets/show_case_nine.dart';
+import 'package:dental_plaza/features/main/widgets/show_case_seven.dart';
+import 'package:dental_plaza/features/main/widgets/show_case_six.dart';
+import 'package:dental_plaza/features/main/widgets/show_case_ten.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:showcaseview/showcaseview.dart';
 
-import '../../app/bloc/app_bloc.dart';
-
-class MainPage extends StatefulWidget {
+class MainPage extends StatefulWidget with AutoRouteWrapper {
   const MainPage({super.key});
 
   @override
   State<MainPage> createState() => _MainPageState();
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<DoctorsCubit>(
+          create: (context) =>
+              DoctorsCubit(context.repository.mainRepository)..getDoctors(),
+        ),
+        BlocProvider<ServicesCubit>(
+          create: (context) =>
+              ServicesCubit(context.repository.mainRepository)..getServices(),
+        ),
+      ],
+      child: this,
+    );
+  }
 }
 
 class _MainPageState extends State<MainPage> {
@@ -56,57 +77,7 @@ class _MainPageState extends State<MainPage> {
                           height: 35,
                           fit: BoxFit.cover,
                         ),
-                        Showcase.withWidget(
-                          disableDefaultTargetGestures: true,
-                          overlayColor: Colors.black,
-                          overlayOpacity: 0.7,
-                          key: six,
-                          disableMovingAnimation: true,
-                          width: MediaQuery.of(context).size.width,
-                          height: 500,
-                          targetBorderRadius: BorderRadius.circular(10),
-                          onTargetClick: () {
-                            ShowCaseWidget.of(context).next();
-                          },
-                          container: SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    SkipAndNextButtonWidget(
-                                      myContext: context,
-                                    ),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: [
-                                          Padding(
-                                            padding: EdgeInsets.only(
-                                              right: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.05,
-                                            ),
-                                            child: SvgPicture.asset(
-                                              Assets.icons.arrowUp.path,
-                                            ),
-                                          ),
-                                          Text(
-                                            context.localized
-                                                .stayTunedForNotifications,
-                                            style: AppTextStyles.m16w700White,
-                                            textAlign: TextAlign.end,
-                                          )
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
+                        ShowCaseSix(
                           child: CustomSquareButton(
                             iconPath: Assets.icons.icNotification.path,
                             iconColor: AppColors.kWhite,
@@ -120,228 +91,14 @@ class _MainPageState extends State<MainPage> {
                     const SizedBox(
                       height: 34,
                     ),
-                    Showcase.withWidget(
-                      overlayColor: Colors.black,
-                      overlayOpacity: 0.7,
-                      height: 500,
-                      disableMovingAnimation: true,
-                      width: MediaQuery.of(context).size.width,
-                      targetBorderRadius: BorderRadius.circular(20),
-                      onTargetClick: () {
-                        ShowCaseWidget.of(context).next();
-                      },
-                      container: SizedBox(
-                        height: MediaQuery.of(context).size.height,
-                        width: MediaQuery.of(context).size.width,
-                        child: Column(
-                          children: [
-                            Transform.translate(
-                              offset: const Offset(0, -210),
-                              child: SkipAndNextButtonWidget(
-                                myContext: context,
-                              ),
-                            ),
-                            Transform.translate(
-                              offset: const Offset(50, -40),
-                              child: Row(
-                                children: [
-                                  SvgPicture.asset(
-                                    Assets.icons.cornerLeftUp.path,
-                                  ),
-                                  const SizedBox(
-                                    width: 8,
-                                  ),
-                                  Text(
-                                    context.localized.dontForgetWhenRecord,
-                                    style: AppTextStyles.m16w700White,
-                                    textAlign: TextAlign.end,
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      key: seven,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: AppColors.kBlue,
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: [
-                            BoxShadow(
-                              color: AppColors.kBlack.withOpacity(0.1),
-                              offset: const Offset(0, 2),
-                              blurRadius: 8,
-                            )
-                          ],
-                        ),
-                        child: Stack(
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const SizedBox(
-                                    height: 26,
-                                  ),
-                                  Text(
-                                    '19 Октября',
-                                    style: AppTextStyles.m24w500
-                                        .copyWith(color: AppColors.kWhite),
-                                  ),
-                                  const SizedBox(
-                                    height: 12,
-                                  ),
-                                  Text(
-                                    '11:00 - 12:00',
-                                    style: AppTextStyles.m16w500
-                                        .copyWith(color: AppColors.kWhite),
-                                  ),
-                                  const SizedBox(
-                                    height: 12,
-                                  ),
-                                  Text(
-                                    '${context.localized.doctor}: Нысанбаева Айым',
-                                    style: AppTextStyles.m16w500
-                                        .copyWith(color: AppColors.kWhite),
-                                  ),
-                                  const SizedBox(
-                                    height: 12,
-                                  ),
-                                  Text(
-                                    context.localized.yourEntryHasBeenVerified,
-                                    style: AppTextStyles.m16w500
-                                        .copyWith(color: AppColors.kWhite),
-                                  ),
-                                  const SizedBox(
-                                    height: 14,
-                                  )
-                                ],
-                              ),
-                            ),
-                            Positioned(
-                              right: 0,
-                              bottom: 0,
-                              //FIXME bug with svg image
-                              child: SvgPicture.asset(
-                                Assets.icons.teethDentalIconBig.path,
-                              ),
-                            ),
-                            Positioned(
-                              top: 12,
-                              right: 80,
-                              child: SvgPicture.asset(
-                                Assets.icons.teethDentalIcon.path,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
+                    const ShowCaseSeven(
+                      child: MainLastRecordWidget(),
                     ),
                     const SizedBox(
                       height: 18,
                     ),
-                    Showcase.withWidget(
-                      overlayColor: Colors.black,
-                      overlayOpacity: 0.7,
-                      disableMovingAnimation: true,
-                      key: eight,
-                      height: MediaQuery.of(context).size.height,
-                      width: MediaQuery.of(context).size.width,
-                      targetBorderRadius: BorderRadius.circular(20),
-                      onTargetClick: () {
-                        ShowCaseWidget.of(context).next();
-                      },
-                      container: SizedBox(
-                        height: MediaQuery.of(context).size.height,
-                        width: MediaQuery.of(context).size.width,
-                        child: Column(
-                          children: [
-                            Transform.translate(
-                              offset: const Offset(0, -120),
-                              child: SkipAndNextButtonWidget(
-                                myContext: context,
-                              ),
-                            ),
-                            Transform.translate(
-                              offset: const Offset(50, -40),
-                              child: Row(
-                                children: [
-                                  SvgPicture.asset(
-                                    Assets.icons.cornerLeftUp.path,
-                                  ),
-                                  const SizedBox(
-                                    width: 8,
-                                  ),
-                                  Text(
-                                    context.localized.keepTrackOfYourRecords,
-                                    style: AppTextStyles.m16w700White,
-                                    textAlign: TextAlign.end,
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: AppColors.kWhite,
-                        ),
-                        child: Padding(
-                          padding:
-                              const EdgeInsets.all(12).copyWith(bottom: 20),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      context.localized.myRecords,
-                                      style: AppTextStyles.m16w700White
-                                          .copyWith(color: AppColors.kBlack),
-                                    ),
-                                    const SizedBox(
-                                      height: 8,
-                                    ),
-                                    Text(
-                                      '${context.localized.nearest} 19 октября',
-                                      style: AppTextStyles.m13w400,
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: 33.3,
-                                width: 33.3,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  color: AppColors.kBlue,
-                                ),
-                                child: Material(
-                                  borderRadius: BorderRadius.circular(50),
-                                  color: Colors.transparent,
-                                  child: InkWell(
-                                    borderRadius: BorderRadius.circular(50),
-                                    onTap: () {
-                                      context.router
-                                          .push(const MyRecordsMainPage());
-                                    },
-                                    child: const Icon(
-                                      Icons.arrow_forward_rounded,
-                                      color: AppColors.kWhite,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                    const ShowCaseEight(
+                      child: NearestMyRecordWidget(),
                     ),
                     const SizedBox(
                       height: 16,
@@ -356,66 +113,58 @@ class _MainPageState extends State<MainPage> {
                     const SizedBox(
                       height: 9,
                     ),
-                    Showcase.withWidget(
-                      overlayColor: Colors.black,
-                      overlayOpacity: 0.7,
-                      disableMovingAnimation: true,
-                      key: nine,
-                      height: MediaQuery.of(context).size.height,
-                      width: MediaQuery.of(context).size.width,
-                      targetBorderRadius: BorderRadius.circular(25),
-                      onTargetClick: () {
-                        ShowCaseWidget.of(context).next();
-                      },
-                      container: SizedBox(
-                        height: MediaQuery.of(context).size.height,
-                        width: MediaQuery.of(context).size.width,
-                        child: Transform.translate(
-                          offset: const Offset(0, -160),
-                          child: Column(
-                            children: [
-                              Transform.translate(
-                                offset: const Offset(0, -270),
-                                child: SkipAndNextButtonWidget(
-                                  myContext: context,
-                                ),
-                              ),
-                              Transform.translate(
-                                offset: const Offset(50, -50),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SvgPicture.asset(
-                                      Assets.icons.cornerLeftDown.path,
-                                    ),
-                                    const SizedBox(
-                                      width: 8,
-                                    ),
-                                    Text(
-                                      context.localized
-                                          .seeWhatServicesAreAvailable,
-                                      style: AppTextStyles.m16w700White,
-                                      textAlign: TextAlign.end,
-                                    )
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
+
+                    ///
+                    ///SERVICES
+                    ///
+                    ShowCaseNine(
                       child: SizedBox(
                         height: 115,
-                        child: ListView.builder(
-                          padding: const EdgeInsets.symmetric(horizontal: 3),
-                          scrollDirection: Axis.horizontal,
-                          itemCount: services.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(right: 16),
-                              child: ServiceCardWidget(
-                                service: services[index],
-                              ),
+                        child: BlocConsumer<ServicesCubit, ServicesState>(
+                          listener: (context, state) {
+                            state.maybeWhen(
+                              errorState: (message) {
+                                buildErrorCustomSnackBar(context, message);
+                              },
+                              orElse: () {},
+                            );
+                          },
+                          builder: (context, state) {
+                            return state.maybeWhen(
+                              loadedState: (services) {
+                                return ListView.builder(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 3),
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: services.length,
+                                  itemBuilder: (context, index) {
+                                    return Padding(
+                                      padding: const EdgeInsets.only(right: 16),
+                                      child: ServiceCardWidget(
+                                        service: services[index],
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                              orElse: () {
+                                return ListView.builder(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 3),
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: services.length,
+                                  itemBuilder: (context, index) {
+                                    return const Padding(
+                                      padding: EdgeInsets.only(right: 16),
+                                      child: LoadShimmer(
+                                        height: 115,
+                                        width: 103,
+                                        radius: 25,
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
                             );
                           },
                         ),
@@ -434,70 +183,63 @@ class _MainPageState extends State<MainPage> {
                     const SizedBox(
                       height: 9,
                     ),
-                    Showcase.withWidget(
-                      overlayColor: Colors.black,
-                      overlayOpacity: 0.7,
-                      disableMovingAnimation: true,
-                      key: ten,
-                      height: MediaQuery.of(context).size.height,
-                      width: MediaQuery.of(context).size.width,
-                      targetBorderRadius: BorderRadius.circular(25),
-                      onTargetClick: () {
-                        ShowCaseWidget.of(context).next();
-                        BlocProvider.of<AppBLoC>(context)
-                            .add(const AppEvent.showcaseSave());
-                      },
-                      container: SizedBox(
-                        height: MediaQuery.of(context).size.height,
-                        width: MediaQuery.of(context).size.width,
-                        child: Transform.translate(
-                          offset: const Offset(0, -160),
-                          child: Column(
-                            children: [
-                              Transform.translate(
-                                offset: const Offset(0, -270),
-                                child: SkipAndNextButtonWidget(
-                                  myContext: context,
-                                ),
-                              ),
-                              Transform.translate(
-                                offset: const Offset(50, -120),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SvgPicture.asset(
-                                      Assets.icons.cornerLeftDown.path,
-                                    ),
-                                    const SizedBox(
-                                      width: 8,
-                                    ),
-                                    Text(
-                                      context
-                                          .localized.seeWhatDoctorsAreAvailable,
-                                      style: AppTextStyles.m16w700White,
-                                      textAlign: TextAlign.end,
-                                    )
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
+
+                    ///
+                    ///DOCTORS
+                    ///
+                    ShowCaseTen(
                       child: SizedBox(
                         height: 188,
-                        child: ListView.builder(
-                          padding: const EdgeInsets.symmetric(horizontal: 3),
-                          scrollDirection: Axis.horizontal,
-                          itemCount: doctors.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.only(right: 16),
-                              child: DoctorCardWidget(
-                                doctor: doctors[index],
-                              ),
-                            );
+                        child: BlocConsumer<DoctorsCubit, DoctorsState>(
+                          listener: (context, state) {
+                            state.maybeWhen(
+                              errorState: (message) {
+                                buildErrorCustomSnackBar(context, message);
+                              },
+                              orElse:() {
+                              
+                            },);
                           },
+                          builder: (context, state) {
+                            return state.maybeWhen(
+                              loadedState:(doctors) {
+                                
+                            return ListView.builder(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 3),
+                              scrollDirection: Axis.horizontal,
+                              itemCount: doctors.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(right: 16),
+                                  child: DoctorCardWidget(
+                                    doctor: doctors[index],
+                                  ),
+                                );
+                              },
+                            );
+                        
+                              },
+                              orElse:() {
+                              
+                                return ListView.builder(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 3),
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: services.length,
+                                  itemBuilder: (context, index) {
+                                    return const Padding(
+                                      padding: EdgeInsets.only(right: 16),
+                                      child: LoadShimmer(
+                                        height: 188,
+                                        width: 124,
+                                        radius: 25,
+                                      ),
+                                    );
+                                  },
+                                );
+                             
+                            },);  },
                         ),
                       ),
                     ),
