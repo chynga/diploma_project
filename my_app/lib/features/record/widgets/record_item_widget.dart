@@ -1,9 +1,13 @@
 import 'package:dental_plaza/core/resources/resources.dart';
+import 'package:dental_plaza/features/record/model/record_dto.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class RecordItemWidget extends StatelessWidget {
+  final RecordDTO record;
   const RecordItemWidget({
     super.key,
+    required this.record,
   });
 
   @override
@@ -30,19 +34,21 @@ class RecordItemWidget extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  'Виниры',
+                  '${record.service?.title}',
                   style: AppTextStyles.m20w700.copyWith(color: AppColors.kBlue),
                 ),
                 Text(
-                  '12.02.2022',
+                  DateFormat('d.MM.yyyy').format(
+                    DateTime.parse(record.time ?? DateTime.now().toString()),
+                  ),
                   style: AppTextStyles.m14w400.copyWith(color: AppColors.kBlue),
                 ),
                 Text(
-                  'Врач: Айдар Зейнеп',
+                  'Врач: ${record.doctor?.fullName}',
                   style: AppTextStyles.m14w400.copyWith(color: AppColors.kBlue),
                 ),
                 Text(
-                  'Статус: в ожидании подтверждение',
+                  'Статус: ${record.status}',
                   style: AppTextStyles.m14w400.copyWith(color: AppColors.kBlue),
                 ),
               ],

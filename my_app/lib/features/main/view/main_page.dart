@@ -17,6 +17,7 @@ import 'package:dental_plaza/features/main/widgets/show_case_nine.dart';
 import 'package:dental_plaza/features/main/widgets/show_case_seven.dart';
 import 'package:dental_plaza/features/main/widgets/show_case_six.dart';
 import 'package:dental_plaza/features/main/widgets/show_case_ten.dart';
+import 'package:dental_plaza/features/record/bloc/records_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -37,6 +38,10 @@ class MainPage extends StatefulWidget with AutoRouteWrapper {
         BlocProvider<ServicesCubit>(
           create: (context) =>
               ServicesCubit(context.repository.mainRepository)..getServices(),
+        ),
+        BlocProvider<RecordsCubit>(
+          create: (context) =>
+              RecordsCubit(context.repository.recordRepository)..getRecords(),
         ),
       ],
       child: this,

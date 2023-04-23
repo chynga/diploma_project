@@ -4,6 +4,7 @@ import 'package:dental_plaza/features/app/bloc/app_bloc.dart';
 import 'package:dental_plaza/features/app/bloc/base_appbar_cubit.dart';
 import 'package:dental_plaza/features/app/bloc/base_bloc.dart';
 import 'package:dental_plaza/features/app/enum/app_language.dart';
+import 'package:dental_plaza/features/profile/bloc/health_info_cubit.dart';
 import 'package:dental_plaza/features/profile/bloc/profile_cubit.dart';
 import 'package:dental_plaza/settings/bloc/settings_bloc.dart';
 import 'package:dental_plaza/settings/enum/app_theme.dart';
@@ -101,6 +102,11 @@ class SettingsScope extends StatelessWidget {
           // ),
           BlocProvider<ProfileCubit>(
             create: (_) => ProfileCubit(
+              context.repository.authRepository,
+            ),
+          ),
+          BlocProvider<HealthInfoCubit>(
+            create: (_) => HealthInfoCubit(
               context.repository.authRepository,
             ),
           ),

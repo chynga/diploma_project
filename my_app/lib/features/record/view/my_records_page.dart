@@ -1,18 +1,33 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:dental_plaza/core/extension/src/build_context.dart';
 import 'package:dental_plaza/core/resources/resources.dart';
 import 'package:dental_plaza/features/app/widgets/build_segment_widget.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_app_bar.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_buttons/custom_text_back_button.dart';
+import 'package:dental_plaza/features/app/widgets/custom/custom_snackbars.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_switch_button.dart';
 import 'package:dental_plaza/features/app/widgets/gradient_bg.dart';
+import 'package:dental_plaza/features/app/widgets/shimmer_box.dart';
+import 'package:dental_plaza/features/record/bloc/records_cubit.dart';
 import 'package:dental_plaza/features/record/widgets/record_item_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shimmer/shimmer.dart';
 
-class MyRecordsPage extends StatefulWidget {
+class MyRecordsPage extends StatefulWidget with AutoRouteWrapper {
   const MyRecordsPage({super.key});
 
   @override
   State<MyRecordsPage> createState() => _MyRecordsPageState();
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return BlocProvider<RecordsCubit>(
+      create: (context) =>
+          RecordsCubit(context.repository.recordRepository)..getRecords(),
+      child: this,
+    );
+  }
 }
 
 class _MyRecordsPageState extends State<MyRecordsPage> {
@@ -72,17 +87,73 @@ class _MyRecordsPageState extends State<MyRecordsPage> {
               ),
             ),
             Expanded(
-              child: ListView.builder(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                ),
-                itemBuilder: (context, index) {
-                  return const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 12),
-                    child: RecordItemWidget(),
+              child: BlocConsumer<RecordsCubit, RecordsState>(
+                listener: (context, state) {
+                  state.maybeWhen(
+                    errorState: (message) {
+                      buildErrorCustomSnackBar(context, message);
+                    },
+                    orElse: () {},
                   );
                 },
-                itemCount: 2,
+                builder: (context, state) {
+                  return state.maybeWhen(
+                    loadedState: (myRecords, pastRecords) {
+                      return IndexedStack(
+                        index: segmentValue,
+                        children: [
+                          ListView.builder(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 24,
+                            ),
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 12),
+                                child: RecordItemWidget(
+                                  record: myRecords[index],
+                                ),
+                              );
+                            },
+                            itemCount: myRecords.length,
+                          ),
+                          ListView.builder(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 24,
+                            ),
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 12),
+                                child: RecordItemWidget(
+                                  record: pastRecords[index],
+                                ),
+                              );
+                            },
+                            itemCount: pastRecords.length,
+                          ),
+                        ],
+                      );
+                    },
+                    orElse: () {
+                      return ListView.builder(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 24,
+                        ),
+                        itemBuilder: (context, index) {
+                          return const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 12),
+                            child: LoadShimmer(
+                              height: 105,
+                              radius: 25,
+                            ),
+                          );
+                        },
+                        itemCount: 3,
+                      );
+                    },
+                  );
+                },
               ),
             )
           ],

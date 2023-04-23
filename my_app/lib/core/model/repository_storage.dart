@@ -6,6 +6,8 @@ import 'package:dental_plaza/features/auth/repository/auth_repository.dart';
 import 'package:dental_plaza/features/auth/repository/auth_repository_impl.dart';
 import 'package:dental_plaza/features/main/datasource/main_remote_ds.dart';
 import 'package:dental_plaza/features/main/repository/main_repository_ds.dart';
+import 'package:dental_plaza/features/record/datasource/record_remote_ds.dart';
+import 'package:dental_plaza/features/record/repository/record_repository.dart';
 import 'package:dental_plaza/settings/database/settings_dao.dart';
 import 'package:dental_plaza/settings/repository/settings_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,16 +17,12 @@ abstract class IRepositoryStorage {
 
   IAuthRepository get authRepository;
   IMainRepository get mainRepository;
-  // ICompanyRepository get companyRepository;
-  // IAdRepository get adRepository;
-  // IOtherListRepository get otherListRepository;
+  IRecordRepository get recordRepository;
 
   // Data sources
   IAuthRemoteDS get authRemoteDS;
   IMainRemoteDS get mainRemoteDS;
-  // CompanyRemoteDS get companyRemoteDs;
-  // IAdRemoteDS get adRemoteDS;
-  // IOtherListRemoteDS get otherListRemoteDS;
+  IRecordRemoteDS get recordRemoteDs;
 }
 
 class RepositoryStorage implements IRepositoryStorage {
@@ -68,49 +66,11 @@ class RepositoryStorage implements IRepositoryStorage {
   @override
   IMainRepository get mainRepository => MainRepositoryImpl(mainRemoteDS);
 
-  // @override
-  // IEstateRepository get mainRepository => EstateRepositoryImpl(
-  //       estateRemoteDS: estateRemoteDS,
-  //       networkExecuter: _networkExecuter,
-  //     );
+  @override
+  IRecordRemoteDS get recordRemoteDs =>
+      RecordRemoteDSImpl(client: _networkExecuter);
 
-  // @override
-  // ICompanyRepository get companyRepository => CompanyRepositoryImpl(
-  //       companyRemoteDS: companyRemoteDs,
-  //       client: _networkExecuter,
-  //     );
-
-  // @override
-  // IAdRepository get adRepository => AdRepositoryImpl(
-  //       client: _networkExecuter,
-  //       remoteDS: adRemoteDS,
-  //     );
-
-  // @override
-  // IOtherListRepository get otherListRepository => OtherListRepositoryImpl(
-  //       client: _networkExecuter,
-  //       otherListRemoteDS: otherListRemoteDS,
-  //  );
-
-  ///
-  /// Remote datasources
-  ///
-
-  // @override
-  // IAuthRemoteDS get authRemoteDS => AuthRemoteDSImpl(client: _networkExecuter);
-
-  // @override
-  // AuthLocalDs get authLocalDs => AuthLocalDsImpl(sharedPreferences: _sharedPreferences);
-
-  // @override
-  // CompanyRemoteDS get companyRemoteDs => CompanyRemoteDSImpl(client: _networkExecuter);
-
-  // @override
-  // EstateRemoteDs get estateRemoteDS => EstateRemoteDsImpl(client: _networkExecuter);
-
-  // @override
-  // IAdRemoteDS get adRemoteDS => AdRemoteDSImpl(client: _networkExecuter);
-
-  // @override
-  // IOtherListRemoteDS get otherListRemoteDS => OtherListRemoteDSImpl(client: _networkExecuter);
+  @override
+  IRecordRepository get recordRepository =>
+      RecordRepositoryImpl(recordRemoteDs, _networkExecuter);
 }

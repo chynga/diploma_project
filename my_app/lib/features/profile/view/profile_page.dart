@@ -8,6 +8,7 @@ import 'package:dental_plaza/features/app/widgets/custom/custom_app_bar.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_buttons/custom_button.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_snackbars.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_switch_button.dart';
+import 'package:dental_plaza/features/profile/bloc/health_info_cubit.dart';
 import 'package:dental_plaza/features/profile/bloc/profile_cubit.dart';
 import 'package:dental_plaza/features/profile/widgets/set_language_profile_widget.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,7 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     super.initState();
     BlocProvider.of<ProfileCubit>(context).getProfie();
+    BlocProvider.of<HealthInfoCubit>(context).getHealthInfo();
   }
 
   int segmentValue = 0;
@@ -165,32 +167,36 @@ class PersonalCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(
-          height: 26,
-        ),
-        Text(
-          context.localized.allergyToTheMedicine,
-          style: AppTextStyles.m16w600,
-        ),
-        const SizedBox(
-          height: 12,
-        ),
-        const Text('иоиывимлыивлыилмы'),
-        const SizedBox(
-          height: 25,
-        ),
-        Text(
-          context.localized.useOfMedication,
-          style: AppTextStyles.m16w600,
-        ),
-        const SizedBox(
-          height: 12,
-        ),
-        const Text('рмыфмсфоив - 2-3 раза в день в зависимости от боли '),
-      ],
+    return BlocBuilder<HealthInfoCubit, HealthInfoState>(
+      builder: (context, state) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(
+              height: 26,
+            ),
+            Text(
+              context.localized.allergyToTheMedicine,
+              style: AppTextStyles.m16w600,
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+            Text(state.whenOrNull(loadedState: (healthInfo) => healthInfo.allergy,)??""),
+            const SizedBox(
+              height: 25,
+            ),
+            Text(
+              context.localized.useOfMedication,
+              style: AppTextStyles.m16w600,
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+            Text(state.whenOrNull(loadedState: (healthInfo) => healthInfo.prescribedMedications,)??""),
+          ],
+        );
+      },
     );
   }
 }

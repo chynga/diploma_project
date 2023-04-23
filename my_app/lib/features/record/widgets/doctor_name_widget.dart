@@ -1,13 +1,18 @@
+import 'package:dental_plaza/core/extension/src/build_context.dart';
 import 'package:dental_plaza/core/resources/resources.dart';
 import 'package:dental_plaza/features/app/widgets/bottom_sheet.dart';
+import 'package:dental_plaza/features/main/model/doctor_dto.dart';
+import 'package:dental_plaza/features/record/bloc/free_slots_cubit.dart';
+import 'package:dental_plaza/features/record/bloc/make_record_cubit.dart';
 import 'package:dental_plaza/features/record/widgets/new_record_bottom_sheet.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DoctorNameWidget extends StatelessWidget {
-  final String name;
+  final DoctorDTO doctor;
   const DoctorNameWidget({
     super.key,
-    required this.name,
+    required this.doctor,
   });
 
   @override
@@ -29,13 +34,31 @@ class DoctorNameWidget extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(10),
           onTap: () {
-            bottomSheet(const NewRecordBottomSheet(),context);
+            bottomSheet(
+              MultiBlocProvider(
+                providers: [
+                  BlocProvider<MakeRecordCubit>(
+                    create: (context) =>
+                        MakeRecordCubit(context.repository.recordRepository),
+                  ),
+                  BlocProvider<FreeSlotsCubit>(
+                    create: (context) =>
+                        FreeSlotsCubit(context.repository.recordRepository),
+                  ),
+
+                ],
+                child: NewRecordBottomSheet(
+                  doctor: doctor,
+                ),
+              ),
+              context,
+            );
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 12),
             child: Center(
               child: Text(
-                name,
+                doctor.fullName ?? "",
                 style: AppTextStyles.m12w400,
               ),
             ),

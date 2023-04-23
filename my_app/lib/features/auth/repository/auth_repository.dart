@@ -1,5 +1,6 @@
 import 'package:dental_plaza/core/network/basic_response.dart';
 import 'package:dental_plaza/core/network/result.dart';
+import 'package:dental_plaza/features/auth/model/health_info_dto.dart';
 import 'package:dental_plaza/features/auth/model/user_dto.dart';
 
 abstract class IAuthRepository {
@@ -17,6 +18,8 @@ abstract class IAuthRepository {
     required String phone,
     required String name,
   });
+
+  Future<Result<HealthInfoDTO>> getHeathInfo();
   
 
   bool getOnboarding();

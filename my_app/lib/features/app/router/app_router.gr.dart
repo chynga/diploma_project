@@ -44,7 +44,7 @@ class _$AppRouter extends RootStackRouter {
     MyRecordsMainPage.name: (routeData) {
       return MaterialPageX<void>(
         routeData: routeData,
-        child: const MyRecordsPage(),
+        child: WrappedRoute(child: const MyRecordsPage()),
       );
     },
     EditProfileRoute.name: (routeData) {
@@ -101,13 +101,13 @@ class _$AppRouter extends RootStackRouter {
     RecordRoute.name: (routeData) {
       return MaterialPageX<void>(
         routeData: routeData,
-        child: const RecordPage(),
+        child: WrappedRoute(child: const RecordPage()),
       );
     },
     MyRecordsRoute.name: (routeData) {
       return MaterialPageX<void>(
         routeData: routeData,
-        child: const MyRecordsPage(),
+        child: WrappedRoute(child: const MyRecordsPage()),
       );
     },
   };

@@ -7,6 +7,7 @@ import 'package:dental_plaza/core/network/result.dart';
 import 'package:dental_plaza/features/auth/database/auth_dao.dart';
 import 'package:dental_plaza/features/auth/datasource/auth_api.dart';
 import 'package:dental_plaza/features/auth/datasource/auth_remote_ds.dart';
+import 'package:dental_plaza/features/auth/model/health_info_dto.dart';
 import 'package:dental_plaza/features/auth/model/user_dto.dart';
 import 'package:dental_plaza/features/auth/repository/auth_repository.dart';
 
@@ -97,4 +98,7 @@ class AuthRepositoryImpl extends IAuthRepository {
       responseType: BasicResponse(),
     );
   }
+
+  @override
+  Future<Result<HealthInfoDTO>> getHeathInfo() => _remoteDS.getHeathInfo();
 }
