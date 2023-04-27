@@ -12,7 +12,6 @@ import 'package:dental_plaza/features/record/bloc/records_cubit.dart';
 import 'package:dental_plaza/features/record/widgets/record_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shimmer/shimmer.dart';
 
 class MyRecordsPage extends StatefulWidget with AutoRouteWrapper {
   const MyRecordsPage({super.key});

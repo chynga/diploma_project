@@ -101,4 +101,44 @@ class AuthRepositoryImpl extends IAuthRepository {
 
   @override
   Future<Result<HealthInfoDTO>> getHeathInfo() => _remoteDS.getHeathInfo();
+
+  @override
+  Future<Result<BasicResponse>> checkCode({
+    required String email,
+    required String code,
+  }) async {
+    return _client.execute(
+      route: AuthApi.checkCode(
+        email: email,
+        code: code,
+      ),
+      responseType: BasicResponse(),
+    );
+  }
+
+  @override
+  Future<Result<BasicResponse>> newPassword({
+    required String email,
+    required String code,
+    required String password,
+  }) async {
+    return _client.execute(
+      route: AuthApi.newPassword(
+        email: email,
+        code: code,
+        password: password,
+      ),
+      responseType: BasicResponse(),
+    );
+  }
+
+  @override
+  Future<Result<BasicResponse>> sendCode({required String email}) async {
+    return _client.execute(
+      route: AuthApi.sendCode(
+        email: email,
+      ),
+      responseType: BasicResponse(),
+    );
+  }
 }

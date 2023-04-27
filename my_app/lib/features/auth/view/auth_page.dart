@@ -156,7 +156,12 @@ class __AuthPageState extends State<_AuthPage> {
                   setState(() {});
                 },
                 controller: pageController,
-                children:  [RegistrationBlockWidget(pageController: pageController,), LoginBlockWidget()],
+                children: [
+                  RegistrationBlockWidget(
+                    pageController: pageController,
+                  ),
+                  const LoginBlockWidget()
+                ],
               )
             ],
           ),

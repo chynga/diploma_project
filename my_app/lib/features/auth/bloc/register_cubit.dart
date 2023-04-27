@@ -1,5 +1,4 @@
 import 'package:dental_plaza/core/network/basic_response.dart';
-import 'package:dental_plaza/features/auth/model/user_dto.dart';
 import 'package:dental_plaza/features/auth/repository/auth_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -29,7 +28,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
     result.when(
       success: (BasicResponse response) {
-        emit(RegisterState.loadedState(message: response.message??"Success"));
+        emit(RegisterState.loadedState(message: response.message ?? "Success"));
       },
       failure: (e) {
         e.maybeWhen(
@@ -47,7 +46,7 @@ class RegisterState with _$RegisterState {
   const factory RegisterState.initialState() = _InitialState;
 
   const factory RegisterState.loadedState({
-    required String  message,
+    required String message,
   }) = _LoadedState;
 
   const factory RegisterState.loadingState() = _LoadingState;

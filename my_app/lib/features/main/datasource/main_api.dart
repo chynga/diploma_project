@@ -35,7 +35,7 @@ class MainApi extends BaseClientGenerator with _$MainApi {
   @override
   String get path => when(
         service: () => '/api/services',
-        doctor: () => '/api/doctors',
+        doctor: () => '/api/doctors/available',
         doctorWithId: (id) => '/api/doctors/$id',
       );
 

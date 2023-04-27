@@ -34,10 +34,13 @@ class ShowcaseForNavBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const SizedBox(
-              height: 40,
+              height: 1,
             ),
-            SkipAndNextButtonWidget(
-              myContext: context,
+            Transform.translate(
+              offset: const Offset(0, -70),
+              child: SkipAndNextButtonWidget(
+                myContext: context,
+              ),
             ),
             tooltip,
           ],

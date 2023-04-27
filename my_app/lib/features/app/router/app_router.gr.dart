@@ -26,19 +26,30 @@ class _$AppRouter extends RootStackRouter {
     ForgotPasswordRoute.name: (routeData) {
       return MaterialPageX<void>(
         routeData: routeData,
-        child: const ForgotPasswordPage(),
+        child: WrappedRoute(child: const ForgotPasswordPage()),
       );
     },
     NewPasswordRoute.name: (routeData) {
+      final args = routeData.argsAs<NewPasswordRouteArgs>();
       return MaterialPageX<void>(
         routeData: routeData,
-        child: const NewPasswordPage(),
+        child: WrappedRoute(
+            child: NewPasswordPage(
+          key: args.key,
+          code: args.code,
+          email: args.email,
+        )),
       );
     },
     ConfirmationCodeRoute.name: (routeData) {
+      final args = routeData.argsAs<ConfirmationCodeRouteArgs>();
       return MaterialPageX<void>(
         routeData: routeData,
-        child: const ConfirmationCodePage(),
+        child: WrappedRoute(
+            child: ConfirmationCodePage(
+          key: args.key,
+          email: args.email,
+        )),
       );
     },
     MyRecordsMainPage.name: (routeData) {
@@ -212,26 +223,75 @@ class ForgotPasswordRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [NewPasswordPage]
-class NewPasswordRoute extends PageRouteInfo<void> {
-  const NewPasswordRoute()
-      : super(
+class NewPasswordRoute extends PageRouteInfo<NewPasswordRouteArgs> {
+  NewPasswordRoute({
+    Key? key,
+    required String code,
+    required String email,
+  }) : super(
           NewPasswordRoute.name,
           path: '/new-password-page',
+          args: NewPasswordRouteArgs(
+            key: key,
+            code: code,
+            email: email,
+          ),
         );
 
   static const String name = 'NewPasswordRoute';
 }
 
+class NewPasswordRouteArgs {
+  const NewPasswordRouteArgs({
+    this.key,
+    required this.code,
+    required this.email,
+  });
+
+  final Key? key;
+
+  final String code;
+
+  final String email;
+
+  @override
+  String toString() {
+    return 'NewPasswordRouteArgs{key: $key, code: $code, email: $email}';
+  }
+}
+
 /// generated route for
 /// [ConfirmationCodePage]
-class ConfirmationCodeRoute extends PageRouteInfo<void> {
-  const ConfirmationCodeRoute()
-      : super(
+class ConfirmationCodeRoute extends PageRouteInfo<ConfirmationCodeRouteArgs> {
+  ConfirmationCodeRoute({
+    Key? key,
+    required String email,
+  }) : super(
           ConfirmationCodeRoute.name,
           path: '/confirmation-code-page',
+          args: ConfirmationCodeRouteArgs(
+            key: key,
+            email: email,
+          ),
         );
 
   static const String name = 'ConfirmationCodeRoute';
+}
+
+class ConfirmationCodeRouteArgs {
+  const ConfirmationCodeRouteArgs({
+    this.key,
+    required this.email,
+  });
+
+  final Key? key;
+
+  final String email;
+
+  @override
+  String toString() {
+    return 'ConfirmationCodeRouteArgs{key: $key, email: $email}';
+  }
 }
 
 /// generated route for

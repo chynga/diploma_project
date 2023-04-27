@@ -22,7 +22,8 @@ class RecordPage extends StatefulWidget with AutoRouteWrapper {
   @override
   Widget wrappedRoute(BuildContext context) {
     return BlocProvider<DoctorsCubit>(
-      create: (context) => DoctorsCubit(context.repository.mainRepository)..getDoctors(),
+      create: (context) =>
+          DoctorsCubit(context.repository.mainRepository)..getDoctors(),
       child: this,
     );
   }
@@ -93,7 +94,9 @@ class _RecordPageState extends State<RecordPage> {
                   loadedState: (doctors) {
                     return SliverPadding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 65, vertical: 25),
+                        horizontal: 65,
+                        vertical: 25,
+                      ),
                       sliver: SliverList(
                         delegate: SliverChildBuilderDelegate(
                           (context, index) {
@@ -112,7 +115,9 @@ class _RecordPageState extends State<RecordPage> {
                   orElse: () {
                     return SliverPadding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 65, vertical: 25),
+                        horizontal: 65,
+                        vertical: 25,
+                      ),
                       sliver: SliverList(
                         delegate: SliverChildBuilderDelegate(
                           (context, index) {

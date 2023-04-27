@@ -32,7 +32,7 @@ class ShowCaseNine extends StatelessWidget {
           child: Column(
             children: [
               Transform.translate(
-                offset: const Offset(0, -270),
+                offset: const Offset(0, -300),
                 child: SkipAndNextButtonWidget(
                   myContext: context,
                 ),

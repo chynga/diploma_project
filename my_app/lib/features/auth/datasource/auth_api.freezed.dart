@@ -26,6 +26,10 @@ mixin _$AuthApi {
     required TResult Function(
             String email, String password, String phone, String name)
         registration,
+    required TResult Function(String email) sendCode,
+    required TResult Function(String email, String code) checkCode,
+    required TResult Function(String email, String code, String password)
+        newPassword,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -37,6 +41,9 @@ mixin _$AuthApi {
         editProfile,
     TResult? Function(String email, String password, String phone, String name)?
         registration,
+    TResult? Function(String email)? sendCode,
+    TResult? Function(String email, String code)? checkCode,
+    TResult? Function(String email, String code, String password)? newPassword,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -48,6 +55,9 @@ mixin _$AuthApi {
         editProfile,
     TResult Function(String email, String password, String phone, String name)?
         registration,
+    TResult Function(String email)? sendCode,
+    TResult Function(String email, String code)? checkCode,
+    TResult Function(String email, String code, String password)? newPassword,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -58,6 +68,9 @@ mixin _$AuthApi {
     required TResult Function(_HealthInfo value) healthInfo,
     required TResult Function(_EditProfile value) editProfile,
     required TResult Function(_Registration value) registration,
+    required TResult Function(_SendCode value) sendCode,
+    required TResult Function(_CheckCode value) checkCode,
+    required TResult Function(_NewCode value) newPassword,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -67,6 +80,9 @@ mixin _$AuthApi {
     TResult? Function(_HealthInfo value)? healthInfo,
     TResult? Function(_EditProfile value)? editProfile,
     TResult? Function(_Registration value)? registration,
+    TResult? Function(_SendCode value)? sendCode,
+    TResult? Function(_CheckCode value)? checkCode,
+    TResult? Function(_NewCode value)? newPassword,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -76,6 +92,9 @@ mixin _$AuthApi {
     TResult Function(_HealthInfo value)? healthInfo,
     TResult Function(_EditProfile value)? editProfile,
     TResult Function(_Registration value)? registration,
+    TResult Function(_SendCode value)? sendCode,
+    TResult Function(_CheckCode value)? checkCode,
+    TResult Function(_NewCode value)? newPassword,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -176,6 +195,10 @@ class _$_Login extends _Login {
     required TResult Function(
             String email, String password, String phone, String name)
         registration,
+    required TResult Function(String email) sendCode,
+    required TResult Function(String email, String code) checkCode,
+    required TResult Function(String email, String code, String password)
+        newPassword,
   }) {
     return login(email, password);
   }
@@ -190,6 +213,9 @@ class _$_Login extends _Login {
         editProfile,
     TResult? Function(String email, String password, String phone, String name)?
         registration,
+    TResult? Function(String email)? sendCode,
+    TResult? Function(String email, String code)? checkCode,
+    TResult? Function(String email, String code, String password)? newPassword,
   }) {
     return login?.call(email, password);
   }
@@ -204,6 +230,9 @@ class _$_Login extends _Login {
         editProfile,
     TResult Function(String email, String password, String phone, String name)?
         registration,
+    TResult Function(String email)? sendCode,
+    TResult Function(String email, String code)? checkCode,
+    TResult Function(String email, String code, String password)? newPassword,
     required TResult orElse(),
   }) {
     if (login != null) {
@@ -220,6 +249,9 @@ class _$_Login extends _Login {
     required TResult Function(_HealthInfo value) healthInfo,
     required TResult Function(_EditProfile value) editProfile,
     required TResult Function(_Registration value) registration,
+    required TResult Function(_SendCode value) sendCode,
+    required TResult Function(_CheckCode value) checkCode,
+    required TResult Function(_NewCode value) newPassword,
   }) {
     return login(this);
   }
@@ -232,6 +264,9 @@ class _$_Login extends _Login {
     TResult? Function(_HealthInfo value)? healthInfo,
     TResult? Function(_EditProfile value)? editProfile,
     TResult? Function(_Registration value)? registration,
+    TResult? Function(_SendCode value)? sendCode,
+    TResult? Function(_CheckCode value)? checkCode,
+    TResult? Function(_NewCode value)? newPassword,
   }) {
     return login?.call(this);
   }
@@ -244,6 +279,9 @@ class _$_Login extends _Login {
     TResult Function(_HealthInfo value)? healthInfo,
     TResult Function(_EditProfile value)? editProfile,
     TResult Function(_Registration value)? registration,
+    TResult Function(_SendCode value)? sendCode,
+    TResult Function(_CheckCode value)? checkCode,
+    TResult Function(_NewCode value)? newPassword,
     required TResult orElse(),
   }) {
     if (login != null) {
@@ -310,6 +348,10 @@ class _$_Profile extends _Profile {
     required TResult Function(
             String email, String password, String phone, String name)
         registration,
+    required TResult Function(String email) sendCode,
+    required TResult Function(String email, String code) checkCode,
+    required TResult Function(String email, String code, String password)
+        newPassword,
   }) {
     return profile();
   }
@@ -324,6 +366,9 @@ class _$_Profile extends _Profile {
         editProfile,
     TResult? Function(String email, String password, String phone, String name)?
         registration,
+    TResult? Function(String email)? sendCode,
+    TResult? Function(String email, String code)? checkCode,
+    TResult? Function(String email, String code, String password)? newPassword,
   }) {
     return profile?.call();
   }
@@ -338,6 +383,9 @@ class _$_Profile extends _Profile {
         editProfile,
     TResult Function(String email, String password, String phone, String name)?
         registration,
+    TResult Function(String email)? sendCode,
+    TResult Function(String email, String code)? checkCode,
+    TResult Function(String email, String code, String password)? newPassword,
     required TResult orElse(),
   }) {
     if (profile != null) {
@@ -354,6 +402,9 @@ class _$_Profile extends _Profile {
     required TResult Function(_HealthInfo value) healthInfo,
     required TResult Function(_EditProfile value) editProfile,
     required TResult Function(_Registration value) registration,
+    required TResult Function(_SendCode value) sendCode,
+    required TResult Function(_CheckCode value) checkCode,
+    required TResult Function(_NewCode value) newPassword,
   }) {
     return profile(this);
   }
@@ -366,6 +417,9 @@ class _$_Profile extends _Profile {
     TResult? Function(_HealthInfo value)? healthInfo,
     TResult? Function(_EditProfile value)? editProfile,
     TResult? Function(_Registration value)? registration,
+    TResult? Function(_SendCode value)? sendCode,
+    TResult? Function(_CheckCode value)? checkCode,
+    TResult? Function(_NewCode value)? newPassword,
   }) {
     return profile?.call(this);
   }
@@ -378,6 +432,9 @@ class _$_Profile extends _Profile {
     TResult Function(_HealthInfo value)? healthInfo,
     TResult Function(_EditProfile value)? editProfile,
     TResult Function(_Registration value)? registration,
+    TResult Function(_SendCode value)? sendCode,
+    TResult Function(_CheckCode value)? checkCode,
+    TResult Function(_NewCode value)? newPassword,
     required TResult orElse(),
   }) {
     if (profile != null) {
@@ -438,6 +495,10 @@ class _$_HealthInfo extends _HealthInfo {
     required TResult Function(
             String email, String password, String phone, String name)
         registration,
+    required TResult Function(String email) sendCode,
+    required TResult Function(String email, String code) checkCode,
+    required TResult Function(String email, String code, String password)
+        newPassword,
   }) {
     return healthInfo();
   }
@@ -452,6 +513,9 @@ class _$_HealthInfo extends _HealthInfo {
         editProfile,
     TResult? Function(String email, String password, String phone, String name)?
         registration,
+    TResult? Function(String email)? sendCode,
+    TResult? Function(String email, String code)? checkCode,
+    TResult? Function(String email, String code, String password)? newPassword,
   }) {
     return healthInfo?.call();
   }
@@ -466,6 +530,9 @@ class _$_HealthInfo extends _HealthInfo {
         editProfile,
     TResult Function(String email, String password, String phone, String name)?
         registration,
+    TResult Function(String email)? sendCode,
+    TResult Function(String email, String code)? checkCode,
+    TResult Function(String email, String code, String password)? newPassword,
     required TResult orElse(),
   }) {
     if (healthInfo != null) {
@@ -482,6 +549,9 @@ class _$_HealthInfo extends _HealthInfo {
     required TResult Function(_HealthInfo value) healthInfo,
     required TResult Function(_EditProfile value) editProfile,
     required TResult Function(_Registration value) registration,
+    required TResult Function(_SendCode value) sendCode,
+    required TResult Function(_CheckCode value) checkCode,
+    required TResult Function(_NewCode value) newPassword,
   }) {
     return healthInfo(this);
   }
@@ -494,6 +564,9 @@ class _$_HealthInfo extends _HealthInfo {
     TResult? Function(_HealthInfo value)? healthInfo,
     TResult? Function(_EditProfile value)? editProfile,
     TResult? Function(_Registration value)? registration,
+    TResult? Function(_SendCode value)? sendCode,
+    TResult? Function(_CheckCode value)? checkCode,
+    TResult? Function(_NewCode value)? newPassword,
   }) {
     return healthInfo?.call(this);
   }
@@ -506,6 +579,9 @@ class _$_HealthInfo extends _HealthInfo {
     TResult Function(_HealthInfo value)? healthInfo,
     TResult Function(_EditProfile value)? editProfile,
     TResult Function(_Registration value)? registration,
+    TResult Function(_SendCode value)? sendCode,
+    TResult Function(_CheckCode value)? checkCode,
+    TResult Function(_NewCode value)? newPassword,
     required TResult orElse(),
   }) {
     if (healthInfo != null) {
@@ -609,6 +685,10 @@ class _$_EditProfile extends _EditProfile {
     required TResult Function(
             String email, String password, String phone, String name)
         registration,
+    required TResult Function(String email) sendCode,
+    required TResult Function(String email, String code) checkCode,
+    required TResult Function(String email, String code, String password)
+        newPassword,
   }) {
     return editProfile(fullName, email, phone);
   }
@@ -623,6 +703,9 @@ class _$_EditProfile extends _EditProfile {
         editProfile,
     TResult? Function(String email, String password, String phone, String name)?
         registration,
+    TResult? Function(String email)? sendCode,
+    TResult? Function(String email, String code)? checkCode,
+    TResult? Function(String email, String code, String password)? newPassword,
   }) {
     return editProfile?.call(fullName, email, phone);
   }
@@ -637,6 +720,9 @@ class _$_EditProfile extends _EditProfile {
         editProfile,
     TResult Function(String email, String password, String phone, String name)?
         registration,
+    TResult Function(String email)? sendCode,
+    TResult Function(String email, String code)? checkCode,
+    TResult Function(String email, String code, String password)? newPassword,
     required TResult orElse(),
   }) {
     if (editProfile != null) {
@@ -653,6 +739,9 @@ class _$_EditProfile extends _EditProfile {
     required TResult Function(_HealthInfo value) healthInfo,
     required TResult Function(_EditProfile value) editProfile,
     required TResult Function(_Registration value) registration,
+    required TResult Function(_SendCode value) sendCode,
+    required TResult Function(_CheckCode value) checkCode,
+    required TResult Function(_NewCode value) newPassword,
   }) {
     return editProfile(this);
   }
@@ -665,6 +754,9 @@ class _$_EditProfile extends _EditProfile {
     TResult? Function(_HealthInfo value)? healthInfo,
     TResult? Function(_EditProfile value)? editProfile,
     TResult? Function(_Registration value)? registration,
+    TResult? Function(_SendCode value)? sendCode,
+    TResult? Function(_CheckCode value)? checkCode,
+    TResult? Function(_NewCode value)? newPassword,
   }) {
     return editProfile?.call(this);
   }
@@ -677,6 +769,9 @@ class _$_EditProfile extends _EditProfile {
     TResult Function(_HealthInfo value)? healthInfo,
     TResult Function(_EditProfile value)? editProfile,
     TResult Function(_Registration value)? registration,
+    TResult Function(_SendCode value)? sendCode,
+    TResult Function(_CheckCode value)? checkCode,
+    TResult Function(_NewCode value)? newPassword,
     required TResult orElse(),
   }) {
     if (editProfile != null) {
@@ -803,6 +898,10 @@ class _$_Registration extends _Registration {
     required TResult Function(
             String email, String password, String phone, String name)
         registration,
+    required TResult Function(String email) sendCode,
+    required TResult Function(String email, String code) checkCode,
+    required TResult Function(String email, String code, String password)
+        newPassword,
   }) {
     return registration(email, password, phone, name);
   }
@@ -817,6 +916,9 @@ class _$_Registration extends _Registration {
         editProfile,
     TResult? Function(String email, String password, String phone, String name)?
         registration,
+    TResult? Function(String email)? sendCode,
+    TResult? Function(String email, String code)? checkCode,
+    TResult? Function(String email, String code, String password)? newPassword,
   }) {
     return registration?.call(email, password, phone, name);
   }
@@ -831,6 +933,9 @@ class _$_Registration extends _Registration {
         editProfile,
     TResult Function(String email, String password, String phone, String name)?
         registration,
+    TResult Function(String email)? sendCode,
+    TResult Function(String email, String code)? checkCode,
+    TResult Function(String email, String code, String password)? newPassword,
     required TResult orElse(),
   }) {
     if (registration != null) {
@@ -847,6 +952,9 @@ class _$_Registration extends _Registration {
     required TResult Function(_HealthInfo value) healthInfo,
     required TResult Function(_EditProfile value) editProfile,
     required TResult Function(_Registration value) registration,
+    required TResult Function(_SendCode value) sendCode,
+    required TResult Function(_CheckCode value) checkCode,
+    required TResult Function(_NewCode value) newPassword,
   }) {
     return registration(this);
   }
@@ -859,6 +967,9 @@ class _$_Registration extends _Registration {
     TResult? Function(_HealthInfo value)? healthInfo,
     TResult? Function(_EditProfile value)? editProfile,
     TResult? Function(_Registration value)? registration,
+    TResult? Function(_SendCode value)? sendCode,
+    TResult? Function(_CheckCode value)? checkCode,
+    TResult? Function(_NewCode value)? newPassword,
   }) {
     return registration?.call(this);
   }
@@ -871,6 +982,9 @@ class _$_Registration extends _Registration {
     TResult Function(_HealthInfo value)? healthInfo,
     TResult Function(_EditProfile value)? editProfile,
     TResult Function(_Registration value)? registration,
+    TResult Function(_SendCode value)? sendCode,
+    TResult Function(_CheckCode value)? checkCode,
+    TResult Function(_NewCode value)? newPassword,
     required TResult orElse(),
   }) {
     if (registration != null) {
@@ -894,5 +1008,572 @@ abstract class _Registration extends AuthApi {
   String get name;
   @JsonKey(ignore: true)
   _$$_RegistrationCopyWith<_$_Registration> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_SendCodeCopyWith<$Res> {
+  factory _$$_SendCodeCopyWith(
+          _$_SendCode value, $Res Function(_$_SendCode) then) =
+      __$$_SendCodeCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String email});
+}
+
+/// @nodoc
+class __$$_SendCodeCopyWithImpl<$Res>
+    extends _$AuthApiCopyWithImpl<$Res, _$_SendCode>
+    implements _$$_SendCodeCopyWith<$Res> {
+  __$$_SendCodeCopyWithImpl(
+      _$_SendCode _value, $Res Function(_$_SendCode) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? email = null,
+  }) {
+    return _then(_$_SendCode(
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_SendCode extends _SendCode {
+  const _$_SendCode({required this.email}) : super._();
+
+  @override
+  final String email;
+
+  @override
+  String toString() {
+    return 'AuthApi.sendCode(email: $email)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_SendCode &&
+            (identical(other.email, email) || other.email == email));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, email);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_SendCodeCopyWith<_$_SendCode> get copyWith =>
+      __$$_SendCodeCopyWithImpl<_$_SendCode>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String email, String password) login,
+    required TResult Function() profile,
+    required TResult Function() healthInfo,
+    required TResult Function(String? fullName, String? email, String? phone)
+        editProfile,
+    required TResult Function(
+            String email, String password, String phone, String name)
+        registration,
+    required TResult Function(String email) sendCode,
+    required TResult Function(String email, String code) checkCode,
+    required TResult Function(String email, String code, String password)
+        newPassword,
+  }) {
+    return sendCode(email);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String email, String password)? login,
+    TResult? Function()? profile,
+    TResult? Function()? healthInfo,
+    TResult? Function(String? fullName, String? email, String? phone)?
+        editProfile,
+    TResult? Function(String email, String password, String phone, String name)?
+        registration,
+    TResult? Function(String email)? sendCode,
+    TResult? Function(String email, String code)? checkCode,
+    TResult? Function(String email, String code, String password)? newPassword,
+  }) {
+    return sendCode?.call(email);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String email, String password)? login,
+    TResult Function()? profile,
+    TResult Function()? healthInfo,
+    TResult Function(String? fullName, String? email, String? phone)?
+        editProfile,
+    TResult Function(String email, String password, String phone, String name)?
+        registration,
+    TResult Function(String email)? sendCode,
+    TResult Function(String email, String code)? checkCode,
+    TResult Function(String email, String code, String password)? newPassword,
+    required TResult orElse(),
+  }) {
+    if (sendCode != null) {
+      return sendCode(email);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Login value) login,
+    required TResult Function(_Profile value) profile,
+    required TResult Function(_HealthInfo value) healthInfo,
+    required TResult Function(_EditProfile value) editProfile,
+    required TResult Function(_Registration value) registration,
+    required TResult Function(_SendCode value) sendCode,
+    required TResult Function(_CheckCode value) checkCode,
+    required TResult Function(_NewCode value) newPassword,
+  }) {
+    return sendCode(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Login value)? login,
+    TResult? Function(_Profile value)? profile,
+    TResult? Function(_HealthInfo value)? healthInfo,
+    TResult? Function(_EditProfile value)? editProfile,
+    TResult? Function(_Registration value)? registration,
+    TResult? Function(_SendCode value)? sendCode,
+    TResult? Function(_CheckCode value)? checkCode,
+    TResult? Function(_NewCode value)? newPassword,
+  }) {
+    return sendCode?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Login value)? login,
+    TResult Function(_Profile value)? profile,
+    TResult Function(_HealthInfo value)? healthInfo,
+    TResult Function(_EditProfile value)? editProfile,
+    TResult Function(_Registration value)? registration,
+    TResult Function(_SendCode value)? sendCode,
+    TResult Function(_CheckCode value)? checkCode,
+    TResult Function(_NewCode value)? newPassword,
+    required TResult orElse(),
+  }) {
+    if (sendCode != null) {
+      return sendCode(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SendCode extends AuthApi {
+  const factory _SendCode({required final String email}) = _$_SendCode;
+  const _SendCode._() : super._();
+
+  String get email;
+  @JsonKey(ignore: true)
+  _$$_SendCodeCopyWith<_$_SendCode> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_CheckCodeCopyWith<$Res> {
+  factory _$$_CheckCodeCopyWith(
+          _$_CheckCode value, $Res Function(_$_CheckCode) then) =
+      __$$_CheckCodeCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String email, String code});
+}
+
+/// @nodoc
+class __$$_CheckCodeCopyWithImpl<$Res>
+    extends _$AuthApiCopyWithImpl<$Res, _$_CheckCode>
+    implements _$$_CheckCodeCopyWith<$Res> {
+  __$$_CheckCodeCopyWithImpl(
+      _$_CheckCode _value, $Res Function(_$_CheckCode) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? email = null,
+    Object? code = null,
+  }) {
+    return _then(_$_CheckCode(
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      code: null == code
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_CheckCode extends _CheckCode {
+  const _$_CheckCode({required this.email, required this.code}) : super._();
+
+  @override
+  final String email;
+  @override
+  final String code;
+
+  @override
+  String toString() {
+    return 'AuthApi.checkCode(email: $email, code: $code)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_CheckCode &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.code, code) || other.code == code));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, email, code);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_CheckCodeCopyWith<_$_CheckCode> get copyWith =>
+      __$$_CheckCodeCopyWithImpl<_$_CheckCode>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String email, String password) login,
+    required TResult Function() profile,
+    required TResult Function() healthInfo,
+    required TResult Function(String? fullName, String? email, String? phone)
+        editProfile,
+    required TResult Function(
+            String email, String password, String phone, String name)
+        registration,
+    required TResult Function(String email) sendCode,
+    required TResult Function(String email, String code) checkCode,
+    required TResult Function(String email, String code, String password)
+        newPassword,
+  }) {
+    return checkCode(email, code);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String email, String password)? login,
+    TResult? Function()? profile,
+    TResult? Function()? healthInfo,
+    TResult? Function(String? fullName, String? email, String? phone)?
+        editProfile,
+    TResult? Function(String email, String password, String phone, String name)?
+        registration,
+    TResult? Function(String email)? sendCode,
+    TResult? Function(String email, String code)? checkCode,
+    TResult? Function(String email, String code, String password)? newPassword,
+  }) {
+    return checkCode?.call(email, code);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String email, String password)? login,
+    TResult Function()? profile,
+    TResult Function()? healthInfo,
+    TResult Function(String? fullName, String? email, String? phone)?
+        editProfile,
+    TResult Function(String email, String password, String phone, String name)?
+        registration,
+    TResult Function(String email)? sendCode,
+    TResult Function(String email, String code)? checkCode,
+    TResult Function(String email, String code, String password)? newPassword,
+    required TResult orElse(),
+  }) {
+    if (checkCode != null) {
+      return checkCode(email, code);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Login value) login,
+    required TResult Function(_Profile value) profile,
+    required TResult Function(_HealthInfo value) healthInfo,
+    required TResult Function(_EditProfile value) editProfile,
+    required TResult Function(_Registration value) registration,
+    required TResult Function(_SendCode value) sendCode,
+    required TResult Function(_CheckCode value) checkCode,
+    required TResult Function(_NewCode value) newPassword,
+  }) {
+    return checkCode(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Login value)? login,
+    TResult? Function(_Profile value)? profile,
+    TResult? Function(_HealthInfo value)? healthInfo,
+    TResult? Function(_EditProfile value)? editProfile,
+    TResult? Function(_Registration value)? registration,
+    TResult? Function(_SendCode value)? sendCode,
+    TResult? Function(_CheckCode value)? checkCode,
+    TResult? Function(_NewCode value)? newPassword,
+  }) {
+    return checkCode?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Login value)? login,
+    TResult Function(_Profile value)? profile,
+    TResult Function(_HealthInfo value)? healthInfo,
+    TResult Function(_EditProfile value)? editProfile,
+    TResult Function(_Registration value)? registration,
+    TResult Function(_SendCode value)? sendCode,
+    TResult Function(_CheckCode value)? checkCode,
+    TResult Function(_NewCode value)? newPassword,
+    required TResult orElse(),
+  }) {
+    if (checkCode != null) {
+      return checkCode(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CheckCode extends AuthApi {
+  const factory _CheckCode(
+      {required final String email, required final String code}) = _$_CheckCode;
+  const _CheckCode._() : super._();
+
+  String get email;
+  String get code;
+  @JsonKey(ignore: true)
+  _$$_CheckCodeCopyWith<_$_CheckCode> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_NewCodeCopyWith<$Res> {
+  factory _$$_NewCodeCopyWith(
+          _$_NewCode value, $Res Function(_$_NewCode) then) =
+      __$$_NewCodeCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String email, String code, String password});
+}
+
+/// @nodoc
+class __$$_NewCodeCopyWithImpl<$Res>
+    extends _$AuthApiCopyWithImpl<$Res, _$_NewCode>
+    implements _$$_NewCodeCopyWith<$Res> {
+  __$$_NewCodeCopyWithImpl(_$_NewCode _value, $Res Function(_$_NewCode) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? email = null,
+    Object? code = null,
+    Object? password = null,
+  }) {
+    return _then(_$_NewCode(
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      code: null == code
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as String,
+      password: null == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_NewCode extends _NewCode {
+  const _$_NewCode(
+      {required this.email, required this.code, required this.password})
+      : super._();
+
+  @override
+  final String email;
+  @override
+  final String code;
+  @override
+  final String password;
+
+  @override
+  String toString() {
+    return 'AuthApi.newPassword(email: $email, code: $code, password: $password)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_NewCode &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.code, code) || other.code == code) &&
+            (identical(other.password, password) ||
+                other.password == password));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, email, code, password);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_NewCodeCopyWith<_$_NewCode> get copyWith =>
+      __$$_NewCodeCopyWithImpl<_$_NewCode>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String email, String password) login,
+    required TResult Function() profile,
+    required TResult Function() healthInfo,
+    required TResult Function(String? fullName, String? email, String? phone)
+        editProfile,
+    required TResult Function(
+            String email, String password, String phone, String name)
+        registration,
+    required TResult Function(String email) sendCode,
+    required TResult Function(String email, String code) checkCode,
+    required TResult Function(String email, String code, String password)
+        newPassword,
+  }) {
+    return newPassword(email, code, password);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String email, String password)? login,
+    TResult? Function()? profile,
+    TResult? Function()? healthInfo,
+    TResult? Function(String? fullName, String? email, String? phone)?
+        editProfile,
+    TResult? Function(String email, String password, String phone, String name)?
+        registration,
+    TResult? Function(String email)? sendCode,
+    TResult? Function(String email, String code)? checkCode,
+    TResult? Function(String email, String code, String password)? newPassword,
+  }) {
+    return newPassword?.call(email, code, password);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String email, String password)? login,
+    TResult Function()? profile,
+    TResult Function()? healthInfo,
+    TResult Function(String? fullName, String? email, String? phone)?
+        editProfile,
+    TResult Function(String email, String password, String phone, String name)?
+        registration,
+    TResult Function(String email)? sendCode,
+    TResult Function(String email, String code)? checkCode,
+    TResult Function(String email, String code, String password)? newPassword,
+    required TResult orElse(),
+  }) {
+    if (newPassword != null) {
+      return newPassword(email, code, password);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Login value) login,
+    required TResult Function(_Profile value) profile,
+    required TResult Function(_HealthInfo value) healthInfo,
+    required TResult Function(_EditProfile value) editProfile,
+    required TResult Function(_Registration value) registration,
+    required TResult Function(_SendCode value) sendCode,
+    required TResult Function(_CheckCode value) checkCode,
+    required TResult Function(_NewCode value) newPassword,
+  }) {
+    return newPassword(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Login value)? login,
+    TResult? Function(_Profile value)? profile,
+    TResult? Function(_HealthInfo value)? healthInfo,
+    TResult? Function(_EditProfile value)? editProfile,
+    TResult? Function(_Registration value)? registration,
+    TResult? Function(_SendCode value)? sendCode,
+    TResult? Function(_CheckCode value)? checkCode,
+    TResult? Function(_NewCode value)? newPassword,
+  }) {
+    return newPassword?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Login value)? login,
+    TResult Function(_Profile value)? profile,
+    TResult Function(_HealthInfo value)? healthInfo,
+    TResult Function(_EditProfile value)? editProfile,
+    TResult Function(_Registration value)? registration,
+    TResult Function(_SendCode value)? sendCode,
+    TResult Function(_CheckCode value)? checkCode,
+    TResult Function(_NewCode value)? newPassword,
+    required TResult orElse(),
+  }) {
+    if (newPassword != null) {
+      return newPassword(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _NewCode extends AuthApi {
+  const factory _NewCode(
+      {required final String email,
+      required final String code,
+      required final String password}) = _$_NewCode;
+  const _NewCode._() : super._();
+
+  String get email;
+  String get code;
+  String get password;
+  @JsonKey(ignore: true)
+  _$$_NewCodeCopyWith<_$_NewCode> get copyWith =>
       throw _privateConstructorUsedError;
 }

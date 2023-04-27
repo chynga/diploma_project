@@ -3,9 +3,7 @@ import 'package:dental_plaza/core/resources/fonts.gen.dart';
 import 'package:dental_plaza/core/resources/resources.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_app_bar.dart';
 import 'package:dental_plaza/features/app/widgets/gradient_bg.dart';
-import 'package:dental_plaza/features/tooth_clean/widget/video_item_widget.dart';
 import 'package:dental_plaza/features/tooth_clean/widget/youtube_video_widget.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -99,9 +97,10 @@ class _ToothCleanPageState extends State<ToothCleanPage> {
                 const Text(
                   '3:00',
                   style: TextStyle(
-                      fontFamily: FontFamily.lcd,
-                      fontSize: 64,
-                      color: AppColors.kBlue),
+                    fontFamily: FontFamily.lcd,
+                    fontSize: 64,
+                    color: AppColors.kBlue,
+                  ),
                 ),
                 Container(
                   height: 55,

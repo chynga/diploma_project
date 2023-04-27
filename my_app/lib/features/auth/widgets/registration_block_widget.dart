@@ -1,6 +1,5 @@
 import 'package:dental_plaza/core/extension/src/build_context.dart';
 import 'package:dental_plaza/core/resources/resources.dart';
-import 'package:dental_plaza/features/app/bloc/app_bloc.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_buttons/custom_button.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_snackbars.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_text_field.dart';
@@ -102,7 +101,9 @@ class _RegistrationBlockWidgetState extends State<RegistrationBlockWidget> {
                       phoneController.text.isEmpty ||
                       passwordController.text.isEmpty) {
                     buildErrorCustomSnackBar(
-                        context, context.localized.fillAllFields);
+                      context,
+                      context.localized.fillAllFields,
+                    );
                     return;
                   }
                   BlocProvider.of<RegisterCubit>(context).register(

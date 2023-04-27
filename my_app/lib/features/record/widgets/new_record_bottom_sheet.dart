@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:dental_plaza/core/extension/extensions.dart';
 import 'package:dental_plaza/core/resources/resources.dart';
-import 'package:dental_plaza/features/app/router/app_router.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_buttons/custom_button.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_snackbars.dart';
 import 'package:dental_plaza/features/app/widgets/shimmer_box.dart';

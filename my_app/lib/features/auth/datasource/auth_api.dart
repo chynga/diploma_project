@@ -31,6 +31,21 @@ class AuthApi extends BaseClientGenerator with _$AuthApi {
     required String name,
   }) = _Registration;
 
+  const factory AuthApi.sendCode({
+    required String email,
+  }) = _SendCode;
+
+  const factory AuthApi.checkCode({
+    required String email,
+    required String code,
+  }) = _CheckCode;
+
+  const factory AuthApi.newPassword({
+    required String email,
+    required String code,
+    required String password,
+  }) = _NewCode;
+
   /// body
   /// По умолчанию null
   @override
@@ -50,6 +65,18 @@ class AuthApi extends BaseClientGenerator with _$AuthApi {
           if (email != null) 'email': email,
           if (phone != null) 'phone': phone,
         },
+        sendCode: (email) => {
+          'email':email,
+        },
+        checkCode: (email, code) => {
+          'email':email,
+          'code':code,
+        },
+        newPassword: (email, code, password) => {
+          'email':email,
+          'code':code,
+          'password':password,
+        },
       );
 
   /// Используемые методы запросов, по умолчанию 'GET'
@@ -60,7 +87,10 @@ class AuthApi extends BaseClientGenerator with _$AuthApi {
         profile: () => 'GET',
         registration: (email, password, phone, name) => 'POST',
         editProfile: (fullName, email, phone) => 'PATCH',
-        healthInfo:() => 'GET',
+        healthInfo: () => 'GET',
+        sendCode:(email) => 'POST',
+        checkCode: (email, code) => 'POST',
+        newPassword: (email, code, password) => 'POST',
       );
 
   /// Пути всех запросов (после [kBaseUrl])
@@ -72,6 +102,10 @@ class AuthApi extends BaseClientGenerator with _$AuthApi {
             '/api/authentication/register',
         editProfile: (fullName, email, phone) => '/api/profile',
         healthInfo: () => '/api/profile/healthInfo',
+        sendCode: (email) => '/api/profile/recovery/send',
+        checkCode: (email, code) => '/api/profile/recovery/check',
+        newPassword: (email, code, password) =>
+            '/api/profile/recovery/complete',
       );
 
   /// Параметры запросов

@@ -46,9 +46,12 @@ class MainLastRecordWidget extends StatelessWidget {
                           myRecords.isEmpty
                               ? 'No Records'
                               : DateFormat.MMMMd(
-                                      context.currentLocale.localeCode)
-                                  .format(DateTime.parse(
-                                      getLastRecord(myRecords)?.time ?? "")),
+                                  context.currentLocale.localeCode,
+                                ).format(
+                                  DateTime.parse(
+                                    getLastRecord(myRecords)?.time ?? "",
+                                  ),
+                                ),
                           style: AppTextStyles.m24w500
                               .copyWith(color: AppColors.kWhite),
                         );
@@ -68,8 +71,11 @@ class MainLastRecordWidget extends StatelessWidget {
                           myRecords.isEmpty
                               ? ''
                               : DateFormat.Hm(context.currentLocale.localeCode)
-                                  .format(DateTime.parse(
-                                      getLastRecord(myRecords)?.time ?? "")),
+                                  .format(
+                                  DateTime.parse(
+                                    getLastRecord(myRecords)?.time ?? "",
+                                  ),
+                                ),
                           style: AppTextStyles.m16w500
                               .copyWith(color: AppColors.kWhite),
                         );
@@ -140,7 +146,7 @@ class MainLastRecordWidget extends StatelessWidget {
     if (records.isEmpty) {
       return null;
     }
-   return records.reduce(
+    return records.reduce(
       (value, element) =>
           DateTime.parse(value.time ?? now.toString()).difference(now).abs() <
                   DateTime.parse(element.time ?? now.toString())

@@ -43,4 +43,19 @@ abstract class IAuthRepository {
     String? email,
     String? phone,
   });
+
+  Future<Result<BasicResponse>> sendCode({
+    required String email,
+  });
+  
+  Future<Result<BasicResponse>> checkCode({
+    required String email,
+    required String code,
+  });
+  
+  Future<Result<BasicResponse>> newPassword({
+    required String email,
+    required String code,
+    required String password,
+  });
 }

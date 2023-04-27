@@ -50,7 +50,9 @@ class NetworkExecuter {
 
         if (responseType != null) {
           final data = _decoder.decode<K, T>(
-              response: response, responseType: responseType as BaseModel);
+            response: response,
+            responseType: responseType as BaseModel,
+          );
 
           return Result<K>.success(data);
         } else {

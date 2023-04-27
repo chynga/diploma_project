@@ -9,7 +9,6 @@ import 'package:dental_plaza/features/app/widgets/showcase_for_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:showcaseview/showcaseview.dart';
 
 // ignore: unused_element
 const _tag = 'Base';
@@ -124,8 +123,9 @@ class _BaseState extends State<Base> with TickerProviderStateMixin {
                                     const SizedBox(
                                       width: 4,
                                     ),
-                                     Text(
-                                      context.localized.getAnswersToYourQuestions,
+                                    Text(
+                                      context
+                                          .localized.getAnswersToYourQuestions,
                                       style: AppTextStyles.m16w700White,
                                     ),
                                   ],
@@ -157,7 +157,7 @@ class _BaseState extends State<Base> with TickerProviderStateMixin {
                                     const SizedBox(
                                       width: 4,
                                     ),
-                                     Text(
+                                    Text(
                                       context.localized.brushYourTeethWithUs,
                                       style: AppTextStyles.m16w700White,
                                     ),
@@ -186,8 +186,8 @@ class _BaseState extends State<Base> with TickerProviderStateMixin {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-                                     Text(
-                                       context.localized.signUpForAnAppointment,
+                                    Text(
+                                      context.localized.signUpForAnAppointment,
                                       style: AppTextStyles.m16w700White,
                                     ),
                                     const SizedBox(
@@ -220,7 +220,7 @@ class _BaseState extends State<Base> with TickerProviderStateMixin {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-                                     Text(
+                                    Text(
                                       context.localized.personalArea,
                                       style: AppTextStyles.m16w700White,
                                     ),

@@ -27,8 +27,12 @@ class RecordsCubit extends Cubit<RecordsState> {
             myRecords.add(data[i]);
           }
         }
-        emit(RecordsState.loadedState(
-            myRecords: myRecords, pastRecords: pastRecords));
+        emit(
+          RecordsState.loadedState(
+            myRecords: myRecords,
+            pastRecords: pastRecords,
+          ),
+        );
       },
       failure: (error) => emit(
         RecordsState.errorState(
