@@ -21,6 +21,7 @@ mixin _$MainApi {
     required TResult Function() service,
     required TResult Function() doctor,
     required TResult Function(String id) doctorWithId,
+    required TResult Function() chat,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -28,6 +29,7 @@ mixin _$MainApi {
     TResult? Function()? service,
     TResult? Function()? doctor,
     TResult? Function(String id)? doctorWithId,
+    TResult? Function()? chat,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -35,6 +37,7 @@ mixin _$MainApi {
     TResult Function()? service,
     TResult Function()? doctor,
     TResult Function(String id)? doctorWithId,
+    TResult Function()? chat,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -43,6 +46,7 @@ mixin _$MainApi {
     required TResult Function(_Service value) service,
     required TResult Function(_Doctor value) doctor,
     required TResult Function(_DoctorWithId value) doctorWithId,
+    required TResult Function(_Chat value) chat,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -50,6 +54,7 @@ mixin _$MainApi {
     TResult? Function(_Service value)? service,
     TResult? Function(_Doctor value)? doctor,
     TResult? Function(_DoctorWithId value)? doctorWithId,
+    TResult? Function(_Chat value)? chat,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -57,6 +62,7 @@ mixin _$MainApi {
     TResult Function(_Service value)? service,
     TResult Function(_Doctor value)? doctor,
     TResult Function(_DoctorWithId value)? doctorWithId,
+    TResult Function(_Chat value)? chat,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -119,6 +125,7 @@ class _$_Service extends _Service {
     required TResult Function() service,
     required TResult Function() doctor,
     required TResult Function(String id) doctorWithId,
+    required TResult Function() chat,
   }) {
     return service();
   }
@@ -129,6 +136,7 @@ class _$_Service extends _Service {
     TResult? Function()? service,
     TResult? Function()? doctor,
     TResult? Function(String id)? doctorWithId,
+    TResult? Function()? chat,
   }) {
     return service?.call();
   }
@@ -139,6 +147,7 @@ class _$_Service extends _Service {
     TResult Function()? service,
     TResult Function()? doctor,
     TResult Function(String id)? doctorWithId,
+    TResult Function()? chat,
     required TResult orElse(),
   }) {
     if (service != null) {
@@ -153,6 +162,7 @@ class _$_Service extends _Service {
     required TResult Function(_Service value) service,
     required TResult Function(_Doctor value) doctor,
     required TResult Function(_DoctorWithId value) doctorWithId,
+    required TResult Function(_Chat value) chat,
   }) {
     return service(this);
   }
@@ -163,6 +173,7 @@ class _$_Service extends _Service {
     TResult? Function(_Service value)? service,
     TResult? Function(_Doctor value)? doctor,
     TResult? Function(_DoctorWithId value)? doctorWithId,
+    TResult? Function(_Chat value)? chat,
   }) {
     return service?.call(this);
   }
@@ -173,6 +184,7 @@ class _$_Service extends _Service {
     TResult Function(_Service value)? service,
     TResult Function(_Doctor value)? doctor,
     TResult Function(_DoctorWithId value)? doctorWithId,
+    TResult Function(_Chat value)? chat,
     required TResult orElse(),
   }) {
     if (service != null) {
@@ -226,6 +238,7 @@ class _$_Doctor extends _Doctor {
     required TResult Function() service,
     required TResult Function() doctor,
     required TResult Function(String id) doctorWithId,
+    required TResult Function() chat,
   }) {
     return doctor();
   }
@@ -236,6 +249,7 @@ class _$_Doctor extends _Doctor {
     TResult? Function()? service,
     TResult? Function()? doctor,
     TResult? Function(String id)? doctorWithId,
+    TResult? Function()? chat,
   }) {
     return doctor?.call();
   }
@@ -246,6 +260,7 @@ class _$_Doctor extends _Doctor {
     TResult Function()? service,
     TResult Function()? doctor,
     TResult Function(String id)? doctorWithId,
+    TResult Function()? chat,
     required TResult orElse(),
   }) {
     if (doctor != null) {
@@ -260,6 +275,7 @@ class _$_Doctor extends _Doctor {
     required TResult Function(_Service value) service,
     required TResult Function(_Doctor value) doctor,
     required TResult Function(_DoctorWithId value) doctorWithId,
+    required TResult Function(_Chat value) chat,
   }) {
     return doctor(this);
   }
@@ -270,6 +286,7 @@ class _$_Doctor extends _Doctor {
     TResult? Function(_Service value)? service,
     TResult? Function(_Doctor value)? doctor,
     TResult? Function(_DoctorWithId value)? doctorWithId,
+    TResult? Function(_Chat value)? chat,
   }) {
     return doctor?.call(this);
   }
@@ -280,6 +297,7 @@ class _$_Doctor extends _Doctor {
     TResult Function(_Service value)? service,
     TResult Function(_Doctor value)? doctor,
     TResult Function(_DoctorWithId value)? doctorWithId,
+    TResult Function(_Chat value)? chat,
     required TResult orElse(),
   }) {
     if (doctor != null) {
@@ -361,6 +379,7 @@ class _$_DoctorWithId extends _DoctorWithId {
     required TResult Function() service,
     required TResult Function() doctor,
     required TResult Function(String id) doctorWithId,
+    required TResult Function() chat,
   }) {
     return doctorWithId(id);
   }
@@ -371,6 +390,7 @@ class _$_DoctorWithId extends _DoctorWithId {
     TResult? Function()? service,
     TResult? Function()? doctor,
     TResult? Function(String id)? doctorWithId,
+    TResult? Function()? chat,
   }) {
     return doctorWithId?.call(id);
   }
@@ -381,6 +401,7 @@ class _$_DoctorWithId extends _DoctorWithId {
     TResult Function()? service,
     TResult Function()? doctor,
     TResult Function(String id)? doctorWithId,
+    TResult Function()? chat,
     required TResult orElse(),
   }) {
     if (doctorWithId != null) {
@@ -395,6 +416,7 @@ class _$_DoctorWithId extends _DoctorWithId {
     required TResult Function(_Service value) service,
     required TResult Function(_Doctor value) doctor,
     required TResult Function(_DoctorWithId value) doctorWithId,
+    required TResult Function(_Chat value) chat,
   }) {
     return doctorWithId(this);
   }
@@ -405,6 +427,7 @@ class _$_DoctorWithId extends _DoctorWithId {
     TResult? Function(_Service value)? service,
     TResult? Function(_Doctor value)? doctor,
     TResult? Function(_DoctorWithId value)? doctorWithId,
+    TResult? Function(_Chat value)? chat,
   }) {
     return doctorWithId?.call(this);
   }
@@ -415,6 +438,7 @@ class _$_DoctorWithId extends _DoctorWithId {
     TResult Function(_Service value)? service,
     TResult Function(_Doctor value)? doctor,
     TResult Function(_DoctorWithId value)? doctorWithId,
+    TResult Function(_Chat value)? chat,
     required TResult orElse(),
   }) {
     if (doctorWithId != null) {
@@ -432,4 +456,116 @@ abstract class _DoctorWithId extends MainApi {
   @JsonKey(ignore: true)
   _$$_DoctorWithIdCopyWith<_$_DoctorWithId> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_ChatCopyWith<$Res> {
+  factory _$$_ChatCopyWith(_$_Chat value, $Res Function(_$_Chat) then) =
+      __$$_ChatCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_ChatCopyWithImpl<$Res> extends _$MainApiCopyWithImpl<$Res, _$_Chat>
+    implements _$$_ChatCopyWith<$Res> {
+  __$$_ChatCopyWithImpl(_$_Chat _value, $Res Function(_$_Chat) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_Chat extends _Chat {
+  const _$_Chat() : super._();
+
+  @override
+  String toString() {
+    return 'MainApi.chat()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_Chat);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() service,
+    required TResult Function() doctor,
+    required TResult Function(String id) doctorWithId,
+    required TResult Function() chat,
+  }) {
+    return chat();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? service,
+    TResult? Function()? doctor,
+    TResult? Function(String id)? doctorWithId,
+    TResult? Function()? chat,
+  }) {
+    return chat?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? service,
+    TResult Function()? doctor,
+    TResult Function(String id)? doctorWithId,
+    TResult Function()? chat,
+    required TResult orElse(),
+  }) {
+    if (chat != null) {
+      return chat();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Service value) service,
+    required TResult Function(_Doctor value) doctor,
+    required TResult Function(_DoctorWithId value) doctorWithId,
+    required TResult Function(_Chat value) chat,
+  }) {
+    return chat(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Service value)? service,
+    TResult? Function(_Doctor value)? doctor,
+    TResult? Function(_DoctorWithId value)? doctorWithId,
+    TResult? Function(_Chat value)? chat,
+  }) {
+    return chat?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Service value)? service,
+    TResult Function(_Doctor value)? doctor,
+    TResult Function(_DoctorWithId value)? doctorWithId,
+    TResult Function(_Chat value)? chat,
+    required TResult orElse(),
+  }) {
+    if (chat != null) {
+      return chat(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Chat extends MainApi {
+  const factory _Chat() = _$_Chat;
+  const _Chat._() : super._();
 }

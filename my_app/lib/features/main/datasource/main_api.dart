@@ -17,6 +17,8 @@ class MainApi extends BaseClientGenerator with _$MainApi {
     required String id,
   }) = _DoctorWithId;
 
+  const factory MainApi.chat() = _Chat;
+
   /// body
   /// По умолчанию null
   @override
@@ -37,6 +39,7 @@ class MainApi extends BaseClientGenerator with _$MainApi {
         service: () => '/api/services',
         doctor: () => '/api/doctors/available',
         doctorWithId: (id) => '/api/doctors/$id',
+        chat: () => '/api/consultation/my',
       );
 
   /// Параметры запросов

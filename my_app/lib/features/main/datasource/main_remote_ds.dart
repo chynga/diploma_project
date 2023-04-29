@@ -1,6 +1,7 @@
 import 'package:dental_plaza/core/error/network_exception.dart';
 import 'package:dental_plaza/core/network/layers/network_executer.dart';
 import 'package:dental_plaza/core/network/result.dart';
+import 'package:dental_plaza/features/chat/model/message_dto.dart';
 import 'package:dental_plaza/features/main/datasource/main_api.dart';
 import 'package:dental_plaza/features/main/model/doctor_dto.dart';
 import 'package:dental_plaza/features/main/model/service_dto.dart';
@@ -10,6 +11,7 @@ import 'package:l/l.dart';
 abstract class IMainRemoteDS {
   Future<Result<List<ServiceDTO>>> getServices();
   Future<Result<List<DoctorDTO>>> getDoctors();
+  Future<Result<List<MessageDTO>>> getMessages();
 }
 
 class MainRemoteDSImpl extends IMainRemoteDS {
@@ -80,6 +82,40 @@ class MainRemoteDSImpl extends IMainRemoteDS {
         l.d('getServices => ${NetworkException.type(error: e.toString())}');
       }
       return Result<List<ServiceDTO>>.failure(
+        NetworkException.type(error: e.toString()),
+      );
+    }
+  }
+
+  @override
+  Future<Result<List<MessageDTO>>> getMessages() async {
+    try {
+      final Result<Map?> result = await client.produce(
+        route: const MainApi.chat(),
+      );
+
+      return result.when(
+        success: (Map? response) {
+          if (response == null) {
+            return const Result.failure(
+              NetworkException.type(error: 'Incorrect data parsing!'),
+            );
+          }
+
+          final List<MessageDTO> services = (response['messages'] as List)
+              .map((e) => MessageDTO.fromJson(e as Map<String, dynamic>))
+              .toList();
+
+          return Result<List<MessageDTO>>.success(services);
+        },
+        failure: (NetworkException exception) =>
+            Result<List<MessageDTO>>.failure(exception),
+      );
+    } catch (e) {
+      if (kDebugMode) {
+        l.d('getServices => ${NetworkException.type(error: e.toString())}');
+      }
+      return Result<List<MessageDTO>>.failure(
         NetworkException.type(error: e.toString()),
       );
     }

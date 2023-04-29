@@ -8,6 +8,7 @@ import 'package:dental_plaza/features/app/widgets/custom/custom_app_bar.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_buttons/custom_button.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_snackbars.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_switch_button.dart';
+import 'package:dental_plaza/features/chat/bloc/chat_cubit.dart';
 import 'package:dental_plaza/features/profile/bloc/health_info_cubit.dart';
 import 'package:dental_plaza/features/profile/bloc/profile_cubit.dart';
 import 'package:dental_plaza/features/profile/widgets/set_language_profile_widget.dart';
@@ -149,6 +150,7 @@ class _ProfilePageState extends State<ProfilePage> {
               style: AppTextStyles.m16w400.copyWith(color: AppColors.kWhite),
             ),
             onClick: () {
+              BlocProvider.of<ChatCubit>(context).closeWebSocket();
               BlocProvider.of<AppBLoC>(context).add(const AppEvent.exiting());
             },
             style: redButtonStyle(radius: 20),
@@ -182,7 +184,10 @@ class PersonalCardWidget extends StatelessWidget {
             const SizedBox(
               height: 12,
             ),
-            Text(state.whenOrNull(loadedState: (healthInfo) => healthInfo.allergy,)??""),
+            Text(state.whenOrNull(
+                  loadedState: (healthInfo) => healthInfo.allergy,
+                ) ??
+                ""),
             const SizedBox(
               height: 25,
             ),
@@ -193,7 +198,10 @@ class PersonalCardWidget extends StatelessWidget {
             const SizedBox(
               height: 12,
             ),
-            Text(state.whenOrNull(loadedState: (healthInfo) => healthInfo.prescribedMedications,)??""),
+            Text(state.whenOrNull(
+                  loadedState: (healthInfo) => healthInfo.prescribedMedications,
+                ) ??
+                ""),
           ],
         );
       },

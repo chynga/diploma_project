@@ -141,4 +141,18 @@ class AuthRepositoryImpl extends IAuthRepository {
       responseType: BasicResponse(),
     );
   }
+
+  @override
+  Future<UserDTO?> getUserFromCache() async {
+    try {
+      if (_authDao.user.value != null) {
+        final UserDTO user = UserDTO.fromJson(
+            jsonDecode(_authDao.user.value!) as Map<String, dynamic>);
+        return user;
+      }
+    } on Exception catch (e) {
+      log(e.toString());
+    }
+    return null;
+  }
 }

@@ -58,4 +58,7 @@ abstract class IAuthRepository {
     required String code,
     required String password,
   });
+  
+
+  Future<UserDTO?> getUserFromCache();
 }

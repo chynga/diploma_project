@@ -83,9 +83,9 @@ mixin AppGradients {
   static const LinearGradient primaryGradient2 =
       LinearGradient(colors: [Color(0xff6A74CC), Color(0xff7F65D9)]);
   static const LinearGradient primaryGradient2Opacity20 =
-      LinearGradient(colors: [Color(0xffE4E1F7), Color(0xffE2E3F5)]);
+      LinearGradient(colors: [Color(0xffE4E1F7), Color.fromARGB(255, 226, 239, 245)]);
   static const LinearGradient primaryGradient3 =
-      LinearGradient(colors: [Color(0xff64B5FF), Color(0xff4150DE)]);
+      LinearGradient(colors: [Color.fromARGB(255, 81, 157, 227), Color.fromARGB(255, 101, 113, 222)]);
   static const LinearGradient primaryGradient5 =
       LinearGradient(colors: [Color(0xff8063D4), Color(0xff7271F2)]);
   static const LinearGradient primaryGradient6 = LinearGradient(

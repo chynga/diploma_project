@@ -10,3 +10,4 @@
 // }
 
 const String kBaseUrl = 'https://guarded-dusk-40061.herokuapp.com';
+const String kBaseUrlWSocket = 'wss://guarded-dusk-40061.herokuapp.com';
