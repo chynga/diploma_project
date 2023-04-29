@@ -21,6 +21,7 @@ mixin _$ChatState {
     required TResult Function() initialState,
     required TResult Function(List<MessageDTO> messages) loadedState,
     required TResult Function(List<MessageDTO> messages) newMessageState,
+    required TResult Function(List<MessageDTO> messages) readMessageState,
     required TResult Function() loadingState,
     required TResult Function(String message) errorState,
   }) =>
@@ -30,6 +31,7 @@ mixin _$ChatState {
     TResult? Function()? initialState,
     TResult? Function(List<MessageDTO> messages)? loadedState,
     TResult? Function(List<MessageDTO> messages)? newMessageState,
+    TResult? Function(List<MessageDTO> messages)? readMessageState,
     TResult? Function()? loadingState,
     TResult? Function(String message)? errorState,
   }) =>
@@ -39,6 +41,7 @@ mixin _$ChatState {
     TResult Function()? initialState,
     TResult Function(List<MessageDTO> messages)? loadedState,
     TResult Function(List<MessageDTO> messages)? newMessageState,
+    TResult Function(List<MessageDTO> messages)? readMessageState,
     TResult Function()? loadingState,
     TResult Function(String message)? errorState,
     required TResult orElse(),
@@ -49,6 +52,7 @@ mixin _$ChatState {
     required TResult Function(_InitialState value) initialState,
     required TResult Function(_LoadedState value) loadedState,
     required TResult Function(_NewMessageState value) newMessageState,
+    required TResult Function(_ReadMessageState value) readMessageState,
     required TResult Function(_LoadingState value) loadingState,
     required TResult Function(_ErrorState value) errorState,
   }) =>
@@ -58,6 +62,7 @@ mixin _$ChatState {
     TResult? Function(_InitialState value)? initialState,
     TResult? Function(_LoadedState value)? loadedState,
     TResult? Function(_NewMessageState value)? newMessageState,
+    TResult? Function(_ReadMessageState value)? readMessageState,
     TResult? Function(_LoadingState value)? loadingState,
     TResult? Function(_ErrorState value)? errorState,
   }) =>
@@ -67,6 +72,7 @@ mixin _$ChatState {
     TResult Function(_InitialState value)? initialState,
     TResult Function(_LoadedState value)? loadedState,
     TResult Function(_NewMessageState value)? newMessageState,
+    TResult Function(_ReadMessageState value)? readMessageState,
     TResult Function(_LoadingState value)? loadingState,
     TResult Function(_ErrorState value)? errorState,
     required TResult orElse(),
@@ -132,6 +138,7 @@ class _$_InitialState implements _InitialState {
     required TResult Function() initialState,
     required TResult Function(List<MessageDTO> messages) loadedState,
     required TResult Function(List<MessageDTO> messages) newMessageState,
+    required TResult Function(List<MessageDTO> messages) readMessageState,
     required TResult Function() loadingState,
     required TResult Function(String message) errorState,
   }) {
@@ -144,6 +151,7 @@ class _$_InitialState implements _InitialState {
     TResult? Function()? initialState,
     TResult? Function(List<MessageDTO> messages)? loadedState,
     TResult? Function(List<MessageDTO> messages)? newMessageState,
+    TResult? Function(List<MessageDTO> messages)? readMessageState,
     TResult? Function()? loadingState,
     TResult? Function(String message)? errorState,
   }) {
@@ -156,6 +164,7 @@ class _$_InitialState implements _InitialState {
     TResult Function()? initialState,
     TResult Function(List<MessageDTO> messages)? loadedState,
     TResult Function(List<MessageDTO> messages)? newMessageState,
+    TResult Function(List<MessageDTO> messages)? readMessageState,
     TResult Function()? loadingState,
     TResult Function(String message)? errorState,
     required TResult orElse(),
@@ -172,6 +181,7 @@ class _$_InitialState implements _InitialState {
     required TResult Function(_InitialState value) initialState,
     required TResult Function(_LoadedState value) loadedState,
     required TResult Function(_NewMessageState value) newMessageState,
+    required TResult Function(_ReadMessageState value) readMessageState,
     required TResult Function(_LoadingState value) loadingState,
     required TResult Function(_ErrorState value) errorState,
   }) {
@@ -184,6 +194,7 @@ class _$_InitialState implements _InitialState {
     TResult? Function(_InitialState value)? initialState,
     TResult? Function(_LoadedState value)? loadedState,
     TResult? Function(_NewMessageState value)? newMessageState,
+    TResult? Function(_ReadMessageState value)? readMessageState,
     TResult? Function(_LoadingState value)? loadingState,
     TResult? Function(_ErrorState value)? errorState,
   }) {
@@ -196,6 +207,7 @@ class _$_InitialState implements _InitialState {
     TResult Function(_InitialState value)? initialState,
     TResult Function(_LoadedState value)? loadedState,
     TResult Function(_NewMessageState value)? newMessageState,
+    TResult Function(_ReadMessageState value)? readMessageState,
     TResult Function(_LoadingState value)? loadingState,
     TResult Function(_ErrorState value)? errorState,
     required TResult orElse(),
@@ -285,6 +297,7 @@ class _$_LoadedState implements _LoadedState {
     required TResult Function() initialState,
     required TResult Function(List<MessageDTO> messages) loadedState,
     required TResult Function(List<MessageDTO> messages) newMessageState,
+    required TResult Function(List<MessageDTO> messages) readMessageState,
     required TResult Function() loadingState,
     required TResult Function(String message) errorState,
   }) {
@@ -297,6 +310,7 @@ class _$_LoadedState implements _LoadedState {
     TResult? Function()? initialState,
     TResult? Function(List<MessageDTO> messages)? loadedState,
     TResult? Function(List<MessageDTO> messages)? newMessageState,
+    TResult? Function(List<MessageDTO> messages)? readMessageState,
     TResult? Function()? loadingState,
     TResult? Function(String message)? errorState,
   }) {
@@ -309,6 +323,7 @@ class _$_LoadedState implements _LoadedState {
     TResult Function()? initialState,
     TResult Function(List<MessageDTO> messages)? loadedState,
     TResult Function(List<MessageDTO> messages)? newMessageState,
+    TResult Function(List<MessageDTO> messages)? readMessageState,
     TResult Function()? loadingState,
     TResult Function(String message)? errorState,
     required TResult orElse(),
@@ -325,6 +340,7 @@ class _$_LoadedState implements _LoadedState {
     required TResult Function(_InitialState value) initialState,
     required TResult Function(_LoadedState value) loadedState,
     required TResult Function(_NewMessageState value) newMessageState,
+    required TResult Function(_ReadMessageState value) readMessageState,
     required TResult Function(_LoadingState value) loadingState,
     required TResult Function(_ErrorState value) errorState,
   }) {
@@ -337,6 +353,7 @@ class _$_LoadedState implements _LoadedState {
     TResult? Function(_InitialState value)? initialState,
     TResult? Function(_LoadedState value)? loadedState,
     TResult? Function(_NewMessageState value)? newMessageState,
+    TResult? Function(_ReadMessageState value)? readMessageState,
     TResult? Function(_LoadingState value)? loadingState,
     TResult? Function(_ErrorState value)? errorState,
   }) {
@@ -349,6 +366,7 @@ class _$_LoadedState implements _LoadedState {
     TResult Function(_InitialState value)? initialState,
     TResult Function(_LoadedState value)? loadedState,
     TResult Function(_NewMessageState value)? newMessageState,
+    TResult Function(_ReadMessageState value)? readMessageState,
     TResult Function(_LoadingState value)? loadingState,
     TResult Function(_ErrorState value)? errorState,
     required TResult orElse(),
@@ -444,6 +462,7 @@ class _$_NewMessageState implements _NewMessageState {
     required TResult Function() initialState,
     required TResult Function(List<MessageDTO> messages) loadedState,
     required TResult Function(List<MessageDTO> messages) newMessageState,
+    required TResult Function(List<MessageDTO> messages) readMessageState,
     required TResult Function() loadingState,
     required TResult Function(String message) errorState,
   }) {
@@ -456,6 +475,7 @@ class _$_NewMessageState implements _NewMessageState {
     TResult? Function()? initialState,
     TResult? Function(List<MessageDTO> messages)? loadedState,
     TResult? Function(List<MessageDTO> messages)? newMessageState,
+    TResult? Function(List<MessageDTO> messages)? readMessageState,
     TResult? Function()? loadingState,
     TResult? Function(String message)? errorState,
   }) {
@@ -468,6 +488,7 @@ class _$_NewMessageState implements _NewMessageState {
     TResult Function()? initialState,
     TResult Function(List<MessageDTO> messages)? loadedState,
     TResult Function(List<MessageDTO> messages)? newMessageState,
+    TResult Function(List<MessageDTO> messages)? readMessageState,
     TResult Function()? loadingState,
     TResult Function(String message)? errorState,
     required TResult orElse(),
@@ -484,6 +505,7 @@ class _$_NewMessageState implements _NewMessageState {
     required TResult Function(_InitialState value) initialState,
     required TResult Function(_LoadedState value) loadedState,
     required TResult Function(_NewMessageState value) newMessageState,
+    required TResult Function(_ReadMessageState value) readMessageState,
     required TResult Function(_LoadingState value) loadingState,
     required TResult Function(_ErrorState value) errorState,
   }) {
@@ -496,6 +518,7 @@ class _$_NewMessageState implements _NewMessageState {
     TResult? Function(_InitialState value)? initialState,
     TResult? Function(_LoadedState value)? loadedState,
     TResult? Function(_NewMessageState value)? newMessageState,
+    TResult? Function(_ReadMessageState value)? readMessageState,
     TResult? Function(_LoadingState value)? loadingState,
     TResult? Function(_ErrorState value)? errorState,
   }) {
@@ -508,6 +531,7 @@ class _$_NewMessageState implements _NewMessageState {
     TResult Function(_InitialState value)? initialState,
     TResult Function(_LoadedState value)? loadedState,
     TResult Function(_NewMessageState value)? newMessageState,
+    TResult Function(_ReadMessageState value)? readMessageState,
     TResult Function(_LoadingState value)? loadingState,
     TResult Function(_ErrorState value)? errorState,
     required TResult orElse(),
@@ -526,6 +550,171 @@ abstract class _NewMessageState implements ChatState {
   List<MessageDTO> get messages;
   @JsonKey(ignore: true)
   _$$_NewMessageStateCopyWith<_$_NewMessageState> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_ReadMessageStateCopyWith<$Res> {
+  factory _$$_ReadMessageStateCopyWith(
+          _$_ReadMessageState value, $Res Function(_$_ReadMessageState) then) =
+      __$$_ReadMessageStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<MessageDTO> messages});
+}
+
+/// @nodoc
+class __$$_ReadMessageStateCopyWithImpl<$Res>
+    extends _$ChatStateCopyWithImpl<$Res, _$_ReadMessageState>
+    implements _$$_ReadMessageStateCopyWith<$Res> {
+  __$$_ReadMessageStateCopyWithImpl(
+      _$_ReadMessageState _value, $Res Function(_$_ReadMessageState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? messages = null,
+  }) {
+    return _then(_$_ReadMessageState(
+      messages: null == messages
+          ? _value._messages
+          : messages // ignore: cast_nullable_to_non_nullable
+              as List<MessageDTO>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_ReadMessageState implements _ReadMessageState {
+  const _$_ReadMessageState({required final List<MessageDTO> messages})
+      : _messages = messages;
+
+  final List<MessageDTO> _messages;
+  @override
+  List<MessageDTO> get messages {
+    if (_messages is EqualUnmodifiableListView) return _messages;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_messages);
+  }
+
+  @override
+  String toString() {
+    return 'ChatState.readMessageState(messages: $messages)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_ReadMessageState &&
+            const DeepCollectionEquality().equals(other._messages, _messages));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_messages));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_ReadMessageStateCopyWith<_$_ReadMessageState> get copyWith =>
+      __$$_ReadMessageStateCopyWithImpl<_$_ReadMessageState>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initialState,
+    required TResult Function(List<MessageDTO> messages) loadedState,
+    required TResult Function(List<MessageDTO> messages) newMessageState,
+    required TResult Function(List<MessageDTO> messages) readMessageState,
+    required TResult Function() loadingState,
+    required TResult Function(String message) errorState,
+  }) {
+    return readMessageState(messages);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initialState,
+    TResult? Function(List<MessageDTO> messages)? loadedState,
+    TResult? Function(List<MessageDTO> messages)? newMessageState,
+    TResult? Function(List<MessageDTO> messages)? readMessageState,
+    TResult? Function()? loadingState,
+    TResult? Function(String message)? errorState,
+  }) {
+    return readMessageState?.call(messages);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initialState,
+    TResult Function(List<MessageDTO> messages)? loadedState,
+    TResult Function(List<MessageDTO> messages)? newMessageState,
+    TResult Function(List<MessageDTO> messages)? readMessageState,
+    TResult Function()? loadingState,
+    TResult Function(String message)? errorState,
+    required TResult orElse(),
+  }) {
+    if (readMessageState != null) {
+      return readMessageState(messages);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_InitialState value) initialState,
+    required TResult Function(_LoadedState value) loadedState,
+    required TResult Function(_NewMessageState value) newMessageState,
+    required TResult Function(_ReadMessageState value) readMessageState,
+    required TResult Function(_LoadingState value) loadingState,
+    required TResult Function(_ErrorState value) errorState,
+  }) {
+    return readMessageState(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_InitialState value)? initialState,
+    TResult? Function(_LoadedState value)? loadedState,
+    TResult? Function(_NewMessageState value)? newMessageState,
+    TResult? Function(_ReadMessageState value)? readMessageState,
+    TResult? Function(_LoadingState value)? loadingState,
+    TResult? Function(_ErrorState value)? errorState,
+  }) {
+    return readMessageState?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_InitialState value)? initialState,
+    TResult Function(_LoadedState value)? loadedState,
+    TResult Function(_NewMessageState value)? newMessageState,
+    TResult Function(_ReadMessageState value)? readMessageState,
+    TResult Function(_LoadingState value)? loadingState,
+    TResult Function(_ErrorState value)? errorState,
+    required TResult orElse(),
+  }) {
+    if (readMessageState != null) {
+      return readMessageState(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ReadMessageState implements ChatState {
+  const factory _ReadMessageState({required final List<MessageDTO> messages}) =
+      _$_ReadMessageState;
+
+  List<MessageDTO> get messages;
+  @JsonKey(ignore: true)
+  _$$_ReadMessageStateCopyWith<_$_ReadMessageState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -570,6 +759,7 @@ class _$_LoadingState implements _LoadingState {
     required TResult Function() initialState,
     required TResult Function(List<MessageDTO> messages) loadedState,
     required TResult Function(List<MessageDTO> messages) newMessageState,
+    required TResult Function(List<MessageDTO> messages) readMessageState,
     required TResult Function() loadingState,
     required TResult Function(String message) errorState,
   }) {
@@ -582,6 +772,7 @@ class _$_LoadingState implements _LoadingState {
     TResult? Function()? initialState,
     TResult? Function(List<MessageDTO> messages)? loadedState,
     TResult? Function(List<MessageDTO> messages)? newMessageState,
+    TResult? Function(List<MessageDTO> messages)? readMessageState,
     TResult? Function()? loadingState,
     TResult? Function(String message)? errorState,
   }) {
@@ -594,6 +785,7 @@ class _$_LoadingState implements _LoadingState {
     TResult Function()? initialState,
     TResult Function(List<MessageDTO> messages)? loadedState,
     TResult Function(List<MessageDTO> messages)? newMessageState,
+    TResult Function(List<MessageDTO> messages)? readMessageState,
     TResult Function()? loadingState,
     TResult Function(String message)? errorState,
     required TResult orElse(),
@@ -610,6 +802,7 @@ class _$_LoadingState implements _LoadingState {
     required TResult Function(_InitialState value) initialState,
     required TResult Function(_LoadedState value) loadedState,
     required TResult Function(_NewMessageState value) newMessageState,
+    required TResult Function(_ReadMessageState value) readMessageState,
     required TResult Function(_LoadingState value) loadingState,
     required TResult Function(_ErrorState value) errorState,
   }) {
@@ -622,6 +815,7 @@ class _$_LoadingState implements _LoadingState {
     TResult? Function(_InitialState value)? initialState,
     TResult? Function(_LoadedState value)? loadedState,
     TResult? Function(_NewMessageState value)? newMessageState,
+    TResult? Function(_ReadMessageState value)? readMessageState,
     TResult? Function(_LoadingState value)? loadingState,
     TResult? Function(_ErrorState value)? errorState,
   }) {
@@ -634,6 +828,7 @@ class _$_LoadingState implements _LoadingState {
     TResult Function(_InitialState value)? initialState,
     TResult Function(_LoadedState value)? loadedState,
     TResult Function(_NewMessageState value)? newMessageState,
+    TResult Function(_ReadMessageState value)? readMessageState,
     TResult Function(_LoadingState value)? loadingState,
     TResult Function(_ErrorState value)? errorState,
     required TResult orElse(),
@@ -716,6 +911,7 @@ class _$_ErrorState implements _ErrorState {
     required TResult Function() initialState,
     required TResult Function(List<MessageDTO> messages) loadedState,
     required TResult Function(List<MessageDTO> messages) newMessageState,
+    required TResult Function(List<MessageDTO> messages) readMessageState,
     required TResult Function() loadingState,
     required TResult Function(String message) errorState,
   }) {
@@ -728,6 +924,7 @@ class _$_ErrorState implements _ErrorState {
     TResult? Function()? initialState,
     TResult? Function(List<MessageDTO> messages)? loadedState,
     TResult? Function(List<MessageDTO> messages)? newMessageState,
+    TResult? Function(List<MessageDTO> messages)? readMessageState,
     TResult? Function()? loadingState,
     TResult? Function(String message)? errorState,
   }) {
@@ -740,6 +937,7 @@ class _$_ErrorState implements _ErrorState {
     TResult Function()? initialState,
     TResult Function(List<MessageDTO> messages)? loadedState,
     TResult Function(List<MessageDTO> messages)? newMessageState,
+    TResult Function(List<MessageDTO> messages)? readMessageState,
     TResult Function()? loadingState,
     TResult Function(String message)? errorState,
     required TResult orElse(),
@@ -756,6 +954,7 @@ class _$_ErrorState implements _ErrorState {
     required TResult Function(_InitialState value) initialState,
     required TResult Function(_LoadedState value) loadedState,
     required TResult Function(_NewMessageState value) newMessageState,
+    required TResult Function(_ReadMessageState value) readMessageState,
     required TResult Function(_LoadingState value) loadingState,
     required TResult Function(_ErrorState value) errorState,
   }) {
@@ -768,6 +967,7 @@ class _$_ErrorState implements _ErrorState {
     TResult? Function(_InitialState value)? initialState,
     TResult? Function(_LoadedState value)? loadedState,
     TResult? Function(_NewMessageState value)? newMessageState,
+    TResult? Function(_ReadMessageState value)? readMessageState,
     TResult? Function(_LoadingState value)? loadingState,
     TResult? Function(_ErrorState value)? errorState,
   }) {
@@ -780,6 +980,7 @@ class _$_ErrorState implements _ErrorState {
     TResult Function(_InitialState value)? initialState,
     TResult Function(_LoadedState value)? loadedState,
     TResult Function(_NewMessageState value)? newMessageState,
+    TResult Function(_ReadMessageState value)? readMessageState,
     TResult Function(_LoadingState value)? loadingState,
     TResult Function(_ErrorState value)? errorState,
     required TResult orElse(),

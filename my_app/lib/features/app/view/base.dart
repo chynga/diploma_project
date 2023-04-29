@@ -6,6 +6,7 @@ import 'package:dental_plaza/core/resources/resources.dart';
 import 'package:dental_plaza/features/app/bloc/app_bloc.dart';
 import 'package:dental_plaza/features/app/router/app_router.dart';
 import 'package:dental_plaza/features/app/widgets/showcase_for_nav_bar.dart';
+import 'package:dental_plaza/features/chat/bloc/chat_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -91,6 +92,9 @@ class _BaseState extends State<Base> with TickerProviderStateMixin {
                             tabsRouter.popTop();
                           } else {
                             tabsRouter.setActiveIndex(value);
+                            if (value == 1) {
+                              BlocProvider.of<ChatCubit>(context).readMessage();
+                            }
                           }
                         },
                         indicatorColor: Colors.transparent,
@@ -132,12 +136,26 @@ class _BaseState extends State<Base> with TickerProviderStateMixin {
                                 ),
                               ),
                             ),
-                            child: CustomTabWidget(
-                              icon: Assets.icons.icChat.path,
-                              activeIcon: Assets.icons.icChatFilled.path,
-                              title: context.localized.chat,
-                              currentIndex: tabsRouter.activeIndex,
-                              tabIndex: 1,
+                            child: BlocBuilder<ChatCubit, ChatState>(
+                              buildWhen: (previous, current) =>
+                                  previous.maybeWhen(
+                                newMessageState: (messages) => false,
+                                orElse: () => true,
+                              ),
+                              builder: (context, state) {
+                                return CustomTabWidget(
+                                  news: tabController?.index !=1&&
+                                      (state.maybeMap(
+                                        newMessageState: (value) => true,
+                                        orElse: () => false,
+                                      )),
+                                  icon: Assets.icons.icChat.path,
+                                  activeIcon: Assets.icons.icChatFilled.path,
+                                  title: context.localized.chat,
+                                  currentIndex: tabsRouter.activeIndex,
+                                  tabIndex: 1,
+                                );
+                              },
                             ),
                           ),
                           ShowcaseForNavBar(
@@ -262,6 +280,7 @@ class CustomTabWidget extends StatelessWidget {
   final String title;
   final int currentIndex;
   final int tabIndex;
+  final bool news;
   const CustomTabWidget({
     super.key,
     required this.icon,
@@ -269,6 +288,7 @@ class CustomTabWidget extends StatelessWidget {
     required this.title,
     required this.currentIndex,
     required this.tabIndex,
+    this.news = false,
   });
 
   @override
@@ -282,7 +302,26 @@ class CustomTabWidget extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SvgPicture.asset(tabIndex == currentIndex ? activeIcon : icon),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (news)
+                    Transform.translate(
+                      offset: const Offset(10, -5),
+                      child: Container(
+                        height: 15,
+                        width: 15,
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                      ),
+                    ),
+                  SvgPicture.asset(
+                    tabIndex == currentIndex ? activeIcon : icon,
+                  ),
+                ],
+              ),
               Text(
                 title,
                 maxLines: 1,

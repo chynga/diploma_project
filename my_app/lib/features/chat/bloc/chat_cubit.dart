@@ -111,6 +111,11 @@ class ChatCubit extends Cubit<ChatState> {
     );
   }
 
+  void readMessage() {
+    emit(ChatState.readMessageState(messages: _messages));
+    emit(ChatState.loadedState(messages: _messages));
+  }
+
   @override
   Future<void> close() {
     closeWebSocket();
@@ -129,6 +134,10 @@ class ChatState with _$ChatState {
   const factory ChatState.newMessageState({
     required List<MessageDTO> messages,
   }) = _NewMessageState;
+
+  const factory ChatState.readMessageState({
+    required List<MessageDTO> messages,
+  }) = _ReadMessageState;
 
   const factory ChatState.loadingState() = _LoadingState;
 
