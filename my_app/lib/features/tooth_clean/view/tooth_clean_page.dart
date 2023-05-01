@@ -29,7 +29,7 @@ class _ToothCleanPageState extends State<ToothCleanPage> {
           padding: const EdgeInsets.symmetric(horizontal: 15),
           children: [
             const SizedBox(
-              height: 89,
+              height: 50,
             ),
             Container(
               height: 242,
@@ -43,7 +43,7 @@ class _ToothCleanPageState extends State<ToothCleanPage> {
               ),
             ),
             const SizedBox(
-              height: 127,
+              height: 70,
             ),
             const TimerWidget()
           ],
