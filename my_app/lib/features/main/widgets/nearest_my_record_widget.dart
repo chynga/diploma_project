@@ -29,13 +29,6 @@ class NearestMyRecordWidget extends StatelessWidget {
                     style: AppTextStyles.m16w700White
                         .copyWith(color: AppColors.kBlack),
                   ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    '${context.localized.nearest} 19 октября',
-                    style: AppTextStyles.m13w400,
-                  )
                 ],
               ),
             ),
