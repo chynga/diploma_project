@@ -103,6 +103,7 @@ class _TimerWidgetState extends State<TimerWidget> {
                       stopTimer();
                     } else {
                       if (myDuration.inSeconds == 0) {
+                        FlutterRingtonePlayer.stop();
                         allSeconds = 180;
                         myDuration = Duration(seconds: allSeconds);
                       }

@@ -150,7 +150,7 @@ class _ProfilePageState extends State<ProfilePage> {
               style: AppTextStyles.m16w400.copyWith(color: AppColors.kWhite),
             ),
             onClick: () {
-              BlocProvider.of<ChatCubit>(context).closeWebSocket();
+              // BlocProvider.of<ChatCubit>(context).closeWebSocket();
               BlocProvider.of<AppBLoC>(context).add(const AppEvent.exiting());
             },
             style: redButtonStyle(radius: 20),

@@ -87,7 +87,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     ),
                     editProfileRow(
                       context,
-                      context.localized.fio,
+                      context.localized.phone,
                       phoneController,
                     ),
                   ],
