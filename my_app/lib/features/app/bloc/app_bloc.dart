@@ -40,6 +40,9 @@ class AppBLoC extends Bloc<AppEvent, AppState> {
   ) async {
     final bool onboarding = _authRepository.getOnboarding();
     final bool showcase = _authRepository.getShowcase();
+    final deviceToken = _authRepository.getDeviceToken();
+
+    log(deviceToken.toString(),name: 'DEVICE_TOKEN');
     if (onboarding) {
       if (_authRepository.isAuthenticated) {
         emit(AppState.inAppState(showcase: showcase));

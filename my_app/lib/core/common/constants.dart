@@ -8,12 +8,12 @@ const NOT_FOUND_IMAGE =
 
 Widget refreshClassicHeader(BuildContext context) {
   return const ClassicHeader(
-    // completeText: context.localized.successfullyUpdated,
-    // releaseText: context.localized.update,
-    // idleText: context.localized.pullDownToRefresh,
-    // failedText: context.localized.unknownError,
-    // refreshingText: context.localized.updateDotDotDot,
-  );
+      // completeText: context.localized.successfullyUpdated,
+      // releaseText: context.localized.update,
+      // idleText: context.localized.pullDownToRefresh,
+      // failedText: context.localized.unknownError,
+      // refreshingText: context.localized.updateDotDotDot,
+      );
 }
 
 Widget refreshClassicFooter(BuildContext context) {
@@ -28,14 +28,24 @@ Widget refreshClassicFooter(BuildContext context) {
   );
 }
 
-
-  final GlobalKey one = GlobalKey();
-  final GlobalKey two = GlobalKey();
-  final GlobalKey three = GlobalKey();
-  final GlobalKey four = GlobalKey();
-  final GlobalKey five = GlobalKey();
-  final GlobalKey six = GlobalKey();
-  final GlobalKey seven = GlobalKey();
-  final GlobalKey eight = GlobalKey();
-  final GlobalKey nine = GlobalKey();
-  final GlobalKey ten = GlobalKey();
+final GlobalKey one = GlobalKey();
+final GlobalKey two = GlobalKey();
+final GlobalKey three = GlobalKey();
+final GlobalKey four = GlobalKey();
+final GlobalKey five = GlobalKey();
+final GlobalKey six = GlobalKey();
+final GlobalKey seven = GlobalKey();
+final GlobalKey eight = GlobalKey();
+final GlobalKey nine = GlobalKey();
+final GlobalKey ten = GlobalKey();
+ 
+RegExp emailRegex = RegExp(
+  r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$',
+);
+RegExp passwordRegex =
+    RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,15}$');
+RegExp nameRegex = RegExp('[^s0-9]{3,15}');
+RegExp phoneRegex = RegExp(
+  r"^(\+\d{1,3}( )?)?((\(\d{1,3}\))|\d{1,3})[- .]?\d{3,4}[- .]?\d{4}$",
+);
+RegExp codeRegex = RegExp(r'^[0-9]{6}$');

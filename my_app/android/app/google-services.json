@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "774885901566",
+    "project_id": "dentalplaza-376d3",
+    "storage_bucket": "dentalplaza-376d3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:774885901566:android:fa1f235b05de15dbbf11af",
+        "android_client_info": {
+          "package_name": "com.example.my_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "774885901566-saet3vs2tbg6kffqkqgvmphab2uuhoc4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAttQJSTPAHKb3X9pngVwq_9YrCCfBMfME"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "774885901566-saet3vs2tbg6kffqkqgvmphab2uuhoc4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

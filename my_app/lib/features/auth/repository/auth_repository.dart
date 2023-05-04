@@ -26,6 +26,8 @@ abstract class IAuthRepository {
 
   bool getShowcase();
 
+  String? getDeviceToken();
+
   Future<void> setOnboarding({
     required bool onboarding,
   });

@@ -155,4 +155,9 @@ class AuthRepositoryImpl extends IAuthRepository {
     }
     return null;
   }
+  
+  @override
+  String? getDeviceToken() {
+    return _authDao.deviceToken.value;
+  }
 }
