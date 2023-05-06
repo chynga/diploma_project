@@ -79,13 +79,15 @@ class NotificationService {
     //     NotificationDetails(android: androidDetails, iOS: iosDetails);
 
     FirebaseMessaging.onMessage.listen((RemoteMessage event) async {
+
       final RemoteNotification? notification = event.notification;
 
       final AndroidNotification? android =
           Platform.isAndroid ? event.notification?.android : null;
 
+      log("${notification?.android}");
       if (notification != null) {
-        if (Platform.isAndroid && android != null) {
+        // if (Platform.isAndroid && android != null) {
           fltNotification.show(
             notification.hashCode,
             notification.title,
@@ -98,7 +100,7 @@ class NotificationService {
               ),
             ),
           );
-        }
+        // }
       }
     });
   }

@@ -46,6 +46,10 @@ class AuthApi extends BaseClientGenerator with _$AuthApi {
     required String password,
   }) = _NewCode;
 
+  const factory AuthApi.sendDeviceToken({
+    required String deviceToken,
+  }) = _SendDeviceToken;
+
   /// body
   /// По умолчанию null
   @override
@@ -66,16 +70,19 @@ class AuthApi extends BaseClientGenerator with _$AuthApi {
           if (phone != null) 'phone': phone,
         },
         sendCode: (email) => {
-          'email':email,
+          'email': email,
         },
         checkCode: (email, code) => {
-          'email':email,
-          'code':code,
+          'email': email,
+          'code': code,
         },
         newPassword: (email, code, password) => {
-          'email':email,
-          'code':code,
-          'password':password,
+          'email': email,
+          'code': code,
+          'password': password,
+        },
+        sendDeviceToken: (deviceToken) => {
+          'deviceToken':deviceToken,
         },
       );
 
@@ -88,9 +95,10 @@ class AuthApi extends BaseClientGenerator with _$AuthApi {
         registration: (email, password, phone, name) => 'POST',
         editProfile: (fullName, email, phone) => 'PATCH',
         healthInfo: () => 'GET',
-        sendCode:(email) => 'POST',
+        sendCode: (email) => 'POST',
         checkCode: (email, code) => 'POST',
         newPassword: (email, code, password) => 'POST',
+        sendDeviceToken: (deviceToken) => 'POST',
       );
 
   /// Пути всех запросов (после [kBaseUrl])
@@ -106,6 +114,7 @@ class AuthApi extends BaseClientGenerator with _$AuthApi {
         checkCode: (email, code) => '/api/profile/recovery/check',
         newPassword: (email, code, password) =>
             '/api/profile/recovery/complete',
+        sendDeviceToken: (deviceToken) => '/api/profile/push/subscribe',
       );
 
   /// Параметры запросов

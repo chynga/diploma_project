@@ -30,6 +30,7 @@ mixin _$AuthApi {
     required TResult Function(String email, String code) checkCode,
     required TResult Function(String email, String code, String password)
         newPassword,
+    required TResult Function(String deviceToken) sendDeviceToken,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -44,6 +45,7 @@ mixin _$AuthApi {
     TResult? Function(String email)? sendCode,
     TResult? Function(String email, String code)? checkCode,
     TResult? Function(String email, String code, String password)? newPassword,
+    TResult? Function(String deviceToken)? sendDeviceToken,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -58,6 +60,7 @@ mixin _$AuthApi {
     TResult Function(String email)? sendCode,
     TResult Function(String email, String code)? checkCode,
     TResult Function(String email, String code, String password)? newPassword,
+    TResult Function(String deviceToken)? sendDeviceToken,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -71,6 +74,7 @@ mixin _$AuthApi {
     required TResult Function(_SendCode value) sendCode,
     required TResult Function(_CheckCode value) checkCode,
     required TResult Function(_NewCode value) newPassword,
+    required TResult Function(_SendDeviceToken value) sendDeviceToken,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -83,6 +87,7 @@ mixin _$AuthApi {
     TResult? Function(_SendCode value)? sendCode,
     TResult? Function(_CheckCode value)? checkCode,
     TResult? Function(_NewCode value)? newPassword,
+    TResult? Function(_SendDeviceToken value)? sendDeviceToken,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -95,6 +100,7 @@ mixin _$AuthApi {
     TResult Function(_SendCode value)? sendCode,
     TResult Function(_CheckCode value)? checkCode,
     TResult Function(_NewCode value)? newPassword,
+    TResult Function(_SendDeviceToken value)? sendDeviceToken,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -199,6 +205,7 @@ class _$_Login extends _Login {
     required TResult Function(String email, String code) checkCode,
     required TResult Function(String email, String code, String password)
         newPassword,
+    required TResult Function(String deviceToken) sendDeviceToken,
   }) {
     return login(email, password);
   }
@@ -216,6 +223,7 @@ class _$_Login extends _Login {
     TResult? Function(String email)? sendCode,
     TResult? Function(String email, String code)? checkCode,
     TResult? Function(String email, String code, String password)? newPassword,
+    TResult? Function(String deviceToken)? sendDeviceToken,
   }) {
     return login?.call(email, password);
   }
@@ -233,6 +241,7 @@ class _$_Login extends _Login {
     TResult Function(String email)? sendCode,
     TResult Function(String email, String code)? checkCode,
     TResult Function(String email, String code, String password)? newPassword,
+    TResult Function(String deviceToken)? sendDeviceToken,
     required TResult orElse(),
   }) {
     if (login != null) {
@@ -252,6 +261,7 @@ class _$_Login extends _Login {
     required TResult Function(_SendCode value) sendCode,
     required TResult Function(_CheckCode value) checkCode,
     required TResult Function(_NewCode value) newPassword,
+    required TResult Function(_SendDeviceToken value) sendDeviceToken,
   }) {
     return login(this);
   }
@@ -267,6 +277,7 @@ class _$_Login extends _Login {
     TResult? Function(_SendCode value)? sendCode,
     TResult? Function(_CheckCode value)? checkCode,
     TResult? Function(_NewCode value)? newPassword,
+    TResult? Function(_SendDeviceToken value)? sendDeviceToken,
   }) {
     return login?.call(this);
   }
@@ -282,6 +293,7 @@ class _$_Login extends _Login {
     TResult Function(_SendCode value)? sendCode,
     TResult Function(_CheckCode value)? checkCode,
     TResult Function(_NewCode value)? newPassword,
+    TResult Function(_SendDeviceToken value)? sendDeviceToken,
     required TResult orElse(),
   }) {
     if (login != null) {
@@ -352,6 +364,7 @@ class _$_Profile extends _Profile {
     required TResult Function(String email, String code) checkCode,
     required TResult Function(String email, String code, String password)
         newPassword,
+    required TResult Function(String deviceToken) sendDeviceToken,
   }) {
     return profile();
   }
@@ -369,6 +382,7 @@ class _$_Profile extends _Profile {
     TResult? Function(String email)? sendCode,
     TResult? Function(String email, String code)? checkCode,
     TResult? Function(String email, String code, String password)? newPassword,
+    TResult? Function(String deviceToken)? sendDeviceToken,
   }) {
     return profile?.call();
   }
@@ -386,6 +400,7 @@ class _$_Profile extends _Profile {
     TResult Function(String email)? sendCode,
     TResult Function(String email, String code)? checkCode,
     TResult Function(String email, String code, String password)? newPassword,
+    TResult Function(String deviceToken)? sendDeviceToken,
     required TResult orElse(),
   }) {
     if (profile != null) {
@@ -405,6 +420,7 @@ class _$_Profile extends _Profile {
     required TResult Function(_SendCode value) sendCode,
     required TResult Function(_CheckCode value) checkCode,
     required TResult Function(_NewCode value) newPassword,
+    required TResult Function(_SendDeviceToken value) sendDeviceToken,
   }) {
     return profile(this);
   }
@@ -420,6 +436,7 @@ class _$_Profile extends _Profile {
     TResult? Function(_SendCode value)? sendCode,
     TResult? Function(_CheckCode value)? checkCode,
     TResult? Function(_NewCode value)? newPassword,
+    TResult? Function(_SendDeviceToken value)? sendDeviceToken,
   }) {
     return profile?.call(this);
   }
@@ -435,6 +452,7 @@ class _$_Profile extends _Profile {
     TResult Function(_SendCode value)? sendCode,
     TResult Function(_CheckCode value)? checkCode,
     TResult Function(_NewCode value)? newPassword,
+    TResult Function(_SendDeviceToken value)? sendDeviceToken,
     required TResult orElse(),
   }) {
     if (profile != null) {
@@ -499,6 +517,7 @@ class _$_HealthInfo extends _HealthInfo {
     required TResult Function(String email, String code) checkCode,
     required TResult Function(String email, String code, String password)
         newPassword,
+    required TResult Function(String deviceToken) sendDeviceToken,
   }) {
     return healthInfo();
   }
@@ -516,6 +535,7 @@ class _$_HealthInfo extends _HealthInfo {
     TResult? Function(String email)? sendCode,
     TResult? Function(String email, String code)? checkCode,
     TResult? Function(String email, String code, String password)? newPassword,
+    TResult? Function(String deviceToken)? sendDeviceToken,
   }) {
     return healthInfo?.call();
   }
@@ -533,6 +553,7 @@ class _$_HealthInfo extends _HealthInfo {
     TResult Function(String email)? sendCode,
     TResult Function(String email, String code)? checkCode,
     TResult Function(String email, String code, String password)? newPassword,
+    TResult Function(String deviceToken)? sendDeviceToken,
     required TResult orElse(),
   }) {
     if (healthInfo != null) {
@@ -552,6 +573,7 @@ class _$_HealthInfo extends _HealthInfo {
     required TResult Function(_SendCode value) sendCode,
     required TResult Function(_CheckCode value) checkCode,
     required TResult Function(_NewCode value) newPassword,
+    required TResult Function(_SendDeviceToken value) sendDeviceToken,
   }) {
     return healthInfo(this);
   }
@@ -567,6 +589,7 @@ class _$_HealthInfo extends _HealthInfo {
     TResult? Function(_SendCode value)? sendCode,
     TResult? Function(_CheckCode value)? checkCode,
     TResult? Function(_NewCode value)? newPassword,
+    TResult? Function(_SendDeviceToken value)? sendDeviceToken,
   }) {
     return healthInfo?.call(this);
   }
@@ -582,6 +605,7 @@ class _$_HealthInfo extends _HealthInfo {
     TResult Function(_SendCode value)? sendCode,
     TResult Function(_CheckCode value)? checkCode,
     TResult Function(_NewCode value)? newPassword,
+    TResult Function(_SendDeviceToken value)? sendDeviceToken,
     required TResult orElse(),
   }) {
     if (healthInfo != null) {
@@ -689,6 +713,7 @@ class _$_EditProfile extends _EditProfile {
     required TResult Function(String email, String code) checkCode,
     required TResult Function(String email, String code, String password)
         newPassword,
+    required TResult Function(String deviceToken) sendDeviceToken,
   }) {
     return editProfile(fullName, email, phone);
   }
@@ -706,6 +731,7 @@ class _$_EditProfile extends _EditProfile {
     TResult? Function(String email)? sendCode,
     TResult? Function(String email, String code)? checkCode,
     TResult? Function(String email, String code, String password)? newPassword,
+    TResult? Function(String deviceToken)? sendDeviceToken,
   }) {
     return editProfile?.call(fullName, email, phone);
   }
@@ -723,6 +749,7 @@ class _$_EditProfile extends _EditProfile {
     TResult Function(String email)? sendCode,
     TResult Function(String email, String code)? checkCode,
     TResult Function(String email, String code, String password)? newPassword,
+    TResult Function(String deviceToken)? sendDeviceToken,
     required TResult orElse(),
   }) {
     if (editProfile != null) {
@@ -742,6 +769,7 @@ class _$_EditProfile extends _EditProfile {
     required TResult Function(_SendCode value) sendCode,
     required TResult Function(_CheckCode value) checkCode,
     required TResult Function(_NewCode value) newPassword,
+    required TResult Function(_SendDeviceToken value) sendDeviceToken,
   }) {
     return editProfile(this);
   }
@@ -757,6 +785,7 @@ class _$_EditProfile extends _EditProfile {
     TResult? Function(_SendCode value)? sendCode,
     TResult? Function(_CheckCode value)? checkCode,
     TResult? Function(_NewCode value)? newPassword,
+    TResult? Function(_SendDeviceToken value)? sendDeviceToken,
   }) {
     return editProfile?.call(this);
   }
@@ -772,6 +801,7 @@ class _$_EditProfile extends _EditProfile {
     TResult Function(_SendCode value)? sendCode,
     TResult Function(_CheckCode value)? checkCode,
     TResult Function(_NewCode value)? newPassword,
+    TResult Function(_SendDeviceToken value)? sendDeviceToken,
     required TResult orElse(),
   }) {
     if (editProfile != null) {
@@ -902,6 +932,7 @@ class _$_Registration extends _Registration {
     required TResult Function(String email, String code) checkCode,
     required TResult Function(String email, String code, String password)
         newPassword,
+    required TResult Function(String deviceToken) sendDeviceToken,
   }) {
     return registration(email, password, phone, name);
   }
@@ -919,6 +950,7 @@ class _$_Registration extends _Registration {
     TResult? Function(String email)? sendCode,
     TResult? Function(String email, String code)? checkCode,
     TResult? Function(String email, String code, String password)? newPassword,
+    TResult? Function(String deviceToken)? sendDeviceToken,
   }) {
     return registration?.call(email, password, phone, name);
   }
@@ -936,6 +968,7 @@ class _$_Registration extends _Registration {
     TResult Function(String email)? sendCode,
     TResult Function(String email, String code)? checkCode,
     TResult Function(String email, String code, String password)? newPassword,
+    TResult Function(String deviceToken)? sendDeviceToken,
     required TResult orElse(),
   }) {
     if (registration != null) {
@@ -955,6 +988,7 @@ class _$_Registration extends _Registration {
     required TResult Function(_SendCode value) sendCode,
     required TResult Function(_CheckCode value) checkCode,
     required TResult Function(_NewCode value) newPassword,
+    required TResult Function(_SendDeviceToken value) sendDeviceToken,
   }) {
     return registration(this);
   }
@@ -970,6 +1004,7 @@ class _$_Registration extends _Registration {
     TResult? Function(_SendCode value)? sendCode,
     TResult? Function(_CheckCode value)? checkCode,
     TResult? Function(_NewCode value)? newPassword,
+    TResult? Function(_SendDeviceToken value)? sendDeviceToken,
   }) {
     return registration?.call(this);
   }
@@ -985,6 +1020,7 @@ class _$_Registration extends _Registration {
     TResult Function(_SendCode value)? sendCode,
     TResult Function(_CheckCode value)? checkCode,
     TResult Function(_NewCode value)? newPassword,
+    TResult Function(_SendDeviceToken value)? sendDeviceToken,
     required TResult orElse(),
   }) {
     if (registration != null) {
@@ -1087,6 +1123,7 @@ class _$_SendCode extends _SendCode {
     required TResult Function(String email, String code) checkCode,
     required TResult Function(String email, String code, String password)
         newPassword,
+    required TResult Function(String deviceToken) sendDeviceToken,
   }) {
     return sendCode(email);
   }
@@ -1104,6 +1141,7 @@ class _$_SendCode extends _SendCode {
     TResult? Function(String email)? sendCode,
     TResult? Function(String email, String code)? checkCode,
     TResult? Function(String email, String code, String password)? newPassword,
+    TResult? Function(String deviceToken)? sendDeviceToken,
   }) {
     return sendCode?.call(email);
   }
@@ -1121,6 +1159,7 @@ class _$_SendCode extends _SendCode {
     TResult Function(String email)? sendCode,
     TResult Function(String email, String code)? checkCode,
     TResult Function(String email, String code, String password)? newPassword,
+    TResult Function(String deviceToken)? sendDeviceToken,
     required TResult orElse(),
   }) {
     if (sendCode != null) {
@@ -1140,6 +1179,7 @@ class _$_SendCode extends _SendCode {
     required TResult Function(_SendCode value) sendCode,
     required TResult Function(_CheckCode value) checkCode,
     required TResult Function(_NewCode value) newPassword,
+    required TResult Function(_SendDeviceToken value) sendDeviceToken,
   }) {
     return sendCode(this);
   }
@@ -1155,6 +1195,7 @@ class _$_SendCode extends _SendCode {
     TResult? Function(_SendCode value)? sendCode,
     TResult? Function(_CheckCode value)? checkCode,
     TResult? Function(_NewCode value)? newPassword,
+    TResult? Function(_SendDeviceToken value)? sendDeviceToken,
   }) {
     return sendCode?.call(this);
   }
@@ -1170,6 +1211,7 @@ class _$_SendCode extends _SendCode {
     TResult Function(_SendCode value)? sendCode,
     TResult Function(_CheckCode value)? checkCode,
     TResult Function(_NewCode value)? newPassword,
+    TResult Function(_SendDeviceToken value)? sendDeviceToken,
     required TResult orElse(),
   }) {
     if (sendCode != null) {
@@ -1273,6 +1315,7 @@ class _$_CheckCode extends _CheckCode {
     required TResult Function(String email, String code) checkCode,
     required TResult Function(String email, String code, String password)
         newPassword,
+    required TResult Function(String deviceToken) sendDeviceToken,
   }) {
     return checkCode(email, code);
   }
@@ -1290,6 +1333,7 @@ class _$_CheckCode extends _CheckCode {
     TResult? Function(String email)? sendCode,
     TResult? Function(String email, String code)? checkCode,
     TResult? Function(String email, String code, String password)? newPassword,
+    TResult? Function(String deviceToken)? sendDeviceToken,
   }) {
     return checkCode?.call(email, code);
   }
@@ -1307,6 +1351,7 @@ class _$_CheckCode extends _CheckCode {
     TResult Function(String email)? sendCode,
     TResult Function(String email, String code)? checkCode,
     TResult Function(String email, String code, String password)? newPassword,
+    TResult Function(String deviceToken)? sendDeviceToken,
     required TResult orElse(),
   }) {
     if (checkCode != null) {
@@ -1326,6 +1371,7 @@ class _$_CheckCode extends _CheckCode {
     required TResult Function(_SendCode value) sendCode,
     required TResult Function(_CheckCode value) checkCode,
     required TResult Function(_NewCode value) newPassword,
+    required TResult Function(_SendDeviceToken value) sendDeviceToken,
   }) {
     return checkCode(this);
   }
@@ -1341,6 +1387,7 @@ class _$_CheckCode extends _CheckCode {
     TResult? Function(_SendCode value)? sendCode,
     TResult? Function(_CheckCode value)? checkCode,
     TResult? Function(_NewCode value)? newPassword,
+    TResult? Function(_SendDeviceToken value)? sendDeviceToken,
   }) {
     return checkCode?.call(this);
   }
@@ -1356,6 +1403,7 @@ class _$_CheckCode extends _CheckCode {
     TResult Function(_SendCode value)? sendCode,
     TResult Function(_CheckCode value)? checkCode,
     TResult Function(_NewCode value)? newPassword,
+    TResult Function(_SendDeviceToken value)? sendDeviceToken,
     required TResult orElse(),
   }) {
     if (checkCode != null) {
@@ -1471,6 +1519,7 @@ class _$_NewCode extends _NewCode {
     required TResult Function(String email, String code) checkCode,
     required TResult Function(String email, String code, String password)
         newPassword,
+    required TResult Function(String deviceToken) sendDeviceToken,
   }) {
     return newPassword(email, code, password);
   }
@@ -1488,6 +1537,7 @@ class _$_NewCode extends _NewCode {
     TResult? Function(String email)? sendCode,
     TResult? Function(String email, String code)? checkCode,
     TResult? Function(String email, String code, String password)? newPassword,
+    TResult? Function(String deviceToken)? sendDeviceToken,
   }) {
     return newPassword?.call(email, code, password);
   }
@@ -1505,6 +1555,7 @@ class _$_NewCode extends _NewCode {
     TResult Function(String email)? sendCode,
     TResult Function(String email, String code)? checkCode,
     TResult Function(String email, String code, String password)? newPassword,
+    TResult Function(String deviceToken)? sendDeviceToken,
     required TResult orElse(),
   }) {
     if (newPassword != null) {
@@ -1524,6 +1575,7 @@ class _$_NewCode extends _NewCode {
     required TResult Function(_SendCode value) sendCode,
     required TResult Function(_CheckCode value) checkCode,
     required TResult Function(_NewCode value) newPassword,
+    required TResult Function(_SendDeviceToken value) sendDeviceToken,
   }) {
     return newPassword(this);
   }
@@ -1539,6 +1591,7 @@ class _$_NewCode extends _NewCode {
     TResult? Function(_SendCode value)? sendCode,
     TResult? Function(_CheckCode value)? checkCode,
     TResult? Function(_NewCode value)? newPassword,
+    TResult? Function(_SendDeviceToken value)? sendDeviceToken,
   }) {
     return newPassword?.call(this);
   }
@@ -1554,6 +1607,7 @@ class _$_NewCode extends _NewCode {
     TResult Function(_SendCode value)? sendCode,
     TResult Function(_CheckCode value)? checkCode,
     TResult Function(_NewCode value)? newPassword,
+    TResult Function(_SendDeviceToken value)? sendDeviceToken,
     required TResult orElse(),
   }) {
     if (newPassword != null) {
@@ -1575,5 +1629,191 @@ abstract class _NewCode extends AuthApi {
   String get password;
   @JsonKey(ignore: true)
   _$$_NewCodeCopyWith<_$_NewCode> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_SendDeviceTokenCopyWith<$Res> {
+  factory _$$_SendDeviceTokenCopyWith(
+          _$_SendDeviceToken value, $Res Function(_$_SendDeviceToken) then) =
+      __$$_SendDeviceTokenCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String deviceToken});
+}
+
+/// @nodoc
+class __$$_SendDeviceTokenCopyWithImpl<$Res>
+    extends _$AuthApiCopyWithImpl<$Res, _$_SendDeviceToken>
+    implements _$$_SendDeviceTokenCopyWith<$Res> {
+  __$$_SendDeviceTokenCopyWithImpl(
+      _$_SendDeviceToken _value, $Res Function(_$_SendDeviceToken) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? deviceToken = null,
+  }) {
+    return _then(_$_SendDeviceToken(
+      deviceToken: null == deviceToken
+          ? _value.deviceToken
+          : deviceToken // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_SendDeviceToken extends _SendDeviceToken {
+  const _$_SendDeviceToken({required this.deviceToken}) : super._();
+
+  @override
+  final String deviceToken;
+
+  @override
+  String toString() {
+    return 'AuthApi.sendDeviceToken(deviceToken: $deviceToken)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_SendDeviceToken &&
+            (identical(other.deviceToken, deviceToken) ||
+                other.deviceToken == deviceToken));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, deviceToken);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_SendDeviceTokenCopyWith<_$_SendDeviceToken> get copyWith =>
+      __$$_SendDeviceTokenCopyWithImpl<_$_SendDeviceToken>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String email, String password) login,
+    required TResult Function() profile,
+    required TResult Function() healthInfo,
+    required TResult Function(String? fullName, String? email, String? phone)
+        editProfile,
+    required TResult Function(
+            String email, String password, String phone, String name)
+        registration,
+    required TResult Function(String email) sendCode,
+    required TResult Function(String email, String code) checkCode,
+    required TResult Function(String email, String code, String password)
+        newPassword,
+    required TResult Function(String deviceToken) sendDeviceToken,
+  }) {
+    return sendDeviceToken(deviceToken);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String email, String password)? login,
+    TResult? Function()? profile,
+    TResult? Function()? healthInfo,
+    TResult? Function(String? fullName, String? email, String? phone)?
+        editProfile,
+    TResult? Function(String email, String password, String phone, String name)?
+        registration,
+    TResult? Function(String email)? sendCode,
+    TResult? Function(String email, String code)? checkCode,
+    TResult? Function(String email, String code, String password)? newPassword,
+    TResult? Function(String deviceToken)? sendDeviceToken,
+  }) {
+    return sendDeviceToken?.call(deviceToken);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String email, String password)? login,
+    TResult Function()? profile,
+    TResult Function()? healthInfo,
+    TResult Function(String? fullName, String? email, String? phone)?
+        editProfile,
+    TResult Function(String email, String password, String phone, String name)?
+        registration,
+    TResult Function(String email)? sendCode,
+    TResult Function(String email, String code)? checkCode,
+    TResult Function(String email, String code, String password)? newPassword,
+    TResult Function(String deviceToken)? sendDeviceToken,
+    required TResult orElse(),
+  }) {
+    if (sendDeviceToken != null) {
+      return sendDeviceToken(deviceToken);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Login value) login,
+    required TResult Function(_Profile value) profile,
+    required TResult Function(_HealthInfo value) healthInfo,
+    required TResult Function(_EditProfile value) editProfile,
+    required TResult Function(_Registration value) registration,
+    required TResult Function(_SendCode value) sendCode,
+    required TResult Function(_CheckCode value) checkCode,
+    required TResult Function(_NewCode value) newPassword,
+    required TResult Function(_SendDeviceToken value) sendDeviceToken,
+  }) {
+    return sendDeviceToken(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Login value)? login,
+    TResult? Function(_Profile value)? profile,
+    TResult? Function(_HealthInfo value)? healthInfo,
+    TResult? Function(_EditProfile value)? editProfile,
+    TResult? Function(_Registration value)? registration,
+    TResult? Function(_SendCode value)? sendCode,
+    TResult? Function(_CheckCode value)? checkCode,
+    TResult? Function(_NewCode value)? newPassword,
+    TResult? Function(_SendDeviceToken value)? sendDeviceToken,
+  }) {
+    return sendDeviceToken?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Login value)? login,
+    TResult Function(_Profile value)? profile,
+    TResult Function(_HealthInfo value)? healthInfo,
+    TResult Function(_EditProfile value)? editProfile,
+    TResult Function(_Registration value)? registration,
+    TResult Function(_SendCode value)? sendCode,
+    TResult Function(_CheckCode value)? checkCode,
+    TResult Function(_NewCode value)? newPassword,
+    TResult Function(_SendDeviceToken value)? sendDeviceToken,
+    required TResult orElse(),
+  }) {
+    if (sendDeviceToken != null) {
+      return sendDeviceToken(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SendDeviceToken extends AuthApi {
+  const factory _SendDeviceToken({required final String deviceToken}) =
+      _$_SendDeviceToken;
+  const _SendDeviceToken._() : super._();
+
+  String get deviceToken;
+  @JsonKey(ignore: true)
+  _$$_SendDeviceTokenCopyWith<_$_SendDeviceToken> get copyWith =>
       throw _privateConstructorUsedError;
 }

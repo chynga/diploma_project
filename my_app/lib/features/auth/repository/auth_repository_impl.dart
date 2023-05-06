@@ -41,6 +41,12 @@ class AuthRepositoryImpl extends IAuthRepository {
       success: (user) {
         log(user.toString());
         _authDao.user.setValue(jsonEncode(user.toJson()));
+       final String? deviceToken = _authDao.deviceToken.value;
+        if (deviceToken != null) {
+          _client.execute(
+            route: AuthApi.sendDeviceToken(deviceToken: deviceToken),
+          );
+        }
       },
     );
 
@@ -147,7 +153,8 @@ class AuthRepositoryImpl extends IAuthRepository {
     try {
       if (_authDao.user.value != null) {
         final UserDTO user = UserDTO.fromJson(
-            jsonDecode(_authDao.user.value!) as Map<String, dynamic>);
+          jsonDecode(_authDao.user.value!) as Map<String, dynamic>,
+        );
         return user;
       }
     } on Exception catch (e) {
@@ -155,7 +162,7 @@ class AuthRepositoryImpl extends IAuthRepository {
     }
     return null;
   }
-  
+
   @override
   String? getDeviceToken() {
     return _authDao.deviceToken.value;
