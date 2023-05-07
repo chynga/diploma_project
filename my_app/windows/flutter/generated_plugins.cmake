@@ -3,10 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-  audioplayers_windows
   permission_handler_windows
-  smart_auth
-  sqlite3_flutter_libs
   url_launcher_windows
 )
 

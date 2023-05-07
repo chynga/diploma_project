@@ -3,9 +3,6 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-  audioplayers_linux
-  smart_auth
-  sqlite3_flutter_libs
   url_launcher_linux
 )
 

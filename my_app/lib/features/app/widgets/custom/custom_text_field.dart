@@ -71,6 +71,7 @@ class CustomTextField extends StatelessWidget {
         constraints: boxConstraints,
         suffixIcon: suffixIcon,
         prefixIcon: prefixIcon,
+        errorMaxLines: 2,
         contentPadding: contentPadding ??
             const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
         label: label,
@@ -80,6 +81,14 @@ class CustomTextField extends StatelessWidget {
           fontWeight: FontWeight.w300,
         ),
         fillColor: fillColor,
+        focusedErrorBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: borderSideColor ?? AppColors.kGrey),
+          borderRadius: BorderRadius.circular(borderRadius ?? 5),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color:AppColors.kRed),
+          borderRadius: BorderRadius.circular(borderRadius ?? 5),
+        ),
         disabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: borderSideColor ?? AppColors.kGrey),
           borderRadius: BorderRadius.circular(borderRadius ?? 5),

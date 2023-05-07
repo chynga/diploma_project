@@ -44,7 +44,7 @@ class MainLastRecordWidget extends StatelessWidget {
                       loadedState: (myRecords, pastRecords) {
                         return Text(
                           myRecords.isEmpty
-                              ? 'No Records'
+                              ? context.localized.noRecordsInATime
                               : DateFormat.MMMMd(
                                   context.currentLocale.localeCode,
                                 ).format(
@@ -108,10 +108,21 @@ class MainLastRecordWidget extends StatelessWidget {
                     const SizedBox(
                       height: 12,
                     ),
-                    Text(
-                      context.localized.yourEntryHasBeenVerified,
-                      style: AppTextStyles.m16w500
-                          .copyWith(color: AppColors.kWhite),
+                    state.maybeWhen(
+                      loadedState: (myRecords, pastRecords) {
+                        return Text(
+                          myRecords.isEmpty
+                              ? ""
+                              : context.localized.yourEntryHasBeenVerified,
+                          style: AppTextStyles.m16w500
+                              .copyWith(color: AppColors.kWhite),
+                        );
+                      },
+                      orElse: () {
+                        return const LoadShimmer(
+                          height: 20,
+                        );
+                      },
                     ),
                     const SizedBox(
                       height: 14,

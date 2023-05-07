@@ -39,10 +39,6 @@ class MainPage extends StatefulWidget with AutoRouteWrapper {
           create: (context) =>
               ServicesCubit(context.repository.mainRepository)..getServices(),
         ),
-        BlocProvider<RecordsCubit>(
-          create: (context) =>
-              RecordsCubit(context.repository.recordRepository)..getRecords(),
-        ),
       ],
       child: this,
     );

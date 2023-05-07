@@ -10,8 +10,10 @@ import 'package:dental_plaza/features/profile/bloc/edit_profile_cubit.dart';
 import 'package:dental_plaza/features/profile/bloc/profile_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class EditProfilePage extends StatefulWidget with AutoRouteWrapper {
   final UserDTO user;
@@ -33,13 +35,23 @@ class _EditProfilePageState extends State<EditProfilePage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+  MaskTextInputFormatter maskPhoneFormatter = MaskTextInputFormatter(
+    mask: '+7 (###) ###-##-##',
+    filter: {"#": RegExp('[0-9]')},
+  );
 
   @override
   void initState() {
     super.initState();
     nameController.text = widget.user.fullName ?? "";
     emailController.text = widget.user.email ?? "";
-    phoneController.text = widget.user.phone ?? "";
+    phoneController.text =
+        maskPhoneFormatter.maskText(widget.user.phone?.substring(2) ?? "");
+    maskPhoneFormatter = MaskTextInputFormatter(
+      mask: '+7 (###) ###-##-##',
+      initialText: widget.user.phone?.substring(2),
+      filter: {"#": RegExp('[0-9]')},
+    );
   }
 
   @override
@@ -89,6 +101,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       context,
                       context.localized.phone,
                       phoneController,
+                      inputFormatters: [maskPhoneFormatter],
+                      keyboardType: TextInputType.phone,
                     ),
                   ],
                 ),
@@ -129,7 +143,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     BlocProvider.of<EditProfileCubit>(context).editProfile(
                       fullName: nameController.text,
                       email: emailController.text,
-                      phone: phoneController.text,
+                      phone: "+7${maskPhoneFormatter.getUnmaskedText()}",
                     );
                   },
                   style: mainButtonStyle(radius: 20),
@@ -146,8 +160,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Padding editProfileRow(
     BuildContext context,
     String label,
-    TextEditingController controller,
-  ) {
+    TextEditingController controller, {
+    List<TextInputFormatter>? inputFormatters,
+    TextInputType? keyboardType,
+  }) {
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: Column(
@@ -166,6 +182,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
             ),
             placeholder: context.localized.fio,
             controller: controller,
+            inputFormatters: inputFormatters,
+            keyboardType: keyboardType,
           ),
         ],
       ),
