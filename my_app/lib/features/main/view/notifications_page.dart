@@ -85,19 +85,19 @@ class _NotificationsPageState extends State<NotificationsPage> {
                                         height: 4,
                                       ),
                                       Text(
-                                        DateFormat('dd.m.yyyy').format(
+                                        DateFormat('dd.MM.yyyy').format(
                                             notifications[index].showAt ??
-                                                DateTime.now()),
+                                                DateTime.now(),),
                                         style: AppTextStyles.m16w400.copyWith(
-                                            fontWeight: FontWeight.w300),
+                                            fontWeight: FontWeight.w300,),
                                       ),
-                                      // const SizedBox(
-                                      //   height: 4,
-                                      // ),
-                                      // const Text(
-                                      //   'Удаление зуба',
-                                      //   style: AppTextStyles.m16w400,
-                                      // ),
+                                      const SizedBox(
+                                        height: 4,
+                                      ),
+                                      const Text(
+                                        'Удаление зуба',
+                                        style: AppTextStyles.m16w400,
+                                      ),
                                     ],
                                   ),
                                 ),

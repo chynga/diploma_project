@@ -38,7 +38,7 @@ class RecordItemWidget extends StatelessWidget {
                   style: AppTextStyles.m20w700.copyWith(color: AppColors.kBlue),
                 ),
                 Text(
-                  DateFormat('d.MM.yyyy').format(
+                  DateFormat('d.MM.yyyy в HH:mm').format(
                     DateTime.parse(record.time ?? DateTime.now().toString()),
                   ),
                   style: AppTextStyles.m14w400.copyWith(color: AppColors.kBlue),

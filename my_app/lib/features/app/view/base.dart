@@ -306,9 +306,15 @@ class CustomTabWidget extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Transform.translate(
+                    offset: news ? const Offset(10, 0) : Offset.zero,
+                    child: SvgPicture.asset(
+                      tabIndex == currentIndex ? activeIcon : icon,
+                    ),
+                  ),
                   if (news)
                     Transform.translate(
-                      offset: const Offset(10, -5),
+                      offset: const Offset(0, -5),
                       child: Container(
                         height: 15,
                         width: 15,
@@ -318,9 +324,6 @@ class CustomTabWidget extends StatelessWidget {
                         ),
                       ),
                     ),
-                  SvgPicture.asset(
-                    tabIndex == currentIndex ? activeIcon : icon,
-                  ),
                 ],
               ),
               Text(
