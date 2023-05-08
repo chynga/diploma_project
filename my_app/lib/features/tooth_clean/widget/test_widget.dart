@@ -35,7 +35,6 @@ class _TimerWidgetState extends State<TimerWidget> {
     });
   }
 
-  // Step 4
   void stopTimer() {
     setState(() => countdownTimer!.cancel());
   }
