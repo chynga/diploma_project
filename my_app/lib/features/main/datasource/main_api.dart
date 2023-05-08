@@ -18,6 +18,10 @@ class MainApi extends BaseClientGenerator with _$MainApi {
   }) = _DoctorWithId;
 
   const factory MainApi.chat() = _Chat;
+  const factory MainApi.notification() = _Notification;
+  
+  const factory MainApi.notificationTypes() = _NotificationTypes;
+
 
   /// body
   /// По умолчанию null
@@ -31,6 +35,8 @@ class MainApi extends BaseClientGenerator with _$MainApi {
         service: () => 'GET',
         doctor: () => 'GET',
         doctorWithId: (id) => 'GET',
+        notification: () => 'GET',
+        notificationTypes: () => 'POST',
       );
 
   /// Пути всех запросов (после [kBaseUrl])
@@ -40,6 +46,8 @@ class MainApi extends BaseClientGenerator with _$MainApi {
         doctor: () => '/api/doctors/available',
         doctorWithId: (id) => '/api/doctors/$id',
         chat: () => '/api/consultation/my',
+        notification: () => '/api/profile/notifications',
+        notificationTypes: () => '/api/profile/notifications/types/appointment',
       );
 
   /// Параметры запросов

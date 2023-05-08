@@ -12,9 +12,9 @@ abstract class ISettingsRepository {
 
   Future<void> setLocale(AppLanguage locale);
 
-  // Future<void> setCity(CityDTO? city);
+  Future<void> setView({required bool view});
 
-  // CityDTO? getCity();
+  bool? getView();
 
   // Future<void> setCurrency(CurrencyDTO currency);
 
@@ -29,12 +29,15 @@ class SettingsRepository implements ISettingsRepository {
   }) : _settingsDao = settingsDao;
 
   AppTheme? get _theme => AppTheme.values.byName.nullable(_settingsDao.themeMode.value);
+  
+  @override
+  bool? getView() => _settingsDao.view.value;
 
   @override
   SettingsData currentData() => SettingsData(
         theme: _theme ?? AppTheme.system,
         locale: _getLocale(),
-        // city: getCity(),
+        isViewed: _settingsDao.view.value??true,
         // currency: getCurrency(),
       );
 
@@ -49,6 +52,10 @@ class SettingsRepository implements ISettingsRepository {
 
   @override
   Future<void> setLocale(AppLanguage locale) async => _settingsDao.locale.setValue(locale.name);
+  
+  @override
+  Future<void> setView({required bool view}) async => _settingsDao.view.setValue(view);
+  
 
   // @override
   // Future<void> setCity(CityDTO? city) async =>

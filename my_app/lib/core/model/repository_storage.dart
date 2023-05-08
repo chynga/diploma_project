@@ -64,7 +64,7 @@ class RepositoryStorage implements IRepositoryStorage {
   IMainRemoteDS get mainRemoteDS => MainRemoteDSImpl(client: _networkExecuter);
 
   @override
-  IMainRepository get mainRepository => MainRepositoryImpl(mainRemoteDS);
+  IMainRepository get mainRepository => MainRepositoryImpl(mainRemoteDS,_networkExecuter);
 
   @override
   IRecordRemoteDS get recordRemoteDs =>

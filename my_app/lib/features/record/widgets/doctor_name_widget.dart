@@ -49,6 +49,7 @@ class DoctorNameWidget extends StatelessWidget {
                 ],
                 child: NewRecordBottomSheet(
                   doctor: doctor,
+                  parentContext: context,
                 ),
               ),
               context,

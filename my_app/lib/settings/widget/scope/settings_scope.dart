@@ -5,6 +5,8 @@ import 'package:dental_plaza/features/app/bloc/base_appbar_cubit.dart';
 import 'package:dental_plaza/features/app/bloc/base_bloc.dart';
 import 'package:dental_plaza/features/app/enum/app_language.dart';
 import 'package:dental_plaza/features/chat/bloc/chat_cubit.dart';
+import 'package:dental_plaza/features/main/bloc/notifications_cubit.dart';
+import 'package:dental_plaza/features/main/bloc/view_notifications_cubit.dart';
 import 'package:dental_plaza/features/profile/bloc/health_info_cubit.dart';
 import 'package:dental_plaza/features/profile/bloc/profile_cubit.dart';
 import 'package:dental_plaza/features/record/bloc/records_cubit.dart';
@@ -29,7 +31,7 @@ Locale _localeToLocale(AppLanguage locale) => locale.when(
       ru: () => const Locale('ru'),
     );
 
-// CityDTO? _city(SettingsState state) => state.data.city;
+bool? _view(SettingsState state) => state.data.isViewed;
 
 // CurrencyDTO? _currency(SettingsState state) => state.data.currency;
 
@@ -56,7 +58,7 @@ class SettingsScope extends StatelessWidget {
 
   static ScopeData<AppLanguage> get appLanguageOf => _scope.select(_locale);
 
-  // static ScopeData<CityDTO?> get cityOf => _scope.select(_city);
+  static ScopeData<bool?> get isNotificationViewed => _scope.select(_view);
 
   // static ScopeData<CurrencyDTO?> get currencyOf => _scope.select(_currency);
 
@@ -70,9 +72,9 @@ class SettingsScope extends StatelessWidget {
         (context, locale) => SettingsEvent.setLocale(locale: locale),
       );
 
-  // static UnaryScopeMethod<CityDTO?> get setCity => _scope.unary(
-  //       (context, city) => SettingsEvent.setCity(city: city),
-  //     );
+  static UnaryScopeMethod<bool> get setisNotificationViewed => _scope.unary(
+        (context, view) => SettingsEvent.setView(view: view),
+      );
 
   // static UnaryScopeMethod<CurrencyDTO> get setCurrency => _scope.unary(
   //       (context, currency) => SettingsEvent.setCurrency(currency: currency),
@@ -116,7 +118,8 @@ class SettingsScope extends StatelessWidget {
             create: (_) => BaseAppbarCubit(),
           ),
           BlocProvider<RecordsCubit>(
-            create: (_) => RecordsCubit(context.repository.recordRepository)..getRecords(),
+            create: (_) =>
+                RecordsCubit(context.repository.recordRepository)..getRecords(),
           ),
           BlocProvider<ChatCubit>(
             create: (_) => ChatCubit(
@@ -124,43 +127,16 @@ class SettingsScope extends StatelessWidget {
               context.repository.authRepository,
             ),
           ),
-          // BlocProvider<CurrenciesCubit>(
-          //   create: (_) => CurrenciesCubit(
-          //     context.repository.otherListRepository,
-          //   ),
-          // ),
-          // BlocProvider<NewAdvertCubit>(
-          //   create: (_) => NewAdvertCubit(
-          //     context.repository.adRepository,
-          //   ),
-          // ),
-          // BlocProvider<EstateCountCubit>(
-          //   create: (context) => EstateCountCubit(context.repository.mainRepository),
-          // ),
-          // BlocProvider<NewsCubit>(
-          //   create: (context) => NewsCubit(context.repository.companyRepository),
-          // ),
-          // BlocProvider<JobsCubit>(
-          //   create: (context) => JobsCubit(context.repository.companyRepository),
-          // ),
-          // BlocProvider<DetailNewsCubit>(
-          //   create: (context) => DetailNewsCubit(context.repository.companyRepository),
-          // ),
-          // BlocProvider<DetailJobsCubit>(
-          //   create: (context) => DetailJobsCubit(context.repository.companyRepository),
-          // ),
-          // BlocProvider<CategoryCubit>(
-          //   create: (context) => CategoryCubit(context.repository.mainRepository),
-          // ),
-          // BlocProvider<RCCategoryCubit>(
-          //   create: (context) => RCCategoryCubit(context.repository.mainRepository),
-          // ),
-          // BlocProvider<MultiselectDropdownCubit>(
-          //   create: (context) => MultiselectDropdownCubit(),
-          // ),
-          // BlocProvider<FavoriteCubit>(
-          //   create: (context) => FavoriteCubit(context.repository.mainRepository),
-          // )
+          BlocProvider<NotificationsCubit>(
+            create: (_) => NotificationsCubit(
+              context.repository.mainRepository,
+            )..getNots(),
+          ),
+          BlocProvider<ViewNotificationsCubit>(
+            create: (_) => ViewNotificationsCubit(
+              context.repository.mainRepository,
+            ),
+          ),
         ],
         child: child,
       );

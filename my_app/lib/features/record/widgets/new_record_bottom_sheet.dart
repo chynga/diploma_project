@@ -4,6 +4,7 @@ import 'package:dental_plaza/core/resources/resources.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_buttons/custom_button.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_snackbars.dart';
 import 'package:dental_plaza/features/app/widgets/shimmer_box.dart';
+import 'package:dental_plaza/features/main/bloc/notifications_cubit.dart';
 import 'package:dental_plaza/features/main/model/doctor_dto.dart';
 import 'package:dental_plaza/features/main/model/service_dto.dart';
 import 'package:dental_plaza/features/main/widgets/service_card_widget.dart';
@@ -18,7 +19,12 @@ import 'package:table_calendar/table_calendar.dart';
 
 class NewRecordBottomSheet extends StatefulWidget {
   final DoctorDTO doctor;
-  const NewRecordBottomSheet({super.key, required this.doctor});
+  final BuildContext parentContext;
+  const NewRecordBottomSheet({
+    super.key,
+    required this.doctor,
+    required this.parentContext,
+  });
 
   @override
   State<NewRecordBottomSheet> createState() => _NewRecordBottomSheetState();
@@ -306,7 +312,12 @@ class _NewRecordBottomSheetState extends State<NewRecordBottomSheet> {
                               },
                               loadedState: (message) {
                                 buildSuccessCustomSnackBar(context, message);
-                                BlocProvider.of<RecordsCubit>(context).getRecords();
+                                BlocProvider.of<RecordsCubit>(
+                                  widget.parentContext,
+                                ).getRecords();
+                                BlocProvider.of<NotificationsCubit>(
+                                  widget.parentContext,
+                                ).getNots();
                                 context.router.pop();
                               },
                               orElse: () {},

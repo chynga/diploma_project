@@ -69,6 +69,12 @@ class _$AppRouter extends RootStackRouter {
         )),
       );
     },
+    NotificationsRoute.name: (routeData) {
+      return MaterialPageX<void>(
+        routeData: routeData,
+        child: const NotificationsPage(),
+      );
+    },
     MainRoute.name: (routeData) {
       return MaterialPageX<void>(
         routeData: routeData,
@@ -192,6 +198,10 @@ class _$AppRouter extends RootStackRouter {
         RouteConfig(
           EditProfileRoute.name,
           path: '/edit-profile-page',
+        ),
+        RouteConfig(
+          NotificationsRoute.name,
+          path: '/notifications-page',
         ),
       ];
 }
@@ -338,6 +348,18 @@ class EditProfileRouteArgs {
   String toString() {
     return 'EditProfileRouteArgs{key: $key, user: $user}';
   }
+}
+
+/// generated route for
+/// [NotificationsPage]
+class NotificationsRoute extends PageRouteInfo<void> {
+  const NotificationsRoute()
+      : super(
+          NotificationsRoute.name,
+          path: '/notifications-page',
+        );
+
+  static const String name = 'NotificationsRoute';
 }
 
 /// generated route for

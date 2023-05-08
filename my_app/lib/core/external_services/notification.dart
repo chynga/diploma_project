@@ -23,7 +23,6 @@ class NotificationRepository {
   //   }
 
   //  }
-
 }
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
@@ -36,7 +35,7 @@ const AndroidNotificationChannel channel = AndroidNotificationChannel(
 
 class NotificationService {
   late FirebaseMessaging _messaging;
-  
+
   final AuthDao sharedPreferences;
 
   NotificationService(this.sharedPreferences);
@@ -79,7 +78,6 @@ class NotificationService {
     //     NotificationDetails(android: androidDetails, iOS: iosDetails);
 
     FirebaseMessaging.onMessage.listen((RemoteMessage event) async {
-
       final RemoteNotification? notification = event.notification;
 
       final AndroidNotification? android =
@@ -88,29 +86,30 @@ class NotificationService {
       log("${notification?.android}");
       if (notification != null) {
         // if (Platform.isAndroid && android != null) {
-          fltNotification.show(
-            notification.hashCode,
-            notification.title,
-            notification.body,
-            NotificationDetails(
-              android: AndroidNotificationDetails(
-                channel.id,
-                channel.name,
-                icon: '@mipmap/ic_launcher',
-              ),
+        fltNotification.show(
+          notification.hashCode,
+          notification.title,
+          notification.body,
+          NotificationDetails(
+            android: AndroidNotificationDetails(
+              channel.id,
+              channel.name,
+              icon: '@mipmap/ic_launcher',
             ),
-          );
+          ),
+        );
         // }
       }
+      sharedPreferences.boolEntry('notification_view').setValue(false);
     });
   }
 
   Future<String?> getDeviceToken() async {
     final String? deviceToken = await FirebaseMessaging.instance.getToken();
     log(deviceToken ?? "device tokena net");
-    if(deviceToken!=null){
+    if (deviceToken != null) {
       sharedPreferences.stringEntry('deviceToken').setValue(deviceToken);
-  }
+    }
     return deviceToken;
   }
 

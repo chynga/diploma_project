@@ -47,8 +47,8 @@ extension BuildContextX on BuildContext {
   /// Поддерживаемые языки
   List<Locale> get supportedLocales => AppLocalizations.supportedLocales;
 
-  // /// Выбранный город
-  // CityDTO? get currentCity => SettingsScope.cityOf(this);
+  // /// Статус видения уведомления
+  bool? get isNotificationViewed => SettingsScope.isNotificationViewed(this);
 
   // /// Выбранная валюта
   // CurrencyDTO? get currentCurrency => SettingsScope.currencyOf(this);

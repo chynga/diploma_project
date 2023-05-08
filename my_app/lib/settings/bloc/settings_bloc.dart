@@ -41,10 +41,9 @@ class SettingsEvent with _$SettingsEvent {
     required AppLanguage locale,
   }) = _SettingsEventSetLocale;
 
-  // const factory SettingsEvent.setCity({
-  //   required CityDTO? city,
-  // }) = _SettingsEventSetCity;
-
+  const factory SettingsEvent.setView({
+    required bool view,
+  }) = _SettingsEventSetView;
 }
 
 // --- BLoC --- //
@@ -91,9 +90,8 @@ class SettingsBLoC extends StreamBloc<SettingsEvent, SettingsState> {
         () => _settingsRepository.setLocale(locale),
       );
 
-  // Stream<SettingsState> _setCity(CityDTO? city) => _performMutation(
-  //       () => _settingsRepository.setCity(city),
-  //     );
+  Stream<SettingsState> _setView(bool view) =>
+      _performMutation(() => _settingsRepository.setView(view: view));
 
   // Stream<SettingsState> _setCurrency(CurrencyDTO currency) => _performMutation(
   //       () => _settingsRepository.setCurrency(currency),
@@ -103,7 +101,7 @@ class SettingsBLoC extends StreamBloc<SettingsEvent, SettingsState> {
   Stream<SettingsState> mapEventToStates(SettingsEvent event) => event.when(
         setTheme: _setTheme,
         setLocale: _setLocale,
-        // setCity: _setCity,
+        setView: _setView,
         // setCurrency: _setCurrency,
       );
 }

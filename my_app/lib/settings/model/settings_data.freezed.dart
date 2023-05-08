@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$SettingsData {
   AppTheme get theme => throw _privateConstructorUsedError;
   AppLanguage get locale => throw _privateConstructorUsedError;
+  bool get isViewed => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SettingsDataCopyWith<SettingsData> get copyWith =>
@@ -30,7 +31,7 @@ abstract class $SettingsDataCopyWith<$Res> {
           SettingsData value, $Res Function(SettingsData) then) =
       _$SettingsDataCopyWithImpl<$Res, SettingsData>;
   @useResult
-  $Res call({AppTheme theme, AppLanguage locale});
+  $Res call({AppTheme theme, AppLanguage locale, bool isViewed});
 }
 
 /// @nodoc
@@ -48,6 +49,7 @@ class _$SettingsDataCopyWithImpl<$Res, $Val extends SettingsData>
   $Res call({
     Object? theme = null,
     Object? locale = null,
+    Object? isViewed = null,
   }) {
     return _then(_value.copyWith(
       theme: null == theme
@@ -58,6 +60,10 @@ class _$SettingsDataCopyWithImpl<$Res, $Val extends SettingsData>
           ? _value.locale
           : locale // ignore: cast_nullable_to_non_nullable
               as AppLanguage,
+      isViewed: null == isViewed
+          ? _value.isViewed
+          : isViewed // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -70,7 +76,7 @@ abstract class _$$_SettingsDataCopyWith<$Res>
       __$$_SettingsDataCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({AppTheme theme, AppLanguage locale});
+  $Res call({AppTheme theme, AppLanguage locale, bool isViewed});
 }
 
 /// @nodoc
@@ -86,6 +92,7 @@ class __$$_SettingsDataCopyWithImpl<$Res>
   $Res call({
     Object? theme = null,
     Object? locale = null,
+    Object? isViewed = null,
   }) {
     return _then(_$_SettingsData(
       theme: null == theme
@@ -96,6 +103,10 @@ class __$$_SettingsDataCopyWithImpl<$Res>
           ? _value.locale
           : locale // ignore: cast_nullable_to_non_nullable
               as AppLanguage,
+      isViewed: null == isViewed
+          ? _value.isViewed
+          : isViewed // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -103,16 +114,19 @@ class __$$_SettingsDataCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_SettingsData implements _SettingsData {
-  _$_SettingsData({required this.theme, required this.locale});
+  _$_SettingsData(
+      {required this.theme, required this.locale, required this.isViewed});
 
   @override
   final AppTheme theme;
   @override
   final AppLanguage locale;
+  @override
+  final bool isViewed;
 
   @override
   String toString() {
-    return 'SettingsData(theme: $theme, locale: $locale)';
+    return 'SettingsData(theme: $theme, locale: $locale, isViewed: $isViewed)';
   }
 
   @override
@@ -121,11 +135,13 @@ class _$_SettingsData implements _SettingsData {
         (other.runtimeType == runtimeType &&
             other is _$_SettingsData &&
             (identical(other.theme, theme) || other.theme == theme) &&
-            (identical(other.locale, locale) || other.locale == locale));
+            (identical(other.locale, locale) || other.locale == locale) &&
+            (identical(other.isViewed, isViewed) ||
+                other.isViewed == isViewed));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, theme, locale);
+  int get hashCode => Object.hash(runtimeType, theme, locale, isViewed);
 
   @JsonKey(ignore: true)
   @override
@@ -137,12 +153,15 @@ class _$_SettingsData implements _SettingsData {
 abstract class _SettingsData implements SettingsData {
   factory _SettingsData(
       {required final AppTheme theme,
-      required final AppLanguage locale}) = _$_SettingsData;
+      required final AppLanguage locale,
+      required final bool isViewed}) = _$_SettingsData;
 
   @override
   AppTheme get theme;
   @override
   AppLanguage get locale;
+  @override
+  bool get isViewed;
   @override
   @JsonKey(ignore: true)
   _$$_SettingsDataCopyWith<_$_SettingsData> get copyWith =>

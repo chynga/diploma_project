@@ -9,7 +9,7 @@ class SettingsData with _$SettingsData {
   factory SettingsData({
     required AppTheme theme,
     required AppLanguage locale,
-    // CityDTO? city,
+    required bool isViewed,
     // CurrencyDTO? currency,
   }) = _SettingsData;
 }

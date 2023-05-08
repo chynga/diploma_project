@@ -6,7 +6,7 @@ abstract class ISettingsDao {
 
   PreferencesEntry<String> get locale;
 
-  PreferencesEntry<String> get currentCity;
+  PreferencesEntry<bool> get view;
 
   PreferencesEntry<String> get currency;
 }
@@ -23,7 +23,7 @@ class SettingsDao extends TypedPreferencesDao implements ISettingsDao {
   PreferencesEntry<String> get locale => stringEntry('locale');
 
   @override
-  PreferencesEntry<String> get currentCity => stringEntry('current_city');
+  PreferencesEntry<bool> get view => boolEntry('notification_view');
 
   @override
   PreferencesEntry<String> get currency => stringEntry('currency');

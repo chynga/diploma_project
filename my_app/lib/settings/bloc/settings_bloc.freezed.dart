@@ -769,18 +769,21 @@ mixin _$SettingsEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(AppTheme theme) setTheme,
     required TResult Function(AppLanguage locale) setLocale,
+    required TResult Function(bool view) setView,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(AppTheme theme)? setTheme,
     TResult? Function(AppLanguage locale)? setLocale,
+    TResult? Function(bool view)? setView,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(AppTheme theme)? setTheme,
     TResult Function(AppLanguage locale)? setLocale,
+    TResult Function(bool view)? setView,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -788,18 +791,21 @@ mixin _$SettingsEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_SettingsEventSetTheme value) setTheme,
     required TResult Function(_SettingsEventSetLocale value) setLocale,
+    required TResult Function(_SettingsEventSetView value) setView,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_SettingsEventSetTheme value)? setTheme,
     TResult? Function(_SettingsEventSetLocale value)? setLocale,
+    TResult? Function(_SettingsEventSetView value)? setView,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_SettingsEventSetTheme value)? setTheme,
     TResult Function(_SettingsEventSetLocale value)? setLocale,
+    TResult Function(_SettingsEventSetView value)? setView,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -890,6 +896,7 @@ class _$_SettingsEventSetTheme implements _SettingsEventSetTheme {
   TResult when<TResult extends Object?>({
     required TResult Function(AppTheme theme) setTheme,
     required TResult Function(AppLanguage locale) setLocale,
+    required TResult Function(bool view) setView,
   }) {
     return setTheme(theme);
   }
@@ -899,6 +906,7 @@ class _$_SettingsEventSetTheme implements _SettingsEventSetTheme {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(AppTheme theme)? setTheme,
     TResult? Function(AppLanguage locale)? setLocale,
+    TResult? Function(bool view)? setView,
   }) {
     return setTheme?.call(theme);
   }
@@ -908,6 +916,7 @@ class _$_SettingsEventSetTheme implements _SettingsEventSetTheme {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(AppTheme theme)? setTheme,
     TResult Function(AppLanguage locale)? setLocale,
+    TResult Function(bool view)? setView,
     required TResult orElse(),
   }) {
     if (setTheme != null) {
@@ -921,6 +930,7 @@ class _$_SettingsEventSetTheme implements _SettingsEventSetTheme {
   TResult map<TResult extends Object?>({
     required TResult Function(_SettingsEventSetTheme value) setTheme,
     required TResult Function(_SettingsEventSetLocale value) setLocale,
+    required TResult Function(_SettingsEventSetView value) setView,
   }) {
     return setTheme(this);
   }
@@ -930,6 +940,7 @@ class _$_SettingsEventSetTheme implements _SettingsEventSetTheme {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_SettingsEventSetTheme value)? setTheme,
     TResult? Function(_SettingsEventSetLocale value)? setLocale,
+    TResult? Function(_SettingsEventSetView value)? setView,
   }) {
     return setTheme?.call(this);
   }
@@ -939,6 +950,7 @@ class _$_SettingsEventSetTheme implements _SettingsEventSetTheme {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_SettingsEventSetTheme value)? setTheme,
     TResult Function(_SettingsEventSetLocale value)? setLocale,
+    TResult Function(_SettingsEventSetView value)? setView,
     required TResult orElse(),
   }) {
     if (setTheme != null) {
@@ -1025,6 +1037,7 @@ class _$_SettingsEventSetLocale implements _SettingsEventSetLocale {
   TResult when<TResult extends Object?>({
     required TResult Function(AppTheme theme) setTheme,
     required TResult Function(AppLanguage locale) setLocale,
+    required TResult Function(bool view) setView,
   }) {
     return setLocale(locale);
   }
@@ -1034,6 +1047,7 @@ class _$_SettingsEventSetLocale implements _SettingsEventSetLocale {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(AppTheme theme)? setTheme,
     TResult? Function(AppLanguage locale)? setLocale,
+    TResult? Function(bool view)? setView,
   }) {
     return setLocale?.call(locale);
   }
@@ -1043,6 +1057,7 @@ class _$_SettingsEventSetLocale implements _SettingsEventSetLocale {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(AppTheme theme)? setTheme,
     TResult Function(AppLanguage locale)? setLocale,
+    TResult Function(bool view)? setView,
     required TResult orElse(),
   }) {
     if (setLocale != null) {
@@ -1056,6 +1071,7 @@ class _$_SettingsEventSetLocale implements _SettingsEventSetLocale {
   TResult map<TResult extends Object?>({
     required TResult Function(_SettingsEventSetTheme value) setTheme,
     required TResult Function(_SettingsEventSetLocale value) setLocale,
+    required TResult Function(_SettingsEventSetView value) setView,
   }) {
     return setLocale(this);
   }
@@ -1065,6 +1081,7 @@ class _$_SettingsEventSetLocale implements _SettingsEventSetLocale {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_SettingsEventSetTheme value)? setTheme,
     TResult? Function(_SettingsEventSetLocale value)? setLocale,
+    TResult? Function(_SettingsEventSetView value)? setView,
   }) {
     return setLocale?.call(this);
   }
@@ -1074,6 +1091,7 @@ class _$_SettingsEventSetLocale implements _SettingsEventSetLocale {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_SettingsEventSetTheme value)? setTheme,
     TResult Function(_SettingsEventSetLocale value)? setLocale,
+    TResult Function(_SettingsEventSetView value)? setView,
     required TResult orElse(),
   }) {
     if (setLocale != null) {
@@ -1090,5 +1108,146 @@ abstract class _SettingsEventSetLocale implements SettingsEvent {
   AppLanguage get locale;
   @JsonKey(ignore: true)
   _$$_SettingsEventSetLocaleCopyWith<_$_SettingsEventSetLocale> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_SettingsEventSetViewCopyWith<$Res> {
+  factory _$$_SettingsEventSetViewCopyWith(_$_SettingsEventSetView value,
+          $Res Function(_$_SettingsEventSetView) then) =
+      __$$_SettingsEventSetViewCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool view});
+}
+
+/// @nodoc
+class __$$_SettingsEventSetViewCopyWithImpl<$Res>
+    extends _$SettingsEventCopyWithImpl<$Res, _$_SettingsEventSetView>
+    implements _$$_SettingsEventSetViewCopyWith<$Res> {
+  __$$_SettingsEventSetViewCopyWithImpl(_$_SettingsEventSetView _value,
+      $Res Function(_$_SettingsEventSetView) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? view = null,
+  }) {
+    return _then(_$_SettingsEventSetView(
+      view: null == view
+          ? _value.view
+          : view // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_SettingsEventSetView implements _SettingsEventSetView {
+  const _$_SettingsEventSetView({required this.view});
+
+  @override
+  final bool view;
+
+  @override
+  String toString() {
+    return 'SettingsEvent.setView(view: $view)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_SettingsEventSetView &&
+            (identical(other.view, view) || other.view == view));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, view);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_SettingsEventSetViewCopyWith<_$_SettingsEventSetView> get copyWith =>
+      __$$_SettingsEventSetViewCopyWithImpl<_$_SettingsEventSetView>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(AppTheme theme) setTheme,
+    required TResult Function(AppLanguage locale) setLocale,
+    required TResult Function(bool view) setView,
+  }) {
+    return setView(view);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(AppTheme theme)? setTheme,
+    TResult? Function(AppLanguage locale)? setLocale,
+    TResult? Function(bool view)? setView,
+  }) {
+    return setView?.call(view);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(AppTheme theme)? setTheme,
+    TResult Function(AppLanguage locale)? setLocale,
+    TResult Function(bool view)? setView,
+    required TResult orElse(),
+  }) {
+    if (setView != null) {
+      return setView(view);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SettingsEventSetTheme value) setTheme,
+    required TResult Function(_SettingsEventSetLocale value) setLocale,
+    required TResult Function(_SettingsEventSetView value) setView,
+  }) {
+    return setView(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SettingsEventSetTheme value)? setTheme,
+    TResult? Function(_SettingsEventSetLocale value)? setLocale,
+    TResult? Function(_SettingsEventSetView value)? setView,
+  }) {
+    return setView?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SettingsEventSetTheme value)? setTheme,
+    TResult Function(_SettingsEventSetLocale value)? setLocale,
+    TResult Function(_SettingsEventSetView value)? setView,
+    required TResult orElse(),
+  }) {
+    if (setView != null) {
+      return setView(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SettingsEventSetView implements SettingsEvent {
+  const factory _SettingsEventSetView({required final bool view}) =
+      _$_SettingsEventSetView;
+
+  bool get view;
+  @JsonKey(ignore: true)
+  _$$_SettingsEventSetViewCopyWith<_$_SettingsEventSetView> get copyWith =>
       throw _privateConstructorUsedError;
 }
