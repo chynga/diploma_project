@@ -92,6 +92,7 @@ class _BaseState extends State<Base> with TickerProviderStateMixin {
                             tabsRouter.popTop();
                           } else {
                             tabsRouter.setActiveIndex(value);
+                            setState(() {});
                             if (value == 1) {
                               BlocProvider.of<ChatCubit>(context).readMessage();
                             }
@@ -144,7 +145,7 @@ class _BaseState extends State<Base> with TickerProviderStateMixin {
                               ),
                               builder: (context, state) {
                                 return CustomTabWidget(
-                                  news: tabController?.index !=1&&
+                                  news: tabController?.index != 1 &&
                                       (state.maybeMap(
                                         newMessageState: (value) => true,
                                         orElse: () => false,

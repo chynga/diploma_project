@@ -2,12 +2,14 @@ import 'package:auto_route/auto_route.dart';
 import 'package:dental_plaza/core/extension/src/build_context.dart';
 import 'package:dental_plaza/core/resources/assets.gen.dart';
 import 'package:dental_plaza/core/resources/resources.dart';
+import 'package:dental_plaza/features/app/router/app_router.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_buttons/custom_square_button.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_snackbars.dart';
 import 'package:dental_plaza/features/app/widgets/shimmer_box.dart';
 import 'package:dental_plaza/features/main/bloc/doctors_cubit.dart';
 import 'package:dental_plaza/features/main/bloc/notifications_cubit.dart';
 import 'package:dental_plaza/features/main/bloc/services_cubit.dart';
+import 'package:dental_plaza/features/main/bloc/view_notifications_cubit.dart';
 import 'package:dental_plaza/features/main/model/mock_doctor.dart';
 import 'package:dental_plaza/features/main/widgets/doctor_card_widget.dart';
 import 'package:dental_plaza/features/main/widgets/main_last_record_widget.dart';
@@ -107,7 +109,13 @@ class _MainPageState extends State<MainPage> {
                                       iconPadding: const EdgeInsets.all(5),
                                       size: 30,
                                       backgroundColor: AppColors.kBlue,
-                                      onTap: () {},
+                                      onTap: () {
+                                        context.router
+                                            .push(const NotificationsRoute())
+                                            .then((value) {
+                                          setState(() {});
+                                        });
+                                      },
                                     ),
                                   ),
                                   if (context.isNotificationViewed == false)

@@ -60,8 +60,6 @@ part 'app_router.gr.dart';
     ///Profile Pages
     ///
     AutoRoute<void>(page: EditProfilePage),
-
-    
     AutoRoute<void>(page: NotificationsPage),
   ],
 )

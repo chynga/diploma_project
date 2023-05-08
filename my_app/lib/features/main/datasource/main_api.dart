@@ -36,7 +36,7 @@ class MainApi extends BaseClientGenerator with _$MainApi {
         doctor: () => 'GET',
         doctorWithId: (id) => 'GET',
         notification: () => 'GET',
-        notificationTypes: () => 'POST',
+        notificationTypes: () => 'PATCH',
       );
 
   /// Пути всех запросов (после [kBaseUrl])
