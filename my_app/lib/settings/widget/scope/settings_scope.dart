@@ -107,7 +107,7 @@ class SettingsScope extends StatelessWidget {
           BlocProvider<ProfileCubit>(
             create: (_) => ProfileCubit(
               context.repository.authRepository,
-            ),
+            )..getProfie(),
           ),
           BlocProvider<HealthInfoCubit>(
             create: (_) => HealthInfoCubit(
@@ -125,7 +125,7 @@ class SettingsScope extends StatelessWidget {
             create: (_) => ChatCubit(
               context.repository.mainRepository,
               context.repository.authRepository,
-            ),
+            )..getMessages()..connectWebSocket(),
           ),
           BlocProvider<NotificationsCubit>(
             create: (_) => NotificationsCubit(

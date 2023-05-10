@@ -28,7 +28,7 @@ class ChatCubit extends Cubit<ChatState> {
   Future<void> connectWebSocket() async {
     log(isWebsocketRunning.toString(), name: 'isWebsocketRunning');
     final UserDTO? userFromCache = await _authRepository.getUserFromCache();
-    if (isWebsocketRunning) return;
+    // if (isWebsocketRunning) return;
     if (userFromCache != null && userFromCache.accessToken != null) {
       chatWebSocket = WebSocketChannel.connect(
         Uri.parse(
@@ -48,6 +48,11 @@ class ChatCubit extends Cubit<ChatState> {
             );
             emit(ChatState.newMessageState(messages: _messages));
             emit(ChatState.loadedState(messages: _messages));
+            if (((jsonDecode(message) as Map<String, dynamic>)['writerId']) ==
+                userFromCache.id) {
+              log(';wejflidsjkljnfalksdfnjliaenf', name: "READ MESSAGE");
+              readMessage();
+            }
           },
           onDone: () {
             isWebsocketRunning = true;

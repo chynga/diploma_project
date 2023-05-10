@@ -16,6 +16,9 @@ _$_NotificationDTO _$$_NotificationDTOFromJson(Map<String, dynamic> json) =>
       showAt: json['showAt'] == null
           ? null
           : DateTime.parse(json['showAt'] as String),
+      service: json['service'] == null
+          ? null
+          : ServiceDTO.fromJson(json['service'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_NotificationDTOToJson(_$_NotificationDTO instance) =>
@@ -26,4 +29,5 @@ Map<String, dynamic> _$$_NotificationDTOToJson(_$_NotificationDTO instance) =>
       'isViewed': instance.isViewed,
       'message': instance.message,
       'showAt': instance.showAt?.toIso8601String(),
+      'service': instance.service,
     };

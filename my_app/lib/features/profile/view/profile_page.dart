@@ -15,6 +15,7 @@ import 'package:dental_plaza/features/profile/widgets/set_language_profile_widge
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -30,6 +31,7 @@ class _ProfilePageState extends State<ProfilePage> {
     BlocProvider.of<ProfileCubit>(context).getProfie();
     BlocProvider.of<HealthInfoCubit>(context).getHealthInfo();
   }
+  RefreshController controller = RefreshController();
 
   int segmentValue = 0;
   @override
@@ -39,135 +41,142 @@ class _ProfilePageState extends State<ProfilePage> {
         preferredSize: Size.fromHeight(88),
         child: CustomAppBar(),
       ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        children: [
-          const SizedBox(
-            height: 8,
-          ),
-          const SetLanguageProfileWidget(),
-          const SizedBox(
-            height: 22,
-          ),
-
-          // ClipRRect(
-          //                                             borderRadius:
-          //                                                 BorderRadius.circular(100),
-          //                                             child: Image.network(
-          //                                               '$kBaseUrl/${widget.user.avatar}',
-          //                                               fit: BoxFit.cover,
-          //                                               // width: 90,
-          //                                               // height: 90,
-          //                                               loadingBuilder: (
-          //                                                 context,
-          //                                                 child,
-          //                                                 loadingProgress,
-          //                                               ) {
-          //                                                 if (loadingProgress == null) {
-          //                                                   return child;
-          //                                                 }
-          //                                                 return Center(
-          //                                                   child:
-          //                                                       CircularProgressIndicator(
-          //                                                     color: AppColors.kBlue,
-          //                                                     value: loadingProgress
-          //                                                                 .expectedTotalBytes !=
-          //                                                             null
-          //                                                         ? loadingProgress
-          //                                                                 .cumulativeBytesLoaded /
-          //                                                             loadingProgress
-          //                                                                 .expectedTotalBytes!
-          //                                                         : null,
-          //                                                   ),
-          //                                                 );
-          //                                               },
-          //                                               errorBuilder: (
-          //                                                 BuildContext context,
-          //                                                 Object exception,
-          //                                                 StackTrace? stackTrace,
-          //                                               ) {
-          //                                                 return const SizedBox(
-          //                                                   // width: 90,
-          //                                                   // height: 90,
-          //                                                   child: Center(
-          //                                                     child: Text('Image Error'),
-          //                                                   ),
-          //                                                 );
-          //                                               },
-          //                                             ),
-          //                                           )
-
-          const CircleAvatar(
-            maxRadius: 50,
-            backgroundColor: Color(0xff666666),
-            child: Icon(
-              Icons.person,
-              color: Colors.white,
-              size: 80,
+      body: SmartRefresher(
+        controller: controller,
+        onRefresh: () {
+          BlocProvider.of<ProfileCubit>(context).getProfie();
+          controller.refreshCompleted();
+        },
+        child: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          children: [
+            const SizedBox(
+              height: 8,
             ),
-          ),
-          const SizedBox(
-            height: 33,
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: CustomSwitchButton<int>(
-                  border: Border.all(color: AppColors.kBlue),
-                  groupValue: segmentValue,
-                  thumbColor: AppColors.kBlue,
-                  backgroundColor: AppColors.kWhite,
-                  customSwitchButtonBorderRadius: 50,
-                  padding: EdgeInsets.zero,
-                  children: {
-                    0: BuildSegmentWidget(
-                      text: context.localized.personalCard,
-                      isSelected: 0 == segmentValue,
-                    ),
-                    1: BuildSegmentWidget(
-                      text: context.localized.information,
-                      isSelected: 1 == segmentValue,
-                    ),
-                  },
-                  onValueChanged: (int? value) {
-                    setState(() {
-                      segmentValue = value!;
-                    });
-                  },
-                ),
+            const SetLanguageProfileWidget(),
+            const SizedBox(
+              height: 22,
+            ),
+      
+            // ClipRRect(
+            //                                             borderRadius:
+            //                                                 BorderRadius.circular(100),
+            //                                             child: Image.network(
+            //                                               '$kBaseUrl/${widget.user.avatar}',
+            //                                               fit: BoxFit.cover,
+            //                                               // width: 90,
+            //                                               // height: 90,
+            //                                               loadingBuilder: (
+            //                                                 context,
+            //                                                 child,
+            //                                                 loadingProgress,
+            //                                               ) {
+            //                                                 if (loadingProgress == null) {
+            //                                                   return child;
+            //                                                 }
+            //                                                 return Center(
+            //                                                   child:
+            //                                                       CircularProgressIndicator(
+            //                                                     color: AppColors.kBlue,
+            //                                                     value: loadingProgress
+            //                                                                 .expectedTotalBytes !=
+            //                                                             null
+            //                                                         ? loadingProgress
+            //                                                                 .cumulativeBytesLoaded /
+            //                                                             loadingProgress
+            //                                                                 .expectedTotalBytes!
+            //                                                         : null,
+            //                                                   ),
+            //                                                 );
+            //                                               },
+            //                                               errorBuilder: (
+            //                                                 BuildContext context,
+            //                                                 Object exception,
+            //                                                 StackTrace? stackTrace,
+            //                                               ) {
+            //                                                 return const SizedBox(
+            //                                                   // width: 90,
+            //                                                   // height: 90,
+            //                                                   child: Center(
+            //                                                     child: Text('Image Error'),
+            //                                                   ),
+            //                                                 );
+            //                                               },
+            //                                             ),
+            //                                           )
+      
+            const CircleAvatar(
+              maxRadius: 50,
+              backgroundColor: Color(0xff666666),
+              child: Icon(
+                Icons.person,
+                color: Colors.white,
+                size: 80,
               ),
-            ],
-          ),
-          IndexedStack(
-            index: segmentValue,
-            children: const [PersonalCardWidget(), InformationWidget()],
-          ),
-          const SizedBox(
-            height: 33,
-          ),
-          CustomButton(
-            body: Text(
-              context.localized.exit,
-              style: AppTextStyles.m16w400.copyWith(color: AppColors.kWhite),
             ),
-            onClick: () {
-              showCupertinoModalPopup<void>(
-                context: context,
-                builder: (context) => ExitCupertinoWidget(
-                  onYesTap: () {
-                    BlocProvider.of<AppBLoC>(this.context)
-                        .add(const AppEvent.exiting());
-
-                    Navigator.pop(context);
-                  },
+            const SizedBox(
+              height: 33,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: CustomSwitchButton<int>(
+                    border: Border.all(color: AppColors.kBlue),
+                    groupValue: segmentValue,
+                    thumbColor: AppColors.kBlue,
+                    backgroundColor: AppColors.kWhite,
+                    customSwitchButtonBorderRadius: 50,
+                    padding: EdgeInsets.zero,
+                    children: {
+                      0: BuildSegmentWidget(
+                        text: context.localized.personalCard,
+                        isSelected: 0 == segmentValue,
+                      ),
+                      1: BuildSegmentWidget(
+                        text: context.localized.information,
+                        isSelected: 1 == segmentValue,
+                      ),
+                    },
+                    onValueChanged: (int? value) {
+                      setState(() {
+                        segmentValue = value!;
+                      });
+                    },
+                  ),
                 ),
-              );
-              // BlocProvider.of<ChatCubit>(context).closeWebSocket();
-            },
-            style: redButtonStyle(radius: 20),
-            height: 35,
-          ),
-        ],
+              ],
+            ),
+            IndexedStack(
+              index: segmentValue,
+              children: const [PersonalCardWidget(), InformationWidget()],
+            ),
+            const SizedBox(
+              height: 33,
+            ),
+            CustomButton(
+              body: Text(
+                context.localized.exit,
+                style: AppTextStyles.m16w400.copyWith(color: AppColors.kWhite),
+              ),
+              onClick: () {
+                showCupertinoModalPopup<void>(
+                  context: context,
+                  builder: (context) => ExitCupertinoWidget(
+                    onYesTap: () {
+                      BlocProvider.of<AppBLoC>(this.context)
+                          .add(const AppEvent.exiting());
+      
+                      Navigator.pop(context);
+                    },
+                  ),
+                );
+                // BlocProvider.of<ChatCubit>(context).closeWebSocket();
+              },
+              style: redButtonStyle(radius: 20),
+              height: 35,
+            ),
+          ],
+        ),
       ),
     );
   }

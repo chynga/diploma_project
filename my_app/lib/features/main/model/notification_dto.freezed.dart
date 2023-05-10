@@ -26,6 +26,7 @@ mixin _$NotificationDTO {
   bool? get isViewed => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   DateTime? get showAt => throw _privateConstructorUsedError;
+  ServiceDTO? get service => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,7 +46,10 @@ abstract class $NotificationDTOCopyWith<$Res> {
       String? type,
       bool? isViewed,
       String? message,
-      DateTime? showAt});
+      DateTime? showAt,
+      ServiceDTO? service});
+
+  $ServiceDTOCopyWith<$Res>? get service;
 }
 
 /// @nodoc
@@ -67,6 +71,7 @@ class _$NotificationDTOCopyWithImpl<$Res, $Val extends NotificationDTO>
     Object? isViewed = freezed,
     Object? message = freezed,
     Object? showAt = freezed,
+    Object? service = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -93,7 +98,23 @@ class _$NotificationDTOCopyWithImpl<$Res, $Val extends NotificationDTO>
           ? _value.showAt
           : showAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      service: freezed == service
+          ? _value.service
+          : service // ignore: cast_nullable_to_non_nullable
+              as ServiceDTO?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ServiceDTOCopyWith<$Res>? get service {
+    if (_value.service == null) {
+      return null;
+    }
+
+    return $ServiceDTOCopyWith<$Res>(_value.service!, (value) {
+      return _then(_value.copyWith(service: value) as $Val);
+    });
   }
 }
 
@@ -111,7 +132,11 @@ abstract class _$$_NotificationDTOCopyWith<$Res>
       String? type,
       bool? isViewed,
       String? message,
-      DateTime? showAt});
+      DateTime? showAt,
+      ServiceDTO? service});
+
+  @override
+  $ServiceDTOCopyWith<$Res>? get service;
 }
 
 /// @nodoc
@@ -131,6 +156,7 @@ class __$$_NotificationDTOCopyWithImpl<$Res>
     Object? isViewed = freezed,
     Object? message = freezed,
     Object? showAt = freezed,
+    Object? service = freezed,
   }) {
     return _then(_$_NotificationDTO(
       id: freezed == id
@@ -157,6 +183,10 @@ class __$$_NotificationDTOCopyWithImpl<$Res>
           ? _value.showAt
           : showAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      service: freezed == service
+          ? _value.service
+          : service // ignore: cast_nullable_to_non_nullable
+              as ServiceDTO?,
     ));
   }
 }
@@ -170,7 +200,8 @@ class _$_NotificationDTO implements _NotificationDTO {
       this.type,
       this.isViewed,
       this.message,
-      this.showAt});
+      this.showAt,
+      this.service});
 
   factory _$_NotificationDTO.fromJson(Map<String, dynamic> json) =>
       _$$_NotificationDTOFromJson(json);
@@ -187,10 +218,12 @@ class _$_NotificationDTO implements _NotificationDTO {
   final String? message;
   @override
   final DateTime? showAt;
+  @override
+  final ServiceDTO? service;
 
   @override
   String toString() {
-    return 'NotificationDTO(id: $id, clientId: $clientId, type: $type, isViewed: $isViewed, message: $message, showAt: $showAt)';
+    return 'NotificationDTO(id: $id, clientId: $clientId, type: $type, isViewed: $isViewed, message: $message, showAt: $showAt, service: $service)';
   }
 
   @override
@@ -205,13 +238,14 @@ class _$_NotificationDTO implements _NotificationDTO {
             (identical(other.isViewed, isViewed) ||
                 other.isViewed == isViewed) &&
             (identical(other.message, message) || other.message == message) &&
-            (identical(other.showAt, showAt) || other.showAt == showAt));
+            (identical(other.showAt, showAt) || other.showAt == showAt) &&
+            (identical(other.service, service) || other.service == service));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, clientId, type, isViewed, message, showAt);
+  int get hashCode => Object.hash(
+      runtimeType, id, clientId, type, isViewed, message, showAt, service);
 
   @JsonKey(ignore: true)
   @override
@@ -234,7 +268,8 @@ abstract class _NotificationDTO implements NotificationDTO {
       final String? type,
       final bool? isViewed,
       final String? message,
-      final DateTime? showAt}) = _$_NotificationDTO;
+      final DateTime? showAt,
+      final ServiceDTO? service}) = _$_NotificationDTO;
 
   factory _NotificationDTO.fromJson(Map<String, dynamic> json) =
       _$_NotificationDTO.fromJson;
@@ -251,6 +286,8 @@ abstract class _NotificationDTO implements NotificationDTO {
   String? get message;
   @override
   DateTime? get showAt;
+  @override
+  ServiceDTO? get service;
   @override
   @JsonKey(ignore: true)
   _$$_NotificationDTOCopyWith<_$_NotificationDTO> get copyWith =>

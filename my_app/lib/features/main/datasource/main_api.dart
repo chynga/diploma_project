@@ -20,7 +20,9 @@ class MainApi extends BaseClientGenerator with _$MainApi {
   const factory MainApi.chat() = _Chat;
   const factory MainApi.notification() = _Notification;
   
-  const factory MainApi.notificationTypes() = _NotificationTypes;
+  const factory MainApi.notificationTypes({
+    required String type,
+  }) = _NotificationTypes;
 
 
   /// body
@@ -36,7 +38,7 @@ class MainApi extends BaseClientGenerator with _$MainApi {
         doctor: () => 'GET',
         doctorWithId: (id) => 'GET',
         notification: () => 'GET',
-        notificationTypes: () => 'PATCH',
+        notificationTypes: (type) => 'PATCH',
       );
 
   /// Пути всех запросов (после [kBaseUrl])
@@ -47,7 +49,7 @@ class MainApi extends BaseClientGenerator with _$MainApi {
         doctorWithId: (id) => '/api/doctors/$id',
         chat: () => '/api/consultation/my',
         notification: () => '/api/profile/notifications',
-        notificationTypes: () => '/api/profile/notifications/types/appointment',
+        notificationTypes: (type) => '/api/profile/notifications/types/$type',
       );
 
   /// Параметры запросов

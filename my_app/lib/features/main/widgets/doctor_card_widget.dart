@@ -1,7 +1,13 @@
 import 'package:dental_plaza/core/common/constants.dart';
+import 'package:dental_plaza/core/extension/src/build_context.dart';
 import 'package:dental_plaza/core/resources/resources.dart';
+import 'package:dental_plaza/features/app/widgets/bottom_sheet.dart';
 import 'package:dental_plaza/features/main/model/doctor_dto.dart';
+import 'package:dental_plaza/features/record/bloc/free_slots_cubit.dart';
+import 'package:dental_plaza/features/record/bloc/make_record_cubit.dart';
+import 'package:dental_plaza/features/record/widgets/new_record_bottom_sheet.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DoctorCardWidget extends StatelessWidget {
   final DoctorDTO doctor;
@@ -24,7 +30,27 @@ class DoctorCardWidget extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(25),
-          onTap: () {},
+          onTap: () {
+            bottomSheet(
+              MultiBlocProvider(
+                providers: [
+                  BlocProvider<MakeRecordCubit>(
+                    create: (context) =>
+                        MakeRecordCubit(context.repository.recordRepository),
+                  ),
+                  BlocProvider<FreeSlotsCubit>(
+                    create: (context) =>
+                        FreeSlotsCubit(context.repository.recordRepository),
+                  ),
+                ],
+                child: NewRecordBottomSheet(
+                  doctor: doctor,
+                  parentContext: context,
+                ),
+              ),
+              context,
+            );
+          },
           child: Column(
             children: [
               const SizedBox(

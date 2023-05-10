@@ -3,13 +3,13 @@ import 'package:dental_plaza/core/extension/src/build_context.dart';
 import 'package:dental_plaza/core/resources/assets.gen.dart';
 import 'package:dental_plaza/core/resources/resources.dart';
 import 'package:dental_plaza/features/app/router/app_router.dart';
+import 'package:dental_plaza/features/app/widgets/custom/custom_app_bar.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_buttons/custom_square_button.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_snackbars.dart';
 import 'package:dental_plaza/features/app/widgets/shimmer_box.dart';
 import 'package:dental_plaza/features/main/bloc/doctors_cubit.dart';
 import 'package:dental_plaza/features/main/bloc/notifications_cubit.dart';
 import 'package:dental_plaza/features/main/bloc/services_cubit.dart';
-import 'package:dental_plaza/features/main/bloc/view_notifications_cubit.dart';
 import 'package:dental_plaza/features/main/model/mock_doctor.dart';
 import 'package:dental_plaza/features/main/widgets/doctor_card_widget.dart';
 import 'package:dental_plaza/features/main/widgets/main_last_record_widget.dart';
@@ -20,12 +20,14 @@ import 'package:dental_plaza/features/main/widgets/show_case_nine.dart';
 import 'package:dental_plaza/features/main/widgets/show_case_seven.dart';
 import 'package:dental_plaza/features/main/widgets/show_case_six.dart';
 import 'package:dental_plaza/features/main/widgets/show_case_ten.dart';
+import 'package:dental_plaza/features/profile/bloc/profile_cubit.dart';
 import 'package:dental_plaza/settings/widget/scope/settings_scope.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MainPage extends StatefulWidget with AutoRouteWrapper {
-  const MainPage({super.key});
+  final VoidCallback? callbackForChat;
+  const MainPage({super.key, this.callbackForChat});
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -50,6 +52,12 @@ class MainPage extends StatefulWidget with AutoRouteWrapper {
 
 class _MainPageState extends State<MainPage> {
   @override
+  void initState() {
+    BlocProvider.of<ProfileCubit>(context).getProfie();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
@@ -71,7 +79,7 @@ class _MainPageState extends State<MainPage> {
                 delegate: SliverChildListDelegate(
                   [
                     const SizedBox(
-                      height: 34,
+                      height: 5.5,
                     ),
                     BlocListener<NotificationsCubit, NotificationsState>(
                       listener: (context, state) {
@@ -85,62 +93,12 @@ class _MainPageState extends State<MainPage> {
                           },
                         );
                       },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Image.asset(
-                            Assets.images.dentalPlaza.path,
-                            height: 35,
-                            fit: BoxFit.cover,
-                          ),
-                          ShowCaseSix(
-                            child: SizedBox(
-                              height: 32,
-                              width: 35,
-                              child: Stack(
-                                children: [
-                                  Positioned(
-                                    bottom: 0,
-                                    left: 0,
-                                    child: CustomSquareButton(
-                                      iconPath:
-                                          Assets.icons.icNotification.path,
-                                      iconColor: AppColors.kWhite,
-                                      iconPadding: const EdgeInsets.all(5),
-                                      size: 30,
-                                      backgroundColor: AppColors.kBlue,
-                                      onTap: () {
-                                        context.router
-                                            .push(const NotificationsRoute())
-                                            .then((value) {
-                                          setState(() {});
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                  if (context.isNotificationViewed == false)
-                                    Positioned(
-                                      top: 0,
-                                      right: 0,
-                                      child: Container(
-                                        height: 15,
-                                        width: 15,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(55),
-                                          color: Colors.red,
-                                        ),
-                                      ),
-                                    )
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
+                      child: const CustomAppBar(
+                        isMain: true,
                       ),
                     ),
                     const SizedBox(
-                      height: 34,
+                      height: 7.5,
                     ),
                     const ShowCaseSeven(
                       child: MainLastRecordWidget(),

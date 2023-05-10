@@ -48,7 +48,7 @@ class _TimerWidgetState extends State<TimerWidget> {
       } else {
         myDuration = Duration(seconds: seconds);
         if (myDuration.inSeconds == 0) {
-          isPlaying = false;
+          // isPlaying = false;
           FlutterRingtonePlayer.play(
             android: AndroidSounds.ringtone,
             ios: IosSounds.glass,
@@ -99,10 +99,13 @@ class _TimerWidgetState extends State<TimerWidget> {
                   borderRadius: BorderRadius.circular(100),
                   onTap: () {
                     if (isPlaying) {
-                      stopTimer();
-                    } else {
                       if (myDuration.inSeconds == 0) {
                         FlutterRingtonePlayer.stop();
+                      } else {
+                        stopTimer();
+                      }
+                    } else {
+                      if (myDuration.inSeconds == 0) {
                         allSeconds = 180;
                         myDuration = Duration(seconds: allSeconds);
                       }

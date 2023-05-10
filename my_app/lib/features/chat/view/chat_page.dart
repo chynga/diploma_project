@@ -1,7 +1,6 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:dental_plaza/core/extension/extensions.dart';
 import 'package:dental_plaza/core/resources/resources.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_app_bar.dart';
+import 'package:dental_plaza/features/app/widgets/custom/custom_buttons/custom_back_button.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_snackbars.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_text_field.dart';
 import 'package:dental_plaza/features/chat/bloc/chat_cubit.dart';
@@ -13,7 +12,8 @@ import 'package:intl/intl.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ChatPage extends StatefulWidget {
-  const ChatPage({super.key});
+  final bool? isFromNot;
+  const ChatPage({super.key, this.isFromNot});
 
   @override
   State<ChatPage> createState() => _ChatPageState();
@@ -35,6 +35,9 @@ class _ChatPageState extends State<ChatPage> {
   void initState() {
     BlocProvider.of<ChatCubit>(context).getMessages();
     BlocProvider.of<ChatCubit>(context).connectWebSocket();
+    if (widget.isFromNot == true) {
+      BlocProvider.of<ChatCubit>(context).readMessage();
+    }
     super.initState();
   }
 
@@ -51,10 +54,16 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.kGreyBg,
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(88),
-        child: CustomAppBar(),
-      ),
+      appBar: widget.isFromNot == true
+          ? AppBar(
+              automaticallyImplyLeading: false,
+              backgroundColor: Colors.white,
+              flexibleSpace: SafeArea(child: const CustomBackButton()),
+            )
+          : const PreferredSize(
+              preferredSize: Size.fromHeight(88),
+              child: CustomAppBar(),
+            ),
       body: SmartRefresher(
         enablePullUp: true,
         controller: refreshController,

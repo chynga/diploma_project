@@ -14,7 +14,9 @@ abstract class IMainRepository {
   Future<Result<List<DoctorDTO>>> getDoctors();
   Future<Result<List<MessageDTO>>> getMessages();
   Future<Result<List<NotificationDTO>>> getNotifications();
-  Future<Result<BasicResponse>> viewNotifications();
+  Future<Result<BasicResponse>> viewNotifications({
+    required String type,
+  });
 }
 
 class MainRepositoryImpl extends IMainRepository {
@@ -36,8 +38,11 @@ class MainRepositoryImpl extends IMainRepository {
       _remoteDs.getNotifications();
 
   @override
-  Future<Result<BasicResponse>> viewNotifications() => _client.execute(
-        route: const MainApi.notificationTypes(),
+  Future<Result<BasicResponse>> viewNotifications({
+    required String type,
+  }) =>
+      _client.execute(
+        route: MainApi.notificationTypes(type: type),
         responseType: BasicResponse(),
       );
 }

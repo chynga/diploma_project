@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:dental_plaza/core/resources/resources.dart';
+import 'package:dental_plaza/features/app/router/app_router.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_buttons/custom_back_button.dart';
 import 'package:dental_plaza/features/app/widgets/shimmer_box.dart';
 import 'package:dental_plaza/features/main/bloc/notifications_cubit.dart';
@@ -10,7 +11,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 class NotificationsPage extends StatefulWidget {
-  const NotificationsPage({super.key});
+  final VoidCallback? callbackForChat;
+  const NotificationsPage({super.key, this.callbackForChat});
 
   @override
   State<NotificationsPage> createState() => _NotificationsPageState();
@@ -19,7 +21,8 @@ class NotificationsPage extends StatefulWidget {
 class _NotificationsPageState extends State<NotificationsPage> {
   @override
   void initState() {
-    BlocProvider.of<ViewNotificationsCubit>(context).viewNots();
+    BlocProvider.of<ViewNotificationsCubit>(context).viewNots(type: 'consultation');
+    BlocProvider.of<ViewNotificationsCubit>(context).viewNots(type: 'appointment');
     super.initState();
   }
 
@@ -68,37 +71,62 @@ class _NotificationsPageState extends State<NotificationsPage> {
                                     )
                                   ],
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 12,
-                                    vertical: 6,
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        notifications[index].message ?? "",
-                                        style: AppTextStyles.m20w500,
+                                child: Material(
+                                  color: Colors.transparent,
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: InkWell(
+                                    borderRadius: BorderRadius.circular(10),
+                                    onTap: () {
+                                      context.router.push(
+                                        ChatRouteNotification(
+                                          isFromNot: true,
+                                        ),
+                                      );
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 12,
+                                        vertical: 6,
                                       ),
-                                      const SizedBox(
-                                        height: 4,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            notifications[index].message ?? "",
+                                            style: AppTextStyles.m20w500,
+                                          ),
+                                          const SizedBox(
+                                            height: 4,
+                                          ),
+                                          Text(
+                                            DateFormat('dd.MM.yyyy').format(
+                                              notifications[index].showAt ??
+                                                  DateTime.now(),
+                                            ),
+                                            style:
+                                                AppTextStyles.m16w400.copyWith(
+                                              fontWeight: FontWeight.w300,
+                                            ),
+                                          ),
+                                          if (notifications[index].service !=
+                                              null)
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                const SizedBox(
+                                                  height: 4,
+                                                ),
+                                                Text(
+                                                  '${notifications[index].service?.title}',
+                                                  style: AppTextStyles.m16w400,
+                                                ),
+                                              ],
+                                            ),
+                                        ],
                                       ),
-                                      Text(
-                                        DateFormat('dd.MM.yyyy').format(
-                                            notifications[index].showAt ??
-                                                DateTime.now(),),
-                                        style: AppTextStyles.m16w400.copyWith(
-                                            fontWeight: FontWeight.w300,),
-                                      ),
-                                      const SizedBox(
-                                        height: 4,
-                                      ),
-                                      const Text(
-                                        'Удаление зуба',
-                                        style: AppTextStyles.m16w400,
-                                      ),
-                                    ],
+                                    ),
                                   ),
                                 ),
                               ),

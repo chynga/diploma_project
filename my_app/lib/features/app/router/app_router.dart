@@ -61,6 +61,8 @@ part 'app_router.gr.dart';
     ///
     AutoRoute<void>(page: EditProfilePage),
     AutoRoute<void>(page: NotificationsPage),
+
+    AutoRoute<void>(page: ChatPage, name: 'ChatRouteNotification'),
   ],
 )
 class AppRouter extends _$AppRouter {}

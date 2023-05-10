@@ -108,6 +108,25 @@ class MainLastRecordWidget extends StatelessWidget {
                     const SizedBox(
                       height: 12,
                     ),
+                     state.maybeWhen(
+                      loadedState: (myRecords, pastRecords) {
+                        return Text(
+                          myRecords.isEmpty
+                              ? ""
+                              : '${context.localized.service}: ${getLastRecord(myRecords)?.service?.title}',
+                          style: AppTextStyles.m16w500
+                              .copyWith(color: AppColors.kWhite),
+                        );
+                      },
+                      orElse: () {
+                        return const LoadShimmer(
+                          height: 20,
+                        );
+                      },
+                    ),
+                    const SizedBox(
+                      height: 12,
+                    ),
                     state.maybeWhen(
                       loadedState: (myRecords, pastRecords) {
                         return Text(

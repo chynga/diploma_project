@@ -1,3 +1,4 @@
+import 'package:dental_plaza/core/extension/src/build_context.dart';
 import 'package:dental_plaza/core/resources/resources.dart';
 import 'package:dental_plaza/features/record/model/record_dto.dart';
 import 'package:flutter/material.dart';
@@ -44,13 +45,13 @@ class RecordItemWidget extends StatelessWidget {
                   style: AppTextStyles.m14w400.copyWith(color: AppColors.kBlue),
                 ),
                 Text(
-                  'Врач: ${record.doctor?.fullName}',
+                  '${context.localized.doctor}: ${record.doctor?.fullName}',
                   style: AppTextStyles.m14w400.copyWith(color: AppColors.kBlue),
                 ),
-                Text(
-                  'Статус: ${record.status}',
-                  style: AppTextStyles.m14w400.copyWith(color: AppColors.kBlue),
-                ),
+                // Text(
+                //   'Статус: ${record.status}',
+                //   style: AppTextStyles.m14w400.copyWith(color: AppColors.kBlue),
+                // ),
               ],
             ),
           ),

@@ -23,7 +23,7 @@ mixin _$MainApi {
     required TResult Function(String id) doctorWithId,
     required TResult Function() chat,
     required TResult Function() notification,
-    required TResult Function() notificationTypes,
+    required TResult Function(String type) notificationTypes,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -33,7 +33,7 @@ mixin _$MainApi {
     TResult? Function(String id)? doctorWithId,
     TResult? Function()? chat,
     TResult? Function()? notification,
-    TResult? Function()? notificationTypes,
+    TResult? Function(String type)? notificationTypes,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -43,7 +43,7 @@ mixin _$MainApi {
     TResult Function(String id)? doctorWithId,
     TResult Function()? chat,
     TResult Function()? notification,
-    TResult Function()? notificationTypes,
+    TResult Function(String type)? notificationTypes,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -139,7 +139,7 @@ class _$_Service extends _Service {
     required TResult Function(String id) doctorWithId,
     required TResult Function() chat,
     required TResult Function() notification,
-    required TResult Function() notificationTypes,
+    required TResult Function(String type) notificationTypes,
   }) {
     return service();
   }
@@ -152,7 +152,7 @@ class _$_Service extends _Service {
     TResult? Function(String id)? doctorWithId,
     TResult? Function()? chat,
     TResult? Function()? notification,
-    TResult? Function()? notificationTypes,
+    TResult? Function(String type)? notificationTypes,
   }) {
     return service?.call();
   }
@@ -165,7 +165,7 @@ class _$_Service extends _Service {
     TResult Function(String id)? doctorWithId,
     TResult Function()? chat,
     TResult Function()? notification,
-    TResult Function()? notificationTypes,
+    TResult Function(String type)? notificationTypes,
     required TResult orElse(),
   }) {
     if (service != null) {
@@ -264,7 +264,7 @@ class _$_Doctor extends _Doctor {
     required TResult Function(String id) doctorWithId,
     required TResult Function() chat,
     required TResult Function() notification,
-    required TResult Function() notificationTypes,
+    required TResult Function(String type) notificationTypes,
   }) {
     return doctor();
   }
@@ -277,7 +277,7 @@ class _$_Doctor extends _Doctor {
     TResult? Function(String id)? doctorWithId,
     TResult? Function()? chat,
     TResult? Function()? notification,
-    TResult? Function()? notificationTypes,
+    TResult? Function(String type)? notificationTypes,
   }) {
     return doctor?.call();
   }
@@ -290,7 +290,7 @@ class _$_Doctor extends _Doctor {
     TResult Function(String id)? doctorWithId,
     TResult Function()? chat,
     TResult Function()? notification,
-    TResult Function()? notificationTypes,
+    TResult Function(String type)? notificationTypes,
     required TResult orElse(),
   }) {
     if (doctor != null) {
@@ -417,7 +417,7 @@ class _$_DoctorWithId extends _DoctorWithId {
     required TResult Function(String id) doctorWithId,
     required TResult Function() chat,
     required TResult Function() notification,
-    required TResult Function() notificationTypes,
+    required TResult Function(String type) notificationTypes,
   }) {
     return doctorWithId(id);
   }
@@ -430,7 +430,7 @@ class _$_DoctorWithId extends _DoctorWithId {
     TResult? Function(String id)? doctorWithId,
     TResult? Function()? chat,
     TResult? Function()? notification,
-    TResult? Function()? notificationTypes,
+    TResult? Function(String type)? notificationTypes,
   }) {
     return doctorWithId?.call(id);
   }
@@ -443,7 +443,7 @@ class _$_DoctorWithId extends _DoctorWithId {
     TResult Function(String id)? doctorWithId,
     TResult Function()? chat,
     TResult Function()? notification,
-    TResult Function()? notificationTypes,
+    TResult Function(String type)? notificationTypes,
     required TResult orElse(),
   }) {
     if (doctorWithId != null) {
@@ -546,7 +546,7 @@ class _$_Chat extends _Chat {
     required TResult Function(String id) doctorWithId,
     required TResult Function() chat,
     required TResult Function() notification,
-    required TResult Function() notificationTypes,
+    required TResult Function(String type) notificationTypes,
   }) {
     return chat();
   }
@@ -559,7 +559,7 @@ class _$_Chat extends _Chat {
     TResult? Function(String id)? doctorWithId,
     TResult? Function()? chat,
     TResult? Function()? notification,
-    TResult? Function()? notificationTypes,
+    TResult? Function(String type)? notificationTypes,
   }) {
     return chat?.call();
   }
@@ -572,7 +572,7 @@ class _$_Chat extends _Chat {
     TResult Function(String id)? doctorWithId,
     TResult Function()? chat,
     TResult Function()? notification,
-    TResult Function()? notificationTypes,
+    TResult Function(String type)? notificationTypes,
     required TResult orElse(),
   }) {
     if (chat != null) {
@@ -673,7 +673,7 @@ class _$_Notification extends _Notification {
     required TResult Function(String id) doctorWithId,
     required TResult Function() chat,
     required TResult Function() notification,
-    required TResult Function() notificationTypes,
+    required TResult Function(String type) notificationTypes,
   }) {
     return notification();
   }
@@ -686,7 +686,7 @@ class _$_Notification extends _Notification {
     TResult? Function(String id)? doctorWithId,
     TResult? Function()? chat,
     TResult? Function()? notification,
-    TResult? Function()? notificationTypes,
+    TResult? Function(String type)? notificationTypes,
   }) {
     return notification?.call();
   }
@@ -699,7 +699,7 @@ class _$_Notification extends _Notification {
     TResult Function(String id)? doctorWithId,
     TResult Function()? chat,
     TResult Function()? notification,
-    TResult Function()? notificationTypes,
+    TResult Function(String type)? notificationTypes,
     required TResult orElse(),
   }) {
     if (notification != null) {
@@ -762,6 +762,8 @@ abstract class _$$_NotificationTypesCopyWith<$Res> {
   factory _$$_NotificationTypesCopyWith(_$_NotificationTypes value,
           $Res Function(_$_NotificationTypes) then) =
       __$$_NotificationTypesCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String type});
 }
 
 /// @nodoc
@@ -771,26 +773,51 @@ class __$$_NotificationTypesCopyWithImpl<$Res>
   __$$_NotificationTypesCopyWithImpl(
       _$_NotificationTypes _value, $Res Function(_$_NotificationTypes) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? type = null,
+  }) {
+    return _then(_$_NotificationTypes(
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_NotificationTypes extends _NotificationTypes {
-  const _$_NotificationTypes() : super._();
+  const _$_NotificationTypes({required this.type}) : super._();
+
+  @override
+  final String type;
 
   @override
   String toString() {
-    return 'MainApi.notificationTypes()';
+    return 'MainApi.notificationTypes(type: $type)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_NotificationTypes);
+        (other.runtimeType == runtimeType &&
+            other is _$_NotificationTypes &&
+            (identical(other.type, type) || other.type == type));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, type);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_NotificationTypesCopyWith<_$_NotificationTypes> get copyWith =>
+      __$$_NotificationTypesCopyWithImpl<_$_NotificationTypes>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -800,9 +827,9 @@ class _$_NotificationTypes extends _NotificationTypes {
     required TResult Function(String id) doctorWithId,
     required TResult Function() chat,
     required TResult Function() notification,
-    required TResult Function() notificationTypes,
+    required TResult Function(String type) notificationTypes,
   }) {
-    return notificationTypes();
+    return notificationTypes(type);
   }
 
   @override
@@ -813,9 +840,9 @@ class _$_NotificationTypes extends _NotificationTypes {
     TResult? Function(String id)? doctorWithId,
     TResult? Function()? chat,
     TResult? Function()? notification,
-    TResult? Function()? notificationTypes,
+    TResult? Function(String type)? notificationTypes,
   }) {
-    return notificationTypes?.call();
+    return notificationTypes?.call(type);
   }
 
   @override
@@ -826,11 +853,11 @@ class _$_NotificationTypes extends _NotificationTypes {
     TResult Function(String id)? doctorWithId,
     TResult Function()? chat,
     TResult Function()? notification,
-    TResult Function()? notificationTypes,
+    TResult Function(String type)? notificationTypes,
     required TResult orElse(),
   }) {
     if (notificationTypes != null) {
-      return notificationTypes();
+      return notificationTypes(type);
     }
     return orElse();
   }
@@ -880,6 +907,12 @@ class _$_NotificationTypes extends _NotificationTypes {
 }
 
 abstract class _NotificationTypes extends MainApi {
-  const factory _NotificationTypes() = _$_NotificationTypes;
+  const factory _NotificationTypes({required final String type}) =
+      _$_NotificationTypes;
   const _NotificationTypes._() : super._();
+
+  String get type;
+  @JsonKey(ignore: true)
+  _$$_NotificationTypesCopyWith<_$_NotificationTypes> get copyWith =>
+      throw _privateConstructorUsedError;
 }

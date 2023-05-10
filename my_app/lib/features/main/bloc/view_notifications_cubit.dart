@@ -9,9 +9,11 @@ class ViewNotificationsCubit extends Cubit<ViewNotificationsState> {
   ViewNotificationsCubit(this._repository)
       : super(const ViewNotificationsState.initialState());
 
-  Future<void> viewNots() async {
+  Future<void> viewNots({
+    required String type,
+  }) async {
     emit(const ViewNotificationsState.loadingState());
-    final result = await _repository.viewNotifications();
+    final result = await _repository.viewNotifications(type: type);
 
     result.when(
       success: (response) => emit(

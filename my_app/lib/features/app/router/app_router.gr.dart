@@ -70,21 +70,48 @@ class _$AppRouter extends RootStackRouter {
       );
     },
     NotificationsRoute.name: (routeData) {
+      final args = routeData.argsAs<NotificationsRouteArgs>(
+          orElse: () => const NotificationsRouteArgs());
       return MaterialPageX<void>(
         routeData: routeData,
-        child: const NotificationsPage(),
+        child: NotificationsPage(
+          key: args.key,
+          callbackForChat: args.callbackForChat,
+        ),
+      );
+    },
+    ChatRouteNotification.name: (routeData) {
+      final args = routeData.argsAs<ChatRouteNotificationArgs>(
+          orElse: () => const ChatRouteNotificationArgs());
+      return MaterialPageX<void>(
+        routeData: routeData,
+        child: ChatPage(
+          key: args.key,
+          isFromNot: args.isFromNot,
+        ),
       );
     },
     MainRoute.name: (routeData) {
+      final args =
+          routeData.argsAs<MainRouteArgs>(orElse: () => const MainRouteArgs());
       return MaterialPageX<void>(
         routeData: routeData,
-        child: WrappedRoute(child: const MainPage()),
+        child: WrappedRoute(
+            child: MainPage(
+          key: args.key,
+          callbackForChat: args.callbackForChat,
+        )),
       );
     },
     ChatRoute.name: (routeData) {
+      final args =
+          routeData.argsAs<ChatRouteArgs>(orElse: () => const ChatRouteArgs());
       return MaterialPageX<void>(
         routeData: routeData,
-        child: const ChatPage(),
+        child: ChatPage(
+          key: args.key,
+          isFromNot: args.isFromNot,
+        ),
       );
     },
     ToothCleanRoute.name: (routeData) {
@@ -202,6 +229,10 @@ class _$AppRouter extends RootStackRouter {
         RouteConfig(
           NotificationsRoute.name,
           path: '/notifications-page',
+        ),
+        RouteConfig(
+          ChatRouteNotification.name,
+          path: '/chat-page',
         ),
       ];
 }
@@ -352,38 +383,138 @@ class EditProfileRouteArgs {
 
 /// generated route for
 /// [NotificationsPage]
-class NotificationsRoute extends PageRouteInfo<void> {
-  const NotificationsRoute()
-      : super(
+class NotificationsRoute extends PageRouteInfo<NotificationsRouteArgs> {
+  NotificationsRoute({
+    Key? key,
+    void Function()? callbackForChat,
+  }) : super(
           NotificationsRoute.name,
           path: '/notifications-page',
+          args: NotificationsRouteArgs(
+            key: key,
+            callbackForChat: callbackForChat,
+          ),
         );
 
   static const String name = 'NotificationsRoute';
 }
 
+class NotificationsRouteArgs {
+  const NotificationsRouteArgs({
+    this.key,
+    this.callbackForChat,
+  });
+
+  final Key? key;
+
+  final void Function()? callbackForChat;
+
+  @override
+  String toString() {
+    return 'NotificationsRouteArgs{key: $key, callbackForChat: $callbackForChat}';
+  }
+}
+
+/// generated route for
+/// [ChatPage]
+class ChatRouteNotification extends PageRouteInfo<ChatRouteNotificationArgs> {
+  ChatRouteNotification({
+    Key? key,
+    bool? isFromNot,
+  }) : super(
+          ChatRouteNotification.name,
+          path: '/chat-page',
+          args: ChatRouteNotificationArgs(
+            key: key,
+            isFromNot: isFromNot,
+          ),
+        );
+
+  static const String name = 'ChatRouteNotification';
+}
+
+class ChatRouteNotificationArgs {
+  const ChatRouteNotificationArgs({
+    this.key,
+    this.isFromNot,
+  });
+
+  final Key? key;
+
+  final bool? isFromNot;
+
+  @override
+  String toString() {
+    return 'ChatRouteNotificationArgs{key: $key, isFromNot: $isFromNot}';
+  }
+}
+
 /// generated route for
 /// [MainPage]
-class MainRoute extends PageRouteInfo<void> {
-  const MainRoute()
-      : super(
+class MainRoute extends PageRouteInfo<MainRouteArgs> {
+  MainRoute({
+    Key? key,
+    void Function()? callbackForChat,
+  }) : super(
           MainRoute.name,
           path: 'main-page',
+          args: MainRouteArgs(
+            key: key,
+            callbackForChat: callbackForChat,
+          ),
         );
 
   static const String name = 'MainRoute';
 }
 
+class MainRouteArgs {
+  const MainRouteArgs({
+    this.key,
+    this.callbackForChat,
+  });
+
+  final Key? key;
+
+  final void Function()? callbackForChat;
+
+  @override
+  String toString() {
+    return 'MainRouteArgs{key: $key, callbackForChat: $callbackForChat}';
+  }
+}
+
 /// generated route for
 /// [ChatPage]
-class ChatRoute extends PageRouteInfo<void> {
-  const ChatRoute()
-      : super(
+class ChatRoute extends PageRouteInfo<ChatRouteArgs> {
+  ChatRoute({
+    Key? key,
+    bool? isFromNot,
+  }) : super(
           ChatRoute.name,
           path: 'chat-page',
+          args: ChatRouteArgs(
+            key: key,
+            isFromNot: isFromNot,
+          ),
         );
 
   static const String name = 'ChatRoute';
+}
+
+class ChatRouteArgs {
+  const ChatRouteArgs({
+    this.key,
+    this.isFromNot,
+  });
+
+  final Key? key;
+
+  final bool? isFromNot;
+
+  @override
+  String toString() {
+    return 'ChatRouteArgs{key: $key, isFromNot: $isFromNot}';
+  }
 }
 
 /// generated route for

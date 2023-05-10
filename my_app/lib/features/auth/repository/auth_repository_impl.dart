@@ -41,7 +41,7 @@ class AuthRepositoryImpl extends IAuthRepository {
       success: (user) {
         log(user.toString());
         _authDao.user.setValue(jsonEncode(user.toJson()));
-       final String? deviceToken = _authDao.deviceToken.value;
+        final String? deviceToken = _authDao.deviceToken.value;
         if (deviceToken != null) {
           _client.execute(
             route: AuthApi.sendDeviceToken(deviceToken: deviceToken),
@@ -71,7 +71,27 @@ class AuthRepositoryImpl extends IAuthRepository {
   Future<bool> clearUser() async => _authDao.user.remove();
 
   @override
-  Future<Result<UserDTO>> getProfile() => _remoteDS.getProfile();
+  Future<Result<UserDTO>> getProfile() async {
+    final UserDTO? userFromCache = await getUserFromCache();
+    final Result<UserDTO> result = await _remoteDS.getProfile();
+
+    result.whenOrNull(
+      success: (user) {
+        final UserDTO newUser = UserDTO(
+          id: user.id,
+          fullName: user.fullName,
+          email: user.email,
+          phone: user.phone,
+          accessToken: userFromCache?.accessToken,
+        );
+          _authDao.user.setValue(jsonEncode(newUser.toJson()));
+        
+      },
+    );
+
+    return result;
+  }
+
   @override
   Future<Result<BasicResponse>> register({
     required String email,
