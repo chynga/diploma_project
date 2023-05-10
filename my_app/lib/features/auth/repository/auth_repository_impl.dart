@@ -114,12 +114,14 @@ class AuthRepositoryImpl extends IAuthRepository {
     String? fullName,
     String? email,
     String? phone,
+    String? profileImageUrl,
   }) async {
     return _client.execute(
       route: AuthApi.editProfile(
         fullName: fullName,
         email: email,
         phone: phone,
+        profileImageUrl:profileImageUrl,
       ),
       responseType: BasicResponse(),
     );

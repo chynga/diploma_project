@@ -39,6 +39,9 @@ class $AssetsIconsGen {
   SvgGenImage get cornerRightDown =>
       const SvgGenImage('assets/icons/corner-right-down.svg');
 
+  /// File path: assets/icons/edit-3.svg
+  SvgGenImage get edit3 => const SvgGenImage('assets/icons/edit-3.svg');
+
   /// File path: assets/icons/ic_calendar.svg
   SvgGenImage get icCalendar =>
       const SvgGenImage('assets/icons/ic_calendar.svg');
@@ -110,6 +113,7 @@ class $AssetsIconsGen {
         cornerLeftDown,
         cornerLeftUp,
         cornerRightDown,
+        edit3,
         icCalendar,
         icChat,
         icChatFilled,

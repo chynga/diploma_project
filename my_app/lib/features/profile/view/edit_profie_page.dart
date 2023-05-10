@@ -1,5 +1,9 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:dental_plaza/core/extension/src/build_context.dart';
+import 'package:dental_plaza/core/resources/assets.gen.dart';
 import 'package:dental_plaza/core/resources/resources.dart';
 import 'package:dental_plaza/features/app/router/app_router.dart';
 import 'package:dental_plaza/features/app/widgets/custom/custom_buttons/custom_button.dart';
@@ -8,10 +12,13 @@ import 'package:dental_plaza/features/app/widgets/custom/custom_snackbars.dart';
 import 'package:dental_plaza/features/auth/model/user_dto.dart';
 import 'package:dental_plaza/features/profile/bloc/edit_profile_cubit.dart';
 import 'package:dental_plaza/features/profile/bloc/profile_cubit.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
@@ -39,6 +46,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
     mask: '+7 (###) ###-##-##',
     filter: {"#": RegExp('[0-9]')},
   );
+  XFile? avatar;
+  String? profileImageUrl;
+
+  final ImagePicker picker = ImagePicker();
+  Future _getImage() async {
+    final image = await picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      avatar = image;
+    });
+    profileImageUrl = await toFireStore();
+  }
 
   @override
   void initState() {
@@ -69,14 +87,66 @@ class _EditProfilePageState extends State<EditProfilePage> {
               const SizedBox(
                 height: 59,
               ),
-              const CircleAvatar(
-                maxRadius: 50,
-                backgroundColor: Color(0xff666666),
-                child: Icon(
-                  Icons.person,
-                  color: Colors.white,
-                  size: 80,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  InkWell(
+                    borderRadius: BorderRadius.circular(50),
+                    onTap: () async {
+                      await _getImage();
+                    },
+                    child: Stack(
+                      children: [
+                        CircleAvatar(
+                          maxRadius: 50,
+                          backgroundColor: const Color(0xff666666),
+                          child: avatar != null
+                              ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(50),
+                                  child: Image.file(
+                                    File(avatar!.path),
+                                    fit: BoxFit.cover,
+                                    width: 100,
+                                    height: 100,
+                                  ),
+                                )
+                              : profileImageUrl != null
+                                  ? ClipRRect(
+                                      borderRadius: BorderRadius.circular(50),
+                                      child: Image.network(
+                                        profileImageUrl!,
+                                        fit: BoxFit.cover,
+                                        width: 100,
+                                        height: 100,
+                                      ),
+                                    )
+                                  : const Icon(
+                                      Icons.person,
+                                      color: Colors.white,
+                                      size: 80,
+                                    ),
+                        ),
+                        if (avatar == null)
+                          Positioned(
+                            child: Container(
+                              height: 100,
+                              width: 100,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                color: Colors.black.withOpacity(0.47),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(30.0),
+                                child: SvgPicture.asset(
+                                  Assets.icons.edit3.path,
+                                ),
+                              ),
+                            ),
+                          )
+                      ],
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(
                 height: 64,
@@ -144,6 +214,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       fullName: nameController.text,
                       email: emailController.text,
                       phone: "+7${maskPhoneFormatter.getUnmaskedText()}",
+                      profileImageUrl: profileImageUrl,
                     );
                   },
                   style: mainButtonStyle(radius: 20),
@@ -155,6 +226,23 @@ class _EditProfilePageState extends State<EditProfilePage> {
         ),
       ),
     );
+  }
+
+  Future<String?> toFireStore() async {
+    try {
+      final storageRef = FirebaseStorage.instance.ref();
+      final imageRef =
+          storageRef.child("profile/${avatar!.name}${widget.user.id}");
+      final TaskSnapshot addImg = await imageRef.putFile(File(avatar!.path));
+      final String downloadUrl = await addImg.ref.getDownloadURL();
+      return downloadUrl;
+    } catch (e) {
+      buildErrorCustomSnackBar(
+        context,
+        'Ошибка при загрузке фото в Firebase Storage: $e',
+      );
+      return null;
+    }
   }
 
   Padding editProfileRow(

@@ -25,6 +25,7 @@ mixin _$UserDTO {
   String? get email => throw _privateConstructorUsedError;
   String? get phone => throw _privateConstructorUsedError;
   String? get accessToken => throw _privateConstructorUsedError;
+  String? get profileImageUrl => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,7 +42,8 @@ abstract class $UserDTOCopyWith<$Res> {
       String? fullName,
       String? email,
       String? phone,
-      String? accessToken});
+      String? accessToken,
+      String? profileImageUrl});
 }
 
 /// @nodoc
@@ -62,6 +64,7 @@ class _$UserDTOCopyWithImpl<$Res, $Val extends UserDTO>
     Object? email = freezed,
     Object? phone = freezed,
     Object? accessToken = freezed,
+    Object? profileImageUrl = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -84,6 +87,10 @@ class _$UserDTOCopyWithImpl<$Res, $Val extends UserDTO>
           ? _value.accessToken
           : accessToken // ignore: cast_nullable_to_non_nullable
               as String?,
+      profileImageUrl: freezed == profileImageUrl
+          ? _value.profileImageUrl
+          : profileImageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -100,7 +107,8 @@ abstract class _$$_UserDTOCopyWith<$Res> implements $UserDTOCopyWith<$Res> {
       String? fullName,
       String? email,
       String? phone,
-      String? accessToken});
+      String? accessToken,
+      String? profileImageUrl});
 }
 
 /// @nodoc
@@ -118,6 +126,7 @@ class __$$_UserDTOCopyWithImpl<$Res>
     Object? email = freezed,
     Object? phone = freezed,
     Object? accessToken = freezed,
+    Object? profileImageUrl = freezed,
   }) {
     return _then(_$_UserDTO(
       id: freezed == id
@@ -140,6 +149,10 @@ class __$$_UserDTOCopyWithImpl<$Res>
           ? _value.accessToken
           : accessToken // ignore: cast_nullable_to_non_nullable
               as String?,
+      profileImageUrl: freezed == profileImageUrl
+          ? _value.profileImageUrl
+          : profileImageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -148,7 +161,12 @@ class __$$_UserDTOCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_UserDTO implements _UserDTO {
   const _$_UserDTO(
-      {this.id, this.fullName, this.email, this.phone, this.accessToken});
+      {this.id,
+      this.fullName,
+      this.email,
+      this.phone,
+      this.accessToken,
+      this.profileImageUrl});
 
   factory _$_UserDTO.fromJson(Map<String, dynamic> json) =>
       _$$_UserDTOFromJson(json);
@@ -163,10 +181,12 @@ class _$_UserDTO implements _UserDTO {
   final String? phone;
   @override
   final String? accessToken;
+  @override
+  final String? profileImageUrl;
 
   @override
   String toString() {
-    return 'UserDTO(id: $id, fullName: $fullName, email: $email, phone: $phone, accessToken: $accessToken)';
+    return 'UserDTO(id: $id, fullName: $fullName, email: $email, phone: $phone, accessToken: $accessToken, profileImageUrl: $profileImageUrl)';
   }
 
   @override
@@ -180,13 +200,15 @@ class _$_UserDTO implements _UserDTO {
             (identical(other.email, email) || other.email == email) &&
             (identical(other.phone, phone) || other.phone == phone) &&
             (identical(other.accessToken, accessToken) ||
-                other.accessToken == accessToken));
+                other.accessToken == accessToken) &&
+            (identical(other.profileImageUrl, profileImageUrl) ||
+                other.profileImageUrl == profileImageUrl));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, fullName, email, phone, accessToken);
+  int get hashCode => Object.hash(
+      runtimeType, id, fullName, email, phone, accessToken, profileImageUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -208,7 +230,8 @@ abstract class _UserDTO implements UserDTO {
       final String? fullName,
       final String? email,
       final String? phone,
-      final String? accessToken}) = _$_UserDTO;
+      final String? accessToken,
+      final String? profileImageUrl}) = _$_UserDTO;
 
   factory _UserDTO.fromJson(Map<String, dynamic> json) = _$_UserDTO.fromJson;
 
@@ -222,6 +245,8 @@ abstract class _UserDTO implements UserDTO {
   String? get phone;
   @override
   String? get accessToken;
+  @override
+  String? get profileImageUrl;
   @override
   @JsonKey(ignore: true)
   _$$_UserDTOCopyWith<_$_UserDTO> get copyWith =>

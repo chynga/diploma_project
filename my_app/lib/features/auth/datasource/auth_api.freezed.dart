@@ -21,7 +21,8 @@ mixin _$AuthApi {
     required TResult Function(String email, String password) login,
     required TResult Function() profile,
     required TResult Function() healthInfo,
-    required TResult Function(String? fullName, String? email, String? phone)
+    required TResult Function(String? fullName, String? email, String? phone,
+            String? profileImageUrl)
         editProfile,
     required TResult Function(
             String email, String password, String phone, String name)
@@ -38,7 +39,8 @@ mixin _$AuthApi {
     TResult? Function(String email, String password)? login,
     TResult? Function()? profile,
     TResult? Function()? healthInfo,
-    TResult? Function(String? fullName, String? email, String? phone)?
+    TResult? Function(String? fullName, String? email, String? phone,
+            String? profileImageUrl)?
         editProfile,
     TResult? Function(String email, String password, String phone, String name)?
         registration,
@@ -53,7 +55,8 @@ mixin _$AuthApi {
     TResult Function(String email, String password)? login,
     TResult Function()? profile,
     TResult Function()? healthInfo,
-    TResult Function(String? fullName, String? email, String? phone)?
+    TResult Function(String? fullName, String? email, String? phone,
+            String? profileImageUrl)?
         editProfile,
     TResult Function(String email, String password, String phone, String name)?
         registration,
@@ -196,7 +199,8 @@ class _$_Login extends _Login {
     required TResult Function(String email, String password) login,
     required TResult Function() profile,
     required TResult Function() healthInfo,
-    required TResult Function(String? fullName, String? email, String? phone)
+    required TResult Function(String? fullName, String? email, String? phone,
+            String? profileImageUrl)
         editProfile,
     required TResult Function(
             String email, String password, String phone, String name)
@@ -216,7 +220,8 @@ class _$_Login extends _Login {
     TResult? Function(String email, String password)? login,
     TResult? Function()? profile,
     TResult? Function()? healthInfo,
-    TResult? Function(String? fullName, String? email, String? phone)?
+    TResult? Function(String? fullName, String? email, String? phone,
+            String? profileImageUrl)?
         editProfile,
     TResult? Function(String email, String password, String phone, String name)?
         registration,
@@ -234,7 +239,8 @@ class _$_Login extends _Login {
     TResult Function(String email, String password)? login,
     TResult Function()? profile,
     TResult Function()? healthInfo,
-    TResult Function(String? fullName, String? email, String? phone)?
+    TResult Function(String? fullName, String? email, String? phone,
+            String? profileImageUrl)?
         editProfile,
     TResult Function(String email, String password, String phone, String name)?
         registration,
@@ -355,7 +361,8 @@ class _$_Profile extends _Profile {
     required TResult Function(String email, String password) login,
     required TResult Function() profile,
     required TResult Function() healthInfo,
-    required TResult Function(String? fullName, String? email, String? phone)
+    required TResult Function(String? fullName, String? email, String? phone,
+            String? profileImageUrl)
         editProfile,
     required TResult Function(
             String email, String password, String phone, String name)
@@ -375,7 +382,8 @@ class _$_Profile extends _Profile {
     TResult? Function(String email, String password)? login,
     TResult? Function()? profile,
     TResult? Function()? healthInfo,
-    TResult? Function(String? fullName, String? email, String? phone)?
+    TResult? Function(String? fullName, String? email, String? phone,
+            String? profileImageUrl)?
         editProfile,
     TResult? Function(String email, String password, String phone, String name)?
         registration,
@@ -393,7 +401,8 @@ class _$_Profile extends _Profile {
     TResult Function(String email, String password)? login,
     TResult Function()? profile,
     TResult Function()? healthInfo,
-    TResult Function(String? fullName, String? email, String? phone)?
+    TResult Function(String? fullName, String? email, String? phone,
+            String? profileImageUrl)?
         editProfile,
     TResult Function(String email, String password, String phone, String name)?
         registration,
@@ -508,7 +517,8 @@ class _$_HealthInfo extends _HealthInfo {
     required TResult Function(String email, String password) login,
     required TResult Function() profile,
     required TResult Function() healthInfo,
-    required TResult Function(String? fullName, String? email, String? phone)
+    required TResult Function(String? fullName, String? email, String? phone,
+            String? profileImageUrl)
         editProfile,
     required TResult Function(
             String email, String password, String phone, String name)
@@ -528,7 +538,8 @@ class _$_HealthInfo extends _HealthInfo {
     TResult? Function(String email, String password)? login,
     TResult? Function()? profile,
     TResult? Function()? healthInfo,
-    TResult? Function(String? fullName, String? email, String? phone)?
+    TResult? Function(String? fullName, String? email, String? phone,
+            String? profileImageUrl)?
         editProfile,
     TResult? Function(String email, String password, String phone, String name)?
         registration,
@@ -546,7 +557,8 @@ class _$_HealthInfo extends _HealthInfo {
     TResult Function(String email, String password)? login,
     TResult Function()? profile,
     TResult Function()? healthInfo,
-    TResult Function(String? fullName, String? email, String? phone)?
+    TResult Function(String? fullName, String? email, String? phone,
+            String? profileImageUrl)?
         editProfile,
     TResult Function(String email, String password, String phone, String name)?
         registration,
@@ -626,7 +638,11 @@ abstract class _$$_EditProfileCopyWith<$Res> {
           _$_EditProfile value, $Res Function(_$_EditProfile) then) =
       __$$_EditProfileCopyWithImpl<$Res>;
   @useResult
-  $Res call({String? fullName, String? email, String? phone});
+  $Res call(
+      {String? fullName,
+      String? email,
+      String? phone,
+      String? profileImageUrl});
 }
 
 /// @nodoc
@@ -643,6 +659,7 @@ class __$$_EditProfileCopyWithImpl<$Res>
     Object? fullName = freezed,
     Object? email = freezed,
     Object? phone = freezed,
+    Object? profileImageUrl = freezed,
   }) {
     return _then(_$_EditProfile(
       fullName: freezed == fullName
@@ -657,6 +674,10 @@ class __$$_EditProfileCopyWithImpl<$Res>
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
               as String?,
+      profileImageUrl: freezed == profileImageUrl
+          ? _value.profileImageUrl
+          : profileImageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -664,7 +685,9 @@ class __$$_EditProfileCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_EditProfile extends _EditProfile {
-  const _$_EditProfile({this.fullName, this.email, this.phone}) : super._();
+  const _$_EditProfile(
+      {this.fullName, this.email, this.phone, this.profileImageUrl})
+      : super._();
 
   @override
   final String? fullName;
@@ -672,10 +695,12 @@ class _$_EditProfile extends _EditProfile {
   final String? email;
   @override
   final String? phone;
+  @override
+  final String? profileImageUrl;
 
   @override
   String toString() {
-    return 'AuthApi.editProfile(fullName: $fullName, email: $email, phone: $phone)';
+    return 'AuthApi.editProfile(fullName: $fullName, email: $email, phone: $phone, profileImageUrl: $profileImageUrl)';
   }
 
   @override
@@ -686,11 +711,14 @@ class _$_EditProfile extends _EditProfile {
             (identical(other.fullName, fullName) ||
                 other.fullName == fullName) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.phone, phone) || other.phone == phone));
+            (identical(other.phone, phone) || other.phone == phone) &&
+            (identical(other.profileImageUrl, profileImageUrl) ||
+                other.profileImageUrl == profileImageUrl));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, fullName, email, phone);
+  int get hashCode =>
+      Object.hash(runtimeType, fullName, email, phone, profileImageUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -704,7 +732,8 @@ class _$_EditProfile extends _EditProfile {
     required TResult Function(String email, String password) login,
     required TResult Function() profile,
     required TResult Function() healthInfo,
-    required TResult Function(String? fullName, String? email, String? phone)
+    required TResult Function(String? fullName, String? email, String? phone,
+            String? profileImageUrl)
         editProfile,
     required TResult Function(
             String email, String password, String phone, String name)
@@ -715,7 +744,7 @@ class _$_EditProfile extends _EditProfile {
         newPassword,
     required TResult Function(String deviceToken) sendDeviceToken,
   }) {
-    return editProfile(fullName, email, phone);
+    return editProfile(fullName, email, phone, profileImageUrl);
   }
 
   @override
@@ -724,7 +753,8 @@ class _$_EditProfile extends _EditProfile {
     TResult? Function(String email, String password)? login,
     TResult? Function()? profile,
     TResult? Function()? healthInfo,
-    TResult? Function(String? fullName, String? email, String? phone)?
+    TResult? Function(String? fullName, String? email, String? phone,
+            String? profileImageUrl)?
         editProfile,
     TResult? Function(String email, String password, String phone, String name)?
         registration,
@@ -733,7 +763,7 @@ class _$_EditProfile extends _EditProfile {
     TResult? Function(String email, String code, String password)? newPassword,
     TResult? Function(String deviceToken)? sendDeviceToken,
   }) {
-    return editProfile?.call(fullName, email, phone);
+    return editProfile?.call(fullName, email, phone, profileImageUrl);
   }
 
   @override
@@ -742,7 +772,8 @@ class _$_EditProfile extends _EditProfile {
     TResult Function(String email, String password)? login,
     TResult Function()? profile,
     TResult Function()? healthInfo,
-    TResult Function(String? fullName, String? email, String? phone)?
+    TResult Function(String? fullName, String? email, String? phone,
+            String? profileImageUrl)?
         editProfile,
     TResult Function(String email, String password, String phone, String name)?
         registration,
@@ -753,7 +784,7 @@ class _$_EditProfile extends _EditProfile {
     required TResult orElse(),
   }) {
     if (editProfile != null) {
-      return editProfile(fullName, email, phone);
+      return editProfile(fullName, email, phone, profileImageUrl);
     }
     return orElse();
   }
@@ -815,12 +846,14 @@ abstract class _EditProfile extends AuthApi {
   const factory _EditProfile(
       {final String? fullName,
       final String? email,
-      final String? phone}) = _$_EditProfile;
+      final String? phone,
+      final String? profileImageUrl}) = _$_EditProfile;
   const _EditProfile._() : super._();
 
   String? get fullName;
   String? get email;
   String? get phone;
+  String? get profileImageUrl;
   @JsonKey(ignore: true)
   _$$_EditProfileCopyWith<_$_EditProfile> get copyWith =>
       throw _privateConstructorUsedError;
@@ -923,7 +956,8 @@ class _$_Registration extends _Registration {
     required TResult Function(String email, String password) login,
     required TResult Function() profile,
     required TResult Function() healthInfo,
-    required TResult Function(String? fullName, String? email, String? phone)
+    required TResult Function(String? fullName, String? email, String? phone,
+            String? profileImageUrl)
         editProfile,
     required TResult Function(
             String email, String password, String phone, String name)
@@ -943,7 +977,8 @@ class _$_Registration extends _Registration {
     TResult? Function(String email, String password)? login,
     TResult? Function()? profile,
     TResult? Function()? healthInfo,
-    TResult? Function(String? fullName, String? email, String? phone)?
+    TResult? Function(String? fullName, String? email, String? phone,
+            String? profileImageUrl)?
         editProfile,
     TResult? Function(String email, String password, String phone, String name)?
         registration,
@@ -961,7 +996,8 @@ class _$_Registration extends _Registration {
     TResult Function(String email, String password)? login,
     TResult Function()? profile,
     TResult Function()? healthInfo,
-    TResult Function(String? fullName, String? email, String? phone)?
+    TResult Function(String? fullName, String? email, String? phone,
+            String? profileImageUrl)?
         editProfile,
     TResult Function(String email, String password, String phone, String name)?
         registration,
@@ -1114,7 +1150,8 @@ class _$_SendCode extends _SendCode {
     required TResult Function(String email, String password) login,
     required TResult Function() profile,
     required TResult Function() healthInfo,
-    required TResult Function(String? fullName, String? email, String? phone)
+    required TResult Function(String? fullName, String? email, String? phone,
+            String? profileImageUrl)
         editProfile,
     required TResult Function(
             String email, String password, String phone, String name)
@@ -1134,7 +1171,8 @@ class _$_SendCode extends _SendCode {
     TResult? Function(String email, String password)? login,
     TResult? Function()? profile,
     TResult? Function()? healthInfo,
-    TResult? Function(String? fullName, String? email, String? phone)?
+    TResult? Function(String? fullName, String? email, String? phone,
+            String? profileImageUrl)?
         editProfile,
     TResult? Function(String email, String password, String phone, String name)?
         registration,
@@ -1152,7 +1190,8 @@ class _$_SendCode extends _SendCode {
     TResult Function(String email, String password)? login,
     TResult Function()? profile,
     TResult Function()? healthInfo,
-    TResult Function(String? fullName, String? email, String? phone)?
+    TResult Function(String? fullName, String? email, String? phone,
+            String? profileImageUrl)?
         editProfile,
     TResult Function(String email, String password, String phone, String name)?
         registration,
@@ -1306,7 +1345,8 @@ class _$_CheckCode extends _CheckCode {
     required TResult Function(String email, String password) login,
     required TResult Function() profile,
     required TResult Function() healthInfo,
-    required TResult Function(String? fullName, String? email, String? phone)
+    required TResult Function(String? fullName, String? email, String? phone,
+            String? profileImageUrl)
         editProfile,
     required TResult Function(
             String email, String password, String phone, String name)
@@ -1326,7 +1366,8 @@ class _$_CheckCode extends _CheckCode {
     TResult? Function(String email, String password)? login,
     TResult? Function()? profile,
     TResult? Function()? healthInfo,
-    TResult? Function(String? fullName, String? email, String? phone)?
+    TResult? Function(String? fullName, String? email, String? phone,
+            String? profileImageUrl)?
         editProfile,
     TResult? Function(String email, String password, String phone, String name)?
         registration,
@@ -1344,7 +1385,8 @@ class _$_CheckCode extends _CheckCode {
     TResult Function(String email, String password)? login,
     TResult Function()? profile,
     TResult Function()? healthInfo,
-    TResult Function(String? fullName, String? email, String? phone)?
+    TResult Function(String? fullName, String? email, String? phone,
+            String? profileImageUrl)?
         editProfile,
     TResult Function(String email, String password, String phone, String name)?
         registration,
@@ -1510,7 +1552,8 @@ class _$_NewCode extends _NewCode {
     required TResult Function(String email, String password) login,
     required TResult Function() profile,
     required TResult Function() healthInfo,
-    required TResult Function(String? fullName, String? email, String? phone)
+    required TResult Function(String? fullName, String? email, String? phone,
+            String? profileImageUrl)
         editProfile,
     required TResult Function(
             String email, String password, String phone, String name)
@@ -1530,7 +1573,8 @@ class _$_NewCode extends _NewCode {
     TResult? Function(String email, String password)? login,
     TResult? Function()? profile,
     TResult? Function()? healthInfo,
-    TResult? Function(String? fullName, String? email, String? phone)?
+    TResult? Function(String? fullName, String? email, String? phone,
+            String? profileImageUrl)?
         editProfile,
     TResult? Function(String email, String password, String phone, String name)?
         registration,
@@ -1548,7 +1592,8 @@ class _$_NewCode extends _NewCode {
     TResult Function(String email, String password)? login,
     TResult Function()? profile,
     TResult Function()? healthInfo,
-    TResult Function(String? fullName, String? email, String? phone)?
+    TResult Function(String? fullName, String? email, String? phone,
+            String? profileImageUrl)?
         editProfile,
     TResult Function(String email, String password, String phone, String name)?
         registration,
@@ -1700,7 +1745,8 @@ class _$_SendDeviceToken extends _SendDeviceToken {
     required TResult Function(String email, String password) login,
     required TResult Function() profile,
     required TResult Function() healthInfo,
-    required TResult Function(String? fullName, String? email, String? phone)
+    required TResult Function(String? fullName, String? email, String? phone,
+            String? profileImageUrl)
         editProfile,
     required TResult Function(
             String email, String password, String phone, String name)
@@ -1720,7 +1766,8 @@ class _$_SendDeviceToken extends _SendDeviceToken {
     TResult? Function(String email, String password)? login,
     TResult? Function()? profile,
     TResult? Function()? healthInfo,
-    TResult? Function(String? fullName, String? email, String? phone)?
+    TResult? Function(String? fullName, String? email, String? phone,
+            String? profileImageUrl)?
         editProfile,
     TResult? Function(String email, String password, String phone, String name)?
         registration,
@@ -1738,7 +1785,8 @@ class _$_SendDeviceToken extends _SendDeviceToken {
     TResult Function(String email, String password)? login,
     TResult Function()? profile,
     TResult Function()? healthInfo,
-    TResult Function(String? fullName, String? email, String? phone)?
+    TResult Function(String? fullName, String? email, String? phone,
+            String? profileImageUrl)?
         editProfile,
     TResult Function(String email, String password, String phone, String name)?
         registration,

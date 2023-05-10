@@ -44,6 +44,7 @@ abstract class IAuthRepository {
     String? fullName,
     String? email,
     String? phone,
+    String? profileImageUrl,
   });
 
   Future<Result<BasicResponse>> sendCode({

@@ -31,6 +31,7 @@ class _ProfilePageState extends State<ProfilePage> {
     BlocProvider.of<ProfileCubit>(context).getProfie();
     BlocProvider.of<HealthInfoCubit>(context).getHealthInfo();
   }
+
   RefreshController controller = RefreshController();
 
   int segmentValue = 0;
@@ -57,62 +58,69 @@ class _ProfilePageState extends State<ProfilePage> {
             const SizedBox(
               height: 22,
             ),
-      
-            // ClipRRect(
-            //                                             borderRadius:
-            //                                                 BorderRadius.circular(100),
-            //                                             child: Image.network(
-            //                                               '$kBaseUrl/${widget.user.avatar}',
-            //                                               fit: BoxFit.cover,
-            //                                               // width: 90,
-            //                                               // height: 90,
-            //                                               loadingBuilder: (
-            //                                                 context,
-            //                                                 child,
-            //                                                 loadingProgress,
-            //                                               ) {
-            //                                                 if (loadingProgress == null) {
-            //                                                   return child;
-            //                                                 }
-            //                                                 return Center(
-            //                                                   child:
-            //                                                       CircularProgressIndicator(
-            //                                                     color: AppColors.kBlue,
-            //                                                     value: loadingProgress
-            //                                                                 .expectedTotalBytes !=
-            //                                                             null
-            //                                                         ? loadingProgress
-            //                                                                 .cumulativeBytesLoaded /
-            //                                                             loadingProgress
-            //                                                                 .expectedTotalBytes!
-            //                                                         : null,
-            //                                                   ),
-            //                                                 );
-            //                                               },
-            //                                               errorBuilder: (
-            //                                                 BuildContext context,
-            //                                                 Object exception,
-            //                                                 StackTrace? stackTrace,
-            //                                               ) {
-            //                                                 return const SizedBox(
-            //                                                   // width: 90,
-            //                                                   // height: 90,
-            //                                                   child: Center(
-            //                                                     child: Text('Image Error'),
-            //                                                   ),
-            //                                                 );
-            //                                               },
-            //                                             ),
-            //                                           )
-      
-            const CircleAvatar(
-              maxRadius: 50,
-              backgroundColor: Color(0xff666666),
-              child: Icon(
-                Icons.person,
-                color: Colors.white,
-                size: 80,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                BlocBuilder<ProfileCubit, ProfileState>(
+                  builder: (context, state) {
+                    return state.maybeWhen(
+                      loadedState: (user) {
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(100),
+                          child: Image.network(
+                            '${user.profileImageUrl}',
+                            fit: BoxFit.cover,
+                            width: 100,
+                            height: 100,
+                            loadingBuilder: (
+                              context,
+                              child,
+                              loadingProgress,
+                            ) {
+                              if (loadingProgress == null) {
+                                return child;
+                              }
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  color: AppColors.kBlue,
+                                  value: loadingProgress.expectedTotalBytes != null
+                                      ? loadingProgress.cumulativeBytesLoaded /
+                                          loadingProgress.expectedTotalBytes!
+                                      : null,
+                                ),
+                              );
+                            },
+                            errorBuilder: (
+                              BuildContext context,
+                              Object exception,
+                              StackTrace? stackTrace,
+                            ) {
+                              return const SizedBox(
+                                // width: 90,
+                                // height: 90,
+                                child: Center(
+                                  child: Text('Image Error'),
+                                ),
+                              );
+                            },
+                          ),
+                        );
+                      },
+                      orElse: () {
+                        return const CircleAvatar(
+                          maxRadius: 50,
+                          backgroundColor: Color(0xff666666),
+                          child: Icon(
+                            Icons.person,
+                            color: Colors.white,
+                            size: 80,
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+              ],
             ),
             const SizedBox(
               height: 33,
@@ -165,7 +173,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     onYesTap: () {
                       BlocProvider.of<AppBLoC>(this.context)
                           .add(const AppEvent.exiting());
-      
+
                       Navigator.pop(context);
                     },
                   ),

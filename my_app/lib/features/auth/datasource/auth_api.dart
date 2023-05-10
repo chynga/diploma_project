@@ -22,6 +22,7 @@ class AuthApi extends BaseClientGenerator with _$AuthApi {
     String? fullName,
     String? email,
     String? phone,
+    String? profileImageUrl,
   }) = _EditProfile;
 
   const factory AuthApi.registration({
@@ -64,10 +65,11 @@ class AuthApi extends BaseClientGenerator with _$AuthApi {
           'phone': phone,
           'fullName': name,
         },
-        editProfile: (fullName, email, phone) => <String, dynamic>{
+        editProfile: (fullName, email, phone,profileImageUrl) => <String, dynamic>{
           if (fullName != null) 'fullName': fullName,
           if (email != null) 'email': email,
           if (phone != null) 'phone': phone,
+          if (profileImageUrl!=null)'profileImageUrl':profileImageUrl,
         },
         sendCode: (email) => {
           'email': email,
@@ -93,7 +95,7 @@ class AuthApi extends BaseClientGenerator with _$AuthApi {
         login: (_, __) => 'POST',
         profile: () => 'GET',
         registration: (email, password, phone, name) => 'POST',
-        editProfile: (fullName, email, phone) => 'PATCH',
+        editProfile: (fullName, email, phone,profileImageUrl) => 'PATCH',
         healthInfo: () => 'GET',
         sendCode: (email) => 'POST',
         checkCode: (email, code) => 'POST',
@@ -108,7 +110,7 @@ class AuthApi extends BaseClientGenerator with _$AuthApi {
         profile: () => '/api/profile',
         registration: (email, password, phone, name) =>
             '/api/authentication/register',
-        editProfile: (fullName, email, phone) => '/api/profile',
+        editProfile: (fullName, email, phone,profileImageUrl) => '/api/profile',
         healthInfo: () => '/api/profile/healthInfo',
         sendCode: (email) => '/api/profile/recovery/send',
         checkCode: (email, code) => '/api/profile/recovery/check',

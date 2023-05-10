@@ -13,6 +13,7 @@ class UserDTO with _$UserDTO {
     String? email,
     String? phone,
     String? accessToken,
+    String? profileImageUrl,
   }) = _UserDTO;
 
   factory UserDTO.fromJson(Map<String, dynamic> json) => _$UserDTOFromJson(json);

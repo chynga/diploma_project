@@ -15,6 +15,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
     String? fullName,
     String? email,
     String? phone,
+    String? profileImageUrl,
   }) async {
     emit(const EditProfileState.loadingState());
 
@@ -22,6 +23,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
         fullName: fullName,
         email: email,
         phone: phone,
+        profileImageUrl:profileImageUrl
     );
 
     result.when(
