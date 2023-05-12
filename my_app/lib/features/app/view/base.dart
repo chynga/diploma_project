@@ -37,12 +37,13 @@ class _BaseState extends State<Base> with TickerProviderStateMixin {
       builder: (context, appState) {
         return AutoTabsScaffold(
           extendBody: true,
-          routes:  [
+          inheritNavigatorObservers: false,
+          routes: [
             MainRoute(),
             ChatRoute(),
-            ToothCleanRoute(),
-            BaseRecordPage(),
-            ProfileRoute(),
+            const ToothCleanRoute(),
+            const BaseRecordPage(),
+            const ProfileRoute(),
           ],
           backgroundColor: AppColors.kWhite,
           builder: (context, child, animation) {
@@ -92,11 +93,11 @@ class _BaseState extends State<Base> with TickerProviderStateMixin {
                             tabsRouter.popTop();
                           } else {
                             tabsRouter.setActiveIndex(value);
-                            setState(() {});
                             if (value == 1) {
                               BlocProvider.of<ChatCubit>(context).readMessage();
                             }
                           }
+                          setState(() {});
                         },
                         indicatorColor: Colors.transparent,
                         // indicator: TopIndicator(),

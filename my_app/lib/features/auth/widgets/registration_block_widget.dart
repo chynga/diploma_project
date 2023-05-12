@@ -157,8 +157,8 @@ class _RegistrationBlockWidgetState extends State<RegistrationBlockWidget> {
                         return;
                       }
                       BlocProvider.of<RegisterCubit>(context).register(
-                        phone: phoneController.text,
-                        password: "+7${maskPhoneFormatter.getUnmaskedText()}",
+                        phone: "+7${maskPhoneFormatter.getUnmaskedText()}",
+                        password: passwordController.text,
                         email: emailController.text,
                         name: fioController.text,
                       );

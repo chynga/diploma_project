@@ -21,8 +21,10 @@ class NotificationsPage extends StatefulWidget {
 class _NotificationsPageState extends State<NotificationsPage> {
   @override
   void initState() {
-    BlocProvider.of<ViewNotificationsCubit>(context).viewNots(type: 'consultation');
-    BlocProvider.of<ViewNotificationsCubit>(context).viewNots(type: 'appointment');
+    BlocProvider.of<ViewNotificationsCubit>(context)
+        .viewNots(type: 'consultation');
+    BlocProvider.of<ViewNotificationsCubit>(context)
+        .viewNots(type: 'appointment');
     super.initState();
   }
 
@@ -77,11 +79,18 @@ class _NotificationsPageState extends State<NotificationsPage> {
                                   child: InkWell(
                                     borderRadius: BorderRadius.circular(10),
                                     onTap: () {
-                                      context.router.push(
-                                        ChatRouteNotification(
-                                          isFromNot: true,
-                                        ),
-                                      );
+                                      if (notifications[index].type ==
+                                          'consultation') {
+                                        context.router.push(
+                                          ChatRouteNotification(
+                                            isFromNot: true,
+                                          ),
+                                        );
+                                      } else {
+                                        context.router.push(
+                                          const MyRecordsMainPage(),
+                                        );
+                                      }
                                     },
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(

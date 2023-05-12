@@ -11,6 +11,7 @@ import 'package:dental_plaza/features/main/widgets/service_card_widget.dart';
 import 'package:dental_plaza/features/record/bloc/free_slots_cubit.dart';
 import 'package:dental_plaza/features/record/bloc/make_record_cubit.dart';
 import 'package:dental_plaza/features/record/bloc/records_cubit.dart';
+import 'package:dental_plaza/settings/widget/scope/settings_scope.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -318,6 +319,8 @@ class _NewRecordBottomSheetState extends State<NewRecordBottomSheet> {
                                 BlocProvider.of<NotificationsCubit>(
                                   widget.parentContext,
                                 ).getNots();
+                                SettingsScope.setisNotificationViewed(
+                                    widget.parentContext, false);
                                 context.router.pop();
                               },
                               orElse: () {},

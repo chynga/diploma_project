@@ -83,7 +83,8 @@ class _ProfilePageState extends State<ProfilePage> {
                               return Center(
                                 child: CircularProgressIndicator(
                                   color: AppColors.kBlue,
-                                  value: loadingProgress.expectedTotalBytes != null
+                                  value: loadingProgress.expectedTotalBytes !=
+                                          null
                                       ? loadingProgress.cumulativeBytesLoaded /
                                           loadingProgress.expectedTotalBytes!
                                       : null,
@@ -95,11 +96,13 @@ class _ProfilePageState extends State<ProfilePage> {
                               Object exception,
                               StackTrace? stackTrace,
                             ) {
-                              return const SizedBox(
-                                // width: 90,
-                                // height: 90,
-                                child: Center(
-                                  child: Text('Image Error'),
+                              return const CircleAvatar(
+                                maxRadius: 50,
+                                backgroundColor: Color(0xff666666),
+                                child: Icon(
+                                  Icons.person,
+                                  color: Colors.white,
+                                  size: 80,
                                 ),
                               );
                             },
