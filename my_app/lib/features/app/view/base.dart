@@ -7,6 +7,7 @@ import 'package:dental_plaza/features/app/bloc/app_bloc.dart';
 import 'package:dental_plaza/features/app/router/app_router.dart';
 import 'package:dental_plaza/features/app/widgets/showcase_for_nav_bar.dart';
 import 'package:dental_plaza/features/chat/bloc/chat_cubit.dart';
+import 'package:dental_plaza/features/main/bloc/notifications_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -94,9 +95,13 @@ class _BaseState extends State<Base> with TickerProviderStateMixin {
                           } else {
                             tabsRouter.setActiveIndex(value);
                             if (value == 1) {
+                              BlocProvider.of<ChatCubit>(context).connectWebSocket();
                               BlocProvider.of<ChatCubit>(context).readMessage();
                             }
                           }
+                          BlocProvider.of<NotificationsCubit>(
+                            context,
+                          ).getNots();
                           setState(() {});
                         },
                         indicatorColor: Colors.transparent,

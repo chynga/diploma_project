@@ -87,7 +87,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
                                             NotificationsRoute(),
                                           )
                                               .then((value) {
-                                            setState(() {});
+                                            BlocProvider.of<NotificationsCubit>(
+                                              context,
+                                            ).getNots();
                                           });
                                         },
                                       ),
