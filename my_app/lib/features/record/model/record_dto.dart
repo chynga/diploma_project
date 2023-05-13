@@ -13,7 +13,7 @@ class RecordDTO with _$RecordDTO {
     String? id,
     DoctorDTO? doctor,
     ServiceDTO? service,
-    String? time,
+    DateTime? time,
     String? status,
     int? cost,
   }) = _RecordDTO;

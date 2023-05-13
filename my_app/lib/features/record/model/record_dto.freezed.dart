@@ -23,7 +23,7 @@ mixin _$RecordDTO {
   String? get id => throw _privateConstructorUsedError;
   DoctorDTO? get doctor => throw _privateConstructorUsedError;
   ServiceDTO? get service => throw _privateConstructorUsedError;
-  String? get time => throw _privateConstructorUsedError;
+  DateTime? get time => throw _privateConstructorUsedError;
   String? get status => throw _privateConstructorUsedError;
   int? get cost => throw _privateConstructorUsedError;
 
@@ -42,7 +42,7 @@ abstract class $RecordDTOCopyWith<$Res> {
       {String? id,
       DoctorDTO? doctor,
       ServiceDTO? service,
-      String? time,
+      DateTime? time,
       String? status,
       int? cost});
 
@@ -86,7 +86,7 @@ class _$RecordDTOCopyWithImpl<$Res, $Val extends RecordDTO>
       time: freezed == time
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime?,
       status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -134,7 +134,7 @@ abstract class _$$_RecordDTOCopyWith<$Res> implements $RecordDTOCopyWith<$Res> {
       {String? id,
       DoctorDTO? doctor,
       ServiceDTO? service,
-      String? time,
+      DateTime? time,
       String? status,
       int? cost});
 
@@ -178,7 +178,7 @@ class __$$_RecordDTOCopyWithImpl<$Res>
       time: freezed == time
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime?,
       status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -207,7 +207,7 @@ class _$_RecordDTO implements _RecordDTO {
   @override
   final ServiceDTO? service;
   @override
-  final String? time;
+  final DateTime? time;
   @override
   final String? status;
   @override
@@ -255,7 +255,7 @@ abstract class _RecordDTO implements RecordDTO {
       {final String? id,
       final DoctorDTO? doctor,
       final ServiceDTO? service,
-      final String? time,
+      final DateTime? time,
       final String? status,
       final int? cost}) = _$_RecordDTO;
 
@@ -269,7 +269,7 @@ abstract class _RecordDTO implements RecordDTO {
   @override
   ServiceDTO? get service;
   @override
-  String? get time;
+  DateTime? get time;
   @override
   String? get status;
   @override

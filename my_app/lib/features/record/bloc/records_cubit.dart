@@ -18,10 +18,7 @@ class RecordsCubit extends Cubit<RecordsState> {
         final List<RecordDTO> myRecords = [];
         final List<RecordDTO> pastRecords = [];
         for (int i = 0; i < data.length; i++) {
-          if (DateTime.parse(data[i].time ?? DateTime.now().toString())
-                  .difference(DateTime.now())
-                  .inHours <
-              0) {
+          if (data[i].status=='success') {
             pastRecords.add(data[i]);
           } else {
             myRecords.add(data[i]);

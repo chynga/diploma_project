@@ -40,7 +40,8 @@ class RecordItemWidget extends StatelessWidget {
                 ),
                 Text(
                   DateFormat('d.MM.yyyy в HH:mm').format(
-                    DateTime.parse(record.time ?? DateTime.now().toString()),
+                    (record.time ?? DateTime.now())
+                        .add(const Duration(hours: 6)),
                   ),
                   style: AppTextStyles.m14w400.copyWith(color: AppColors.kBlue),
                 ),
@@ -48,6 +49,12 @@ class RecordItemWidget extends StatelessWidget {
                   '${context.localized.doctor}: ${record.doctor?.fullName}',
                   style: AppTextStyles.m14w400.copyWith(color: AppColors.kBlue),
                 ),
+                if (record.status == 'success')
+                  Text(
+                    '${context.localized.cost} ${record.cost} тг',
+                    style:
+                        AppTextStyles.m14w400.copyWith(color: AppColors.kBlue),
+                  ),
                 // Text(
                 //   'Статус: ${record.status}',
                 //   style: AppTextStyles.m14w400.copyWith(color: AppColors.kBlue),

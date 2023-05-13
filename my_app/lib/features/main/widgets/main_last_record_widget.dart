@@ -48,9 +48,7 @@ class MainLastRecordWidget extends StatelessWidget {
                               : DateFormat.MMMMd(
                                   context.currentLocale.localeCode,
                                 ).format(
-                                  DateTime.parse(
-                                    getLastRecord(myRecords)?.time ?? "",
-                                  ),
+                                  getLastRecord(myRecords)?.time??DateTime.now()
                                 ),
                           style: AppTextStyles.m24w500
                               .copyWith(color: AppColors.kWhite),
@@ -72,9 +70,8 @@ class MainLastRecordWidget extends StatelessWidget {
                               ? ''
                               : DateFormat.Hm(context.currentLocale.localeCode)
                                   .format(
-                                  DateTime.parse(
-                                    getLastRecord(myRecords)?.time ?? "",
-                                  ),
+                                    (getLastRecord(myRecords)?.time ?? DateTime.now()).add(const Duration(hours: 6)),
+                                  
                                 ),
                           style: AppTextStyles.m16w500
                               .copyWith(color: AppColors.kWhite),
@@ -178,8 +175,8 @@ class MainLastRecordWidget extends StatelessWidget {
     }
     return records.reduce(
       (value, element) =>
-          DateTime.parse(value.time ?? now.toString()).difference(now).abs() <
-                  DateTime.parse(element.time ?? now.toString())
+          (value.time ?? now).difference(now).abs() <
+                  (element.time ?? now)
                       .difference(now)
                       .abs()
               ? value

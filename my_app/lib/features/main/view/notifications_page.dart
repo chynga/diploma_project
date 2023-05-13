@@ -101,17 +101,24 @@ class _NotificationsPageState extends State<NotificationsPage> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text(
-                                            notifications[index].message ?? "",
-                                            style: AppTextStyles.m20w500,
+                                          Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              notifications[index].message ?? "",
+                                              style: AppTextStyles.m20w500,
+                                            ),
                                           ),
                                           const SizedBox(
                                             height: 4,
                                           ),
                                           Text(
-                                            DateFormat('dd.MM.yyyy').format(
-                                              notifications[index].showAt ??
-                                                  DateTime.now(),
+                                            DateFormat('dd.MM.yyyy в HH:mm')
+                                                .format(
+                                              (notifications[index].showAt ??
+                                                      DateTime.now())
+                                                  .add(
+                                                const Duration(hours: 6),
+                                              ),
                                             ),
                                             style:
                                                 AppTextStyles.m16w400.copyWith(

@@ -71,7 +71,7 @@ class CustomTextField extends StatelessWidget {
         constraints: boxConstraints,
         suffixIcon: suffixIcon,
         prefixIcon: prefixIcon,
-        errorMaxLines: 2,
+        errorMaxLines: 3,
         contentPadding: contentPadding ??
             const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
         label: label,

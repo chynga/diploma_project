@@ -8,6 +8,7 @@ import 'package:dental_plaza/features/app/router/app_router.dart';
 import 'package:dental_plaza/features/app/widgets/showcase_for_nav_bar.dart';
 import 'package:dental_plaza/features/chat/bloc/chat_cubit.dart';
 import 'package:dental_plaza/features/main/bloc/notifications_cubit.dart';
+import 'package:dental_plaza/features/main/bloc/view_notifications_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -95,8 +96,12 @@ class _BaseState extends State<Base> with TickerProviderStateMixin {
                           } else {
                             tabsRouter.setActiveIndex(value);
                             if (value == 1) {
-                              BlocProvider.of<ChatCubit>(context).connectWebSocket();
+                              BlocProvider.of<ChatCubit>(context)
+                                  .connectWebSocket();
                               BlocProvider.of<ChatCubit>(context).readMessage();
+                              BlocProvider.of<ViewNotificationsCubit>(
+                                context,
+                              ).viewNots(type: 'consultation');
                             }
                           }
                           BlocProvider.of<NotificationsCubit>(
@@ -182,9 +187,11 @@ class _BaseState extends State<Base> with TickerProviderStateMixin {
                                     const SizedBox(
                                       width: 4,
                                     ),
-                                    Text(
-                                      context.localized.brushYourTeethWithUs,
-                                      style: AppTextStyles.m16w700White,
+                                    Expanded(
+                                      child: Text(
+                                        context.localized.brushYourTeethWithUs,
+                                        style: AppTextStyles.m16w700White,
+                                      ),
                                     ),
                                   ],
                                 ),
