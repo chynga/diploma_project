@@ -70,7 +70,7 @@ dev_dependencies:
   flutter_gen_runner: ^5.2.0
   flutter_test:
     sdk: flutter
-  flutter_launcher_icons: ^0.12.0
+  flutter_launcher_icons: ^0.13.1
   flutter_lints: ^2.0.1
   freezed: ^2.3.2
   lint: ^2.0.1
