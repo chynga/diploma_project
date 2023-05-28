@@ -1,6 +1,7 @@
+import dayjs from "dayjs";
 import { Star } from "./SvgImages";
-import { TextBase, TextXl } from "./TextElements";
-import { Review } from "./types";
+import { TextBase, TextLg, TextSm, TextXl } from "./TextElements";
+import { Review, dateFormat } from "./types";
 
 type ReviewProps = {
     review: Review
@@ -12,9 +13,12 @@ function ReviewCard({ review }: ReviewProps) {
             <TextXl>
                 <p className="mt-3 font-medium">{review.client.fullName}</p>
             </TextXl>
-            <TextBase>
+            <TextSm>
+                <p className="font-light">{dayjs(review.createdAt).format('DD.MM.YYYY')}</p>
+            </TextSm>
+            <TextLg>
                 <p className="font-light">{review.body}</p>
-            </TextBase>
+            </TextLg>
             <div className="flex gap-3 mt-2">
                 {[...Array(5)].map((star, index) => {
                     const ratingValue = index + 1;

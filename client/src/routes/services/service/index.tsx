@@ -13,7 +13,7 @@ function ServicePage() {
 
     useEffect(() => {
         axios.get(`/api/services/${id}`).then((resp) => {
-            const service: Service = resp.data.data.service;
+            const service: Service = resp.data;
             setService(service);
         });
     }, [])
@@ -58,7 +58,7 @@ function ServicePage() {
                         <img src={service?.imgAfterUrl} alt="" className="w-[300px]" />
                     </div>
                 </div>
-                <WhyUsSection />
+                <WhyUsSection service={service} />
             </div>
             {
                 showAppointmentForm ?

@@ -18,7 +18,7 @@ function Employees() {
             },
         };
         axios.get(apiUrl, config).then((resp) => {
-            const employees = resp.data.data.employees;
+            const employees = resp.data;
             setEmployees(employees);
         }).catch(err => {
             console.log(err)

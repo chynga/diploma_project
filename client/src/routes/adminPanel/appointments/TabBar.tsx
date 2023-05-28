@@ -22,12 +22,6 @@ function TabBar({ className = "" }: TabBarProps) {
                     Успешно
                 </TextLg>
             </Link>
-            <Link to={"canceled"} className={`px-3 hover:cursor-pointer
-                ${location.pathname.includes("canceled") ? 'border-b-2 border-blue-white dark:border-blue-dark' : ''}`}>
-                <TextLg blue={location.pathname.includes("canceled") ? true : false}>
-                    Отменено
-                </TextLg>
-            </Link>
         </div>
     );
 }

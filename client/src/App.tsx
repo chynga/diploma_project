@@ -11,7 +11,6 @@ import Footer from './routes/common/Footer';
 import ServicesPage from './routes/services';
 import ServicePage from './routes/services/service';
 import ReviewsPage from './routes/reviews';
-import VacancyPage from './routes/vacancy';
 import DoctorsPage from './routes/doctors';
 import DoctorPage from './routes/doctors/doctor';
 import AdvicesPage from './routes/advices';
@@ -19,13 +18,36 @@ import AboutPage from './routes/about';
 import ProfilePanel from './routes/profilePanel';
 import AdminPanel from './routes/adminPanel';
 import { OrderCallButton, OrderCallForm } from './routes/common/OrderCall';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { HintContext } from './routes/common/Hint';
 import ScrollToTop from './routes/common/ScrollToTop';
+import { VisuallyImpairedContext, VisuallyImpairedSettings } from './routes/common/header/VisuallyImpairedSettingBar';
+
+function useStickyState(defaultValue: VisuallyImpairedSettings): [VisuallyImpairedSettings, (v: VisuallyImpairedSettings) => void] {
+    const [value, setValue] = useState<VisuallyImpairedSettings>(defaultValue);
+
+    useEffect(() => {
+        const stickyValue = localStorage.getItem("impairedSettings")
+        if (stickyValue !== null) {
+            setValue(JSON.parse(stickyValue))
+        }
+    }, [setValue])
+
+    return [value, (v) => {
+        localStorage.setItem("impairedSettings", JSON.stringify(v))
+        setValue(v)
+    }]
+}
 
 function App() {
     const [showOrderCall, setShowOrderCall] = useState(false);
     const [step, setStep] = useState<number>(0);
+
+    const [visuallyImpairedSettings, setVisuallyImpairedSettings] = useStickyState({
+        isOn: false,
+        fontSize: "medium",
+        theme: "white",
+    });
 
     const next = () => {
         if (step === 6) {
@@ -38,34 +60,49 @@ function App() {
         setStep(0);
     }
 
+    const bgColor = !visuallyImpairedSettings.isOn ?
+        "bg-background-white dark:bg-background-dark"
+        :
+        visuallyImpairedSettings.theme === "white" ?
+            "bg-background-white"
+            :
+            visuallyImpairedSettings.theme === "black" ?
+                "bg-[#353535]"
+                :
+                "bg-[#9DD1FF]";
+
     return (
-        <HintContext.Provider value={{ step, next, close }}>
-            <div className="App bg-background-white dark:bg-background-dark">
-                <Router>
-                    <ScrollToTop />
-                    <Header />
-                    <div className="fixed z-50 right-20 bottom-20">
-                        <OrderCallButton setShowOrderCall={setShowOrderCall} />
-                    </div>
-                    <OrderCallForm showOrderCall={showOrderCall} setShowOrderCall={setShowOrderCall} />
-                    <Routes>
-                        <Route path="/" element={<HomePage />} />
-                        <Route path="/services" element={<ServicesPage />} />
-                        <Route path="/services/:id" element={<ServicePage />} />
-                        <Route path="/reviews" element={<ReviewsPage />} />
-                        <Route path="/vacancy" element={<VacancyPage />} />
-                        <Route path="/doctors" element={<DoctorsPage />} />
-                        <Route path="/doctors/:id" element={<DoctorPage />} />
-                        <Route path="/advices" element={<AdvicesPage />} />
-                        <Route path="/about" element={<AboutPage />} />
-                        <Route path="/profile-panel/*" element={<ProfilePanel />} />
-                        <Route path="/admin/*" element={<AdminPanel />} />
-                        <Route path="*" element={<NotFound />} />
-                    </Routes>
-                    <Footer />
-                </Router>
-            </div>
-        </HintContext.Provider>
+        <VisuallyImpairedContext.Provider value={{
+            visuallyImpairedSettings,
+            setVisuallyImpairedSettings
+        }}>
+            <HintContext.Provider value={{ step, next, close }}>
+                <div className={`App ${bgColor}`}>
+                    <Router>
+                        <ScrollToTop />
+                        <Header />
+                        <div className="fixed z-50 right-10 md:right-20 bottom-10 md:bottom-20">
+                            <OrderCallButton setShowOrderCall={setShowOrderCall} />
+                        </div>
+                        <OrderCallForm showOrderCall={showOrderCall} setShowOrderCall={setShowOrderCall} />
+                        <Routes>
+                            <Route path="/" element={<HomePage />} />
+                            <Route path="/services" element={<ServicesPage />} />
+                            <Route path="/services/:id" element={<ServicePage />} />
+                            <Route path="/reviews" element={<ReviewsPage />} />
+                            <Route path="/doctors" element={<DoctorsPage />} />
+                            <Route path="/doctors/:id" element={<DoctorPage />} />
+                            <Route path="/advices" element={<AdvicesPage />} />
+                            <Route path="/about" element={<AboutPage />} />
+                            <Route path="/profile-panel/*" element={<ProfilePanel />} />
+                            <Route path="/admin/*" element={<AdminPanel />} />
+                            <Route path="*" element={<NotFound />} />
+                        </Routes>
+                        <Footer />
+                    </Router>
+                </div>
+            </HintContext.Provider>
+        </VisuallyImpairedContext.Provider>
     );
 }
 

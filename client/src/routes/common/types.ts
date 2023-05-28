@@ -7,7 +7,14 @@ export type Service = {
     imgMainUrl?: string
     imgBeforeUrl?: string
     imgAfterUrl?: string
+    subServices?: SubService[]
 }
+
+export type SubService = {
+    title: string,
+    price: string
+}
+
 
 export type User = {
     id: string
@@ -66,11 +73,11 @@ export type Message = {
 }
 
 export type Review = {
-    id: number
-    clientId: number
+    id: string
     client: User
     body: string
     rating: number
+    createdAt: Date
 }
 
 export type AppNotificationType = "consultation" | "appointment"

@@ -11,6 +11,7 @@ import { selectAuth } from "../../../../features/auth/authSlice";
 import { storage } from "../../../../firebase";
 import { CloseButton } from "../../../common/SvgImages";
 import { dateFormat, Service } from "../../../common/types";
+import { TextLg } from "../../../common/TextElements";
 
 type SelectedService = Service & {
     checked: boolean
@@ -48,7 +49,7 @@ function DoctorInfo({ selectedDoctor }: DoctorsProps) {
         };
 
         axios.get(apiUrl, config).then((resp) => {
-            let services: SelectedService[] = resp.data.data.services;
+            let services: SelectedService[] = resp.data;
             services.forEach(service => {
                 service.checked = selectedDoctor?.services.map(service => service.id).includes(service.id) ?? false;
             })
@@ -172,7 +173,7 @@ function DoctorInfo({ selectedDoctor }: DoctorsProps) {
 
     return (
         <form onSubmit={onSubmit}>
-            <h1 className="font-semibold">{selectedDoctor?.fullName}</h1>
+            <TextLg className="font-semibold">{selectedDoctor?.fullName}</TextLg>
             <div>
                 {imageUrl ?
                     <img src={imageUrl} alt="" className="h-[300px]" />

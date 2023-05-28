@@ -20,7 +20,7 @@ function EditService() {
             },
         };
         axios.get(apiUrl, config).then((resp) => {
-            const service: Service = resp.data.data.service;
+            const service: Service = resp.data;
             setService(service);
         });
     }, []);
@@ -36,6 +36,7 @@ function EditService() {
             imgMainUrl: service?.imgMainUrl,
             imgBeforeUrl: service?.imgBeforeUrl,
             imgAfterUrl: service?.imgAfterUrl,
+            subServices: service?.subServices,
         };
 
         const config = {
@@ -54,7 +55,7 @@ function EditService() {
     };
 
     return (
-        <ServiceForm onSubmit={onSubmit} service={service} setService={setService} />
+        <ServiceForm onSubmit={onSubmit} service={service} setService={setService} buttonText={"Сохранить"} />
     );
 }
 

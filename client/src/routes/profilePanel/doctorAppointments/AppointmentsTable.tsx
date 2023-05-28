@@ -33,7 +33,7 @@ function AppointmentsTable({ distributedAppointments }: AppointmentsTableProps) 
                                 {appointments.map(appointment => {
                                     let displayedTime = dayjs(appointment.time);
                                     return (
-                                        <tr onClick={() => { navigate(`/admin/doctor-appointments/clients/${appointment.client?.id}`) }} key={appointment.id} className="hover:cursor-pointer">
+                                        <tr onClick={() => { navigate(`/profile-panel/doctor-appointments/clients/${appointment.client?.id}`) }} key={appointment.id} className="hover:cursor-pointer">
                                             <td className="p-3"><TextBase>{appointment.client?.fullName}</TextBase></td>
                                             <td className="p-3"><TextBase>{appointment.service?.title}</TextBase></td>
                                             <td className="p-3"><TextBase>{displayedTime.format(timeFormat)}</TextBase></td>

@@ -3,7 +3,6 @@ import NotFound from "../../common/NotFound";
 import RequestedAppointments from "./RequestedAppointments";
 import TabBar from "./TabBar";
 import CompletedAppointments from "./CompletedAppointments";
-import CanceledAppointments from "./CanceledAppointments"
 import AppointmentPage from "./AppointmentPage";
 
 function AppointmentsPage() {
@@ -17,8 +16,6 @@ function AppointmentsPage() {
                         <Route path="/requested/:id" element={<AppointmentPage changeStatusTo={"success"} />} />
                         <Route path="/completed" element={<CompletedAppointments />} />
                         <Route path="/completed/:id" element={<AppointmentPage />} />
-                        <Route path="/canceled" element={<CanceledAppointments />} />
-                        <Route path="/canceled/:id" element={<AppointmentPage />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </div>

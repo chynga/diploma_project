@@ -107,39 +107,24 @@ function Sidebar({ className = "" }: SidebarProps) {
                                         </TextLg>
                                     </Link>
                                 </div>
+                                <div className="w-full">
+                                    <Link to={"ordered-calls"} className="hover:cursor-pointer">
+                                        <TextLg className="font-medium" blue={location.pathname.includes("/admin/ordered-calls") ? true : false}>
+                                            Запросы
+                                        </TextLg>
+                                    </Link>
+                                </div>
+                                <div className="w-full">
+                                    <Link to={"accounting"} className="hover:cursor-pointer">
+                                        <TextLg className="font-medium" blue={location.pathname.includes("/admin/accounting") ? true : false}>
+                                            Бухгалтерия (Отчет)
+                                        </TextLg>
+                                    </Link>
+                                </div>
                             </>
                             :
                             <></>
                         }
-                        {user?.roles?.includes("DOCTOR") ?
-                            <div className="w-full">
-                                <Link to={"doctor-appointments/requested"} className="hover:cursor-pointer">
-                                    <TextLg className="font-medium" blue={location.pathname.includes("/admin/doctor-appointments") ? true : false}>
-                                        Мои записи
-                                    </TextLg>
-                                </Link>
-                            </div>
-                            :
-                            <></>
-                        }
-                        {user?.roles?.includes("CONSULTANT") ?
-                            <div className="w-full">
-                                <Link to={"ordered-calls"} className="hover:cursor-pointer">
-                                    <TextLg className="font-medium" blue={location.pathname.includes("/admin/ordered-calls") ? true : false}>
-                                        Запросы
-                                    </TextLg>
-                                </Link>
-                            </div>
-                            :
-                            <></>
-                        }
-                        {/* <div className="w-full">
-                            <Link to={"accounting"} className="hover:cursor-pointer">
-                                <TextLg className="font-medium" blue={location.pathname.includes("/admin/accounting") ? true : false}>
-                                    Бухгалтерия (Отчет)
-                                </TextLg>
-                            </Link>
-                        </div> */}
                     </div>
                 </div>
             </div>

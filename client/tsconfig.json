@@ -22,5 +22,5 @@
   },
   "include": [
     "src"
-  ]
+, "public/pano/index.js"  ]
 }

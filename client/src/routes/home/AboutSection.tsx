@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { Text4Xl, TextBase, TextXl } from "../common/TextElements";
+import { Text4Xl, TextBase, Text2Xl } from "../common/TextElements";
 
 type PromiseContent = {
     title: string,
@@ -51,9 +51,9 @@ function AboutSection() {
 function Promise({ title, text }: PromiseContent) {
     return (
         <div>
-            <TextXl blue>
+            <Text2Xl blue>
                 <h3 className="mt-3 font-bold text-center lg:text-start">{title}</h3>
-            </TextXl>
+            </Text2Xl>
             <TextBase>
                 <p className="text-center lg:text-start">{text}</p>
             </TextBase>

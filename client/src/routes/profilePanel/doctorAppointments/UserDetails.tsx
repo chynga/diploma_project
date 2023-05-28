@@ -34,7 +34,7 @@ function UserDetails() {
             };
 
             axios.get(apiUrl, config).then((resp) => {
-                const client: Client = resp.data.data.client;
+                const client: Client = resp.data;
                 setAllergy(client.allergy);
                 setPrescribedMedications(client.prescribedMedications);
                 setClient(client);

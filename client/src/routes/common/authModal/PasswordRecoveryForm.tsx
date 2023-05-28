@@ -5,11 +5,13 @@ import { FormProps } from ".";
 import { codeRegex, emailRegex, passwordRegex, state } from "../util";
 import Button from "./Button";
 import FormGroup from "./FormGroup";
+import PasswordFormGroup from "./PasswordFormGroup";
 
 function PasswordRecoveryForm({ setAuthPage, setErrorMsg }: FormProps) {
     const [email, setEmail] = useState(state);
     const [code, setCode] = useState(state);
     const [password, setPassword] = useState(state);
+    const [showPassword, setShowPassword] = useState(false);
     const dispatch = useDispatch<any>();
     const [isEmailSent, setEmailSent] = useState(false);
     const [isCodeCorrect, setCodeCorrect] = useState(false);
@@ -98,7 +100,9 @@ function PasswordRecoveryForm({ setAuthPage, setErrorMsg }: FormProps) {
                     validationMessage="Код не правильный!" />
             </div>
             <div className={`${isEmailSent && isCodeCorrect ? "" : "hidden"}`}>
-                <FormGroup
+                <PasswordFormGroup
+                    show={showPassword}
+                    setShow={setShowPassword}
                     labelText="Новый Пароль"
                     type="password"
                     id="password"

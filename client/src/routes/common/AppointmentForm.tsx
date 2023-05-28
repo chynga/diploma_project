@@ -9,6 +9,7 @@ import { selectAuth } from "../../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import { RangePickerProps } from "antd/es/date-picker";
 import { useTranslation } from "react-i18next";
+import { TextBase } from "./TextElements";
 
 type AppointmentFormProps = {
     doctorId?: string
@@ -29,22 +30,25 @@ function AppointmentForm({ doctorId = "" }: AppointmentFormProps) {
 
     const { user } = useAppSelector(selectAuth);
     const navigate = useNavigate();
+    const [errorMsg, setErrorMsg] = useState("");
 
     const disabledDate: RangePickerProps['disabledDate'] = (current) => {
         return current && current < dayjs().add(-1, 'day').endOf('day');
     };
 
     useEffect(() => {
-        axios.get("/api/doctors/available").then((resp) => {
-            const doctors: Doctor[] = resp.data.data.doctors;
+        axios.get("/api/doctors").then((resp) => {
+            const doctors: Doctor[] = resp.data;
             setDoctors(doctors);
             if (doctors[0] && !selectedDoctorId) {
                 setSelectedDoctorId(doctors[0].id);
             }
+        }).catch(err => {
+            console.log(err)
         });
         if (selectedDoctorId) {
             axios.get(`/api/doctors/${selectedDoctorId}`).then((resp) => {
-                const doctor: Doctor = resp.data.data.doctor;
+                const doctor: Doctor = resp.data;
                 setServices(doctor.services);
                 if (!doctor.services.find(service => service.id === selectedService?.id)) {
                     setSelectedService(doctor.services[0]);
@@ -52,8 +56,8 @@ function AppointmentForm({ doctorId = "" }: AppointmentFormProps) {
             });
         }
         if (selectedDoctorId && selectedService) {
-            axios.get(`/api/doctors/${selectedDoctorId}/free-slots?serviceId=${selectedService.id}&date=${dayjs(date, dateFormat).unix() * 1000}`).then(resp => {
-                const freeSlots: Dayjs[] = resp.data.data.freeSlots.map((ts: number) => dayjs(ts))
+            axios.get(`/api/doctors/${selectedDoctorId}/free-slots?serviceId=${selectedService.id}&date=${dayjs(date, dateFormat).unix() * 1000 + 6 * 60 * 60 * 1000}`).then(resp => {
+                const freeSlots: Dayjs[] = resp.data.map((ts: number) => dayjs(ts))
                 setAvailableTimes(freeSlots)
                 setTime(dayjs(freeSlots[0]).format(timeFormat))
             }).catch(err => {
@@ -89,6 +93,10 @@ function AppointmentForm({ doctorId = "" }: AppointmentFormProps) {
 
     const onSubmit = (e: any) => {
         e.preventDefault();
+        if (!user) {
+            setErrorMsg("Записаться можно только после регистрации!");
+            return;
+        }
         let timeStr = date + ' ' + time;
 
         const format = dateFormat + " " + timeFormat;
@@ -124,7 +132,7 @@ function AppointmentForm({ doctorId = "" }: AppointmentFormProps) {
         <form onSubmit={onSubmit} className="mt-10 p-12 bg-[#277ff280] rounded-3xl w-full">
             <div className="xl:flex gap-5">
                 <div className="xl:mt-0 w-full">
-                    <select value={selectedDoctorId} onChange={onDoctorSelect} name="doctor" id="doctor" className="p-2 border-[1px] bg-background-white dark:bg-background-dark text-primary-white dark:text-primary-dark border-blue-gray-200 rounded-md w-full">
+                    <select value={selectedDoctorId} onChange={onDoctorSelect} name="doctor" id="doctor" className="form-select appearance-none p-2 border-[1px] bg-background-white dark:bg-background-dark text-primary-white dark:text-primary-dark border-blue-gray-200 rounded-md w-full">
                         <option value={0} disabled hidden>Please Choose...</option>
                         {doctors?.map(doctor => {
                             return (
@@ -134,7 +142,7 @@ function AppointmentForm({ doctorId = "" }: AppointmentFormProps) {
                     </select>
                 </div>
                 <div className="mt-5 xl:mt-0 w-full">
-                    <select value={selectedService?.id} onChange={onServiceSelect} name="service" id="service" className="p-2 border-[1px] bg-background-white dark:bg-background-dark text-primary-white dark:text-primary-dark border-blue-gray-200 rounded-md w-full">
+                    <select value={selectedService?.id} onChange={onServiceSelect} name="service" id="service" className="form-select appearance-none p-2 border-[1px] bg-background-white dark:bg-background-dark text-primary-white dark:text-primary-dark border-blue-gray-200 rounded-md w-full">
                         <option value={0} disabled hidden>Please Choose...</option>
                         {services?.map(service => {
                             return (
@@ -146,7 +154,7 @@ function AppointmentForm({ doctorId = "" }: AppointmentFormProps) {
             </div>
             <div className="mt-5 xl:flex gap-5">
                 <DatePicker className="w-full py-2 bg-background-white dark:bg-background-dark text-primary-white dark:text-primary-dark" value={dayjs(date, dateFormat)} onChange={onDateChange} format={dateFormat} disabledDate={disabledDate} />
-                <select value={time} onChange={onTimeChange} name="time" id="time" className="mt-5 xl:mt-0 p-2 border-[1px] bg-background-white dark:bg-background-dark text-primary-white dark:text-primary-dark border-blue-gray-200 rounded-md w-full">
+                <select value={time} onChange={onTimeChange} name="time" id="time" className="form-select appearance-none mt-5 xl:mt-0 p-2 border-[1px] bg-background-white dark:bg-background-dark text-primary-white dark:text-primary-dark border-blue-gray-200 rounded-md w-full">
                     <option value={0} disabled hidden>Please Choose...</option>
                     {availableTimes?.map(time => {
                         return (
@@ -158,7 +166,12 @@ function AppointmentForm({ doctorId = "" }: AppointmentFormProps) {
             <div className="mt-6">
                 <Textarea label="Message" value={clientMessage} onChange={onMessageChange} className="bg-background-white dark:bg-background-dark text-primary-white dark:text-primary-dark" />
             </div>
-            <div className="mt-5 flex justify-center">
+            <div className="mt-5 flex flex-col items-center">
+                <TextBase>
+                    <span className="text-red-400">
+                        {errorMsg}
+                    </span>
+                </TextBase>
                 <button className="px-8 py-3 bg-background-white dark:bg-background-dark text-lg text-blue-white dark:text-blue-dark font-semibold drop-shadow-lg rounded-full">
                     {t('common:send')}
                 </button>

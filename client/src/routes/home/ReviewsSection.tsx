@@ -1,13 +1,15 @@
 import { useTranslation } from "react-i18next";
 import LinkButton from "../common/LinkButton";
 import { Star } from "../common/SvgImages";
-import { Text4Xl, TextBase, TextXl } from "../common/TextElements";
+import { Text4Xl, TextBase, TextSm, TextXl } from "../common/TextElements";
+import ReviewCard from "../common/ReviewCard";
+import dayjs from "dayjs";
 
 function ReviewsSection() {
     const { t } = useTranslation(["kz", "ru"]);
 
     return (
-        <div className="py-12 px-20">
+        <div className="py-12 px-5 md:px-20">
             <Text4Xl blue>
                 <h2 className="font-bold">
                     {t('home:review:title')}
@@ -18,41 +20,46 @@ function ReviewsSection() {
                 <div className="mt-5 relative" >
                     <div className="px-8 pb-5 max-w-[936px] min-h-[120px] border-[1px] border-blue-white dark:border-blue-dark rounded-2xl">
                         <TextXl>
-                            <h3 className="mt-3 font-medium">Ольга</h3>
+                            <h3 className="mt-3 font-medium">Манапова Улжан Нургалиевна</h3>
                         </TextXl>
+                        <TextSm>
+                            <p className="font-light">04.05.2023</p>
+                        </TextSm>
                         <TextBase>
-                            <p className="font-light">Отличная клиника ! Всё чисто, аккуратно и очень дружлюбный отзывчивый персонал, начиная с девушки-администратора </p>
+                            <p className="font-light">Хотелось бы сказать огромное спасибо замечательной клинике "Dental Plaza". Теперь я обладательница голливудской улыбки. Я не ожидала получить такой колоссальный результат. Вообще хочется выразить огромную благодарность всем специалистам и сотрудникам клиники. Однозначно рекомендую данную клинику!</p>
                         </TextBase>
                         <div className="flex gap-3 mt-2">
                             <Star filled />
                             <Star filled />
                             <Star filled />
-                            <Star />
-                            <Star />
+                            <Star filled />
+                            <Star filled />
                         </div>
                     </div>
                 </div>
                 <div className="mt-5 relative">
                     <div className="px-8 pb-5 max-w-[936px] min-h-[120px] border-[1px] border-blue-white dark:border-blue-dark rounded-2xl">
                         <TextXl>
-                            <h3 className="mt-3 font-medium">Ольга</h3>
+                            <h3 className="mt-3 font-medium">Карманова Анастасия Артемовна</h3>
                         </TextXl>
+                        <TextSm>
+                            <p className="font-light">04.05.2023</p>
+                        </TextSm>
                         <TextBase>
-                            <p className="font-light">Отличная клиника ! Всё чисто, аккуратно и очень дружлюбный отзывчивый персонал, начиная с девушки-администратора </p>
+                            <p className="font-light">Всем рекомендую эту стоматологию! Здесь работают только профессионалы. Поставила брекеты и выровняла зубы. Спасибо большое, я очень довольна результатом.</p>
                         </TextBase>
                         <div className="flex gap-3 mt-2">
                             <Star filled />
                             <Star filled />
                             <Star filled />
-                            <Star />
-                            <Star />
+                            <Star filled />
+                            <Star filled />
                         </div>
                     </div>
                     <div className="hidden 2xl:block md:absolute top-[-265px] left-[890px]">
                         <DoctorSvg />
                     </div>
                 </div>
-
             </div>
 
             <div className="py-16">

@@ -17,6 +17,8 @@ import vacancyKz from './kz/vacancy.json';
 import vacancyRu from './ru/vacancy.json';
 import commonKz from './kz/common.json';
 import commonRu from './ru/common.json';
+import hintKz from './kz/hint.json';
+import hintRu from './ru/hint.json';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
@@ -31,6 +33,7 @@ export const resources = {
     advice: adviceKz,
     vacancy: vacancyKz,
     common: commonKz,
+    hint: hintKz,
   },
   ru: {
     user: userRu,
@@ -42,6 +45,7 @@ export const resources = {
     advice: adviceRu,
     vacancy: vacancyRu,
     common: commonRu,
+    hint: hintRu,
   },
 } as const;
 
@@ -49,10 +53,10 @@ i18n
     .use(LanguageDetector)
     .use(initReactI18next)
     .init({
-  fallbackLng: 'kz',
-  ns: ['user', 'home', 'about', 'service', 'doctor', 'review', 'advice', 'vacancy', 'common'],
-  interpolation: {
-    escapeValue: false,
-  },
-  resources,
+        fallbackLng: 'kz',
+        ns: ['user', 'home', 'about', 'service', 'doctor', 'review', 'advice', 'vacancy', 'common', 'hint'],
+        interpolation: {
+            escapeValue: false,
+        },
+        resources,
 });

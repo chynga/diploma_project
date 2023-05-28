@@ -14,7 +14,8 @@ const login = async (userData: UserCredentials) => {
     console.log(userData)
     const response = await axios.post("/api/authentication/login", userData);
     console.log(1)
-    const token = response.data.data.accessToken;
+    const token = response.data;
+
     const config = {
         headers: {
             Authorization: `Bearer ${token}`,

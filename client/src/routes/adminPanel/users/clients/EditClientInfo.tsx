@@ -34,7 +34,7 @@ function EditClientInfo() {
             };
 
             axios.get(apiUrl, config).then((resp) => {
-                const client: Client = resp.data.data.client;
+                const client: Client = resp.data;
                 setAllergy(client.allergy);
                 setPrescribedMedications(client.prescribedMedications);
                 setClient(client);
@@ -103,7 +103,7 @@ function EditClientInfo() {
 
                         <div>
                             <button className="inline-block px-8 py-3 bg-blue-white dark:bg-blue-dark text-lg text-primary-dark font-semibold drop-shadow-lg rounded-full">
-                                Изменить
+                                Сохранить
                             </button>
                         </div>
                     </form>

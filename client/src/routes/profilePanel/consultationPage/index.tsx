@@ -11,7 +11,7 @@ function ConsultationPage() {
     const [body, setBody] = useState("");
     const [messages, setMessages] = useState<Message[]>([]);
     const { user } = useAppSelector(selectAuth);
-    const socketUrl = `ws://localhost:5001/chat?token=${user?.token}`;
+    const socketUrl = `ws://localhost:8080/chat?token=${user?.token}&clientId=${user?.id}`;
 
     const { sendJsonMessage } = useWebSocket(socketUrl, {
         onOpen: () => console.log('opened'),

@@ -11,10 +11,10 @@ function DoctorsPage() {
     const { t } = useTranslation(["kz", "ru"]);
 
     useEffect(() => {
-        const apiUrl = `/api/doctors/available`;
+        const apiUrl = `/api/doctors`;
 
         axios.get(apiUrl).then((resp) => {
-            const doctors: Doctor[] = resp.data.data.doctors;
+            const doctors: Doctor[] = resp.data;
             setDoctors(doctors);
         });
     }, [])
@@ -27,12 +27,12 @@ function DoctorsPage() {
                 </h2>
             </Text4Xl>
 
-            <div className="mt-10 flex flex-wrap justify-center items-center gap-x-20 gap-y-6">
+            <div className="mt-10 flex flex-wrap justify-center items-stretch gap-x-20 gap-y-6">
                 {doctors.map(doctor => {
                     return (
-                        <div key={doctor.id}>
+                        <div key={doctor.id} className="flex flex-col justify-between gap-5">
                             <DoctorCard doctor={doctor} />
-                            <div className="mt-5 text-center">
+                            <div className="text-center">
                                 <LinkButton to={`/doctors/${doctor.id}`} text={t('common:more')} />
                             </div>
                         </div>

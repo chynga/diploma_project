@@ -1,4 +1,3 @@
-import { t } from "i18next";
 import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
@@ -7,24 +6,31 @@ import { useAppSelector } from "../../../app/hooks";
 import { logout, selectAuth } from "../../../features/auth/authSlice";
 import AuthModal, { AuthPage } from "../authModal";
 import Hint, { HintContext, HintContextType, hints } from "../Hint";
-import { ArrowDown, Bell, Burger, Close, Glasses, Instagram, Logo, Person, Phone2Svg, ProfilePicture, ThemeToggler } from "../SvgImages";
+import { ArrowDown, Burger, Close, Glasses, Instagram, Logo, Person, Phone2Svg, ProfilePicture, ThemeToggler } from "../SvgImages";
 import { TextBase, TextLg, TextXl } from "../TextElements";
 import { toggleTheme } from "../util";
 import Notification from "./Notification";
-
-type NavbarProps = {
-    showNav: boolean,
-}
+import Navbar from "./Navbar";
+import VisuallyImpairedSettingBar, { VisuallyImpairedContext, VisuallyImpairedContextType } from "./VisuallyImpairedSettingBar";
 
 function Header() {
     const [showNav, setShowNav] = useState(false);
     const [authPage, setAuthPage] = useState<AuthPage>(null);
-    const { t, i18n } = useTranslation(["kz", "ru"]);
+    const { i18n } = useTranslation(["kz", "ru"]);
     const location = useLocation();
     const dispatch = useDispatch<any>();
     const { step } = useContext(HintContext) as HintContextType;
 
     const { user } = useAppSelector(selectAuth);
+
+    const { visuallyImpairedSettings, setVisuallyImpairedSettings } =
+        useContext(VisuallyImpairedContext) as VisuallyImpairedContextType;
+    const toggleImpaired = () => {
+        setVisuallyImpairedSettings({
+            ...visuallyImpairedSettings,
+            isOn: !visuallyImpairedSettings.isOn
+        })
+    }
 
     const changeLanguage = (lang: string) => {
         i18n.changeLanguage(lang);
@@ -41,69 +47,116 @@ function Header() {
         dispatch(logout());
     };
 
+    const bgColor = !visuallyImpairedSettings.isOn ?
+        "bg-background-white dark:bg-background-dark"
+        :
+        visuallyImpairedSettings.theme === "white" ?
+            "bg-background-white"
+            :
+            visuallyImpairedSettings.theme === "black" ?
+                "bg-[#353535]"
+                :
+                "bg-[#9DD1FF]";
+
+    const borderColor = !visuallyImpairedSettings.isOn ?
+        "border-blue-white dark:border-blue-dark"
+        :
+        `border-b ${visuallyImpairedSettings.theme === "black" ? "border-white" : "border-[#353535]"}`;
+
     return (
-        <header className="mt-[64px] lg:mt-[162px]">
-            <div className="shadow-lg fixed z-30 top-0 bg-background-white dark:bg-background-dark w-full">
+        <header className={`${visuallyImpairedSettings.isOn ? "mt-[224px] sm:mt-[151px] md:mt-[174px] lg:mt-[249px]" : "mt-[64px] md:mt-[86px] lg:mt-[162px]"}`}>
+            <div className={`shadow-lg fixed z-30 top-0 ${bgColor} w-full`}>
                 <div className="lg:px-8 p-3 lg:pt-5 flex justify-between items-center">
                     <Link to={"/"}>
-                        <Logo fill={"blue"} className={"w-[100px] md:w-[220px]"} />
+                        <Logo fill={visuallyImpairedSettings.isOn ? (visuallyImpairedSettings.theme !== "black" ? "black" : "white") : "blue"} className={"w-[100px] md:w-[220px]"} />
                     </Link>
+                    <div className="hidden lg:flex items-center gap-5">
+                        <TextLg>
+                            <div className="font-medium">
+                                {i18n.language === "ru" ?
+                                    "г. Алматы Сатпаева 133/3"
+                                    :
+                                    "Алматы қ. Сатпаева 133/3"
+                                }
+                            </div>
+                        </TextLg>
+                    </div>
                     <div className="hidden lg:block">
-                        <TextXl>
+                        <TextLg>
                             <div className="font-medium">
                                 Пн - Пт: 9:00 - 23:00
                             </div>
-                        </TextXl>
-                        <TextXl>
+                        </TextLg>
+                        <TextLg>
                             <div className="font-medium">
                                 Сб - Вс: 9:00 - 19:00
                             </div>
-                        </TextXl>
+                        </TextLg>
                     </div>
                     <div className="hidden xl:flex items-center gap-3">
                         <Phone2Svg />
                         <div>
-                            <TextXl>
+                            <TextLg>
                                 <div className="font-medium">
                                     +7 701 188 5055
                                 </div>
-                            </TextXl>
-                            <TextXl>
+                            </TextLg>
+                            <TextLg>
                                 <div className="font-medium">
                                     +7 707 188 5055
                                 </div>
-                            </TextXl>
+                            </TextLg>
                         </div>
                     </div>
                     <div className="flex gap-3 lg:gap-5 items-center">
-                        {/* <div className="relative">
-                            <div className="flex items-center gap-3 hover:cursor-pointer">
+                        <div className="relative">
+                            <div className="flex items-center gap-3 hover:cursor-pointer"
+                                onClick={toggleImpaired}>
                                 <Glasses />
                                 <TextLg>
-                                    <p className="hidden md:block font-medium">
-                                        Слабовидящим
+                                    <p className="hidden xl:block font-medium text-center">
+                                        {visuallyImpairedSettings.isOn ?
+                                            <>
+                                                {i18n.language === "ru" ?
+                                                    "Обычная версия"
+                                                    :
+                                                    <>
+                                                        Көру қабылеті<br />нашарларға
+                                                    </>
+                                                }
+                                            </>
+                                            :
+                                            <>
+                                                {i18n.language === "ru" ?
+                                                    "Слабовидящим"
+                                                    :
+                                                    <>
+                                                        Көру қабылеті<br />нашарларға
+                                                    </>
+                                                }
+                                            </>
+                                        }
                                     </p>
                                 </TextLg>
                             </div>
-                            {step === 2 ?
-                                <Hint hintPos={"bottom"} pointerPos={"end"} content={hints[2]} />
-                                :
-                                <></>
-                            }
-                        </div> */}
+                        </div>
                         <a href="https://instagram.com/dentalplaza.kz?igshid=YmMyMTA2M2Y=">
                             <Instagram fill="blue" />
                         </a>
-                        <div className="relative">
-                            <div className="hover:cursor-pointer" onClick={toggleTheme} id="theme-toggle">
-                                <ThemeToggler className="w-[20px] md:w-auto" />
+                        {visuallyImpairedSettings.isOn ?
+                            <></>
+                            :
+                            <div className="relative">
+                                <div className="hover:cursor-pointer" onClick={toggleTheme} id="theme-toggle">
+                                    <ThemeToggler className="w-[20px] md:w-auto" />
+                                </div>
+                                {step === 2 ?
+                                    <Hint hintPos={"bottom"} pointerPos={"end"} right={'-right-12'} content={hints[2]} />
+                                    :
+                                    <></>
+                                }
                             </div>
-                            {step === 2 ?
-                                <Hint hintPos={"bottom"} pointerPos={"end"} right={'-right-12'} content={hints[2]} />
-                                :
-                                <></>
-                            }
-                        </div>
+                        }
                         {user && user.roles?.includes("CLIENT") ?
                             <Notification />
                             :
@@ -117,8 +170,8 @@ function Header() {
                                         "КАЗ"}
                                 </TextBase>
                                 <ArrowDown />
-                                <div className="hidden group-hover:block absolute bg-background-white dark:bg-background-dark top-[100%] right-0 w-[90px] border-[1px] border-blue-white dark:border-blue-dark rounded-2xl rounded-tr-none">
-                                    <div className="p-2 border-b-[1px] border-blue-white dark:border-blue-dark">
+                                <div className={`hidden group-hover:block absolute ${bgColor} top-[100%] right-0 w-[90px] border-[1px] ${borderColor} rounded-2xl rounded-tr-none`}>
+                                    <div className={`p-2 border-b-[1px] ${borderColor}`}>
                                         <TextBase blue>
                                             {i18n.language === "ru" ?
                                                 "РУС" :
@@ -131,9 +184,9 @@ function Header() {
                                             changeLanguage("ru")
                                     }}>
                                         <TextBase>
-                                            {i18n.language === "kz" ?
-                                                "РУС" :
-                                                "КАЗ"}
+                                            {i18n.language === "ru" ?
+                                                "КАЗ" :
+                                                "РУС"}
                                         </TextBase>
                                     </div>
                                 </div>
@@ -153,7 +206,7 @@ function Header() {
                                 }
                                 <ArrowDown />
                                 {user ?
-                                    <div className="hidden group-hover:block py-5 w-[276px] flex flex-col items-center justify-around gap-3 group-hover:flex absolute bg-background-white dark:bg-background-dark top-[100%] right-0 rounded-b-2xl drop-shadow-lg">
+                                    <div className={`hidden group-hover:block py-5 w-[276px] flex flex-col items-center justify-around gap-3 group-hover:flex absolute ${bgColor} top-[100%] right-0 rounded-b-2xl drop-shadow-lg`}>
                                         <ProfilePicture imageUrl={user.profileImageUrl} className="w-[100px] h-[100px]" />
                                         <div>
                                             <TextBase>{user.fullName}</TextBase>
@@ -164,12 +217,12 @@ function Header() {
                                         <div>
                                             <TextBase>{user.phone}</TextBase>
                                         </div>
-                                        <Link to={user.roles?.includes("CLIENT") ? "/profile-panel/appointments/future" : "/profile-panel/profile"}>
+                                        <Link to={user.roles?.includes("CLIENT") ? "/profile-panel/appointments/future" : user.roles?.includes("DOCTOR") ? "/profile-panel/doctor-appointments/requested" : "/profile-panel/profile"}>
                                             <TextBase>Личный кабинет</TextBase>
                                         </Link>
-                                        {!user.roles?.includes("CLIENT") ?
+                                        {user.roles?.includes("ADMIN") || user.roles?.includes("CONSULTANT") ?
                                             <Link className="hover:text-blue-white dark:hover:text-blue-dark"
-                                                to={user.roles?.includes("ADMIN") ? "/admin/employees" : user.roles?.includes("CONSULTANT") ? "/admin/appointments/requested" : "/admin/doctor-appointments/requested"}>
+                                                to={user.roles?.includes("ADMIN") ? "/admin/employees" : "/admin/appointments/requested"}>
                                                 <TextBase>Панель Администрирования</TextBase>
                                             </Link> :
                                             <></>
@@ -181,8 +234,8 @@ function Header() {
                                         </div>
                                     </div>
                                     :
-                                    <div className="hidden group-hover:block absolute bg-background-white dark:bg-background-dark top-[100%] right-0 border-[1px] border-blue-white dark:border-blue-dark rounded-2xl rounded-tr-none">
-                                        <div className="p-2 border-b-[1px] border-blue-white dark:border-blue-dark"
+                                    <div className={`hidden group-hover:block absolute ${bgColor} top-[100%] right-0 border-[1px] ${borderColor} rounded-2xl rounded-tr-none`}>
+                                        <div className={`p-2 border-b-[1px] ${borderColor}`}
                                             onClick={() => setAuthPage("register")}>
                                             <TextBase>Регистрация</TextBase>
                                         </div>
@@ -207,91 +260,11 @@ function Header() {
                         </div>
                     </div>
                 </div>
-                <Navbar showNav={showNav} />
+                <VisuallyImpairedSettingBar />
+                <Navbar showNav={showNav} setShowNav={setShowNav} setAuthPage={setAuthPage} />
             </div>
             {authPage ? <AuthModal authPage={authPage} setAuthPage={setAuthPage} /> : <></>}
         </header>
-    );
-}
-
-function Navbar({ showNav }: NavbarProps) {
-    const { step } = useContext(HintContext) as HintContextType;
-
-    return (
-        <div className="lg:py-2.5">
-            <div className={`relative ${showNav ? "fixed" : "hidden"} lg:static lg:block shadow-lg lg:shadow-none px-5 pt-5 pb-20 lg:py-2.5 max-w-[400px] lg:max-w-none overflow-auto w-full right-0 bottom-0 h-[calc(100vh_-_61px)] lg:h-auto bg-background-white dark:bg-background-dark`}>
-                <ul className="flex flex-col lg:flex-row justify-center gap-3 lg:gap-16 font-medium">
-                    <li>
-                        <Link to="/">
-                            <TextXl>
-                                <span className={`${useLocation().pathname === "/" ? "text-[rgba(39,127,242,0.7)] drop-shadow-[0_0_5px_rgba(39,127,242,0.7)] dark:text-primary-dark dark:drop-shadow-[0_0_5px_#FFFFFF]" : ""}`}>
-                                    {t('home:title')}
-                                </span>
-                            </TextXl>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/about">
-                            <TextXl>
-                                <span className={`${useLocation().pathname === "/about" ? "text-[rgba(39,127,242,0.7)] drop-shadow-[0_0_5px_rgba(39,127,242,0.7)] dark:text-primary-dark dark:drop-shadow-[0_0_5px_#FFFFFF]" : ""}`}>
-                                    {t('about:title')}
-                                </span>
-                            </TextXl>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/services">
-                            <TextXl>
-                                <span className={`${useLocation().pathname.includes("/services") ? "text-[rgba(39,127,242,0.7)] drop-shadow-[0_0_5px_rgba(39,127,242,0.7)] dark:text-primary-dark dark:drop-shadow-[0_0_5px_#FFFFFF]" : ""}`}>
-                                    {t('service:title')}
-                                </span>
-                            </TextXl>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/doctors">
-                            <TextXl>
-                                <span className={`${useLocation().pathname.includes("/doctors") ? "text-[rgba(39,127,242,0.7)] drop-shadow-[0_0_5px_rgba(39,127,242,0.7)] dark:text-primary-dark dark:drop-shadow-[0_0_5px_#FFFFFF]" : ""}`}>
-                                    {t('doctor:title')}
-                                </span>
-                            </TextXl>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/reviews">
-                            <TextXl>
-                                <span className={`${useLocation().pathname === "/reviews" ? "text-[rgba(39,127,242,0.7)] drop-shadow-[0_0_5px_rgba(39,127,242,0.7)] dark:text-primary-dark dark:drop-shadow-[0_0_5px_#FFFFFF]" : ""}`}>
-                                    {t('review:title')}
-                                </span>
-                            </TextXl>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/advices">
-                            <TextXl>
-                                <span className={`${useLocation().pathname === "/advices" ? "text-[rgba(39,127,242,0.7)] drop-shadow-[0_0_5px_rgba(39,127,242,0.7)] dark:text-primary-dark dark:drop-shadow-[0_0_5px_#FFFFFF]" : ""}`}>
-                                    {t('advice:title')}
-                                </span>
-                            </TextXl>
-                        </Link>
-                    </li>
-                    {/* <li>
-                        <Link to="/vacancy">
-                            <TextXl>
-                                <span className={`${useLocation().pathname === "/vacancy" ? "text-[rgba(39,127,242,0.7)] drop-shadow-[0_0_5px_rgba(39,127,242,0.7)] dark:text-primary-dark dark:drop-shadow-[0_0_5px_#FFFFFF]" : ""}`}>
-                                    {t('vacancy:title')}
-                                </span>
-                            </TextXl>
-                        </Link>
-                    </li> */}
-                </ul>
-                {step === 1 ?
-                    <Hint hintPos={"bottom"} pointerPos={"center"} content={hints[0]} />
-                    :
-                    <></>
-                }
-            </div>
-        </div >
     );
 }
 

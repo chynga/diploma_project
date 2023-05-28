@@ -62,7 +62,7 @@ function EditProfile({ user }: ProfileProps) {
         axios.patch("/api/profile", userData, config)
             .then(async _ => {
                 const token = user?.token
-                const updatedUser: User = (await axios.get("/api/profile", config)).data.data
+                const updatedUser: User = (await axios.get("/api/profile", config)).data
                 localStorage.setItem("user", JSON.stringify({ ...updatedUser, token }));
 
                 dispatch(setUser({ ...updatedUser, token }));

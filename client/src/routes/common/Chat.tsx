@@ -23,7 +23,7 @@ function Chat({ isClient = true, messages, body, onChange, handleSend, className
                                 <div className={`${(message.isClient && !isClient) || (!message.isClient && isClient) ? "" : "order-2"}`}>
                                     {time}
                                 </div>
-                                <div>
+                                <div className="break-all">
                                     {message.body}
                                 </div>
                             </TextBase>

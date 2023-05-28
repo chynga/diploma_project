@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { TextLg } from "../TextElements";
 
 function FormGroup({ labelText, regex, validationMessage, field, setField, ...rest }: any) {
     const [errorMessage, setErrorMessage] = useState("");
@@ -41,7 +42,11 @@ function FormGroup({ labelText, regex, validationMessage, field, setField, ...re
 
     return (
         <div>
-            <label className="text-primary-white dark:text-primary-dark" htmlFor="">{labelText}</label>
+            <label htmlFor={rest.id}>
+                <TextLg>
+                    {labelText}
+                </TextLg>
+            </label>
             <input {...rest}
                 className="block mt-2 p-3 text-primary-white dark:text-primary-dark w-[315px] rounded-[10px] bg-[rgba(39,127,242,0.2)]"
                 onChange={(event: any) => onChange(event, setField)} />

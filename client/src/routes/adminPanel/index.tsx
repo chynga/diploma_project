@@ -14,7 +14,7 @@ import MessagesPage from "./messages";
 import ReviewsPage from "./reviews";
 import OrderedCallsPage from "./orderedCalls";
 import DoctorsPage from "./users/doctors";
-import DoctorAppointmentsPage from "./doctorAppointments";
+import AccountingPage from "./accounting";
 
 function AdminPanel() {
     const { user } = useAppSelector(selectAuth);
@@ -40,13 +40,13 @@ function AdminPanel() {
                     <Routes>
                         <Route path="/services/*" element={<ServicesPage />} />
                         <Route path="/appointments/*" element={<AppointmentsPage />} />
-                        <Route path="/doctor-appointments/*" element={<DoctorAppointmentsPage />} />
                         <Route path="/employees/*" element={<EmployeesPage />} />
                         <Route path="/doctors/*" element={<DoctorsPage />} />
                         <Route path="/clients/*" element={<ClientsPage />} />
                         <Route path="/messages/*" element={<MessagesPage />} />
                         <Route path="/reviews/*" element={<ReviewsPage />} />
                         <Route path="/ordered-calls/*" element={<OrderedCallsPage />} />
+                        <Route path="/accounting/*" element={<AccountingPage />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </div>

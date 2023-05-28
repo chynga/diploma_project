@@ -22,6 +22,7 @@ function NewService() {
             imgMainUrl: service?.imgMainUrl,
             imgBeforeUrl: service?.imgBeforeUrl,
             imgAfterUrl: service?.imgAfterUrl,
+            subServices: service?.subServices,
         };
 
         const config = {
@@ -40,7 +41,7 @@ function NewService() {
     };
 
     return (
-        <ServiceForm onSubmit={onSubmit} service={service} setService={setService} />
+        <ServiceForm onSubmit={onSubmit} service={service} setService={setService} buttonText={"Добавить"} />
     );
 }
 

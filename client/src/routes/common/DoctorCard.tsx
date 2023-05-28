@@ -13,7 +13,9 @@ function DoctorCard({ doctor }: DoctorInfo) {
         <div className="w-[292px] flex flex-col items-center gap-2">
             <DoctorProfile imageUrl={doctor.imageUrl} />
             <TextXl blue>
-                <h3 className="mt-3 font-semibold">{doctor.fullName}</h3>
+                <h3 className="mt-3 text-center font-semibold">{doctor.fullName.split(" ").map((word, index) => {
+                    return index !== 2 ? word + " " : <><br />{word}</>
+                })}</h3>
             </TextXl>
             <div>
                 <TextBase>

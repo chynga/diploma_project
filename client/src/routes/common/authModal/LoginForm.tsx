@@ -8,12 +8,15 @@ import { emailRegex, passwordRegex, state } from "../util";
 import Button from "./Button";
 import FormGroup from "./FormGroup";
 import { useNavigate } from "react-router-dom";
+import { ShowPassword } from "../SvgImages";
+import PasswordFormGroup from "./PasswordFormGroup";
 
 function LoginForm({ setAuthPage, setErrorMsg }: FormProps) {
     const [email, setEmail] = useState(state);
     const [password, setPassword] = useState(state);
     const dispatch = useDispatch<any>();
     const navigate = useNavigate();
+    const [showPassword, setShowPassword] = useState(false);
 
     const onSubmit = (e: any) => {
         e.preventDefault();
@@ -25,13 +28,13 @@ function LoginForm({ setAuthPage, setErrorMsg }: FormProps) {
 
         axios.post("/api/authentication/login", userData)
             .then(async (resp) => {
-                const token = resp.data.data.accessToken;
+                const token = resp.data.accessToken;
                 const config = {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
                 };
-                const user: User = (await axios.get("/api/profile", config)).data.data
+                const user: User = (await axios.get("/api/profile", config)).data;
                 localStorage.setItem("user", JSON.stringify({ ...user, token }));
 
                 setErrorMsg("");
@@ -44,24 +47,27 @@ function LoginForm({ setAuthPage, setErrorMsg }: FormProps) {
 
     return (
         <form onSubmit={onSubmit}>
-            <FormGroup
-                labelText="E-mail"
-                type="email"
-                id="email"
-                name="email"
-                field={email}
-                setField={setEmail}
-                regex={emailRegex}
-                validationMessage="Enter valid email" />
-            <FormGroup
-                labelText="Пароль"
-                type="password"
-                id="password"
-                name="password"
-                field={password}
-                setField={setPassword}
-                regex={passwordRegex}
-                validationMessage="1 UPPERCASE letter, 1 lowercase letter, 1 number" />
+            <div className="flex flex-col gap-3">
+                <FormGroup
+                    labelText="E-mail"
+                    type="email"
+                    id="email"
+                    name="email"
+                    field={email}
+                    setField={setEmail}
+                    regex={emailRegex}
+                    validationMessage="Почта не правильная!" />
+                <PasswordFormGroup
+                    show={showPassword}
+                    setShow={setShowPassword}
+                    labelText="Пароль"
+                    id="password"
+                    name="password"
+                    field={password}
+                    setField={setPassword}
+                    regex={passwordRegex}
+                    validationMessage="Пароль не правильный!" />
+            </div>
             <Button text="Войти" />
             <div onClick={() => setAuthPage("register")}
                 className="mt-3 hover:cursor-pointer text-xl text-blue-white dark:text-blue-dark">

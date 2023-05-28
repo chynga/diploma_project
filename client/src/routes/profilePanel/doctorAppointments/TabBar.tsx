@@ -10,13 +10,13 @@ function TabBar({ className = "" }: TabBarProps) {
 
     return (
         <div className={`flex ${className}`}>
-            <Link to={"/admin/doctor-appointments/requested"} className={`px-3 hover:cursor-pointer
+            <Link to={"/profile-panel/doctor-appointments/requested"} className={`px-3 hover:cursor-pointer
                 ${location.pathname.includes("requested") ? 'border-b-2 border-blue-white dark:border-blue-dark' : ''}`}>
                 <TextLg blue={location.pathname.includes("requested") ? true : false}>
                     Входящие
                 </TextLg>
             </Link>
-            <Link to={"/admin/doctor-appointments/success"} className={`px-3 hover:cursor-pointer
+            <Link to={"/profile-panel/doctor-appointments/success"} className={`px-3 hover:cursor-pointer
                 ${location.pathname.includes("success") ? 'border-b-2 border-blue-white dark:border-blue-dark' : ''}`}>
                 <TextLg blue={location.pathname.includes("success") ? true : false}>
                     Прошедшие

@@ -14,10 +14,10 @@ function DoctorsSection() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const apiUrl = `/api/doctors/available`;
+        const apiUrl = `/api/doctors`;
 
         axios.get(apiUrl).then((resp) => {
-            const doctors: Doctor[] = resp.data.data.doctors;
+            const doctors: Doctor[] = resp.data;
             setDoctors(doctors);
         });
     }, [])

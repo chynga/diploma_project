@@ -27,7 +27,7 @@ function AppointmentsPage() {
         };
 
         axios.get(apiUrl, config).then((resp) => {
-            const appointments: Appointment[] = resp.data.data.clientAppointments;
+            const appointments: Appointment[] = resp.data;
             const pastAppointments = appointments.filter(appointment => appointment.status === "success");
             const futureAppointments = appointments.filter(appointment => appointment.status === "pending");
             setPastAppointments(pastAppointments);

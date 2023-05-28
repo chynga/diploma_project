@@ -13,7 +13,7 @@ type ConsultationProps = {
 function Consultation({ selectedClient }: ConsultationProps) {
     const [body, setBody] = useState("");
     const { user } = useAppSelector(selectAuth);
-    const socketUrl = `ws://localhost:5001/chat?clientId=${selectedClient?.id}&token=${user?.token}`;
+    const socketUrl = `ws://localhost:8080/chat?clientId=${selectedClient?.id}&token=${user?.token}`;
     const [messages, setMessages] = useState<Message[]>([]);
 
     const { sendJsonMessage } = useWebSocket(socketUrl, {
@@ -37,7 +37,7 @@ function Consultation({ selectedClient }: ConsultationProps) {
             };
 
             axios.get(apiUrl, config).then((resp) => {
-                const messages: Message[] = resp.data.data.messages;
+                const messages: Message[] = resp.data;
                 messages.sort((a, b) => b.createdAt - a.createdAt);
                 setMessages(messages);
             });

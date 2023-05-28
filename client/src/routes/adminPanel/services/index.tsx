@@ -25,7 +25,7 @@ function ServicesPage() {
         };
 
         axios.get(apiUrl, config).then((resp) => {
-            const services: Service[] = resp.data.data.services;
+            const services: Service[] = resp.data;
             setServices(services);
         });
     }, []);

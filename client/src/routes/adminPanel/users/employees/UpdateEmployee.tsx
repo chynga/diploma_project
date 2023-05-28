@@ -1,9 +1,10 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppSelector } from "../../../../app/hooks";
 import { Role, selectAuth, User } from "../../../../features/auth/authSlice";
-import { ArrowBack } from "../../../common/SvgImages";
+import { ArrowBack, TrashBin } from "../../../common/SvgImages";
+import { DeleteButton, DeleteForm } from "../../../common/DeleteConfirmation";
 
 function UpdateEmployee() {
     const [fullName, setFullName] = useState("");
@@ -12,6 +13,8 @@ function UpdateEmployee() {
     const [isRoleAdminChecked, setRoleAdminChecked] = useState(false);
     const [isRoleDoctorChecked, setRoleDoctorChecked] = useState(false);
     const [isRoleConsultantChecked, setRoleConsultantChecked] = useState(false);
+
+    const [showDeleteForm, setShowDeleteForm] = useState(false);
 
     const navigate = useNavigate();
     const { user: loggedInUser } = useAppSelector(selectAuth);
@@ -25,7 +28,7 @@ function UpdateEmployee() {
             },
         };
         axios.get(apiUrl, config).then((resp) => {
-            const employee: User = resp.data.data.employee;
+            const employee: User = resp.data;
             setFullName(employee.fullName ? employee.fullName : "");
             setPhone(employee.phone ? employee.phone : "");
             setEmail(employee.email ? employee.email : "");
@@ -43,6 +46,22 @@ function UpdateEmployee() {
 
     const goBack = () => {
         navigate("/admin/employees");
+    }
+
+    const deleteEmployee = () => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${loggedInUser?.token}`,
+            },
+        };
+
+        axios.delete(`/api/employees/${id}`, config)
+            .then(_ => {
+                navigate(-1);
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
 
     const onSubmit = (e: any) => {
@@ -84,7 +103,6 @@ function UpdateEmployee() {
         <div>
             <div className="flex gap-3 hover:cursor-pointer hover:text-blue-white hover:dark:text-blue-dark"
                 onClick={goBack}>
-                <ArrowBack />
                 Назад
             </div>
             <form onSubmit={onSubmit}>
@@ -122,12 +140,18 @@ function UpdateEmployee() {
                         </div>
                     </div>
                 </div>
-                <div className="flex justify-end">
-                    <button className="mt-6 px-8 py-3 inline-block bg-blue-white dark:bg-blue-dark text-lg text-primary-dark font-semibold drop-shadow-lg rounded-full">
+                <div className="flex justify-end gap-5">
+                    {/* <div onClick={deleteEmployee} className="px-8 py-3 flex items-center gap-3 bg-[#FF4646] dark:bg-[#B67474] text-lg text-primary-dark font-semibold drop-shadow-lg rounded-full hover:cursor-pointer">
+                        <TrashBin className="stroke-white" />
+                        Удалить
+                    </div> */}
+                    <DeleteButton setShow={setShowDeleteForm} />
+                    <button className="px-8 py-3 inline-block bg-blue-white dark:bg-blue-dark text-lg text-primary-dark font-semibold drop-shadow-lg rounded-full">
                         Подтвердить
                     </button>
                 </div>
             </form >
+            <DeleteForm setShow={setShowDeleteForm} title={"Вы действительно хотите удалить сотрудника?"} show={showDeleteForm} onDelete={deleteEmployee} />
         </div >
     );
 }

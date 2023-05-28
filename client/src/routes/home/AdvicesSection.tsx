@@ -7,7 +7,7 @@ function AdvicesSection() {
     const { t } = useTranslation(["kz", "ru"]);
 
     return (
-        <div className="py-16 px-20 xl:h-[730px]">
+        <div className="py-16 px-5 md:px-20 xl:h-[730px]">
             <Text4Xl>
                 <h2 className="mt-12 text-center font-bold">
                     {t('home:advice:title')}

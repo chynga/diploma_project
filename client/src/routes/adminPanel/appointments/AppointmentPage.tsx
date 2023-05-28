@@ -1,12 +1,13 @@
 import { DatePicker, TimePicker } from "antd";
 import axios from "axios";
 import dayjs, { Dayjs } from "dayjs";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppSelector } from "../../../app/hooks";
 import { selectAuth } from "../../../features/auth/authSlice";
-import { ArrowBack } from "../../common/SvgImages";
+import { ArrowBack, TrashBin } from "../../common/SvgImages";
 import { AppNotification, Appointment, dateFormat, Service, Status, timeFormat, User } from "../../common/types";
+import { DeleteButton, DeleteForm } from "../../common/DeleteConfirmation";
 
 type AppointmentProps = {
     changeStatusTo?: Status
@@ -25,6 +26,7 @@ function AppointmentPage({ changeStatusTo = undefined }: AppointmentProps) {
     const [time, setTime] = useState<string>();
     const [cost, setCost] = useState<number>();
 
+    const [showDeleteForm, setShowDeleteForm] = useState(false);
     const { user } = useAppSelector(selectAuth);
 
     useEffect(() => {
@@ -112,11 +114,26 @@ function AppointmentPage({ changeStatusTo = undefined }: AppointmentProps) {
             })
     }
 
+    const deleteAppointment = () => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user?.token}`,
+            },
+        };
+
+        axios.delete(`/api/appointments/${id}`, config)
+            .then(_ => {
+                navigate(-1);
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
     return (
         <div>
             <div className="flex gap-3 hover:cursor-pointer hover:text-blue-white hover:dark:text-blue-dark"
                 onClick={goBack}>
-                <ArrowBack />
                 Назад
             </div>
             <form onSubmit={onSubmit}>
@@ -159,12 +176,14 @@ function AppointmentPage({ changeStatusTo = undefined }: AppointmentProps) {
                         <input defaultValue={cost} onChange={onCostChange} id="cost" type="text" className="block w-full p-2 border-[1px] border-blue-gray-200 rounded-md" />
                     </div>
                 </div>
-                <div className="flex justify-end">
-                    <button className="mt-6 px-8 py-3 inline-block bg-blue-white dark:bg-blue-dark text-lg text-primary-dark font-semibold drop-shadow-lg rounded-full">
+                <div className="flex justify-end gap-5">
+                    <DeleteButton setShow={setShowDeleteForm} />
+                    <button className="px-8 py-3 inline-block bg-blue-white dark:bg-blue-dark text-lg text-primary-dark font-semibold drop-shadow-lg rounded-full">
                         Подтвердить
                     </button>
                 </div>
             </form>
+            <DeleteForm title={"Вы действительно хотите удалить запись?"} setShow={setShowDeleteForm} show={showDeleteForm} onDelete={deleteAppointment} />
         </div>
     );
 }

@@ -61,7 +61,6 @@ function AddEmployee() {
         <div>
             <div className="flex gap-3 hover:cursor-pointer hover:text-blue-white hover:dark:text-blue-dark"
                 onClick={goBack}>
-                <ArrowBack />
                 Назад
             </div>
             <form onSubmit={onSubmit}>
@@ -106,7 +105,7 @@ function AddEmployee() {
                 </div>
                 <div className="flex justify-end">
                     <button className="mt-6 px-8 py-3 inline-block bg-blue-white dark:bg-blue-dark text-lg text-primary-dark font-semibold drop-shadow-lg rounded-full">
-                        Подтвердить
+                        Добавить
                     </button>
                 </div>
             </form >

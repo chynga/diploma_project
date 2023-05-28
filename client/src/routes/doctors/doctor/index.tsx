@@ -16,7 +16,7 @@ function DoctorPage() {
 
     useEffect(() => {
         axios.get(`/api/doctors/${id}`).then((resp) => {
-            const doctor: Doctor = resp.data.data.doctor;
+            const doctor: Doctor = resp.data;
             console.log(doctor)
             setDoctor(doctor);
             setServices(doctor.services);

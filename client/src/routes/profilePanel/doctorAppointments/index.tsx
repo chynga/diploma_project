@@ -27,9 +27,8 @@ function DoctorAppointmentsPage() {
 
         axios.get(`/api/doctors/${user?.id}/appointments/${status}`, config)
             .then(res => {
-                const appointments: Appointment[] = res.data.data.appointments;
-                console.log(appointments)
-                const sortedAppointments = appointments.sort((first, second) => (first.time ?? 0) - (second.time ?? 1));
+                const appointments: Appointment[] = res.data;
+                const sortedAppointments = appointments.sort((first, second) => dayjs(first.time ?? 0).unix() - dayjs(second.time ?? 1).unix());
                 const distributedAppointments: Appointment[][] = []
                 let day: string = "";
 

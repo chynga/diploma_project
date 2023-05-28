@@ -1,10 +1,13 @@
+import { useContext } from "react";
+import { VisuallyImpairedContext, VisuallyImpairedContextType } from "./header/VisuallyImpairedSettingBar";
+
 type SvgParams = {
     fill?: 'blue' | 'primary',
     className?: string
 }
 
 type LogoParams = {
-    fill: 'blue' | 'white',
+    fill: 'blue' | 'white' | 'black',
     className?: string
 }
 
@@ -17,7 +20,13 @@ function Logo({ fill, className = "w-[220px]" }: LogoParams) {
                     <img src="/logo/dark.png" alt="" className={`hidden dark:block ${className}`} />
                 </>
                 :
-                <img src="/logo/white.png" alt="" className={className} />
+                <>
+                    {fill === "white" ?
+                        <img src="/logo/white.png" alt="" className={className} />
+                        :
+                        <img src="/logo/black.png" alt="" className={className} />
+                    }
+                </>
             }
         </>
     );
@@ -68,20 +77,41 @@ function ThemeToggler({ className }: SvgParams) {
 }
 
 function Bell({ className }: SvgParams) {
+    const { visuallyImpairedSettings } =
+        useContext(VisuallyImpairedContext) as VisuallyImpairedContextType;
+
+    const strokeColor = !visuallyImpairedSettings.isOn ?
+        "stroke-blue-white dark:stroke-blue-dark"
+        :
+        visuallyImpairedSettings.theme === "black" ?
+            "stroke-primary-dark"
+            :
+            "stroke-primary-white";
+
     return (
-        <svg width="37" height="37" fill="none" viewBox="0 0 37 37" className={`${className}`} xmlns="http://www.w3.org/2000/svg">
-            <path d="M27.3945 12.5C27.3945 10.1131 26.4463 7.82387 24.7585 6.13604C23.0707 4.44821 20.7815 3.5 18.3945 3.5C16.0076 3.5 13.7184 4.44821 12.0306 6.13604C10.3427 7.82387 9.39453 10.1131 9.39453 12.5C9.39453 23 4.89453 26 4.89453 26H31.8945C31.8945 26 27.3945 23 27.3945 12.5Z" className="stroke-blue-white dark:stroke-blue-dark" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M20.9908 32C20.7271 32.4546 20.3485 32.832 19.8931 33.0943C19.4377 33.3566 18.9213 33.4947 18.3958 33.4947C17.8702 33.4947 17.3539 33.3566 16.8984 33.0943C16.443 32.832 16.0645 32.4546 15.8008 32" className="stroke-blue-white dark:stroke-blue-dark" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+        <svg width="37" height="37" fill="none" viewBox="0 0 37 37" className={`${strokeColor} ${className}`} xmlns="http://www.w3.org/2000/svg">
+            <path d="M27.3945 12.5C27.3945 10.1131 26.4463 7.82387 24.7585 6.13604C23.0707 4.44821 20.7815 3.5 18.3945 3.5C16.0076 3.5 13.7184 4.44821 12.0306 6.13604C10.3427 7.82387 9.39453 10.1131 9.39453 12.5C9.39453 23 4.89453 26 4.89453 26H31.8945C31.8945 26 27.3945 23 27.3945 12.5Z" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M20.9908 32C20.7271 32.4546 20.3485 32.832 19.8931 33.0943C19.4377 33.3566 18.9213 33.4947 18.3958 33.4947C17.8702 33.4947 17.3539 33.3566 16.8984 33.0943C16.443 32.832 16.0645 32.4546 15.8008 32" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
 
     );
 }
 
 function ArrowDown({ className, fill = 'blue' }: SvgParams) {
-    const colorClass = fill === 'blue' ? "stroke-blue-white dark:stroke-blue-dark" : "stroke-primary-white dark:stroke-primary-dark";
+    const { visuallyImpairedSettings } =
+        useContext(VisuallyImpairedContext) as VisuallyImpairedContextType;
+
+    const strokeColor = !visuallyImpairedSettings.isOn ?
+        fill === 'blue' ? "stroke-blue-white dark:stroke-blue-dark" : "stroke-primary-white dark:stroke-primary-dark"
+        :
+        visuallyImpairedSettings.theme === "black" ?
+            "stroke-primary-dark"
+            :
+            "stroke-primary-white";
+
     return (
         <svg width="15" height="9" viewBox="0 0 15 9" className={`${className}`} fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1.39453 1.5L7.39453 7.5L13.3945 1.5" className={colorClass} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M1.39453 1.5L7.39453 7.5L13.3945 1.5" className={strokeColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
     );
 }
@@ -96,8 +126,19 @@ function ArrowRight({ className, fill = 'blue' }: SvgParams) {
 }
 
 function Burger({ className }: SvgParams) {
+    const { visuallyImpairedSettings } =
+        useContext(VisuallyImpairedContext) as VisuallyImpairedContextType;
+
+    const fillColor = !visuallyImpairedSettings.isOn ?
+        "fill-blue-white dark:fill-blue-dark"
+        :
+        visuallyImpairedSettings.theme === "black" ?
+            "fill-primary-dark"
+            :
+            "fill-primary-white";
+
     return (
-        <svg width="800px" height="800px" viewBox="0 0 28 28" className={`fill-blue-white dark:fill-blue-dark ${className}`} xmlns="http://www.w3.org/2000/svg">
+        <svg width="800px" height="800px" viewBox="0 0 28 28" className={`${fillColor} ${className}`} xmlns="http://www.w3.org/2000/svg">
             <path d="M3 7C3 6.44771 3.44772 6 4 6H24C24.5523 6 25 6.44771 25 7C25 7.55229 24.5523 8 24 8H4C3.44772 8 3 7.55229 3 7Z" />
             <path d="M3 14C3 13.4477 3.44772 13 4 13H24C24.5523 13 25 13.4477 25 14C25 14.5523 24.5523 15 24 15H4C3.44772 15 3 14.5523 3 14Z" />
             <path d="M4 20C3.44772 20 3 20.4477 3 21C3 21.5523 3.44772 22 4 22H24C24.5523 22 25 21.5523 25 21C25 20.4477 24.5523 20 24 20H4Z" />
@@ -106,29 +147,56 @@ function Burger({ className }: SvgParams) {
 }
 
 function Close() {
+    const { visuallyImpairedSettings } =
+        useContext(VisuallyImpairedContext) as VisuallyImpairedContextType;
+
+    const fillColor = !visuallyImpairedSettings.isOn ?
+        "fill-blue-white dark:fill-blue-dark"
+        :
+        visuallyImpairedSettings.theme === "black" ?
+            "fill-primary-dark"
+            :
+            "fill-primary-white";
+
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path className="fill-blue-white dark:fill-blue-dark" d="m12 13.4l-4.9 4.9q-.275.275-.7.275q-.425 0-.7-.275q-.275-.275-.275-.7q0-.425.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7q0-.425.275-.7q.275-.275.7-.275q.425 0 .7.275l4.9 4.9l4.9-4.9q.275-.275.7-.275q.425 0 .7.275q.275.275.275.7q0 .425-.275.7L13.4 12l4.9 4.9q.275.275.275.7q0 .425-.275.7q-.275.275-.7.275q-.425 0-.7-.275Z" /></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path className={fillColor} d="m12 13.4l-4.9 4.9q-.275.275-.7.275q-.425 0-.7-.275q-.275-.275-.275-.7q0-.425.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7q0-.425.275-.7q.275-.275.7-.275q.425 0 .7.275l4.9 4.9l4.9-4.9q.275-.275.7-.275q.425 0 .7.275q.275.275.275.7q0 .425-.275.7L13.4 12l4.9 4.9q.275.275.275.7q0 .425-.275.7q-.275.275-.7.275q-.425 0-.7-.275Z" /></svg>
     )
 }
 
 function People({ fill }: SvgParams) {
-    const className = `${fill === "primary" ? "stroke-[#353535] dark:stroke-white" : "stroke-blue-white dark:stroke-blue-dark"}`
+    const { visuallyImpairedSettings } =
+        useContext(VisuallyImpairedContext) as VisuallyImpairedContextType;
+    const strokeColor = !visuallyImpairedSettings.isOn ?
+        `${fill === "primary" ? "stroke-[#353535] dark:stroke-white" : "stroke-blue-white dark:stroke-blue-dark"}`
+        :
+        visuallyImpairedSettings.theme === "black" ?
+            "stroke-primary-dark"
+            :
+            "stroke-primary-white";
 
     return (
         <svg width="36" height="36" viewBox="0 0 36 36" className="fill-none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M25.5 31.5V28.5C25.5 26.9087 24.8679 25.3826 23.7426 24.2574C22.6174 23.1321 21.0913 22.5 19.5 22.5H7.5C5.9087 22.5 4.38258 23.1321 3.25736 24.2574C2.13214 25.3826 1.5 26.9087 1.5 28.5V31.5" className={className} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M13.5 16.5C16.8137 16.5 19.5 13.8137 19.5 10.5C19.5 7.18629 16.8137 4.5 13.5 4.5C10.1863 4.5 7.5 7.18629 7.5 10.5C7.5 13.8137 10.1863 16.5 13.5 16.5Z" className={className} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M34.5 31.5001V28.5001C34.499 27.1707 34.0565 25.8792 33.242 24.8285C32.4276 23.7779 31.2872 23.0274 30 22.6951" className={className} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M24 4.69507C25.2906 5.02552 26.4346 5.77612 27.2515 6.82853C28.0684 7.88095 28.5118 9.17531 28.5118 10.5076C28.5118 11.8398 28.0684 13.1342 27.2515 14.1866C26.4346 15.239 25.2906 15.9896 24 16.3201" className={className} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M25.5 31.5V28.5C25.5 26.9087 24.8679 25.3826 23.7426 24.2574C22.6174 23.1321 21.0913 22.5 19.5 22.5H7.5C5.9087 22.5 4.38258 23.1321 3.25736 24.2574C2.13214 25.3826 1.5 26.9087 1.5 28.5V31.5" className={strokeColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M13.5 16.5C16.8137 16.5 19.5 13.8137 19.5 10.5C19.5 7.18629 16.8137 4.5 13.5 4.5C10.1863 4.5 7.5 7.18629 7.5 10.5C7.5 13.8137 10.1863 16.5 13.5 16.5Z" className={strokeColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M34.5 31.5001V28.5001C34.499 27.1707 34.0565 25.8792 33.242 24.8285C32.4276 23.7779 31.2872 23.0274 30 22.6951" className={strokeColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M24 4.69507C25.2906 5.02552 26.4346 5.77612 27.2515 6.82853C28.0684 7.88095 28.5118 9.17531 28.5118 10.5076C28.5118 11.8398 28.0684 13.1342 27.2515 14.1866C26.4346 15.239 25.2906 15.9896 24 16.3201" className={strokeColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
     );
 }
 
 function Record({ fill }: SvgParams) {
-    const className = `${fill === "primary" ? "stroke-[#353535] dark:stroke-white" : "stroke-blue-white dark:stroke-blue-dark"}`
+    const { visuallyImpairedSettings } =
+        useContext(VisuallyImpairedContext) as VisuallyImpairedContextType;
+    const strokeColor = !visuallyImpairedSettings.isOn ?
+        `${fill === "primary" ? "stroke-[#353535] dark:stroke-white" : "stroke-blue-white dark:stroke-blue-dark"}`
+        :
+        visuallyImpairedSettings.theme === "black" ?
+            "stroke-primary-dark"
+            :
+            "stroke-primary-white";
 
     return (
-        <svg width="36" height="36" className={className} viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="36" height="36" className={strokeColor} viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M24 6H27C27.7956 6 28.5587 6.31607 29.1213 6.87868C29.6839 7.44129 30 8.20435 30 9V30C30 30.7956 29.6839 31.5587 29.1213 32.1213C28.5587 32.6839 27.7956 33 27 33H9C8.20435 33 7.44129 32.6839 6.87868 32.1213C6.31607 31.5587 6 30.7956 6 30V9C6 8.20435 6.31607 7.44129 6.87868 6.87868C7.44129 6.31607 8.20435 6 9 6H12" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
             <path d="M22.5 3H13.5C12.6716 3 12 3.67157 12 4.5V7.5C12 8.32843 12.6716 9 13.5 9H22.5C23.3284 9 24 8.32843 24 7.5V4.5C24 3.67157 23.3284 3 22.5 3Z" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
@@ -136,23 +204,40 @@ function Record({ fill }: SvgParams) {
 }
 
 function Envelop({ fill }: SvgParams) {
-    const className = `${fill === "primary" ? "stroke-[#353535] dark:stroke-white" : "stroke-blue-white dark:stroke-blue-dark"}`
+    const { visuallyImpairedSettings } =
+        useContext(VisuallyImpairedContext) as VisuallyImpairedContextType;
+    const strokeColor = !visuallyImpairedSettings.isOn ?
+        `${fill === "primary" ? "stroke-[#353535] dark:stroke-white" : "stroke-blue-white dark:stroke-blue-dark"}`
+        :
+        visuallyImpairedSettings.theme === "black" ?
+            "stroke-primary-dark"
+            :
+            "stroke-primary-white";
 
     return (
         <svg width="36" height="36" viewBox="0 0 36 36" className="fill-none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M6 6H30C31.65 6 33 7.35 33 9V27C33 28.65 31.65 30 30 30H6C4.35 30 3 28.65 3 27V9C3 7.35 4.35 6 6 6Z" className={className} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M33 9L18 19.5L3 9" className={className} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M6 6H30C31.65 6 33 7.35 33 9V27C33 28.65 31.65 30 30 30H6C4.35 30 3 28.65 3 27V9C3 7.35 4.35 6 6 6Z" className={strokeColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M33 9L18 19.5L3 9" className={strokeColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
     );
 }
 
 function Person({ fill }: SvgParams) {
-    const className = `${fill === "primary" ? "stroke-[#353535] dark:stroke-white" : "stroke-blue-white dark:stroke-blue-dark"}`
+    const { visuallyImpairedSettings } =
+        useContext(VisuallyImpairedContext) as VisuallyImpairedContextType;
+
+    const strokeColor = !visuallyImpairedSettings.isOn ?
+        fill === "primary" ? "stroke-[#353535] dark:stroke-white" : "stroke-blue-white dark:stroke-blue-dark"
+        :
+        visuallyImpairedSettings.theme === "black" ?
+            "stroke-primary-dark"
+            :
+            "stroke-primary-white";
 
     return (
         <svg width="36" height="36" viewBox="0 0 36 36" className="fill-none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M30 31.5V28.5C30 26.9087 29.3679 25.3826 28.2426 24.2574C27.1174 23.1321 25.5913 22.5 24 22.5H12C10.4087 22.5 8.88258 23.1321 7.75736 24.2574C6.63214 25.3826 6 26.9087 6 28.5V31.5" className={className} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M18 16.5C21.3137 16.5 24 13.8137 24 10.5C24 7.18629 21.3137 4.5 18 4.5C14.6863 4.5 12 7.18629 12 10.5C12 13.8137 14.6863 16.5 18 16.5Z" className={className} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M30 31.5V28.5C30 26.9087 29.3679 25.3826 28.2426 24.2574C27.1174 23.1321 25.5913 22.5 24 22.5H12C10.4087 22.5 8.88258 23.1321 7.75736 24.2574C6.63214 25.3826 6 26.9087 6 28.5V31.5" className={strokeColor} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M18 16.5C21.3137 16.5 24 13.8137 24 10.5C24 7.18629 21.3137 4.5 18 4.5C14.6863 4.5 12 7.18629 12 10.5C12 13.8137 14.6863 16.5 18 16.5Z" className={strokeColor} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
     );
 }
@@ -221,16 +306,36 @@ function Star({ filled = false }: StarProps) {
 }
 
 function PhoneSvg() {
+    const { visuallyImpairedSettings } =
+        useContext(VisuallyImpairedContext) as VisuallyImpairedContextType;
+
+    const strokeColor = !visuallyImpairedSettings.isOn ?
+        "stroke-white"
+        :
+        visuallyImpairedSettings.theme === "black" ?
+            "stroke-primary-white"
+            :
+            "stroke-primary-dark"
+
     return (
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20.0672 6.66683C21.3695 6.92092 22.5664 7.55784 23.5046 8.49608C24.4429 9.43431 25.0798 10.6312 25.3339 11.9335M20.0672 1.3335C22.7729 1.63408 25.296 2.84573 27.2222 4.76951C29.1484 6.69328 30.3632 9.21484 30.6672 11.9202M29.3339 22.5602V26.5602C29.3354 26.9315 29.2593 27.2991 29.1106 27.6393C28.9618 27.9795 28.7436 28.2849 28.47 28.536C28.1964 28.787 27.8733 28.9781 27.5216 29.0971C27.1698 29.2161 26.7971 29.2603 26.4272 29.2268C22.3243 28.781 18.3832 27.379 14.9206 25.1335C11.699 23.0864 8.96768 20.3551 6.92056 17.1335C4.6672 13.6551 3.26489 9.69482 2.82723 5.5735C2.79391 5.20479 2.83773 4.83318 2.9559 4.48233C3.07406 4.13148 3.26399 3.80908 3.51358 3.53566C3.76318 3.26223 4.06697 3.04378 4.40562 2.89419C4.74426 2.74461 5.11035 2.66718 5.48056 2.66683H9.48056C10.1276 2.66046 10.755 2.8896 11.2456 3.31154C11.7362 3.73348 12.0567 4.31943 12.1472 4.96016C12.3161 6.24025 12.6292 7.49713 13.0806 8.70683C13.26 9.18406 13.2988 9.70272 13.1924 10.2013C13.0861 10.7 12.839 11.1576 12.4806 11.5202L10.7872 13.2135C12.6853 16.5516 15.4492 19.3154 18.7872 21.2135L20.4806 19.5202C20.8431 19.1617 21.3008 18.9146 21.7994 18.8083C22.298 18.7019 22.8167 18.7408 23.2939 18.9202C24.5036 19.3716 25.7605 19.6847 27.0406 19.8535C27.6883 19.9449 28.2798 20.2711 28.7026 20.7702C29.1254 21.2692 29.3501 21.9063 29.3339 22.5602Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"
+            className={strokeColor}>
+            <path d="M20.0672 6.66683C21.3695 6.92092 22.5664 7.55784 23.5046 8.49608C24.4429 9.43431 25.0798 10.6312 25.3339 11.9335M20.0672 1.3335C22.7729 1.63408 25.296 2.84573 27.2222 4.76951C29.1484 6.69328 30.3632 9.21484 30.6672 11.9202M29.3339 22.5602V26.5602C29.3354 26.9315 29.2593 27.2991 29.1106 27.6393C28.9618 27.9795 28.7436 28.2849 28.47 28.536C28.1964 28.787 27.8733 28.9781 27.5216 29.0971C27.1698 29.2161 26.7971 29.2603 26.4272 29.2268C22.3243 28.781 18.3832 27.379 14.9206 25.1335C11.699 23.0864 8.96768 20.3551 6.92056 17.1335C4.6672 13.6551 3.26489 9.69482 2.82723 5.5735C2.79391 5.20479 2.83773 4.83318 2.9559 4.48233C3.07406 4.13148 3.26399 3.80908 3.51358 3.53566C3.76318 3.26223 4.06697 3.04378 4.40562 2.89419C4.74426 2.74461 5.11035 2.66718 5.48056 2.66683H9.48056C10.1276 2.66046 10.755 2.8896 11.2456 3.31154C11.7362 3.73348 12.0567 4.31943 12.1472 4.96016C12.3161 6.24025 12.6292 7.49713 13.0806 8.70683C13.26 9.18406 13.2988 9.70272 13.1924 10.2013C13.0861 10.7 12.839 11.1576 12.4806 11.5202L10.7872 13.2135C12.6853 16.5516 15.4492 19.3154 18.7872 21.2135L20.4806 19.5202C20.8431 19.1617 21.3008 18.9146 21.7994 18.8083C22.298 18.7019 22.8167 18.7408 23.2939 18.9202C24.5036 19.3716 25.7605 19.6847 27.0406 19.8535C27.6883 19.9449 28.2798 20.2711 28.7026 20.7702C29.1254 21.2692 29.3501 21.9063 29.3339 22.5602Z" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
     )
 }
 
 function Phone2Svg() {
+    const { visuallyImpairedSettings } =
+        useContext(VisuallyImpairedContext) as VisuallyImpairedContextType;
+
+    const strokeColor = visuallyImpairedSettings.isOn ?
+        "stroke-primary-white"
+        :
+        "stroke-blue-white dark:stroke-blue-dark"
+
     return (
-        <svg width="30" height="30" className="stroke-blue-white dark:stroke-blue-dark" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="30" height="30" className={strokeColor} viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M22.6069 16.9201V19.9201C22.608 20.1986 22.5509 20.4743 22.4394 20.7294C22.3278 20.9846 22.1642 21.2137 21.9589 21.402C21.7537 21.5902 21.5114 21.7336 21.2476 21.8228C20.9838 21.912 20.7042 21.9452 20.4269 21.9201C17.3497 21.5857 14.3939 20.5342 11.7969 18.8501C9.38069 17.3148 7.3322 15.2663 5.79687 12.8501C4.10684 10.2413 3.05511 7.27109 2.72687 4.1801C2.70188 3.90356 2.73474 3.62486 2.82337 3.36172C2.91199 3.09859 3.05444 2.85679 3.24163 2.65172C3.42883 2.44665 3.65667 2.28281 3.91066 2.17062C4.16464 2.05843 4.43921 2.00036 4.71687 2.0001H7.71687C8.20217 1.99532 8.67266 2.16718 9.04063 2.48363C9.4086 2.80008 9.64894 3.23954 9.71687 3.7201C9.84349 4.68016 10.0783 5.62282 10.4169 6.5301C10.5514 6.88802 10.5805 7.27701 10.5008 7.65098C10.421 8.02494 10.2357 8.36821 9.96687 8.6401L8.69687 9.9101C10.1204 12.4136 12.1933 14.4865 14.6969 15.9101L15.9669 14.6401C16.2388 14.3712 16.582 14.1859 16.956 14.1062C17.33 14.0264 17.7189 14.0556 18.0769 14.1901C18.9841 14.5286 19.9268 14.7635 20.8869 14.8901C21.3726 14.9586 21.8163 15.2033 22.1334 15.5776C22.4505 15.9519 22.619 16.4297 22.6069 16.9201Z" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
     )
@@ -246,8 +351,19 @@ function EditIcon({ className }: SvgParams) {
 }
 
 function Glasses() {
+    const { visuallyImpairedSettings } =
+        useContext(VisuallyImpairedContext) as VisuallyImpairedContextType;
+
+    const strokeColor = !visuallyImpairedSettings.isOn ?
+        "stroke-blue-white dark:stroke-blue-dark"
+        :
+        visuallyImpairedSettings.theme === "black" ?
+            "stroke-primary-dark"
+            :
+            "stroke-primary-white";
+
     return (
-        <svg width="23" className="stroke-blue-white dark:stroke-blue-dark" height="14" viewBox="0 0 23 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="23" className={strokeColor} height="14" viewBox="0 0 23 14" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M5.60547 13C7.81461 13 9.60547 11.2091 9.60547 9C9.60547 6.79086 7.81461 5 5.60547 5C3.39633 5 1.60547 6.79086 1.60547 9C1.60547 11.2091 3.39633 13 5.60547 13Z" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             <path d="M17.6055 13C19.8146 13 21.6055 11.2091 21.6055 9C21.6055 6.79086 19.8146 5 17.6055 5C15.3963 5 13.6055 6.79086 13.6055 9C13.6055 11.2091 15.3963 13 17.6055 13Z" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             <path d="M9.60547 9L9.81647 8.894C10.3719 8.61624 10.9844 8.47164 11.6055 8.47164C12.2265 8.47164 12.839 8.61624 13.3945 8.894L13.6055 9M18.6055 1L21.4435 7.623C21.5503 7.87198 21.6054 8.14007 21.6055 8.411V9M4.60547 1L1.76747 7.623C1.66079 7.87167 1.60567 8.13941 1.60547 8.41V9" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -255,9 +371,49 @@ function Glasses() {
     )
 }
 
-function Instagram({ fill }: SvgParams) {
+function Instagram({ fill, className = "w-[20px] h-[20px] md:w-[36px] md:h-[36px]" }: SvgParams) {
+    const { visuallyImpairedSettings } =
+        useContext(VisuallyImpairedContext) as VisuallyImpairedContextType;
+
+    const fillColor = !visuallyImpairedSettings.isOn ?
+        fill === 'blue' ? 'fill-blue-white dark:fill-blue-dark' : 'fill-white'
+        :
+        visuallyImpairedSettings.theme === "black" ?
+            "fill-primary-dark"
+            :
+            "fill-primary-white";
+
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" className={"w-[20px] h-[20px] md:w-[36px] md:h-[36px]"} viewBox="0 0 256 256"><path className={`${fill === 'blue' ? 'fill-blue-white dark:fill-blue-dark' : 'fill-white'}`} d="M128 80a48 48 0 1 0 48 48a48.05 48.05 0 0 0-48-48Zm0 80a32 32 0 1 1 32-32a32 32 0 0 1-32 32Zm48-136H80a56.06 56.06 0 0 0-56 56v96a56.06 56.06 0 0 0 56 56h96a56.06 56.06 0 0 0 56-56V80a56.06 56.06 0 0 0-56-56Zm40 152a40 40 0 0 1-40 40H80a40 40 0 0 1-40-40V80a40 40 0 0 1 40-40h96a40 40 0 0 1 40 40ZM192 76a12 12 0 1 1-12-12a12 12 0 0 1 12 12Z" /></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 256 256"><path className={fillColor} d="M128 80a48 48 0 1 0 48 48a48.05 48.05 0 0 0-48-48Zm0 80a32 32 0 1 1 32-32a32 32 0 0 1-32 32Zm48-136H80a56.06 56.06 0 0 0-56 56v96a56.06 56.06 0 0 0 56 56h96a56.06 56.06 0 0 0 56-56V80a56.06 56.06 0 0 0-56-56Zm40 152a40 40 0 0 1-40 40H80a40 40 0 0 1-40-40V80a40 40 0 0 1 40-40h96a40 40 0 0 1 40 40ZM192 76a12 12 0 1 1-12-12a12 12 0 0 1 12 12Z" /></svg>
+    );
+}
+
+type ShowPasswordParams = {
+    show: boolean
+}
+
+function ShowPassword({ show }: ShowPasswordParams) {
+    return (
+        <>
+            {
+                show ?
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">< path className={'fill-blue-white dark:fill-blue-dark'} d="M11.83 9L15 12.16V12a3 3 0 0 0-3-3h-.17m-4.3.8l1.55 1.55c-.05.21-.08.42-.08.65a3 3 0 0 0 3 3c.22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53a5 5 0 0 1-5-5c0-.79.2-1.53.53-2.2M2 4.27l2.28 2.28l.45.45C3.08 8.3 1.78 10 1 12c1.73 4.39 6 7.5 11 7.5c1.55 0 3.03-.3 4.38-.84l.43.42L19.73 22L21 20.73L3.27 3M12 7a5 5 0 0 1 5 5c0 .64-.13 1.26-.36 1.82l2.93 2.93c1.5-1.25 2.7-2.89 3.43-4.75c-1.73-4.39-6-7.5-11-7.5c-1.4 0-2.74.25-4 .7l2.17 2.15C10.74 7.13 11.35 7 12 7Z" /></svg >
+                    :
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path className={'fill-blue-white dark:fill-blue-dark'} d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5s5 2.24 5 5s-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3s3-1.34 3-3s-1.34-3-3-3z" /></svg>
+            }
+        </>
+    );
+}
+
+function Logout() {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24"><path className="fill-red-400" d="M5 21q-.825 0-1.413-.588T3 19V5q0-.825.588-1.413T5 3h7v2H5v14h7v2H5Zm11-4l-1.375-1.45l2.55-2.55H9v-2h8.175l-2.55-2.55L16 7l5 5l-5 5Z" /></svg>
+    );
+}
+
+function Search() {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path className="fill-primary-white dark:fill-primary-dark" d="m19.6 21l-6.3-6.3q-.75.6-1.725.95T9.5 16q-2.725 0-4.612-1.888T3 9.5q0-2.725 1.888-4.612T9.5 3q2.725 0 4.612 1.888T16 9.5q0 1.1-.35 2.075T14.7 13.3l6.3 6.3l-1.4 1.4ZM9.5 14q1.875 0 3.188-1.313T14 9.5q0-1.875-1.313-3.188T9.5 5Q7.625 5 6.312 6.313T5 9.5q0 1.875 1.313 3.188T9.5 14Z" /></svg>
     );
 }
 
@@ -285,4 +441,7 @@ export {
     Glasses,
     Instagram,
     Record,
+    ShowPassword,
+    Logout,
+    Search,
 }

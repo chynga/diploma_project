@@ -18,7 +18,7 @@ function HealthInfoPage() {
         };
 
         axios.get(apiUrl, config).then((resp) => {
-            let client: Client = resp.data.data;
+            let client: Client = resp.data;
             setClient(client);
         });
     }, [])

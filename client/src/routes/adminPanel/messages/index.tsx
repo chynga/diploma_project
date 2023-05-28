@@ -9,7 +9,7 @@ function MessagesPage() {
     return (
         <div className="grid h-[70vh] grid-cols-3 gap-4">
             <div className="p-10 shadow-lg rounded-lg">
-                <Clients setSelectedClient={setSelectedClient} />
+                <Clients selectedClient={selectedClient} setSelectedClient={setSelectedClient} />
             </div>
             <div className="p-10 shadow-lg rounded-lg col-span-2">
                 <Consultation selectedClient={selectedClient} />

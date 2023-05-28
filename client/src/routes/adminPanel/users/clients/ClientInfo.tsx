@@ -1,16 +1,21 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAppSelector } from "../../../../app/hooks";
 import { selectAuth } from "../../../../features/auth/authSlice";
-import { ProfilePicture } from "../../../common/SvgImages";
+import { ProfilePicture, TrashBin } from "../../../common/SvgImages";
 import { TextBase, TextLg } from "../../../common/TextElements";
 import { Client } from "../../../common/types";
+import { DeleteButton, DeleteForm } from "../../../common/DeleteConfirmation";
 
 function ClientInfo() {
     const [client, setClient] = useState<Client>();
     const { user } = useAppSelector(selectAuth);
     const { id } = useParams();
+
+    const [showDeleteForm, setShowDeleteForm] = useState(false);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (id) {
@@ -22,13 +27,30 @@ function ClientInfo() {
             };
 
             axios.get(apiUrl, config).then((resp) => {
-                const client: Client = resp.data.data.client;
+                const client: Client = resp.data;
                 setClient(client);
             }).catch(error => {
                 console.log(error)
             });
         }
     }, [id])
+
+    const deleteClient = () => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user?.token}`,
+            },
+        };
+
+        axios.delete(`/api/clients/${id}`, config)
+            .then(_ => {
+                navigate("/admin/clients");
+                navigate(0);
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
 
     return (
         <div>
@@ -60,12 +82,18 @@ function ClientInfo() {
                             <TextBase>{client?.prescribedMedications}</TextBase>
                         </div>
 
-                        <div>
+                        <div className="flex gap-5">
+                            {/* <div onClick={deleteClient} className="px-8 py-3 flex items-center gap-3 bg-[#FF4646] dark:bg-[#B67474] text-lg text-primary-dark font-semibold drop-shadow-lg rounded-full hover:cursor-pointer">
+                                <TrashBin className="stroke-white" />
+                                Удалить
+                            </div> */}
+                            <DeleteButton setShow={setShowDeleteForm} />
                             <Link to={"edit"} className="inline-block px-8 py-3 bg-blue-white dark:bg-blue-dark text-lg text-primary-dark font-semibold drop-shadow-lg rounded-full hover:cursor-pointer">
                                 Изменить
                             </Link>
                         </div>
                     </div>
+                    <DeleteForm setShow={setShowDeleteForm} title={"Вы действительно хотите удалить сотрудника?"} show={showDeleteForm} onDelete={deleteClient} />
                 </>
                 :
                 <></>

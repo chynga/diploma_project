@@ -13,13 +13,13 @@ function ServicesSection() {
         const apiUrl = `/api/services`;
 
         axios.get(apiUrl).then((resp) => {
-            const services: Service[] = resp.data.data.services;
+            const services: Service[] = resp.data;
             setServices(services);
         });
     }, [])
 
     return (
-        <div className="pt-12 bg-[#277ff280] px-20">
+        <div className="pt-12 bg-[#277ff280] px-5 md:px-20">
             <Text4Xl>
                 <h2 className="text-center font-bold">
                     {t('home:service:title')}

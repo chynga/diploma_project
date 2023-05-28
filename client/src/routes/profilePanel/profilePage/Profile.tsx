@@ -14,15 +14,15 @@ function Profile({ user }: ProfileProps) {
 
             <div className="mt-5">
                 <div>
-                    <TextXl><label htmlFor="name">ФИО: </label></TextXl>
+                    <TextXl><label htmlFor="name">ФИО: </label></TextXl><br />
                     <Text2Xl className="font-semibold">{user?.fullName}</Text2Xl>
                 </div>
                 <div className="mt-3">
-                    <TextXl><label htmlFor="email">E-mail: </label></TextXl>
+                    <TextXl><label htmlFor="email">E-mail: </label></TextXl><br />
                     <Text2Xl className="font-semibold">{user?.email}</Text2Xl>
                 </div>
                 <div className="mt-3">
-                    <TextXl><label htmlFor="phone">Номер телефона: </label></TextXl>
+                    <TextXl><label htmlFor="phone">Номер телефона: </label></TextXl><br />
                     <Text2Xl className="font-semibold">{user?.phone}</Text2Xl>
                 </div>
 
