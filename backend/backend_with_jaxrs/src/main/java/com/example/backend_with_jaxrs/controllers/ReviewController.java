@@ -29,7 +29,7 @@ public class ReviewController {
     public Response writeReview(Review review,
                                 @Context UriInfo uriInfo,
                                 @HeaderParam(HttpHeaders.AUTHORIZATION) String authorizationHeader) throws CustomException {
-//        if (!securityContext.isUserInRole(Role.CLIENT.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
+        if (!securityContext.isUserInRole(Role.CLIENT.name)) throw new CustomException(ErrorCode.NOT_AUTHORIZED);
         String token = Jwt.getTokenFromHeader(authorizationHeader);
         Long clientId = Jwt.getUserId(token);
         review.setClientId(clientId);

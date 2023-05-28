@@ -113,7 +113,6 @@ public class DoctorService {
             }
         }
 
-        // timeslots after current time
         Date currentDate = new Date();
         Timestamp currentTime = new Timestamp(currentDate.getTime());
         ArrayList<Timestamp> availableTimes = new ArrayList<>();

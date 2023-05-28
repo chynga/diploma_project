@@ -17,5 +17,5 @@ SELECT * FROM users;
 SELECT * FROM permissions;
 SELECT * FROM notifications;
 
-SELECT * FROM ordered_calls;
+SELECT * FROM users JOIN doctors d on users.id = d.id;
 -- DELETE FROM notifications

@@ -66,7 +66,7 @@ public class ConsultationController {
         List<String> roles = Jwt.getRoles(token);
         Long userId = Jwt.getUserId(token);
 
-        if (roles.contains(Role.CLIENT.name) && clientId == userId) {
+        if (roles.contains(Role.CLIENT.name) && clientId.equals(userId)) {
             clients.remove(userId);
         } else if (roles.contains(Role.CONSULTANT.name)) {
             consultants.remove(userId);

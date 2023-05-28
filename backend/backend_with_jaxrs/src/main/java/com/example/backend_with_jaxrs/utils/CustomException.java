@@ -1,9 +1,7 @@
 package com.example.backend_with_jaxrs.utils;
 
 public class CustomException extends Exception {
-
     private static final long serialVersionUID = 7718828512143293558L;
-
     private final ErrorCode code;
 
     public CustomException(ErrorCode code) {
