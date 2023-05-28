@@ -11,15 +11,17 @@ function Employees() {
     const { user } = useAppSelector(selectAuth);
 
     useEffect(() => {
-        const apiUrl = "/api/users/employees";
+        const apiUrl = "/api/employees";
         const config = {
             headers: {
                 Authorization: `Bearer ${user?.token}`,
             },
         };
         axios.get(apiUrl, config).then((resp) => {
-            const employees = resp.data;
+            const employees = resp.data.data.employees;
             setEmployees(employees);
+        }).catch(err => {
+            console.log(err)
         });
     }, []);
 

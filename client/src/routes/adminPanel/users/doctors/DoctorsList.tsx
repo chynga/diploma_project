@@ -10,7 +10,7 @@ function DoctorsList({ selectedDoctor, setSelectedDoctor }: DoctorsProps) {
     const { user } = useAppSelector(selectAuth);
 
     useEffect(() => {
-        const apiUrl = "/api/users/doctors";
+        const apiUrl = "/api/doctors";
         const config = {
             headers: {
                 Authorization: `Bearer ${user?.token}`,
@@ -18,7 +18,7 @@ function DoctorsList({ selectedDoctor, setSelectedDoctor }: DoctorsProps) {
         };
 
         axios.get(apiUrl, config).then((resp) => {
-            const doctors: Doctor[] = resp.data;
+            const doctors: Doctor[] = resp.data.data.doctors;
             setDoctors(doctors);
         });
     }, [])

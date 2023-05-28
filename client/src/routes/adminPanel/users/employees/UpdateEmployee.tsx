@@ -18,14 +18,14 @@ function UpdateEmployee() {
     const { id } = useParams();
 
     useEffect(() => {
-        const apiUrl = `/api/users/employees/${id}`;
+        const apiUrl = `/api/employees/${id}`;
         const config = {
             headers: {
                 Authorization: `Bearer ${loggedInUser?.token}`,
             },
         };
         axios.get(apiUrl, config).then((resp) => {
-            const employee: User = resp.data;
+            const employee: User = resp.data.data.employee;
             setFullName(employee.fullName ? employee.fullName : "");
             setPhone(employee.phone ? employee.phone : "");
             setEmail(employee.email ? employee.email : "");
@@ -60,7 +60,6 @@ function UpdateEmployee() {
         }
 
         const userData = {
-            id,
             fullName,
             email,
             phone,
@@ -72,7 +71,7 @@ function UpdateEmployee() {
                 Authorization: `Bearer ${loggedInUser?.token}`,
             },
         };
-        axios.patch("/api/users/employees", userData, config)
+        axios.patch(`/api/employees/${id}`, userData, config)
             .catch(error => {
                 console.log(error);
             })

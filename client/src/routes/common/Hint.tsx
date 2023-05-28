@@ -40,6 +40,7 @@ type HintProps = {
     hintPos: 'top' | 'bottom'
     pointerPos: 'center' | 'end'
     right?: string
+    content: HintContent
 }
 
 export type HintContextType = {
@@ -50,7 +51,7 @@ export type HintContextType = {
 
 export const HintContext = createContext<HintContextType | null>(null);
 
-function Hint({ pointerPos = 'center', hintPos = 'top', right = 'right-0' }: HintProps) {
+function Hint({ pointerPos = 'center', hintPos = 'top', right = 'right-0', content }: HintProps) {
     const { step, next, close } = useContext(HintContext) as HintContextType;
 
     return (
@@ -60,17 +61,17 @@ function Hint({ pointerPos = 'center', hintPos = 'top', right = 'right-0' }: Hin
             </div>
             <div className="p-4 flex flex-col gap-5 rounded-2xl bg-blue-white dark:bg-blue-dark">
                 <div>
-                    <Text2Xl className="font-semibold text-primary-dark">Навигационный бар</Text2Xl>
+                    <Text2Xl className="font-semibold text-primary-dark">{content.title}</Text2Xl>
                 </div>
                 <div className="w-[430px]">
-                    <TextBase className="text-primary-dark">Выберите страницы которые вам интересны. Это вам сохранит время !</TextBase>
+                    <TextBase className="text-primary-dark">{content.body}</TextBase>
                 </div>
                 <div className="flex justify-between">
                     <div className="flex items-center hover:cursor-pointer" onClick={() => close()}>
                         <TextBase className="font-medium text-primary-dark">Пропустить</TextBase>
                         <Close />
                     </div>
-                    {step === 7 ?
+                    {step === 6 ?
                         <div className="hover:cursor-pointer" onClick={() => close()}>
                             <TextBase className="font-medium text-primary-dark">Понятно!</TextBase>
                         </div>

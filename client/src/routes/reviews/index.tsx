@@ -8,6 +8,7 @@ import ReviewCard from "../common/ReviewCard";
 import { Text4Xl, TextBase } from "../common/TextElements";
 import { Review } from "../common/types";
 import Rating from "./Rating";
+import AuthModal, { AuthPage } from "../common/authModal";
 
 function ReviewsPage() {
     const [reviews, setReviews] = useState<Review[]>();
@@ -16,7 +17,7 @@ function ReviewsPage() {
         const apiUrl = "/api/reviews";
 
         axios.get(apiUrl).then((resp) => {
-            const reviews: Review[] = resp.data;
+            const reviews: Review[] = resp.data.data.reviews;
             setReviews(reviews);
         });
     }, [])
@@ -46,6 +47,7 @@ function ReviewForm() {
     const { user } = useAppSelector(selectAuth);
     const navigate = useNavigate();
     const { t } = useTranslation(["kz", "ru"]);
+    const [authPage, setAuthPage] = useState<AuthPage>(null);
 
     const onChange = (e: any) => {
         setBody(e.target.value);
@@ -53,6 +55,11 @@ function ReviewForm() {
 
     const onSubmit = (e: any) => {
         e.preventDefault();
+
+        if (!user) {
+            setAuthPage("login");
+            return;
+        }
 
         const review = {
             body,
@@ -75,22 +82,25 @@ function ReviewForm() {
     }
 
     return (
-        <form className="pb-20" onSubmit={onSubmit}>
-            <Text4Xl>
-                <h2 className="text-primary-white dark:text-[#797979] font-bold">
-                    {t('review:make')}
-                </h2>
-            </Text4Xl>
-            <textarea value={body} onChange={onChange} placeholder={t('review:placeholder') ?? "Отзыв..."} cols={30} rows={7} className="mt-5 px-6 py-2 bg:background-white dark:bg-[#797979] text-primary-white dark:text-primary-dark border-[1px] border-[#353535] dark:border-none rounded-md w-full">
+        <>
+            <form className="pb-20" onSubmit={onSubmit}>
+                <Text4Xl>
+                    <h2 className="text-primary-white dark:text-[#797979] font-bold">
+                        {t('review:make')}
+                    </h2>
+                </Text4Xl>
+                <textarea value={body} onChange={onChange} placeholder={t('review:placeholder') ?? "Отзыв..."} cols={30} rows={7} className="mt-5 px-6 py-2 bg:background-white dark:bg-[#797979] text-primary-white dark:text-primary-dark border-[1px] border-[#353535] dark:border-none rounded-md w-full">
 
-            </textarea>
-            <Rating rating={rating} setRating={setRating} />
-            <TextBase>
-                <button className="mt-6 px-8 py-3 inline-block bg-blue-white dark:bg-blue-dark text-primary-dark font-bold drop-shadow-lg rounded-full">
-                    {t('common:send')}
-                </button>
-            </TextBase>
-        </form>
+                </textarea>
+                <Rating rating={rating} setRating={setRating} />
+                <TextBase>
+                    <button className="mt-6 px-8 py-3 inline-block bg-blue-white dark:bg-blue-dark text-primary-dark font-bold drop-shadow-lg rounded-full">
+                        {t('common:send')}
+                    </button>
+                </TextBase>
+            </form>
+            {authPage ? <AuthModal authPage={authPage} setAuthPage={setAuthPage} /> : <></>}
+        </>
     );
 }
 

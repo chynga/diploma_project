@@ -2,7 +2,7 @@ import axios from "axios";
 import { Dispatch, SetStateAction, useContext, useState } from "react";
 import { useLocation } from "react-router-dom";
 import FormGroup from "./authModal/FormGroup";
-import Hint, { HintContext, HintContextType } from "./Hint";
+import Hint, { HintContext, HintContextType, hints } from "./Hint";
 import { CloseButton, PhoneSvg } from "./SvgImages";
 import { nameRegex, phoneRegex, state } from "./util";
 
@@ -30,8 +30,8 @@ export function OrderCallButton({ setShowOrderCall }: OrderCallProps) {
                 onClick={onClick}>
                 <PhoneSvg />
             </div>
-            {step === 6 ?
-                <Hint hintPos={"top"} pointerPos={"end"} right={"-right-7"} />
+            {step === 5 ?
+                <Hint hintPos={"top"} pointerPos={"end"} right={"-right-7"} content={hints[5]} />
                 :
                 <></>
             }

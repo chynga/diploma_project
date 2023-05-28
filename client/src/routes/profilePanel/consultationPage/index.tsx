@@ -5,26 +5,27 @@ import { useAppSelector } from "../../../app/hooks";
 import { selectAuth } from "../../../features/auth/authSlice";
 import Chat from "../../common/Chat";
 import { Message } from "../../common/types";
+import dayjs from "dayjs";
 
 function ConsultationPage() {
     const [body, setBody] = useState("");
     const [messages, setMessages] = useState<Message[]>([]);
     const { user } = useAppSelector(selectAuth);
-    const socketUrl = `ws://localhost:8080/chat?client_id=${user?.id}&token=${user?.token}`;
+    const socketUrl = `ws://localhost:5001/chat?token=${user?.token}`;
 
     const { sendJsonMessage } = useWebSocket(socketUrl, {
         onOpen: () => console.log('opened'),
-        //Will attempt to reconnect on all close events, such as server shutting down
+
         shouldReconnect: (closeEvent) => true,
         onClose: () => console.log('closed'),
         onMessage: (event) => {
             const message: Message = JSON.parse(event.data);
-            messages?.push(message);
+            messages?.unshift(message);
         }
     });
 
     useEffect(() => {
-        const apiUrl = "/api/profile/messages";
+        const apiUrl = "/api/consultation/my";
         const config = {
             headers: {
                 Authorization: `Bearer ${user?.token}`,
@@ -32,11 +33,13 @@ function ConsultationPage() {
         };
 
         axios.get(apiUrl, config).then((resp) => {
-            let messages: Message[] = resp.data;
-            messages.sort((a, b) => b.sentTime - a.sentTime);
+            let messages: Message[] = resp.data.data.messages;
+            messages = messages.sort((a, b) => dayjs(b.createdAt).unix() - dayjs(a.createdAt).unix());
             setMessages(messages);
-        });
-    }, [messages])
+        }).catch(err => {
+            console.log(err)
+        })
+    }, [])
 
     const handleSend = (e: any) => {
         e.preventDefault();

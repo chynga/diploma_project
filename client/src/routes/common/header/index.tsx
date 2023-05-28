@@ -6,7 +6,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../../app/hooks";
 import { logout, selectAuth } from "../../../features/auth/authSlice";
 import AuthModal, { AuthPage } from "../authModal";
-import Hint, { HintContext, HintContextType } from "../Hint";
+import Hint, { HintContext, HintContextType, hints } from "../Hint";
 import { ArrowDown, Bell, Burger, Close, Glasses, Instagram, Logo, Person, Phone2Svg, ProfilePicture, ThemeToggler } from "../SvgImages";
 import { TextBase, TextLg, TextXl } from "../TextElements";
 import { toggleTheme } from "../util";
@@ -86,7 +86,7 @@ function Header() {
                                 </TextLg>
                             </div>
                             {step === 2 ?
-                                <Hint hintPos={"bottom"} pointerPos={"end"} />
+                                <Hint hintPos={"bottom"} pointerPos={"end"} content={hints[2]} />
                                 :
                                 <></>
                             }
@@ -98,8 +98,8 @@ function Header() {
                             <div className="hover:cursor-pointer" onClick={toggleTheme} id="theme-toggle">
                                 <ThemeToggler className="w-[20px] md:w-auto" />
                             </div>
-                            {step === 3 ?
-                                <Hint hintPos={"bottom"} pointerPos={"end"} right={'-right-12'} />
+                            {step === 2 ?
+                                <Hint hintPos={"bottom"} pointerPos={"end"} right={'-right-12'} content={hints[2]} />
                                 :
                                 <></>
                             }
@@ -138,8 +138,8 @@ function Header() {
                                     </div>
                                 </div>
                             </div>
-                            {step === 4 ?
-                                <Hint hintPos={"bottom"} pointerPos={"end"} right={"-right-8"} />
+                            {step === 3 ?
+                                <Hint hintPos={"bottom"} pointerPos={"end"} right={"-right-8"} content={hints[3]} />
                                 :
                                 <></>
                             }
@@ -192,8 +192,8 @@ function Header() {
                                     </div>
                                 }
                             </div>
-                            {step === 5 ?
-                                <Hint hintPos={"bottom"} pointerPos={"end"} right={"-right-4"} />
+                            {step === 4 ?
+                                <Hint hintPos={"bottom"} pointerPos={"end"} right={"-right-4"} content={hints[4]} />
                                 :
                                 <></>
                             }
@@ -286,7 +286,7 @@ function Navbar({ showNav }: NavbarProps) {
                     </li> */}
                 </ul>
                 {step === 1 ?
-                    <Hint hintPos={"bottom"} pointerPos={"center"} />
+                    <Hint hintPos={"bottom"} pointerPos={"center"} content={hints[0]} />
                     :
                     <></>
                 }

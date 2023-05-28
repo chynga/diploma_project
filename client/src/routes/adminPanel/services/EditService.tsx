@@ -20,7 +20,7 @@ function EditService() {
             },
         };
         axios.get(apiUrl, config).then((resp) => {
-            const service: Service = resp.data;
+            const service: Service = resp.data.data.service;
             setService(service);
         });
     }, []);
@@ -31,8 +31,8 @@ function EditService() {
         const serviceData = {
             title: service?.title,
             description: service?.description,
-            approxDurationMin: Number(service?.approxDurationMin),
-            approxCost: service?.approxCost,
+            duration: service?.duration,
+            cost: service?.cost,
             imgMainUrl: service?.imgMainUrl,
             imgBeforeUrl: service?.imgBeforeUrl,
             imgAfterUrl: service?.imgAfterUrl,

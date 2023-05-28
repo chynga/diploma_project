@@ -13,7 +13,7 @@ function ClientList() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const apiUrl = "/api/users/clients";
+        const apiUrl = "/api/clients";
         const config = {
             headers: {
                 Authorization: `Bearer ${user?.token}`,
@@ -21,7 +21,7 @@ function ClientList() {
         };
 
         axios.get(apiUrl, config).then((resp) => {
-            const clients: User[] = resp.data;
+            const clients: User[] = resp.data.data.clients;
             setClients(clients);
         });
     }, []);

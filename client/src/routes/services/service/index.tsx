@@ -13,7 +13,7 @@ function ServicePage() {
 
     useEffect(() => {
         axios.get(`/api/services/${id}`).then((resp) => {
-            const service: Service = resp.data;
+            const service: Service = resp.data.data.service;
             setService(service);
         });
     }, [])
@@ -35,7 +35,7 @@ function ServicePage() {
                         </TextLg>
                         <TextBase>
                             <p className="mt-6 font-medium text-center lg:text-start">
-                                Цена: {service?.approxCost}
+                                Цена: {service?.cost}
                             </p>
                         </TextBase>
                         <TextBase>

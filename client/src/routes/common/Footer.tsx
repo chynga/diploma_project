@@ -15,7 +15,7 @@ function Footer() {
         const apiUrl = `/api/services`;
 
         axios.get(apiUrl).then((resp) => {
-            const services: Service[] = resp.data;
+            const services: Service[] = resp.data.data.services;
             setServices(services);
         });
     }, [])

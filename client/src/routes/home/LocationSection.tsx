@@ -1,5 +1,5 @@
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Text2Xl, Text4Xl } from "../common/TextElements";
 
@@ -67,17 +67,18 @@ const containerStyle = {
 };
 
 const Map = () => {
-    const mapCenter = useMemo(() => ({ lat: 43.25851, lng: 76.92499 }), [])
-    const markerPosition = { lat: 43.25851, lng: 76.92499 }
+    const mapCenter = useMemo(() => ({ lat: 43.23322, lng: 76.8749337 }), [])
+    const markerPos = { lat: 43.23322, lng: 76.8749337 };
+
     const { isLoaded, loadError } = useLoadScript({
-        googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string,
+        googleMapsApiKey: process.env.REACT_APP_PUBLIC_GOOGLE_MAPS_API_KEY as string,
     })
 
     if (!isLoaded) return <div>Loading...</div>
     if (loadError) return <div>ERROR</div>
     return (
         <GoogleMap zoom={14} mapContainerStyle={containerStyle} center={mapCenter} mapContainerClassName="map">
-            <Marker position={markerPosition} />
+            <Marker position={markerPos} />
         </GoogleMap>
     );
 };

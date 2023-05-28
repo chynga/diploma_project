@@ -18,10 +18,12 @@ function FutureAppointments() {
         };
 
         axios.get(apiUrl, config).then((resp) => {
-            const appointments: Appointment[] = resp.data;
+            const appointments: Appointment[] = resp.data.data.appointments;
             const sortedAppointments = appointments.sort((first, second) => (first.time ?? 0) - (second.time ?? 0));
             setAppointments(sortedAppointments);
-        });
+        }).catch(err => {
+            console.log(err)
+        })
     }, [])
 
     return (

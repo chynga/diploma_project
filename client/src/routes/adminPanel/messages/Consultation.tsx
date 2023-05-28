@@ -13,7 +13,7 @@ type ConsultationProps = {
 function Consultation({ selectedClient }: ConsultationProps) {
     const [body, setBody] = useState("");
     const { user } = useAppSelector(selectAuth);
-    const socketUrl = `ws://localhost:8080/chat?client_id=${selectedClient?.id}&token=${user?.token}`;
+    const socketUrl = `ws://localhost:5001/chat?clientId=${selectedClient?.id}&token=${user?.token}`;
     const [messages, setMessages] = useState<Message[]>([]);
 
     const { sendJsonMessage } = useWebSocket(socketUrl, {
@@ -22,18 +22,6 @@ function Consultation({ selectedClient }: ConsultationProps) {
         shouldReconnect: (closeEvent) => true,
         onClose: () => console.log('closed'),
         onMessage: (event) => {
-            const notification: AppNotification = {
-                clientId: selectedClient?.id ?? 0,
-                "type": "message",
-                "message": "Вам пришло сообщение!"
-            }
-            const config = {
-                headers: {
-                    Authorization: `Bearer ${user?.token}`,
-                },
-            };
-
-            axios.post("/api/notifications", notification, config);
             const message: Message = JSON.parse(event.data);
             messages?.unshift(message);
         }
@@ -41,7 +29,7 @@ function Consultation({ selectedClient }: ConsultationProps) {
 
     useEffect(() => {
         if (selectedClient) {
-            const apiUrl = `/api/consultation/clients/${selectedClient.id}/messages`;
+            const apiUrl = `/api/consultation/${selectedClient.id}`;
             const config = {
                 headers: {
                     Authorization: `Bearer ${user?.token}`,
@@ -49,8 +37,8 @@ function Consultation({ selectedClient }: ConsultationProps) {
             };
 
             axios.get(apiUrl, config).then((resp) => {
-                const messages: Message[] = resp.data;
-                messages.sort((a, b) => b.sentTime - a.sentTime);
+                const messages: Message[] = resp.data.data.messages;
+                messages.sort((a, b) => b.createdAt - a.createdAt);
                 setMessages(messages);
             });
         }

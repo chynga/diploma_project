@@ -15,7 +15,7 @@ function Clients({ setSelectedClient }: ClientsProps) {
     const { user } = useAppSelector(selectAuth);
 
     useEffect(() => {
-        const apiUrl = "/api/consultation/clients";
+        const apiUrl = "/api/clients";
         const config = {
             headers: {
                 Authorization: `Bearer ${user?.token}`,
@@ -23,7 +23,7 @@ function Clients({ setSelectedClient }: ClientsProps) {
         };
 
         axios.get(apiUrl, config).then((resp) => {
-            const clients: User[] = resp.data;
+            const clients: User[] = resp.data.data.clients;
             setClients(clients);
         });
     }, []);

@@ -111,13 +111,17 @@ function Sidebar({ className = "" }: SidebarProps) {
                             :
                             <></>
                         }
-                        <div className="w-full">
-                            <Link to={"doctor-appointments/requested"} className="hover:cursor-pointer">
-                                <TextLg className="font-medium" blue={location.pathname.includes("/admin/doctor-appointments") ? true : false}>
-                                    Мои записи
-                                </TextLg>
-                            </Link>
-                        </div>
+                        {user?.roles?.includes("DOCTOR") ?
+                            <div className="w-full">
+                                <Link to={"doctor-appointments/requested"} className="hover:cursor-pointer">
+                                    <TextLg className="font-medium" blue={location.pathname.includes("/admin/doctor-appointments") ? true : false}>
+                                        Мои записи
+                                    </TextLg>
+                                </Link>
+                            </div>
+                            :
+                            <></>
+                        }
                         {user?.roles?.includes("CONSULTANT") ?
                             <div className="w-full">
                                 <Link to={"ordered-calls"} className="hover:cursor-pointer">

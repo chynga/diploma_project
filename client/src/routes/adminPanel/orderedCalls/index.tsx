@@ -23,7 +23,7 @@ function OrderedCallsPage() {
         };
 
         axios.get(apiUrl, config).then((resp) => {
-            const orderedCalls: OrderedCall[] = resp.data;
+            const orderedCalls: OrderedCall[] = resp.data.data.orderedCalls;
             setOrderedCalls(orderedCalls);
         });
     }, [])

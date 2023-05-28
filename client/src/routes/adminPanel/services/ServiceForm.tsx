@@ -13,14 +13,6 @@ type ServiceFormProps = {
 }
 
 function ServiceForm({ onSubmit, service, setService }: ServiceFormProps) {
-    // const [title, setTitle] = useState<string>();
-    // const [description, setDescription] = useState<string>();
-    // const [approxDurationMin, setApproxDurationMin] = useState<string>();
-    // const [approxCost, setApproxCost] = useState<string>();
-    // const [mainPicture, setMainPicture] = useState<string>();
-    // const [beforePicture, setBeforePicture] = useState<string>();
-    // const [afterPicture, setAfterPicture] = useState<string>();
-
     const inputMainPicture = useRef<HTMLInputElement | null>(null);
     const inputBeforePicture = useRef<HTMLInputElement | null>(null);
     const inputAfterPicture = useRef<HTMLInputElement | null>(null);
@@ -74,13 +66,13 @@ function ServiceForm({ onSubmit, service, setService }: ServiceFormProps) {
             </div>
             <div>
                 <label htmlFor="price" className="text-sm text-blue-gray-200">Цена</label>
-                <input value={service?.approxCost} id="price" type="text" className="block w-full p-2 border-[1px] border-blue-gray-200 rounded-md"
-                    onChange={(e: any) => setField("approxCost", e.target.value)} />
+                <input value={service?.cost} id="price" type="text" className="block w-full p-2 border-[1px] border-blue-gray-200 rounded-md"
+                    onChange={(e: any) => setField("cost", e.target.value)} />
             </div>
             <div>
                 <label htmlFor="duration" className="text-sm text-blue-gray-200">Время (МИН)</label>
-                <input value={service?.approxDurationMin} id="duration" type="text" className="block w-full p-2 border-[1px] border-blue-gray-200 rounded-md"
-                    onChange={(e: any) => setField("approxDurationMin", e.target.value)} />
+                <input value={service?.duration} id="duration" type="text" className="block w-full p-2 border-[1px] border-blue-gray-200 rounded-md"
+                    onChange={(e: any) => setField("duration", e.target.value)} />
             </div>
             <h2 className="font-medium text-primary-white dark:text-primary-dark">До и после</h2>
             <div className="flex justify-center gap-10">

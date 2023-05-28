@@ -5,28 +5,24 @@ import { User } from "./authSlice";
 
 // Register user
 const register = async (userData: UserCredentials) => {
-    const response = await axios.post("/api/authentication/register", userData);
-    if (response.data) {
-        const token = response.data.accessToken;
-        var user: User = jwt_decode(token);
-        localStorage.setItem("user", JSON.stringify({...user, token}));
-        response.data = {...user, token};
-    }
-
-    return response
+    await axios.post("/api/authentication/register", userData);
+    return await login(userData);
 };
 
 // Login user
 const login = async (userData: UserCredentials) => {
+    console.log(userData)
     const response = await axios.post("/api/authentication/login", userData);
-    if (response.data) {
-        const token = response.data.accessToken;
-        var user: User = jwt_decode(token);
-        localStorage.setItem("user", JSON.stringify({...user, token}));
-        response.data = {...user, token};
-    }
-
-    return response;
+    console.log(1)
+    const token = response.data.data.accessToken;
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
+    var user: User = await axios.get("/api/profile", config)
+    localStorage.setItem("user", JSON.stringify({...user, token}));
+    return {...user, token};
 };
 
 const updateUserInfo = async (userData: User, token: string) => {

@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import DoctorProfile from "./DoctorProfile";
 import { TextBase, TextXl } from "./TextElements";
 import { Doctor } from "./types";
@@ -7,7 +8,7 @@ type DoctorInfo = {
 }
 
 function DoctorCard({ doctor }: DoctorInfo) {
-    const workExperience = Math.ceil((new Date().getTime() - doctor.startedWorkingFrom) / (1000 * 60 * 60 * 24 * 365));
+    const workExperience = Math.ceil((new Date().getTime() - dayjs(doctor.startedWorkingFrom).unix() * 1000) / (1000 * 60 * 60 * 24 * 365));
     return (
         <div className="w-[292px] flex flex-col items-center gap-2">
             <DoctorProfile imageUrl={doctor.imageUrl} />

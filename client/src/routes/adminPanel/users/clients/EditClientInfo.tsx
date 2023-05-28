@@ -26,7 +26,7 @@ function EditClientInfo() {
 
     useEffect(() => {
         if (id) {
-            const apiUrl = `/api/users/clients/${id}`;
+            const apiUrl = `/api/clients/${id}`;
             const config = {
                 headers: {
                     Authorization: `Bearer ${user?.token}`,
@@ -34,7 +34,7 @@ function EditClientInfo() {
             };
 
             axios.get(apiUrl, config).then((resp) => {
-                const client: Client = resp.data;
+                const client: Client = resp.data.data.client;
                 setAllergy(client.allergy);
                 setPrescribedMedications(client.prescribedMedications);
                 setClient(client);
@@ -57,7 +57,7 @@ function EditClientInfo() {
                 Authorization: `Bearer ${user?.token}`,
             },
         };
-        axios.patch(`/api/users/clients/${client?.id}/healthInfo`, userData, config)
+        axios.patch(`/api/clients/${client?.id}/healthInfo`, userData, config)
             .catch(error => {
                 console.log(error);
             })

@@ -1,9 +1,8 @@
 import axios from "axios";
-import jwt_decode from "jwt-decode";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { FormProps } from ".";
-import { register, setUser, User } from "../../../features/auth/authSlice";
+import { setUser, User } from "../../../features/auth/authSlice";
 import { emailRegex, nameRegex, passwordRegex, phoneRegex, state } from "../util";
 import Button from "./Button";
 import FormGroup from "./FormGroup";
@@ -28,9 +27,16 @@ function RegisterForm({ setAuthPage, setErrorMsg }: FormProps) {
         };
 
         axios.post("/api/authentication/register", userData)
-            .then((resp) => {
-                const token = resp.data.accessToken;
-                var user: User = jwt_decode(token);
+            .then(async _ => {
+                const response = await axios.post("/api/authentication/login", userData);
+
+                const token = response.data.data.accessToken;
+                const config = {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                };
+                const user: User = (await axios.get("/api/profile", config)).data.data
                 localStorage.setItem("user", JSON.stringify({ ...user, token }));
 
                 setErrorMsg("");
@@ -79,7 +85,7 @@ function RegisterForm({ setAuthPage, setErrorMsg }: FormProps) {
                 setField={setPassword}
                 regex={passwordRegex}
                 validationMessage="1 UPPERCASE letter, 1 lowercase letter, 1 number" />
-            <Button />
+            <Button text={"Зарегестрироваться"} />
             <div onClick={() => setAuthPage("login")}
                 className="mt-3 hover:cursor-pointer text-xl text-blue-white dark:text-blue-dark">
                 Уже есть аккаунт?

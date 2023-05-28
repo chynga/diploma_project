@@ -27,7 +27,7 @@ function ViewService() {
             },
         };
         axios.get(apiUrl, config).then((resp) => {
-            const service: Service = resp.data;
+            const service: Service = resp.data.data.service;
             setService(service);
         });
     }, []);
@@ -58,9 +58,9 @@ function ViewService() {
                 {service?.description}
             </p>
             <h2 className="font-medium text-primary-white dark:text-primary-dark">Цена</h2>
-            <p className="text-sm font-medium text-primary-white dark:text-primary-dark">{service?.approxCost}</p>
+            <p className="text-sm font-medium text-primary-white dark:text-primary-dark">{service?.cost}</p>
             <h2 className="font-medium text-primary-white dark:text-primary-dark">Время</h2>
-            <p className="text-sm font-medium text-primary-white dark:text-primary-dark">{service?.approxDurationMin?.toString()} МИН</p>
+            <p className="text-sm font-medium text-primary-white dark:text-primary-dark">{service?.duration?.toString()} МИН</p>
             <h2 className="font-medium text-primary-white dark:text-primary-dark">До и после</h2>
             <div className="flex justify-center gap-10">
                 <PictureUpload imageUrl={service?.imgBeforeUrl} className={"w-[200px] h-[160px]"} />

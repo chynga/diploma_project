@@ -18,7 +18,7 @@ function CompletedAppointments() {
         };
 
         axios.get(apiUrl, config).then((resp) => {
-            const appointments: Appointment[] = resp.data;
+            const appointments: Appointment[] = resp.data.data.appointments;
             const sortedAppointments = appointments.sort((first, second) => (second.time ?? 0) - (first.time ?? 0));
             setAppointments(sortedAppointments);
         }).catch(error => {

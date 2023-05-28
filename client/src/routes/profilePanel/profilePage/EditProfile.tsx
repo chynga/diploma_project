@@ -4,10 +4,11 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import { ProfileProps } from ".";
-import { updateUserInfo } from "../../../features/auth/authSlice";
 import { storage } from "../../../firebase";
 import { EditIcon, ProfilePicture } from "../../common/SvgImages";
 import { TextXl } from "../../common/TextElements";
+import axios from "axios";
+import { User, setUser } from "../../../features/auth/authSlice";
 
 function EditProfile({ user }: ProfileProps) {
     const [fullName, setFullName] = useState(user ? user.fullName : "");
@@ -50,8 +51,23 @@ function EditProfile({ user }: ProfileProps) {
             profileImageUrl,
         };
 
-        dispatch(updateUserInfo(userData));
-        navigate(-1);
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user?.token}`,
+            },
+        };
+
+        // dispatch(updateUserInfo(userData));
+
+        axios.patch("/api/profile", userData, config)
+            .then(async _ => {
+                const token = user?.token
+                const updatedUser: User = (await axios.get("/api/profile", config)).data.data
+                localStorage.setItem("user", JSON.stringify({ ...updatedUser, token }));
+
+                dispatch(setUser({ ...updatedUser, token }));
+                navigate(-1);
+            })
     }
 
     return (

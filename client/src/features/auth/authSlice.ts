@@ -1,14 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../../app/store'
 import authAPI from './authAPI'
-import { UserCredentials } from './authTypes'
 
 const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")!) : null;
 
 export type Role = 'ADMIN' | 'DOCTOR' | 'CONSULTANT' | 'CLIENT';
 
 export type User = {
-    id?: number
+    id?: string
     fullName?: string
     email?: string
     phone?: string
@@ -35,60 +34,61 @@ const initialState: AuthState = {
 };
 
 // Register user
-export const register = createAsyncThunk("auth/register", async (user: UserCredentials, { rejectWithValue }) => {
-    try {
-        const response = await authAPI.register(user);
-        return response.data as User;
-    } catch (err) {
-        const error: any = err;
-        const { status } = error.response;
-        const message =
-            (error.response &&
-                error.response.data &&
-                error.response.data.message) ||
-            error.message ||
-            error.toString();
+// export const register = createAsyncThunk("auth/register", async (credentials: UserCredentials, { rejectWithValue }) => {
+//     try {
+//         const user = await authAPI.register(credentials);
+//         return user as User;
+//     } catch (err) {
+//         const error: any = err;
+//         const { status } = error.response;
+//         const message =
+//             (error.response &&
+//                 error.response.data &&
+//                 error.response.data.message) ||
+//             error.message ||
+//             error.toString();
 
-        return rejectWithValue({ status, message });
-    }
-});
+//         return rejectWithValue({ status, message });
+//     }
+// });
 
 // Login user
-export const login = createAsyncThunk("auth/login", async (user: UserCredentials, { rejectWithValue }) => {
-    try {
-        const response = await authAPI.login(user);
-        return response.data as User;
-    } catch (err) {
-        const error: any = err;
-        const { status } = error.response;
-        const message =
-            (error.response &&
-                error.response.data &&
-                error.response.data.message) ||
-            error.message ||
-            error.toString();
+// export const login = createAsyncThunk("auth/login", async (credentials: UserCredentials, { rejectWithValue }) => {
+//     try {
+//         const user = await authAPI.login(credentials);
+//         console.log(user)
+//         return user as User;
+//     } catch (err) {
+//         const error: any = err;
+//         const { status } = error.response;
+//         const message =
+//             (error.response &&
+//                 error.response.data &&
+//                 error.response.data.message) ||
+//             error.message ||
+//             error.toString();
 
-        return rejectWithValue({ status, message });
-    }
-});
+//         return rejectWithValue({ status, message });
+//     }
+// });
 
-export const updateUserInfo = createAsyncThunk("auth/updateUserInfo", async (user: User, { rejectWithValue, getState }: any) => {
-    try {
-        const token = getState().auth.user.token;
-        return await authAPI.updateUserInfo(user, token) as User;
-    } catch (err) {
-        const error: any = err;
-        const { status } = error.response;
-        const message =
-            (error.response &&
-                error.response.data &&
-                error.response.data.message) ||
-            error.message ||
-            error.toString();
+// export const updateUserInfo = createAsyncThunk("auth/updateUserInfo", async (user: User, { rejectWithValue, getState }: any) => {
+//     try {
+//         const token = getState().auth.user.token;
+//         return await authAPI.updateUserInfo(user, token) as User;
+//     } catch (err) {
+//         const error: any = err;
+//         const { status } = error.response;
+//         const message =
+//             (error.response &&
+//                 error.response.data &&
+//                 error.response.data.message) ||
+//             error.message ||
+//             error.toString();
 
-        return rejectWithValue({ status, message });
-    }
-});
+//         return rejectWithValue({ status, message });
+//     }
+// });
 
 export const logout = createAsyncThunk("auth/logout", async () => {
     await authAPI.logout()
@@ -108,42 +108,42 @@ export const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(register.pending, state => {
-                state.isLoading = true;
-            })
-            .addCase(register.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.user = action.payload;
-                state.error = undefined;
-            })
-            .addCase(register.rejected, (state, action) => {
-                state.isLoading = false;
-                state.error = action.payload as AuthError;
-            })
-            .addCase(login.pending, state => {
-                state.isLoading = true;
-            })
-            .addCase(login.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.user = action.payload;
-                state.error = undefined;
-            })
-            .addCase(login.rejected, (state, action) => {
-                state.isLoading = false;
-                state.error = action.payload as AuthError;
-            })
-            .addCase(updateUserInfo.pending, state => {
-                state.isLoading = true;
-            })
-            .addCase(updateUserInfo.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.user = action.payload;
-                state.error = undefined;
-            })
-            .addCase(updateUserInfo.rejected, (state, action) => {
-                state.isLoading = false;
-                state.error = action.payload as AuthError;
-            })
+            // .addCase(register.pending, state => {
+            //     state.isLoading = true;
+            // })
+            // .addCase(register.fulfilled, (state, action) => {
+            //     state.isLoading = false;
+            //     state.user = action.payload;
+            //     state.error = undefined;
+            // })
+            // .addCase(register.rejected, (state, action) => {
+            //     state.isLoading = false;
+            //     state.error = action.payload as AuthError;
+            // })
+            // .addCase(login.pending, state => {
+            //     state.isLoading = true;
+            // })
+            // .addCase(login.fulfilled, (state, action) => {
+            //     state.isLoading = false;
+            //     state.user = action.payload;
+            //     state.error = undefined;
+            // })
+            // .addCase(login.rejected, (state, action) => {
+            //     state.isLoading = false;
+            //     state.error = action.payload as AuthError;
+            // })
+            // .addCase(updateUserInfo.pending, state => {
+            //     state.isLoading = true;
+            // })
+            // .addCase(updateUserInfo.fulfilled, (state, action) => {
+            //     state.isLoading = false;
+            //     state.user = action.payload;
+            //     state.error = undefined;
+            // })
+            // .addCase(updateUserInfo.rejected, (state, action) => {
+            //     state.isLoading = false;
+            //     state.error = action.payload as AuthError;
+            // })
             .addCase(logout.fulfilled, state => {
                 state.user = undefined;
             });

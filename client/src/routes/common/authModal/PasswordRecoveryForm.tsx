@@ -28,7 +28,7 @@ function PasswordRecoveryForm({ setAuthPage, setErrorMsg }: FormProps) {
             }
 
             setLoading(true);
-            axios.post("/api/password/recover", credentials)
+            axios.post("/api/profile/recovery/send", credentials)
                 .then(() => {
                     setErrorMsg("");
                     setEmailSent(true);
@@ -44,7 +44,7 @@ function PasswordRecoveryForm({ setAuthPage, setErrorMsg }: FormProps) {
             }
 
             setLoading(true);
-            axios.post("/api/password/check-recovery-code", credentials)
+            axios.post("/api/profile/recovery/check", credentials)
                 .then(() => {
                     setErrorMsg("");
                     setCodeCorrect(true);
@@ -61,7 +61,7 @@ function PasswordRecoveryForm({ setAuthPage, setErrorMsg }: FormProps) {
             }
 
             setLoading(true);
-            axios.post("/api/password/recover", credentials)
+            axios.post("/api/profile/recovery/complete", credentials)
                 .then(() => {
                     setErrorMsg("");
                     setAuthPage("login");
@@ -99,7 +99,7 @@ function PasswordRecoveryForm({ setAuthPage, setErrorMsg }: FormProps) {
             </div>
             <div className={`${isEmailSent && isCodeCorrect ? "" : "hidden"}`}>
                 <FormGroup
-                    labelText="Пароль"
+                    labelText="Новый Пароль"
                     type="password"
                     id="password"
                     name="password"

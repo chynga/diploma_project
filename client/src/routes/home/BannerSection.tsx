@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import AppointmentModal from "../common/AppointmentModal";
-import Hint, { HintContext, HintContextType } from "../common/Hint";
+import Hint, { HintContext, HintContextType, hints } from "../common/Hint";
 import { Text4Xl, TextBase, TextLg } from "../common/TextElements";
 
 function BannerSection() {
@@ -41,8 +41,8 @@ function BannerSection() {
                                 </span>
                             </TextLg>
                         </div>
-                        {step === 7 ?
-                            <Hint hintPos={"top"} pointerPos={"end"} />
+                        {step === 6 ?
+                            <Hint hintPos={"top"} pointerPos={"end"} content={hints[6]} />
                             :
                             <></>
                         }

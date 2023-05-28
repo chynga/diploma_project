@@ -11,10 +11,10 @@ function DoctorsPage() {
     const { t } = useTranslation(["kz", "ru"]);
 
     useEffect(() => {
-        const apiUrl = `/api/doctors`;
+        const apiUrl = `/api/doctors/available`;
 
         axios.get(apiUrl).then((resp) => {
-            const doctors: Doctor[] = resp.data;
+            const doctors: Doctor[] = resp.data.data.doctors;
             setDoctors(doctors);
         });
     }, [])

@@ -14,7 +14,7 @@ function ClientInfo() {
 
     useEffect(() => {
         if (id) {
-            const apiUrl = `/api/users/clients/${id}`;
+            const apiUrl = `/api/clients/${id}`;
             const config = {
                 headers: {
                     Authorization: `Bearer ${user?.token}`,
@@ -22,7 +22,7 @@ function ClientInfo() {
             };
 
             axios.get(apiUrl, config).then((resp) => {
-                const client: Client = resp.data;
+                const client: Client = resp.data.data.client;
                 setClient(client);
             }).catch(error => {
                 console.log(error)

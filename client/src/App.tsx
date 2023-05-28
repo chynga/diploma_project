@@ -28,7 +28,7 @@ function App() {
     const [step, setStep] = useState<number>(0);
 
     const next = () => {
-        if (step === 7) {
+        if (step === 6) {
             close();
         }
         setStep(step + 1);

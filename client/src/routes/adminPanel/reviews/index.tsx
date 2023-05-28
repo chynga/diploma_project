@@ -15,7 +15,7 @@ function ReviewsPage() {
         const apiUrl = `/api/reviews`;
 
         axios.get(apiUrl).then((resp) => {
-            const reviews: Review[] = resp.data;
+            const reviews: Review[] = resp.data.data.reviews;
             setReviews(reviews);
         });
     }, [])

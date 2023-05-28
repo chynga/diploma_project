@@ -24,9 +24,14 @@ function LoginForm({ setAuthPage, setErrorMsg }: FormProps) {
         };
 
         axios.post("/api/authentication/login", userData)
-            .then((resp) => {
-                const token = resp.data.accessToken;
-                var user: User = jwt_decode(token);
+            .then(async (resp) => {
+                const token = resp.data.data.accessToken;
+                const config = {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                };
+                const user: User = (await axios.get("/api/profile", config)).data.data
                 localStorage.setItem("user", JSON.stringify({ ...user, token }));
 
                 setErrorMsg("");

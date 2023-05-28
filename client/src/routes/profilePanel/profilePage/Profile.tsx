@@ -26,7 +26,7 @@ function Profile({ user }: ProfileProps) {
                     <Text2Xl className="font-semibold">{user?.phone}</Text2Xl>
                 </div>
 
-                <div className="mt-6 px-8 py-3 inline-block bg-blue-white dark:bg-blue-dark text-lg text-primary-dark font-semibold drop-shadow-lg rounded-full" onClick={() => { navigate("edit") }}>
+                <div className="mt-6 px-8 py-3 inline-block bg-blue-white dark:bg-blue-dark text-lg text-primary-dark font-semibold drop-shadow-lg rounded-full hover:cursor-pointer" onClick={() => { navigate("edit") }}>
                     Изменить
                 </div>
             </div>

@@ -19,8 +19,8 @@ function Notification() {
             },
         };
 
-        axios.get("/api/notifications", config).then((resp) => {
-            const notifications: AppNotification[] = resp.data;
+        axios.get("/api/profile/notifications", config).then((resp) => {
+            const notifications: AppNotification[] = resp.data.data.clientNotifications;
             setNotifications(notifications);
         });
     }, [])
@@ -28,7 +28,7 @@ function Notification() {
     return (
         <div className="group relative hover:cursor-pointer">
             <Bell className="w-[20px] md:w-auto" />
-            {notifications?.filter(notification => !notification.viewed).length !== 0 ?
+            {notifications?.filter(notification => !notification.isViewed).length !== 0 ?
                 <div className="absolute -top-1 right-1 w-[14px] h-[14px] bg-red-500 rounded-full"></div>
                 :
                 <></>
@@ -55,7 +55,7 @@ function NotificationList({ notifications }: NotificationListParams) {
                 Authorization: `Bearer ${user?.token}`,
             },
         };
-        axios.patch(`/api/notifications/types/${type}`, {}, config).then(_ => {
+        axios.patch(`/api/profile/notifications/types/${type}`, {}, config).then(_ => {
             navigate(to);
         });
     }
@@ -63,17 +63,16 @@ function NotificationList({ notifications }: NotificationListParams) {
     return (
         <div className="flex flex-col gap-7">
             {
-                notifications?.filter(notification => notification.showTime ? notification.showTime < dayjs().unix() * 1000 : true)
-                    .slice(0, 5).map(notification => {
-                        return (
-                            <TextSm key={notification.id}>
-                                <div className={`${notification.viewed ? "font-extralight" : "font-bold"}`} onClick={() => onClick(notification.type)}>
-                                    {dayjs(notification.time).format(dateFormat + " " + timeFormat)} <br />
-                                    <p>{notification.message}</p>
-                                </div>
-                            </TextSm>
-                        )
-                    })
+                notifications?.slice(0, 5).map(notification => {
+                    return (
+                        <TextSm key={notification.id}>
+                            <div className={`${notification.isViewed ? "font-extralight" : "font-bold"}`} onClick={() => onClick(notification.type)}>
+                                {dayjs(notification.showAt).format(dateFormat + " " + timeFormat)} <br />
+                                <p>{notification.message}</p>
+                            </div>
+                        </TextSm>
+                    )
+                })
             }
         </div>
     );

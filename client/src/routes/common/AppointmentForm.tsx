@@ -11,35 +11,32 @@ import { RangePickerProps } from "antd/es/date-picker";
 import { useTranslation } from "react-i18next";
 
 type AppointmentFormProps = {
-    doctorId?: number
+    doctorId?: string
 }
 
-function AppointmentForm({ doctorId = 0 }: AppointmentFormProps) {
+function AppointmentForm({ doctorId = "" }: AppointmentFormProps) {
     const [doctors, setDoctors] = useState<Doctor[]>([]);
     const [services, setServices] = useState<Service[]>([]);
 
-    const [selectedDoctorId, setSelectedDoctorId] = useState<number>(doctorId ? doctorId : 0);
+    const [selectedDoctorId, setSelectedDoctorId] = useState<string>(doctorId);
     const [selectedService, setSelectedService] = useState<Service>();
     const [date, setDate] = useState<string>(dayjs().format(dateFormat));
     const [time, setTime] = useState<string>();
     const [clientMessage, setClientMessage] = useState<string>("");
 
     const [availableTimes, setAvailableTimes] = useState<Dayjs[]>([]);
-    const dayStart = dayjs(date, dateFormat).set('hour', 7).set('minute', 0).set('second', 0);
-    const dayEnd = dayjs(date, dateFormat).set('hour', 18).set('minute', 0).set('second', 0);
     const { t } = useTranslation(["kz", "ru"]);
 
     const { user } = useAppSelector(selectAuth);
     const navigate = useNavigate();
 
     const disabledDate: RangePickerProps['disabledDate'] = (current) => {
-        // Can not select days before today
         return current && current < dayjs().add(-1, 'day').endOf('day');
     };
 
     useEffect(() => {
-        axios.get("/api/doctors").then((resp) => {
-            const doctors: Doctor[] = resp.data;
+        axios.get("/api/doctors/available").then((resp) => {
+            const doctors: Doctor[] = resp.data.data.doctors;
             setDoctors(doctors);
             if (doctors[0] && !selectedDoctorId) {
                 setSelectedDoctorId(doctors[0].id);
@@ -47,43 +44,21 @@ function AppointmentForm({ doctorId = 0 }: AppointmentFormProps) {
         });
         if (selectedDoctorId) {
             axios.get(`/api/doctors/${selectedDoctorId}`).then((resp) => {
-                const doctor: Doctor = resp.data;
+                const doctor: Doctor = resp.data.data.doctor;
                 setServices(doctor.services);
                 if (!doctor.services.find(service => service.id === selectedService?.id)) {
                     setSelectedService(doctor.services[0]);
                 }
             });
         }
-        if (selectedDoctorId) {
-            axios.get(`/api/doctors/${selectedDoctorId}/schedule`).then((resp) => {
-                let sessions: AppointmentSession[] = resp.data;
-                sessions = sessions.filter(session => dayjs(session.time).format(dateFormat) === date);
-                sessions.unshift({ time: dayStart.valueOf(), durationMin: 0 });
-                sessions.push({ time: dayEnd.valueOf(), durationMin: 0 });
-
-                let minutesBetweenSessions;
-                let sessionsCount;
-                let prevTime;
-                let availableTimes = [];
-                if (selectedService) {
-                    for (let i = 0; i < sessions.length - 1; i++) {
-                        prevTime = sessions[i].time + sessions[i].durationMin * 60 * 1000;
-                        minutesBetweenSessions = new Date(sessions[i + 1].time - prevTime).getTime() / (1000 * 60);
-                        sessionsCount = minutesBetweenSessions / (selectedService.approxDurationMin ?? 0) | 0; // | 0 -> gets int value: 1.333 -> 1, 3.666 -> 3
-
-                        for (let j = 0; j < sessionsCount; j++) {
-                            availableTimes.push(dayjs(prevTime));
-                            prevTime += (selectedService.approxDurationMin ?? 0) * 60 * 1000;
-                        }
-                    }
-
-                    availableTimes = availableTimes.filter(time => time > dayjs())
-
-                    setAvailableTimes(availableTimes);
-                    setTime(availableTimes[0].format(timeFormat));
-                }
-            });
-
+        if (selectedDoctorId && selectedService) {
+            axios.get(`/api/doctors/${selectedDoctorId}/free-slots?serviceId=${selectedService.id}&date=${dayjs(date, dateFormat).unix() * 1000}`).then(resp => {
+                const freeSlots: Dayjs[] = resp.data.data.freeSlots.map((ts: number) => dayjs(ts))
+                setAvailableTimes(freeSlots)
+                setTime(dayjs(freeSlots[0]).format(timeFormat))
+            }).catch(err => {
+                console.log(err)
+            })
         }
     }, [selectedDoctorId, selectedService, date]);
 
@@ -114,7 +89,8 @@ function AppointmentForm({ doctorId = 0 }: AppointmentFormProps) {
 
     const onSubmit = (e: any) => {
         e.preventDefault();
-        let timeStr = date + ' ' + time + ":00";
+        let timeStr = date + ' ' + time;
+
         const format = dateFormat + " " + timeFormat;
         const appointmentTime = dayjs(timeStr, format);
         const appointment = {

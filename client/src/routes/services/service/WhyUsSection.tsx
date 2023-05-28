@@ -40,9 +40,9 @@ function WhyUsSection() {
                 </h2>
             </Text2Xl>
             <div className="mt-6 flex flex-col gap-6">
-                {reasons.map(reason => {
+                {reasons.map((reason, index) => {
                     return (
-                        <div className="py-6 px-12 rounded-2xl flex items-center justify-between gap-10 bg-[rgba(39,127,242,0.2)] dark:bg-blue-dark">
+                        <div key={index} className="py-6 px-12 rounded-2xl flex items-center justify-between gap-10 bg-[rgba(39,127,242,0.2)] dark:bg-blue-dark">
                             <TextXl>
                                 <p className="font-medium">
                                     {reason.text}

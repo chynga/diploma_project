@@ -48,7 +48,7 @@ function DoctorInfo({ selectedDoctor }: DoctorsProps) {
         };
 
         axios.get(apiUrl, config).then((resp) => {
-            let services: SelectedService[] = resp.data;
+            let services: SelectedService[] = resp.data.data.services;
             services.forEach(service => {
                 service.checked = selectedDoctor?.services.map(service => service.id).includes(service.id) ?? false;
             })
@@ -136,10 +136,7 @@ function DoctorInfo({ selectedDoctor }: DoctorsProps) {
     const onSubmit = (e: any) => {
         e.preventDefault();
 
-        const selectedServices = services.filter(service => service.checked).map(service => {
-            const { checked, ...rest } = service;
-            return rest;
-        })
+        const selectedServices = services.filter(service => service.checked).map(service => service.id)
 
         const doctorInfo = {
             available,
@@ -151,8 +148,9 @@ function DoctorInfo({ selectedDoctor }: DoctorsProps) {
             specialties,
             services: selectedServices,
         }
+        console.log(selectedDoctor?.id)
 
-        const apiUrl = "/api/users/doctors/" + selectedDoctor?.id;
+        const apiUrl = "/api/doctors/" + selectedDoctor?.id;
         const config = {
             headers: {
                 Authorization: `Bearer ${user?.token}`,

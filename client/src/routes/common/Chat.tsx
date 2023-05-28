@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { TextBase } from "./TextElements";
-import { dateFormat, Message, timeFormat } from "./types";
+import { Message, timeFormat } from "./types";
 
 type ChatProps = {
     isClient?: boolean
@@ -16,7 +16,7 @@ function Chat({ isClient = true, messages, body, onChange, handleSend, className
         <div>
             <div className={`w-full p-5 flex flex-col-reverse gap-5 bg-[#277ff240] rounded-xl overflow-auto ${className}`}>
                 {messages?.map(message => {
-                    const time = dayjs(message.sentTime).format("DD/MM " + timeFormat);
+                    const time = dayjs(message.createdAt).format("DD/MM " + timeFormat);
                     return (
                         <div key={message.id}>
                             <TextBase className={`flex gap-3 ${(message.isClient && !isClient) || (!message.isClient && isClient) ? "justify-start" : "justify-end"}`}>

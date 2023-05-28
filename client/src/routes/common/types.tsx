@@ -1,16 +1,16 @@
 export type Service = {
-    id: number
+    id?: number
     title?: string
     description?: string
-    approxDurationMin?: number
-    approxCost?: string
+    duration?: number
+    cost?: string
     imgMainUrl?: string
     imgBeforeUrl?: string
     imgAfterUrl?: string
 }
 
 export type User = {
-    id: number
+    id: string
     fullName: string
     email: string
     phone: string
@@ -61,7 +61,7 @@ export type Message = {
     clientId: number
     consultantId?: number
     body: string
-    sentTime: number
+    createdAt: number
     isClient: boolean
 }
 
@@ -73,16 +73,15 @@ export type Review = {
     rating: number
 }
 
-export type AppNotificationType = "message" | "appointment"
+export type AppNotificationType = "consultation" | "appointment"
 
 export type AppNotification = {
-    id?: number
-    clientId: number
+    id?: string
+    clientId: string
     type: AppNotificationType
-    viewed?: boolean
+    isViewed?: boolean
     message: string
-    time?: number
-    showTime?: number
+    showAt?: Date
 }
 
 export const dateFormat = 'DD/MM/YYYY';

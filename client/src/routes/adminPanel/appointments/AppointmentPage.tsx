@@ -23,7 +23,6 @@ function AppointmentPage({ changeStatusTo = undefined }: AppointmentProps) {
     const [selectedServiceId, setSelectedServiceId] = useState<number>(0);
     const [date, setDate] = useState<string>();
     const [time, setTime] = useState<string>();
-    const [durationMin, setDurationMin] = useState<number>();
     const [cost, setCost] = useState<number>();
 
     const { user } = useAppSelector(selectAuth);
@@ -36,26 +35,25 @@ function AppointmentPage({ changeStatusTo = undefined }: AppointmentProps) {
         };
 
         axios.get("/api/appointments/" + id, config).then((resp) => {
-            const appointment: Appointment = resp.data;
+            const appointment: Appointment = resp.data.data.appointment;
             setAppointment(appointment);
             setClient(appointment.client);
             setSelectedDoctorId(appointment.doctorId);
             setSelectedServiceId(appointment.serviceId);
             setDate(dayjs(appointment.time).format(dateFormat));
             setTime(dayjs(appointment.time).format(timeFormat));
-            setDurationMin(appointment.durationMin);
             if (appointment.cost) {
                 setCost(appointment.cost);
             }
         });
 
         axios.get("/api/doctors", config).then((resp) => {
-            const doctors: User[] = resp.data;
+            const doctors: User[] = resp.data.data.doctors;
             setDoctors(doctors);
         });
 
         axios.get("/api/services", config).then((resp) => {
-            const services: Service[] = resp.data;
+            const services: Service[] = resp.data.data.services;
             setServices(services);
         });
     }, [])
@@ -80,10 +78,6 @@ function AppointmentPage({ changeStatusTo = undefined }: AppointmentProps) {
         setTime(value.format("HH:mm"));
     }
 
-    const onDurationChange = (e: any) => {
-        setDurationMin(e.target.value)
-    }
-
     const onCostChange = (e: any) => {
         setCost(e.target.value)
     }
@@ -96,12 +90,11 @@ function AppointmentPage({ changeStatusTo = undefined }: AppointmentProps) {
 
         const appointmentData = {
             id: appointment?.id,
-            clientId: client?.id !== 0 ? client?.id : null,
-            doctorId: selectedDoctorId !== 0 ? selectedDoctorId : null,
-            serviceId: selectedServiceId !== 0 ? selectedServiceId : null,
+            client: client?.id !== "" ? client?.id : null,
+            doctor: selectedDoctorId !== 0 ? selectedDoctorId : null,
+            service: selectedServiceId !== 0 ? selectedServiceId : null,
             status: changeStatusTo === undefined ? appointment?.status : changeStatusTo,
             time: appointmentTime,
-            durationMin,
             cost,
         }
 
@@ -112,22 +105,11 @@ function AppointmentPage({ changeStatusTo = undefined }: AppointmentProps) {
         };
         axios.patch("/api/appointments/" + appointment?.id, appointmentData, config)
             .then(_ => {
-                if (changeStatusTo === "success") {
-                    const notification: AppNotification = {
-                        clientId: client?.id ?? 0,
-                        "type": "appointment",
-                        "message": "Ваша запись перенесена в завершенные!"
-                    }
-
-                    axios.post("/api/notifications", notification, config);
-                }
+                navigate(-1);
             })
             .catch(error => {
                 console.log(error);
             })
-            .finally(() => {
-                navigate(-1);
-            });
     }
 
     return (
@@ -171,10 +153,6 @@ function AppointmentPage({ changeStatusTo = undefined }: AppointmentProps) {
                         <label htmlFor="time" className="text-sm text-blue-gray-200">Время</label>
                         <TimePicker id="time" className="w-full py-2" value={dayjs(time, timeFormat)} format={timeFormat} minuteStep={30} showNow={false}
                             onSelect={onTimeChange} />
-                    </div>
-                    <div className="w-[300px]">
-                        <label htmlFor="duration" className="text-sm text-blue-gray-200">Продолжительность (МИН)</label>
-                        <input defaultValue={durationMin} onChange={onDurationChange} id="duration" type="text" className="block w-full p-2 border-[1px] border-blue-gray-200 rounded-md" />
                     </div>
                     <div className="w-[300px]">
                         <label htmlFor="cost" className="text-sm text-blue-gray-200">Цена</label>

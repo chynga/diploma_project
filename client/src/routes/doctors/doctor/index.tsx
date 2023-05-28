@@ -16,7 +16,8 @@ function DoctorPage() {
 
     useEffect(() => {
         axios.get(`/api/doctors/${id}`).then((resp) => {
-            const doctor: Doctor = resp.data;
+            const doctor: Doctor = resp.data.data.doctor;
+            console.log(doctor)
             setDoctor(doctor);
             setServices(doctor.services);
         });
@@ -110,7 +111,7 @@ function DoctorPage() {
                 }
             </div>
             {showAppointmentForm ?
-                <AppointmentModal setShowAppointmentForm={setShowAppointmentForm} doctorId={parseInt(id ? id : "")} />
+                <AppointmentModal setShowAppointmentForm={setShowAppointmentForm} doctorId={id} />
                 :
                 <></>
             }
